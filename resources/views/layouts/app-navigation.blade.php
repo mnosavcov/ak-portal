@@ -122,7 +122,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-                        {{ __('O-nas') }}
+                        {{ __('O nas') }}
                     </x-nav-link>
                 </div>
 
