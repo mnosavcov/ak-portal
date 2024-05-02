@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_8043" data-name="Rectangle 8043" width="80" height="80" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_11219" data-name="Group 11219" clip-path="url(#clip-path)">
+    <path id="Path_24330" data-name="Path 24330" d="M11.084,64.739v2.494A2.487,2.487,0,0,0,13.57,69.72H41.228" fill="none" stroke="#f2940d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24331" data-name="Path 24331" d="M56.06,6.153h2.658a2.488,2.488,0,0,1,2.487,2.488V45.994" fill="none" stroke="#f2940d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24332" data-name="Path 24332" d="M19.08,1.172H53.572A2.488,2.488,0,0,1,56.06,3.66V45.994" fill="none" stroke="#f2940d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24333" data-name="Path 24333" d="M41.228,64.739H8.425a2.488,2.488,0,0,1-2.488-2.488V19.767" fill="none" stroke="#f2940d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24334" data-name="Path 24334" d="M74.062,60.774V72.311a6.517,6.517,0,0,1-6.517,6.517h-19.8a6.517,6.517,0,0,1-6.517-6.517V52.51a6.516,6.516,0,0,1,6.517-6.516h19.8a6.516,6.516,0,0,1,6.517,6.516V55.3" fill="none" stroke="#f2940d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24335" data-name="Path 24335" d="M5.938,14.292,19.08,1.172V11.805a2.487,2.487,0,0,1-2.487,2.487Z" fill="none" stroke="#f2940d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24336" data-name="Path 24336" d="M55.5,64.129l-3.135-3.135a1.543,1.543,0,0,0-2.181,0l-2.047,2.047a1.543,1.543,0,0,0,0,2.181l5.244,5.244a2.783,2.783,0,0,0,3.936,0L67.568,60.212a1.543,1.543,0,0,0,0-2.181l-1.9-1.9a1.543,1.543,0,0,0-2.181,0Z" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Rectangle_8042" data-name="Rectangle 8042" d="M2.025,0H19.852a2.025,2.025,0,0,1,2.025,2.025V19.852a2.024,2.024,0,0,1-2.024,2.024H2.025A2.025,2.025,0,0,1,0,19.851V2.025A2.025,2.025,0,0,1,2.025,0Z" transform="translate(26.156 7.732)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <line id="Line_161" data-name="Line 161" x2="33.573" transform="translate(14.11 38.718)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <line id="Line_162" data-name="Line 162" x2="18.6" transform="translate(14.11 44.644)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <line id="Line_163" data-name="Line 163" x2="3.835" transform="translate(28.875 50.57)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <line id="Line_164" data-name="Line 164" x2="9.3" transform="translate(14.11 50.57)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <line id="Line_165" data-name="Line 165" x2="18.6" transform="translate(14.11 56.497)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <line id="Line_166" data-name="Line 166" y1="3.851" x2="3.851" transform="translate(14.11 25.757)" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24337" data-name="Path 24337" d="M37.1,21.173h0a2.8,2.8,0,0,1-2.8-2.8V17.094a2.8,2.8,0,1,1,5.6,0v1.277A2.8,2.8,0,0,1,37.1,21.173Z" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+    <path id="Path_24338" data-name="Path 24338" d="M38.313,21.173H35.888a4.338,4.338,0,0,0-4.338,4.338v4.1h11.1v-4.1A4.338,4.338,0,0,0,38.313,21.173Z" fill="none" stroke="#0376c8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.344"/>
+  </g>
+</svg>

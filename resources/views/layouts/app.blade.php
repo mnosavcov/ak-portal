@@ -10,8 +10,8 @@
     <!-- Scripts -->
     @vite(['resources/css/app.less', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased bg-[#f8f8f8] text-[#31363A]">
+<div class="min-h-screen">
     @include('layouts.app-navigation')
 
     <!-- Page Content -->
