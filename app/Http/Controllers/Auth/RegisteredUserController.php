@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -26,26 +27,38 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+        $validator = Validator::make($request->post('kontakt'), [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'phone_number' => ['required', 'string', 'min:9'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if ($validator->errors()->count()) {
+            return [
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ];
+        }
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => '',
+            'email' => $request->kontakt['email'],
+            'phone_number' => $request->kontakt['phone_number'],
+            'password' => Hash::make($request->kontakt['password']),
+            'investor' => (bool)$request->userType['investor'],
+            'advertiser' => (bool)$request->userType['advertiser'],
+            'real_estate_broker' => (bool)$request->userType['realEstateBroker'],
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return [
+            'status' => 'ok'
+        ];
     }
 }

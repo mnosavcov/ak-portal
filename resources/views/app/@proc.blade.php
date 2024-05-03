@@ -1,7 +1,6 @@
 <div class="bg-white pt-[70px] pb-[100px] w-full">
     <div class="w-full max-w-[1440px] grid mx-auto">
-        <h2 class="mb-[70px] text-[#414141] font-WorkSans-SemiBold text-[28px] leading-[34px] text-center">Proč
-            PVpicker.com?</h2>
+        <h2 class="mb-[70px] text-[#414141] text-center">Proč PVpicker.com?</h2>
 
         <div class="grid grid-cols-3 gap-x-[100px] gap-y-[70px] mb-[45px]">
             <div class="grid grid-cols-[80px_1fr] gap-x-[30px]">

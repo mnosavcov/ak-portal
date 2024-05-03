@@ -42,10 +42,9 @@
                     <div class="w-full bg-cover bg-center h-[672px] relative"
                          style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')">
                         <div class="max-w-[1440px] mx-auto p-[60px] text-white text-center">
-                            <div class="mb-[35px] font-WorkSans-SemiBold text-[28px] leading-[34px]">Jak se u nás
-                                projekty
-                                nabízejí?
-                            </div>
+                            <h2 class="mb-[35px] text-white">
+                                Jak se u nás projekty nabízejí?
+                            </h2>
                             <div class="text-[20px] leading-[30px] max-w-[720px] mx-auto">Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit. Nunc ac sem finibus, placerat enim
                                 sit amet, aliquet est. Suspendisse ultricies nisi nec ipsum posuere ullamcorper id eu

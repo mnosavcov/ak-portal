@@ -3,9 +3,9 @@
 @endphp
 <div class="w-full bg-white" x-data="faq" x-init="data = @js($faqs);">
     <div class="w-full max-w-[1200px] mx-auto text-center">
-        <div class="text-[#414141] font-WorkSans-SemiBold text-[28px] leading-[34px] mb-[50px] text-center">
+        <h2 class="text-[#414141] mb-[50px] text-center">
             Nejčastější otázky a odpovědi
-        </div>
+        </h2>
 
         <div class="inline-grid mb-[50px]" :style="'grid-template-columns: repeat(' + data.proKohoCount + ', 1fr)'">
             <template x-for="(proKoho, index) in data.proKoho" :key="index">
