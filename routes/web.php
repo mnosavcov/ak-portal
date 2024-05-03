@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\App\HomepageController;
+use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
