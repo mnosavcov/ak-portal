@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-8f77b91d.css",
+    "file": "assets/app-8d0efcb9.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -544,6 +544,14 @@
     "file": "assets/WorkSans-ThinItalic-b418b086.woff2",
     "src": "resources/fonts/WorkSans/WorkSans-ThinItalic.woff2"
   },
+  "resources/images/breadcrumbs-mark.svg": {
+    "file": "assets/breadcrumbs-mark-0fd2b639.svg",
+    "src": "resources/images/breadcrumbs-mark.svg"
+  },
+  "resources/images/dropdown-mark.svg": {
+    "file": "assets/dropdown-mark-aff3c93f.svg",
+    "src": "resources/images/dropdown-mark.svg"
+  },
   "resources/images/ico-aukce.svg": {
     "file": "assets/ico-aukce-a175c6cf.svg",
     "src": "resources/images/ico-aukce.svg"
@@ -612,8 +620,12 @@
     "file": "assets/top-img-homepage-e2ebef61.png",
     "src": "resources/images/top-img-homepage.png"
   },
+  "resources/images/user-register-delete-type.svg": {
+    "file": "assets/user-register-delete-type-c1b4618d.svg",
+    "src": "resources/images/user-register-delete-type.svg"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-61abcfad.js",
+    "file": "assets/app-6ce55524.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
