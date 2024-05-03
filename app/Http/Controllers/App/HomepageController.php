@@ -1,17 +1,14 @@
 <?php
 
-Namespace App\Http\Controllers\App;
+namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
-use App\Services\FaqsService;
 
-class HomepageController extends Controller {
+class HomepageController extends Controller
+{
 
-    public function index(FaqsService $faqsService)
+    public function index()
     {
-        return view(
-            'homepage',
-            ['faqs' => $faqsService->getData()]
-        );
+        return view('homepage');
     }
 }

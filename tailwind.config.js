@@ -42,6 +42,23 @@ export default {
                 'WorkSans-Thin': ['WorkSans-Thin', ...defaultTheme.fontFamily.sans],
                 'WorkSans-SemiBoldItalic': ['WorkSans-SemiBoldItalic', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                app: {
+                    DEFAULT: '#414141',
+                    green: {
+                        DEFAULT: '#7ec447',
+                    },
+                    blue: {
+                        DEFAULT: '#0376c8',
+                    },
+                    red: {
+                        DEFAULT: '#f54848',
+                    },
+                    orange: {
+                        DEFAULT: '#f2940d',
+                    }
+                }
+            },
         },
     },
 

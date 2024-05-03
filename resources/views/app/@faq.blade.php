@@ -1,3 +1,6 @@
+@php
+    $faqs = (new App\Services\FaqsService)->getData();
+@endphp
 <div class="w-full bg-white" x-data="faq" x-init="data = @js($faqs);">
     <div class="w-full max-w-[1200px] mx-auto text-center">
         <div class="text-[#414141] font-WorkSans-SemiBold text-[28px] leading-[34px] mb-[50px] text-center">
@@ -24,7 +27,8 @@
                     <div x-data="{open: false}" class="mb-[25px] pb-[25px] border-b">
                         <div class="cursor-pointer" x-text="faq.otazka" @click="open = !open"></div>
 
-                        <div class="bg-[#f8f8f8] p-[25px] mt-[25px] rounded-[3px]" x-text="faq.odpoved" x-show="open"></div>
+                        <div class="bg-[#f8f8f8] p-[25px] mt-[25px] rounded-[3px]" x-text="faq.odpoved"
+                             x-show="open"></div>
                     </div>
                 </template>
             </template>
