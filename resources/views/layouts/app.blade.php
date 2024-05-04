@@ -18,6 +18,8 @@
     <main>
         {{ $slot }}
     </main>
+
+    @include('app.@footer')
 </div>
 </body>
 </html>
