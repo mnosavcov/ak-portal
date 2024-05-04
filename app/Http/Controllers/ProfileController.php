@@ -71,7 +71,9 @@ class ProfileController extends Controller
             })
         )->toArray();
         $notifications['newsletters'] = (bool)$newsletters;
-        return view('profile.index', ['data' => [
+        return view('profile.index', [
+            'title' => 'Profil investora',
+            'data' => [
             'notificationList' => $investorService::LIST,
             'notifications' => $notifications,
         ]]);
@@ -86,7 +88,9 @@ class ProfileController extends Controller
             })
         )->toArray();
         $notifications['newsletters'] = (bool)$newsletters;
-        return view('profile.index', ['data' => [
+        return view('profile.index', [
+            'title' => 'Profil nabízejícího',
+            'data' => [
             'notificationList' => $advertiserService::LIST,
             'notifications' => $notifications,
         ]]);

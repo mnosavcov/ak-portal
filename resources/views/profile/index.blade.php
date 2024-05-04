@@ -5,7 +5,7 @@
             'Profil investora' => route('profile.investor'),
         ]"></x-app.breadcrumbs>
 
-            <h1 class="mb-[25px]">Profil investora</h1>
+            <h1 class="mb-[25px]">{{ $title }}</h1>
         </div>
 
         <template x-if="Object.entries(data.notificationList).length">
