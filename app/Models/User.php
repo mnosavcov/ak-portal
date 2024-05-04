@@ -24,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'investor',
         'advertiser',
         'real_estate_broker',
+        'newsletters',
     ];
 
     /**

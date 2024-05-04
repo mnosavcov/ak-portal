@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\EmailNotification;
+use App\Models\User;
+use App\Services\AdvertiserService;
+use App\Services\InvestorService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +60,63 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function investor(InvestorService $investorService)
+    {
+        $newsletters = Auth::user()->newsletters;
+        $notifications = EmailNotification::pluck('notify')->combine(
+            EmailNotification::pluck('notify')->map(function () {
+                return true;
+            })
+        )->toArray();
+        $notifications['newsletters'] = (bool)$newsletters;
+        return view('profile.index', ['data' => [
+            'notificationList' => $investorService::LIST,
+            'notifications' => $notifications,
+        ]]);
+    }
+
+    public function advertiser(AdvertiserService $advertiserService)
+    {
+        $newsletters = Auth::user()->newsletters;
+        $notifications = EmailNotification::pluck('notify')->combine(
+            EmailNotification::pluck('notify')->map(function () {
+                return true;
+            })
+        )->toArray();
+        $notifications['newsletters'] = (bool)$newsletters;
+        return view('profile.index', ['data' => [
+            'notificationList' => $advertiserService::LIST,
+            'notifications' => $notifications,
+        ]]);
+    }
+
+    public function profileSave(Request $request)
+    {
+        $index = $request->post('index');
+        $value = $request->post('value');
+        $user = User::find(auth()->id());
+
+        if ($index === 'newsletters') {
+            $user->newsletters = $value;
+            $user->save();
+            return response()->json($user->newsletters);
+        }
+
+        if ($value) {
+            $notifyCount = EmailNotification::where('notify', $index)->count();
+            if (!$notifyCount) {
+                EmailNotification::create(['notify' => $index]);
+            }
+        } else {
+            $notifyCount = EmailNotification::where('notify', $index)->count();
+            if ($notifyCount) {
+                EmailNotification::where('notify', $index)->first()->delete();
+            }
+        }
+
+        $notifyCount = EmailNotification::where('notify', $index)->count();
+        return response()->json((bool)$notifyCount);
     }
 }

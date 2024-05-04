@@ -11,5 +11,6 @@ Alpine.plugin(collapse)
 
 import './app/faq.js';
 import './app/register.js';
+import './app/profile.js';
 
 Alpine.start();

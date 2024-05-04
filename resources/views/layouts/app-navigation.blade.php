@@ -154,8 +154,16 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.investor')">
+                                {{ __('Profil investora') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('profile.advertiser')">
+                                {{ __('Profil nabízejícího') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
+                                {{ __('Nastavení účtu') }}
                             </x-dropdown-link>
 
                             <!-- Authentication -->
@@ -165,7 +173,7 @@
                                 <x-dropdown-link :href="route('logout')"
                                                  onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Odhlásit se') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>

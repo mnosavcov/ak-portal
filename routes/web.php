@@ -20,9 +20,12 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/nastaveni-uctu', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/nastaveni-uctu', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profil/investor', [ProfileController::class, 'investor'])->name('profile.investor');
+    Route::get('/profil/advertiser', [ProfileController::class, 'advertiser'])->name('profile.advertiser');
+    Route::post('/profil/save', [ProfileController::class, 'profileSave'])->name('profile.save');
 
     Route::prefix('admin')->group(function() {
         Route::view('/', 'admin.index');
