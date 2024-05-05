@@ -8,7 +8,7 @@
             <h1 class="mb-[25px]">{{ $title }}</h1>
         </div>
 
-        <template x-for="(list, index) in data.notificationList">
+        <template x-for="(list, index) in data.notificationList" :key="index">
             <div
                 class="bg-white px-[30px] py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                 <h2 class="mb-[25px]" x-text="list.title"></h2>

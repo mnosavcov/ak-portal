@@ -9,6 +9,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.less', 'resources/js/app.js'])
+
+    <script src="/js/tinymce/tinymce.min.js"></script>
 </head>
 <body class="font-sans antialiased bg-[#f8f8f8] text-[#31363A]">
 <div class="min-h-screen">

@@ -21,6 +21,19 @@
         </div>
     </div>
 
+    <a href="{{ route('projects.create', ['accountType' => 'advertiser']) }}"
+            class="leading-[60px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+    >
+        + Přidat nový projekt - advertiser
+    </a>
+<br>
+<br>
+    <a href="{{ route('projects.create', ['accountType' => 'real-estate-broker']) }}"
+            class="leading-[60px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+    >
+        + Přidat nový projekt - real_estate_broker
+    </a>
+
     <div class="pt-[100px] bg-white">
         @include('app.@faq')
     </div>

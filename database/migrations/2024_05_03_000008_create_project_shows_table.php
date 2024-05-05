@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('project_id');
 
+            $table->unique(['user_id', 'project_id']);
+
             $table->foreign('user_id')->references('id')->on('users')->constrained();
             $table->foreign('project_id')->references('id')->on('projects')->constrained();
         });
