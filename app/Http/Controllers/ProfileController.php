@@ -121,12 +121,10 @@ class ProfileController extends Controller
     {
         $index = $request->post('index');
         $value = $request->post('value');
-        $user = User::find(auth()->id());
 
         if ($index === 'newsletters') {
-            $user->newsletters = $value;
-            $user->save();
-            return response()->json($user->newsletters);
+            $request->user()->fill(['newsletters' => $value])->save();
+            return response()->json($request->user()->newsletters);
         }
 
         if ($value) {
@@ -143,5 +141,10 @@ class ProfileController extends Controller
 
         $notifyCount = EmailNotification::where('notify', $index)->count();
         return response()->json((bool)$notifyCount);
+    }
+
+    public function overview()
+    {
+        return view('profile.overview');
     }
 }

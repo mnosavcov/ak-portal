@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
-Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::resource('projects', ProjectController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,10 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil/advertiser', [ProfileController::class, 'advertiser'])->name('profile.advertiser');
     Route::get('/profil/real-estate-broker', [ProfileController::class, 'realEstateBroker'])->name('profile.real-estate-broker');
     Route::post('/profil/save', [ProfileController::class, 'profileSave'])->name('profile.save');
+    Route::get('/profil/overview', [ProfileController::class, 'overview'])->name('profile.overview');
 
-    Route::prefix('admin')->group(function() {
+    Route::prefix('admin')->group(function () {
         Route::view('/', 'admin.index');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

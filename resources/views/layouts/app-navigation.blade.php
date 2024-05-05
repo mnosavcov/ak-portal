@@ -154,6 +154,10 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.overview')">
+                                {{ __('Přehled účtu') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link :href="route('profile.investor')">
                                 {{ __('Profil investora') }}
                             </x-dropdown-link>
