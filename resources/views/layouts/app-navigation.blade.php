@@ -162,6 +162,10 @@
                                 {{ __('Profil nabízejícího') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link :href="route('profile.real-estate-broker')">
+                                {{ __('Profil realitního makléře') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Nastavení účtu') }}
                             </x-dropdown-link>

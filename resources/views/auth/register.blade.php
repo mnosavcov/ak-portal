@@ -56,19 +56,20 @@
                                 nebo jednám jeho jménem)
                             </div>
                         </div>
-                        {{--                        <div--}}
-                        {{--                            class="text-[#414141] font-Spartan-Regular text-[11px] leading-[16px] my-[20px] grid grid-cols-[20px_1fr] gap-x-[15px] w-full"--}}
-                        {{--                            @click="userType.realEstateBroker = !userType.realEstateBroker"--}}
-                        {{--                        >--}}
-                        {{--                            <div class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white">--}}
-                        {{--                                <div class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"--}}
-                        {{--                                     x-show="userType.realEstateBroker"></div>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="mt-[4px]"><span class="font-Spartan-SemiBold">Účet realitního makléře</span>--}}
-                        {{--                                (zprostředkovávám--}}
-                        {{--                                prodej projektu na základě smlouvy o realitním zprostředkování)--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
+                        <div
+                            class="text-[#414141] font-Spartan-Regular text-[11px] leading-[16px] my-[20px] grid grid-cols-[20px_1fr] gap-x-[15px] w-full"
+                            @click="userType.realEstateBroker = !userType.realEstateBroker"
+                        >
+                            <div
+                                class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white">
+                                <div class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
+                                     x-show="userType.realEstateBroker"></div>
+                            </div>
+                            <div class="mt-[4px]"><span class="font-Spartan-SemiBold">Účet realitního makléře</span>
+                                (zprostředkovávám
+                                prodej projektu na základě smlouvy o realitním zprostředkování)
+                            </div>
+                        </div>
                         <div
                             class="text-app-blue font-Spartan-SemiBold text-[15px] leading-[22px] mb-[20px] disabled:grayscale"
                             :class="{grayscale: !userType.enabled()}"
@@ -102,16 +103,17 @@
                         </div>
                     </div>
 
-                    {{--                    <div>--}}
-                    {{--                        <div x-show="userType.realEstateBroker"--}}
-                    {{--                             class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">--}}
-                    {{--                            Účet realitního makléře (zprostředkovávám prodej projektu na základě smlouvy o realitním--}}
-                    {{--                            zprostředkování)--}}
-                    {{--                            <div @click="userType.realEstateBroker = false">--}}
-                    {{--                                <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}" class="h-[26px] w-[26px] cursor-pointer">--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+                    <div>
+                        <div x-show="userType.realEstateBroker"
+                             class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
+                            Účet realitního makléře (zprostředkovávám prodej projektu na základě smlouvy o realitním
+                            zprostředkování)
+                            <div @click="userType.realEstateBroker = false">
+                                <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
+                                     class="h-[26px] w-[26px] cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="text-app-blue font-Spartan-SemiBold text-[15px] leading-[22px] cursor-pointer"
                          @click="userType.selected = false"
@@ -164,7 +166,7 @@
         </div>
 
         <div x-show="userType.selected" x-cloak
-            class="grid grid-cols-[20px_1fr] gap-x-[15px] w-full h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] mb-[30px]">
+             class="grid grid-cols-[20px_1fr] gap-x-[15px] w-full h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] mb-[30px]">
             <div class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white"
                  @click="confirm = !confirm">
                 <div class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
@@ -179,7 +181,7 @@
                 class="h-[60px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[50px]"
                 :disabled="!enableSend()"
                 @click="sendRegister()"
-            >
+        >
             Registrovat se
         </button>
 

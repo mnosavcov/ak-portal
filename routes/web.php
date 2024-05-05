@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/nastaveni-uctu', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profil/investor', [ProfileController::class, 'investor'])->name('profile.investor');
     Route::get('/profil/advertiser', [ProfileController::class, 'advertiser'])->name('profile.advertiser');
+    Route::get('/profil/real-estate-broker', [ProfileController::class, 'realEstateBroker'])->name('profile.real-estate-broker');
     Route::post('/profil/save', [ProfileController::class, 'profileSave'])->name('profile.save');
 
     Route::prefix('admin')->group(function() {

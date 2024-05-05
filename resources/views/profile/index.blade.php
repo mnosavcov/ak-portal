@@ -2,7 +2,7 @@
     <div x-data="profile" x-init="data = @js($data)">
         <div class="w-full max-w-[1200px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
-            'Profil investora' => route('profile.investor'),
+            $title => $route
         ]"></x-app.breadcrumbs>
 
             <h1 class="mb-[25px]">{{ $title }}</h1>
@@ -34,9 +34,11 @@
             <h2 class="mb-[25px]">Nastavení newsletterů</h2>
 
             <div class="bg-[#f8f8f8] rouded-[3px] pt-[30px] px-[25px]">
+                <div x-cloak>
                 <x-app.slider
                     x-bind:notify="notify"
                     x-bind:index="index"></x-app.slider>
+            </div>
             </div>
         </div>
     </div>

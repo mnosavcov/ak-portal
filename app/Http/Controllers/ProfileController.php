@@ -7,6 +7,7 @@ use App\Models\EmailNotification;
 use App\Models\User;
 use App\Services\AdvertiserService;
 use App\Services\InvestorService;
+use App\Services\RealEstateBrokerService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,7 @@ class ProfileController extends Controller
         $notifications['newsletters'] = (bool)$newsletters;
         return view('profile.index', [
             'title' => 'Profil investora',
+            'route' => route('profile.investor'),
             'data' => [
             'notificationList' => $investorService::LIST,
             'notifications' => $notifications,
@@ -90,10 +92,29 @@ class ProfileController extends Controller
         $notifications['newsletters'] = (bool)$newsletters;
         return view('profile.index', [
             'title' => 'Profil nabízejícího',
+            'route' => route('profile.advertiser'),
             'data' => [
             'notificationList' => $advertiserService::LIST,
             'notifications' => $notifications,
         ]]);
+    }
+
+    public function realEstateBroker(RealEstateBrokerService $realEstateBrokerService)
+    {
+        $newsletters = Auth::user()->newsletters;
+        $notifications = EmailNotification::pluck('notify')->combine(
+            EmailNotification::pluck('notify')->map(function () {
+                return true;
+            })
+        )->toArray();
+        $notifications['newsletters'] = (bool)$newsletters;
+        return view('profile.index', [
+            'title' => 'Profil realitního makléře',
+            'route' => route('profile.real-estate-broker'),
+            'data' => [
+                'notificationList' => $realEstateBrokerService::LIST,
+                'notifications' => $notifications,
+            ]]);
     }
 
     public function profileSave(Request $request)
