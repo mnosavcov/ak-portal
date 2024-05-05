@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\EmailNotification;
-use App\Models\User;
 use App\Services\AdvertiserService;
 use App\Services\InvestorService;
 use App\Services\RealEstateBrokerService;
@@ -76,7 +75,7 @@ class ProfileController extends Controller
             'title' => 'Profil investora',
             'route' => route('profile.investor'),
             'data' => [
-            'notificationList' => $investorService::LIST,
+            'notificationList' => $investorService::LISTS,
             'notifications' => $notifications,
         ]]);
     }
@@ -94,7 +93,7 @@ class ProfileController extends Controller
             'title' => 'Profil nabízejícího',
             'route' => route('profile.advertiser'),
             'data' => [
-            'notificationList' => $advertiserService::LIST,
+            'notificationList' => $advertiserService::LISTS,
             'notifications' => $notifications,
         ]]);
     }
@@ -112,7 +111,7 @@ class ProfileController extends Controller
             'title' => 'Profil realitního makléře',
             'route' => route('profile.real-estate-broker'),
             'data' => [
-                'notificationList' => $realEstateBrokerService::LIST,
+                'notificationList' => $realEstateBrokerService::LISTS,
                 'notifications' => $notifications,
             ]]);
     }
@@ -122,21 +121,11 @@ class ProfileController extends Controller
         $index = $request->post('index');
         $value = $request->post('value');
 
-        if ($index === 'newsletters') {
-            $request->user()->fill(['newsletters' => $value])->save();
-            return response()->json($request->user()->newsletters);
-        }
 
         if ($value) {
-            $notifyCount = EmailNotification::where('notify', $index)->count();
-            if (!$notifyCount) {
-                EmailNotification::create(['notify' => $index]);
-            }
+            EmailNotification::firstOrcreate(['notify' => $index]);
         } else {
-            $notifyCount = EmailNotification::where('notify', $index)->count();
-            if ($notifyCount) {
-                EmailNotification::where('notify', $index)->first()->delete();
-            }
+            EmailNotification::where('notify', $index)->first()?->delete();
         }
 
         $notifyCount = EmailNotification::where('notify', $index)->count();
