@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-4c5da008.css",
+    "file": "assets/app-f2cbba06.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -556,6 +556,14 @@
     "file": "assets/ico-aukce-a175c6cf.svg",
     "src": "resources/images/ico-aukce.svg"
   },
+  "resources/images/ico-button-arrow-left.svg": {
+    "file": "assets/ico-button-arrow-left-9aa18a2f.svg",
+    "src": "resources/images/ico-button-arrow-left.svg"
+  },
+  "resources/images/ico-calendar.svg": {
+    "file": "assets/ico-calendar-5b2aff68.svg",
+    "src": "resources/images/ico-calendar.svg"
+  },
   "resources/images/ico-cenu-navrhuje-kupujici.svg": {
     "file": "assets/ico-cenu-navrhuje-kupujici-a4222f63.svg",
     "src": "resources/images/ico-cenu-navrhuje-kupujici.svg"
@@ -563,6 +571,10 @@
   "resources/images/ico-cenu-navrhuje-nabizejici.svg": {
     "file": "assets/ico-cenu-navrhuje-nabizejici-e11fdb53.svg",
     "src": "resources/images/ico-cenu-navrhuje-nabizejici.svg"
+  },
+  "resources/images/ico-delete-file.svg": {
+    "file": "assets/ico-delete-file-1997e246.svg",
+    "src": "resources/images/ico-delete-file.svg"
   },
   "resources/images/ico-fb.svg": {
     "file": "assets/ico-fb-2fdd1f62.svg",
@@ -575,6 +587,10 @@
   "resources/images/ico-in.svg": {
     "file": "assets/ico-in-be308301.svg",
     "src": "resources/images/ico-in.svg"
+  },
+  "resources/images/ico-info-orange.svg": {
+    "file": "assets/ico-info-orange-53dccf1d.svg",
+    "src": "resources/images/ico-info-orange.svg"
   },
   "resources/images/ico-moznost-vyzadovat-nda.svg": {
     "file": "assets/ico-moznost-vyzadovat-nda-0e536921.svg",
@@ -591,6 +607,10 @@
   "resources/images/ico-sami-se-vystavbou-zabyvame.svg": {
     "file": "assets/ico-sami-se-vystavbou-zabyvame-315f71f7.svg",
     "src": "resources/images/ico-sami-se-vystavbou-zabyvame.svg"
+  },
+  "resources/images/ico-upload.svg": {
+    "file": "assets/ico-upload-8486d68d.svg",
+    "src": "resources/images/ico-upload.svg"
   },
   "resources/images/ico-x.svg": {
     "file": "assets/ico-x-92c44287.svg",
@@ -625,7 +645,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-2312cc51.js",
+    "file": "assets/app-c069e4e5.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
