@@ -75,9 +75,9 @@ class ProfileController extends Controller
             'title' => 'Profil investora',
             'route' => route('profile.investor'),
             'data' => [
-            'notificationList' => $investorService::LISTS,
-            'notifications' => $notifications,
-        ]]);
+                'notificationList' => $investorService::LISTS,
+                'notifications' => $notifications,
+            ]]);
     }
 
     public function advertiser(AdvertiserService $advertiserService)
@@ -93,9 +93,9 @@ class ProfileController extends Controller
             'title' => 'Profil nabízejícího',
             'route' => route('profile.advertiser'),
             'data' => [
-            'notificationList' => $advertiserService::LISTS,
-            'notifications' => $notifications,
-        ]]);
+                'notificationList' => $advertiserService::LISTS,
+                'notifications' => $notifications,
+            ]]);
     }
 
     public function realEstateBroker(RealEstateBrokerService $realEstateBrokerService)
@@ -132,8 +132,13 @@ class ProfileController extends Controller
         return response()->json((bool)$notifyCount);
     }
 
-    public function overview()
+    public function overview($account = '')
     {
-        return view('profile.overview');
+        return view(
+            'profile.overview',
+            [
+                'account' => $account
+            ]
+        );
     }
 }

@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil/advertiser', [ProfileController::class, 'advertiser'])->name('profile.advertiser');
     Route::get('/profil/real-estate-broker', [ProfileController::class, 'realEstateBroker'])->name('profile.real-estate-broker');
     Route::post('/profil/save', [ProfileController::class, 'profileSave'])->name('profile.save');
-    Route::get('/profil/overview', [ProfileController::class, 'overview'])->name('profile.overview');
+    Route::get('/profil/overview/{account?}', [ProfileController::class, 'overview'])->name('profile.overview');
 
     Route::prefix('admin')->group(function () {
         Route::view('/', 'admin.index');

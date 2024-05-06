@@ -2,7 +2,7 @@
     <div>
         <div class="w-full max-w-[1200px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
-            'Přehled účtu' => route('profile.overview')
+            'Přehled účtu' => route('profile.overview', ['account' => $account])
         ]"></x-app.breadcrumbs>
 
             <h1 class="mb-[25px]">Přehled účtu</h1>
