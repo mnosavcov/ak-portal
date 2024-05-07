@@ -50,6 +50,7 @@ Alpine.data('projectEdit', (id) => ({
         return show;
     },
     async sendProject(status = 'draft') {
+        this.data.status = status;
         const formData = new FormData();
 
         const fileList = this.$refs.fileElem.files;
@@ -67,10 +68,14 @@ Alpine.data('projectEdit', (id) => ({
             },
         }).then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                if (data.status === 'success') {
+                    window.location.href = data.redirect;
+                    return;
+                }
+                alert('Chyba uložení');
             })
             .catch((error) => {
-                alert('Chyba uložení ')
+                alert('Chyba uložení')
             });
     },
 }));

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('project_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
+            $table->string('order');
             $table->string('title');
-            $table->enum('color', ['default', 'red', 'blue', 'green', 'orange'])->default('default');
+            $table->text('description');
 
             $table->foreign('project_id')->references('id')->on('projects')->constrained();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('project_details');
     }
 };

@@ -15,18 +15,20 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id');
+            $table->string('user_account_type');
             $table->enum('type', ['auction', 'fixed_price', 'offer_the_price'])->nullable();
             $table->string('status')->default('draft');
             $table->date('end_date')->nullable();
             $table->string('title');
             $table->text('description');
-            $table->string('img_filename');
             $table->integer('price')->nullable();
-            $table->integer('subject_offer')->nullable();
-            $table->integer('location_offer')->nullable();
-            $table->integer('country')->nullable();
-            $table->integer('representation')->nullable();
-            $table->date('contract_validity')->nullable();
+            $table->string('subject_offer');
+            $table->string('location_offer');
+            $table->string('country');
+            $table->string('representation_type')->nullable();
+            $table->date('representation_end_date')->nullable();
+            $table->boolean('representation_indefinitely_date')->nullable();
+            $table->boolean('representation_may_be_cancelled')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->constrained();
         });

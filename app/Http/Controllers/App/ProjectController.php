@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
+use App\Models\ProjectFile;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
 
@@ -23,6 +25,7 @@ class ProjectController extends Controller
         $data = [
             'route' => route('projects.create', ['accountType' => $accountType]),
             'accountType' => $accountType,
+            'status' => 'draft',
             'subjectOffers' => ProjectService::SUBJECT_OFFERS,
             'subjectOffer' => null,
             'locationOffers' => ProjectService::LOCATION_OFFERS,
@@ -76,11 +79,49 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        dd($request->post(), $request->file());
+        $data = json_decode($request->post('data'));
+        $insert = [
+            'user_account_type' => $data->data->accountType,
+            'type' => $data->data->type,
+            'status' => $data->data->status,
+            'title' => $data->data->title,
+            'description' => $data->data->description,
+            'subject_offer' => $data->data->subjectOffer,
+            'location_offer' => $data->data->locationOffer,
+            'country' => $data->data->country
+        ];
+
+        if ($data->data->accountType === 'real-estate-broker') {
+            $insert['representation_type'] = $data->data->representation->selected;
+            if (!$data->data->representation->indefinitelyDate) {
+                $insert['representation_end_date'] = $data->data->representation->endDate;
+            }
+            $insert['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
+            $insert['representation_may_be_cancelled'] = (bool)$data->data->representation->mayBeCancelled === 'yes';
+        }
+
+        $project = Project::create($insert);
+
+        foreach ($request->file('files') as $file) {
+            $path = $file->store(auth()->id() . '/' . $project->id);
+            $projectFile = new ProjectFile([
+                'filepath' => $path,
+                'filename' => $file->getClientOriginalName(),
+                'order' => 0,
+                'public' => false,
+            ]);
+
+            $project->files()->save($projectFile);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'redirect' => route('profile.overview', ['account' => $project->user_account_type]),
+        ]);
     }
 
     /**

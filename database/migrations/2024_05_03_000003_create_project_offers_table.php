@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('project_offers', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->foreignId('user_id');
             $table->foreignId('project_id');
-            $table->string('filename');
-            $table->string('order');
-            $table->boolean('public')->default(false);
+            $table->integer('price');
 
+            $table->foreign('user_id')->references('id')->on('users')->constrained();
             $table->foreign('project_id')->references('id')->on('projects')->constrained();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('project_offers');
     }
 };

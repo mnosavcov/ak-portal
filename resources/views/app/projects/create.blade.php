@@ -80,7 +80,7 @@
 
                     <div>
                         <x-input-label for="fileElem" :value="__('Nahrajte soubory')"/>
-                        <input type="file" id="fileElem" multiple accept="image/*" style="display:none"
+                        <input type="file" id="fileElem" multiple style="display:none"
                                x-ref="fileElem"
                                @change="
                                 const files = event.target.files;
@@ -127,7 +127,7 @@
                              :class="{ 'mt-[20px]': Object.entries(fileList).length}">
                             <template x-for="(fileName, index) in fileList">
                                 <div class="contents">
-                                    <div x-text="fileName"
+                                    <div x-text="fileName" :title="fileName"
                                          class="bg-[#5E6468] text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] leading-[32px] px-[25px]"></div>
                                     <div class="cursor-pointer flex items-center">
                                         <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"

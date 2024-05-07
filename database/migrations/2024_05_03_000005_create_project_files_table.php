@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('project_files', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
+            $table->text('filepath');
             $table->string('filename');
             $table->string('order');
             $table->boolean('public')->default(false);
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('project_files');
     }
 };
