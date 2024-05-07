@@ -82,7 +82,7 @@ class Project extends Model
 
     public function scopeIsPrepared(Builder $query): Builder
     {
-        return $query->whereIn('status', ['prepared']);
+        return $query->whereIn('status', ['prepared', 'send']);
     }
 
     public function scopeIsDrafted(Builder $query): Builder
