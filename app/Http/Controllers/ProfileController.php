@@ -6,6 +6,8 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\EmailNotification;
 use App\Services\AdvertiserService;
 use App\Services\InvestorService;
+use App\Services\ProjectNotInvestorService;
+use App\Services\ProjectInvestorService;
 use App\Services\RealEstateBrokerService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -134,10 +136,28 @@ class ProfileController extends Controller
 
     public function overview($account = '')
     {
+        $accountX = str_replace('-', '_', $account);
+        if (!isset(auth()->user()->{$accountX}) || !auth()->user()->{$accountX}) {
+            if (auth()->user()->investor) {
+                return redirect()->route('profile.overview', ['account' => 'investor']);
+            } elseif (auth()->user()->advertiser) {
+                return redirect()->route('profile.overview', ['account' => 'advertiser']);
+            } elseif (auth()->user()->real_estate_broker) {
+                return redirect()->route('profile.overview', ['account' => 'real-estate-broker']);
+            }
+        }
+
+        if ($account === 'investor') {
+            $projects = (new ProjectInvestorService())->overview();
+        } elseif ($account === 'advertiser' || $account === 'real-estate-broker') {
+            $projects = (new ProjectNotInvestorService())->overview($account);
+        }
+
         return view(
             'profile.overview',
             [
-                'account' => $account
+                'account' => $account,
+                'projects' => $projects,
             ]
         );
     }

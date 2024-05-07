@@ -16,6 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('user_id');
             $table->foreignId('project_id');
+            $table->boolean('favourite')->default(false);
+            $table->integer('price')->nullable();
 
             $table->unique(['user_id', 'project_id']);
 

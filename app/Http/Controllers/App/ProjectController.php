@@ -106,7 +106,7 @@ class ProjectController extends Controller
 
         $project = Project::create($insert);
 
-        foreach ($request->file('files') as $file) {
+        foreach ($request->file('files') ?? [] as $file) {
             $path = $file->store(auth()->id() . '/' . $project->id);
             $projectFile = new ProjectFile([
                 'filepath' => $path,

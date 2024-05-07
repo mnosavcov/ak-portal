@@ -13,6 +13,7 @@ import './app/faq.js';
 import './app/register.js';
 import './app/profile.js';
 import './app/project-edit.js';
+import './app/project-list.js';
 
 Alpine.start();
 

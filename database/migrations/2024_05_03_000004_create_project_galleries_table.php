@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('project_galleries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
+            $table->text('filepath');
             $table->string('filename');
             $table->string('order');
             $table->boolean('public')->default(false);
