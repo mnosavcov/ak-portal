@@ -87,13 +87,18 @@ class AdminController extends Controller
             'title' => $request->title,
             'status' => $request->status,
             'end_date' => null,
-            'description' => $request->description,
+            'about' => $request->about,
             'price' => str_replace(' ', '', $request->price),
+            'minimum_principal' => str_replace(' ', '', $request->minimum_principal),
             'country' => $request->country,
         ];
 
         if (empty($update['price'])) {
             $update['price'] = null;
+        }
+
+        if (empty($update['minimum_principal'])) {
+            $update['minimum_principal'] = null;
         }
 
         if (
@@ -109,7 +114,7 @@ class AdminController extends Controller
         return redirect()->action(
             [AdminController::class, 'projectEdit'],
             [
-                'project' => $project->url_detail
+                'project' => $project->url_part
             ]
         );
     }

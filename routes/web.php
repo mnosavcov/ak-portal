@@ -20,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('projects', ProjectController::class)->except(['create']);
+    Route::resource('projects', ProjectController::class)->except(['create', 'update']);
     Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/nastaveni-uctu', [ProfileController::class, 'update'])->name('profile.update');

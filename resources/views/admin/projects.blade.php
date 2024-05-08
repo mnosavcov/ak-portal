@@ -31,9 +31,9 @@
                         </div>
                         <div class="mb-[5px]">{!! $project->description !!}</div>
                         <div>
-                            <a href="{{ route('projects.show', ['project' => $project->url_detail]) }}"
+                            <a href="{{ $project->url_detail }}"
                                class="text-app-orange underline hover:no-underline">Náhled projektu</a>
-                            <a href="{{ route('admin.projects.edit', ['project' => $project->url_detail]) }}"
+                            <a href="{{ route('admin.projects.edit', ['project' => $project->url_part]) }}"
                                class="text-app-orange underline hover:no-underline">Editace projektu</a>
                         </div>
                     </div>

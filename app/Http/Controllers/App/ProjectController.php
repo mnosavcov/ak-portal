@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -24,57 +25,12 @@ class ProjectController extends Controller
      * Show the form for creating a new resource.
      *
      */
-    public function create($accountType)
+    public function create($accountType, ProjectService $projectService)
     {
-        $data = [
-            'route' => route('projects.create', ['accountType' => $accountType]),
-            'accountType' => $accountType,
-            'status' => 'draft',
-            'subjectOffers' => ProjectService::SUBJECT_OFFERS,
-            'subjectOffer' => null,
-            'locationOffers' => ProjectService::LOCATION_OFFERS,
-            'locationOffer' => null,
-            'title' => '',
-            'description' => '',
-            'country' => '',
-            'type' => null,
-            'types' => [
-                [
-                    'value' => 'fixed-price',
-                    'text' => 'Cenu stanovíte vy (prodávající)',
-                    'description' => 'V projektu nastavíte fixní cenu, kterou chcete za projekt obdržet. Jakmile ji některý z investorů nabídne, dochází k ukončení projektu.',
-                ],
-                [
-                    'value' => 'offer-the-price',
-                    'text' => 'Cenu stanoví zájemce o projekt (investor)',
-                    'description' => 'Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.',
-                ],
-//                [
-//                    'value' => 'auction',
-//                    'text' => 'Prodej formou aukce',
-//                    'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
-//                ],
-            ],
-            'representation' => [
-                'selected' => null,
-                'endDate' => '',
-                'indefinitelyDate' => false,
-                'mayBeCancelled' => null,
-            ],
-            'representationOptions' => [
-                [
-                    'value' => 'exclusive',
-                    'text' => 'Výhradní zastoupení',
-                    'description' => 'Klienta zastupujete jen vy. Za zveřejnění projektu nic neplatíte. Platíte jen za úspěšné zprostředkování prodeje ve výši, na které se dohodneme před zveřejněním projektu.',
-                ],
-                [
-                    'value' => 'non-exclusive',
-                    'text' => 'Nevýhradní zastoupení',
-                    'description' => 'Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu platíte dle našeho ceníku. Zaplatíte za úspěšné zprostředkování prodeje naším portále. Od této částky bude odečten poplatek za zveřejnění projektu.',
-                ],
-            ],
-            'files' => [],
-        ];
+        $data = $projectService->getProjectData($accountType);
+        $data['pageTitle'] = 'Přidání projektu';
+        $data['route'] = route('projects.create', ['accountType' => $accountType]);
+        $data['routeFetch'] = route('projects.store');
 
         return view('app.projects.create', ['data' => $data]);
     }
@@ -105,7 +61,7 @@ class ProjectController extends Controller
                 $insert['representation_end_date'] = $data->data->representation->endDate;
             }
             $insert['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
-            $insert['representation_may_be_cancelled'] = (bool)($data->data->representation->mayBeCancelled === 'yes');
+            $insert['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
         }
 
         $project = Project::create($insert);
@@ -137,12 +93,30 @@ class ProjectController extends Controller
         $status = $project->status;
         $nahled = !in_array($status, Project::STATUS_FOR_DETAIL);
 
+        $redirect = false;
         if ($nahled && !auth()->user()->superadmin) {
+            $redirect = true;
+        }
+
+        if ($redirect && in_array($project->status, Project::STATUS_DRAFT) && $project->user_id === auth()->id()) {
+            return redirect()->action(
+                [ProjectController::class, 'edit'],
+                [
+                    'project' => $project->url_part
+                ]
+            );
+        }
+
+        if ($redirect && in_array($project->status, Project::STATUS_PREPARE) && $project->user_id === auth()->id()) {
+            dd('redir prepare');
+        }
+
+        if ($redirect) {
             return redirect()->route('homepage');
         }
 
-        if (!str_ends_with($request->getPathInfo(), '/' . $project->url_detail)) {
-            return redirect(route('projects.show', ['project' => $project->url_detail]), 301);
+        if (!str_ends_with($request->getPathInfo(), '/' . $project->url_part)) {
+            return redirect($project->url_detail, 301);
         }
 
         return view(
@@ -157,24 +131,105 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contact $contact)
+    public function edit(ProjectService $projectService, Project $project)
     {
-        //
+        if ($project->user_id !== auth()->id()) {
+            return redirect()->route('homepage');
+        }
+
+        $data = $projectService->getProjectData($project->user_account_type);
+        $data['pageTitle'] = 'Úprava projektu';
+        $data['route'] = route('projects.edit', ['project' => $project->url_part]);
+        $data['routeFetch'] = route('projects.update', ['project' => $project->url_part]);
+        $data['method'] = 'POST';
+
+        $data['subjectOffer'] = $project->subject_offer;
+        $data['locationOffer'] = $project->location_offer;
+        $data['title'] = $project->title;
+        $data['country'] = $project->country;
+        $data['description'] = $project->description;
+        $data['files'] = $project->files;
+        $data['type'] = $project->type;
+        $data['representation']['selected'] = $project->representation_type;
+        $data['representation']['endDate'] = $project->representation_end_date;
+        $data['representation']['indefinitelyDate'] = $project->representation_indefinitely_date;
+        if ($project->representation_indefinitely_date) {
+            $data['representation']['endDate'] = null;
+        }
+        $data['representation']['mayBeCancelled'] = $project->representation_may_be_cancelled ? 'yes' : 'no';
+
+        return view('app.projects.create', ['data' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Contact $kontakty
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Contact $kontakty)
+    public function update(Request $request, Project $project)
     {
-        //
+        if ($project->user_id !== auth()->id()) {
+            return response()->json([
+                'status' => 'error',
+                'redirect' => route('homepage'),
+            ]);
+        }
+
+        $data = json_decode($request->post('data'));
+        $update = [
+            'type' => $data->data->type,
+            'status' => $data->data->status,
+            'title' => $data->data->title,
+            'description' => $data->data->description,
+            'subject_offer' => $data->data->subjectOffer,
+            'location_offer' => $data->data->locationOffer,
+            'country' => $data->data->country
+        ];
+
+        if ($data->data->accountType === 'real-estate-broker') {
+            $update['representation_type'] = $data->data->representation->selected;
+            if (!$data->data->representation->indefinitelyDate) {
+                $update['representation_end_date'] = $data->data->representation->endDate;
+            }
+            $update['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
+            $update['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
+        }
+
+        $project->update($update);
+
+        foreach ($request->file('files') ?? [] as $file) {
+            $path = $file->store(auth()->id() . '/' . $project->id);
+            $projectFile = new ProjectFile([
+                'filepath' => $path,
+                'filename' => $file->getClientOriginalName(),
+                'order' => 0,
+                'public' => false,
+            ]);
+
+            $project->files()->save($projectFile);
+        }
+
+        foreach ($data->data->files as $file) {
+            if (!isset($file->delete)) {
+                continue;
+            }
+
+            $projectFile = ProjectFile::where('project_id', $project->id)->find($file->id);
+            if (!$projectFile) {
+                continue;
+            }
+
+            Storage::delete($projectFile->filepath);
+            $projectFile->delete();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'redirect' => route('profile.overview', ['account' => $project->user_account_type]),
+        ]);
     }
 
     public function saveOrder(Request $request)
@@ -185,10 +240,9 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contact $contact)
+    public function destroy(Project $project)
     {
         //
     }

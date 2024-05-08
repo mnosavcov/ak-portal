@@ -17,6 +17,7 @@ class Project extends Model
         'common_img',
         'end_date_text',
         'price_text',
+        'url_part',
         'url_detail',
     ];
 
@@ -27,7 +28,9 @@ class Project extends Model
         'end_date',
         'title',
         'description',
+        'about',
         'price',
+        'minimum_principal',
         'subject_offer',
         'location_offer',
         'country',
@@ -146,11 +149,23 @@ class Project extends Model
         );
     }
 
-    public function urlDetail(): Attribute
+    public function urlPart(): Attribute
     {
         $slugTitle = Str::slug($this->title);
         $id = $this->id;
         $url = sprintf('%d-%s', $id, $slugTitle);
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $url
+        );
+    }
+
+    public function urlDetail(): Attribute
+    {
+        $slugTitle = Str::slug($this->title);
+        $id = $this->id;
+        $project = sprintf('%d-%s', $id, $slugTitle);
+        $url = route('projects.show', ['project' => $project]);
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $url

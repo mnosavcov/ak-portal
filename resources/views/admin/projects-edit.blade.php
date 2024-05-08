@@ -14,7 +14,7 @@
             <div class="flex justify-between items-center border-b border-gray-300 mb-[25px]">
                 <h1 class="text-2xl font-semibold pt-2 pb-6">Editace projektu</h1>
             </div>
-            <a href="{{ route('projects.show', ['project' => $project->url_detail]) }}" target="_blank"
+            <a href="{{ $project->url_detail }}" target="_blank"
                class="bg-app-orange p-[10px_25px] inline-block mb-[20px] text-white font-WorkSans-Regular rounded-[3px]">Náhled</a>
 
             <h2 class="mb-[25px]">{{ $project->title }}</h2>

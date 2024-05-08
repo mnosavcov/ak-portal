@@ -2,10 +2,10 @@
     <div x-data="projectEdit" x-init="data = @js($data)">
         <div class="w-full max-w-[1200px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
-            'Přidání projektu' => $data['route']
+            $data['pageTitle'] => $data['route']
         ]"></x-app.breadcrumbs>
 
-            <h1 class="mb-[30px]">Přidání projektu</h1>
+            <h1 class="mb-[30px]">{{ $data['pageTitle'] }}</h1>
 
             <a href="{{ route('profile.overview', ['account' => $data['accountType']]) }}" class="relative float-right font-Spartan-SemiBold text-[16px] leading-[58px] border border-[2px] border-[#31363A] h-[58px] text-[#31363A] pl-[45px] pr-[30px]
             after:absolute after:bg-[url('/resources/images/ico-button-arrow-left.svg')] after:w-[6px] after:h-[10px] after:left-[17px] after:top-[23px]
@@ -124,15 +124,30 @@
                         </div>
 
                         <div class="grid grid-cols-[1fr_20px] gap-[10px_20px]"
-                             :class="{ 'mt-[20px]': Object.entries(fileList).length}">
-                            <template x-for="(fileName, index) in fileList">
+                             :class="{ 'mt-[20px]': Object.entries(fileList).length || Object.entries(data.files).length}">
+                            <template x-for="(fileName, index) in fileList" :key="index">
                                 <div class="contents">
                                     <div x-text="fileName" :title="fileName"
-                                         class="bg-[#5E6468] text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] leading-[32px] px-[25px]"></div>
+                                         class="bg-[#5E6468] text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
                                     <div class="cursor-pointer flex items-center">
                                         <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
                                              class="inline-block w-[20px] h-[20px]"
                                              @click="removeNewFile(index)"
+                                        >
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template x-for="(fileData, index) in data.files" :key="index">
+                                <div class="contents">
+                                    <div x-text="fileData.filename" :title="fileData.filename"
+                                         class="bg-[#F8F8F8] text-[#5E6468] underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
+                                         :class="{'line-through  text-[#5E6468]/50': fileData.delete}"
+                                    ></div>
+                                    <div class="cursor-pointer flex items-center">
+                                        <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
+                                             class="inline-block w-[20px] h-[20px]"
+                                             @click="removeFile(fileData)"
                                         >
                                     </div>
                                 </div>

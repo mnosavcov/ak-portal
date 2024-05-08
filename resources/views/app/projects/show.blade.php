@@ -8,7 +8,7 @@
         <div class="w-full max-w-[1200px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
             'Projekty' => route('projects.index'),
-            $project->title => route('projects.show', ['project' => $project->url_detail]),
+            $project->title => $project->url_detail,
         ]"></x-app.breadcrumbs>
 
             <h1 class="mb-[25px]">{{ $project->title }}</h1>

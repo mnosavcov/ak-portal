@@ -31,6 +31,9 @@ Alpine.data('projectEdit', (id) => ({
         this.fileList = [];
         this.handleFiles(this.$refs.fileElem.files);
     },
+    removeFile(fileData) {
+        fileData.delete = !fileData.delete;
+    },
     enableSend() {
         let show = this.showSdelteViceInformaci();
         show &&= !!this.data.title.trim().length;
@@ -60,8 +63,8 @@ Alpine.data('projectEdit', (id) => ({
 
         formData.append('data', JSON.stringify({data: this.data}));
 
-        await fetch('/projects', {
-            method: 'POST',
+        await fetch(this.data.routeFetch, {
+            method: this.data.method,
             body: formData,
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
@@ -73,6 +76,7 @@ Alpine.data('projectEdit', (id) => ({
                     return;
                 }
                 alert('Chyba uložení');
+                window.location.href = data.redirect;
             })
             .catch((error) => {
                 alert('Chyba uložení')

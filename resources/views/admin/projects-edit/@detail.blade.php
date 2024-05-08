@@ -80,9 +80,9 @@
 
                 <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
                     <div
-                        class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
-                        :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
-                        @click="indefinitelyDate = !indefinitelyDate"
+                            class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                            :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
+                            @click="indefinitelyDate = !indefinitelyDate"
                     >
                     </div>
                     <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
@@ -92,20 +92,36 @@
                 </div>
             </div>
 
-            <div class="mt-[10px] pt-[25px]" x-data="{ description: @js($project->description) }">
-                <x-input-label for="description" :value="__('Podrobné informace o projektu *')"/>
+            <div class="mt-[10px] pt-[25px]" x-data="{ description: @js($project->description), about: @js($project->about) }">
+                <div class="bg-[#d8d8d8] p-[10px] rounded-[5px] mb-[10px]">
+                    <x-input-label for="description" :value="__('Podrobné informace o projektu *')"/>
+                    <div class="border border-white p-[10px] rounded-[5px]">{!! $project->description !!}</div>
+                    <button class="float-right text-gray-500 mt-[5px] text-[11px]" type="button" @click="if(!confirm('Opravdu zkopírovat text?')) {return}; console.log(tinymce.get('about').setContent(description));">zkopírovat do pole "O projektu"</button>
+                    <div class="clear-both"></div>
+                </div>
+
+                <x-input-label for="about" :value="__('O projektu')"/>
                 <div class="tinyBox-wrap">
                     <div class="tinyBox">
-                        <x-textarea-input id="description" name="description" id="name" class="block mt-1 w-full" type="text"
-                                          required x-model="description"/>
+                        <x-textarea-input id="about" name="about" class="block mt-1 w-full"
+                                          type="text"
+                                          x-model="about"/>
                     </div>
                 </div>
             </div>
 
             <div class="mt-[10px] pt-[25px]" x-data>
-                <x-input-label for="price" :value="__($project->type === 'fixed-price' ? 'Pevná cena' : 'Minimální cena k nabídnutí')"/>
+                <x-input-label for="price"
+                               :value="__($project->type === 'fixed-price' ? 'Pevná cena' : 'Minimální cena k nabídnutí')"/>
                 <x-text-input id="price" name="price" class="block mt-1 w-full" type="text"
                               value="{{ $project->price }}" x-mask:dynamic="$money($input, '.', ' ', 0)"/>
+            </div>
+
+            <div class="mt-[10px] pt-[25px]" x-data>
+                <x-input-label for="minimum_principal"
+                               :value="__('Požadovaná jistina')"/>
+                <x-text-input id="minimum_principal" name="minimum_principal" class="block mt-1 w-full" type="text"
+                              value="{{ $project->minimum_principal }}" x-mask:dynamic="$money($input, '.', ' ', 0)"/>
             </div>
 
             <div class="mt-[10px] pt-[25px]" x-data="{ data: {country: null} }"
