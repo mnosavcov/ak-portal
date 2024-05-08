@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectFile;
 use App\Services\ProjectService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -36,12 +40,12 @@ class ProjectController extends Controller
             'type' => null,
             'types' => [
                 [
-                    'value' => 'fixed_price',
+                    'value' => 'fixed-price',
                     'text' => 'Cenu stanovíte vy (prodávající)',
                     'description' => 'V projektu nastavíte fixní cenu, kterou chcete za projekt obdržet. Jakmile ji některý z investorů nabídne, dochází k ukončení projektu.',
                 ],
                 [
-                    'value' => 'offer_the_price',
+                    'value' => 'offer-the-price',
                     'text' => 'Cenu stanoví zájemce o projekt (investor)',
                     'description' => 'Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.',
                 ],
@@ -101,7 +105,7 @@ class ProjectController extends Controller
                 $insert['representation_end_date'] = $data->data->representation->endDate;
             }
             $insert['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
-            $insert['representation_may_be_cancelled'] = (bool)$data->data->representation->mayBeCancelled === 'yes';
+            $insert['representation_may_be_cancelled'] = (bool)($data->data->representation->mayBeCancelled === 'yes');
         }
 
         $project = Project::create($insert);
@@ -127,12 +131,27 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Contact $contact
-     * @return \Illuminate\Http\Response
      */
-    public function show(Contact $contact)
+    public function show(Request $request, Project $project): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        //
+        $status = $project->status;
+        $nahled = !in_array($status, Project::STATUS_FOR_DETAIL);
+
+        if ($nahled && !auth()->user()->superadmin) {
+            return redirect()->route('homepage');
+        }
+
+        if (!str_ends_with($request->getPathInfo(), '/' . $project->url_detail)) {
+            return redirect(route('projects.show', ['project' => $project->url_detail]), 301);
+        }
+
+        return view(
+            'app.projects.show',
+            [
+                'project' => $project,
+                'nahled' => $nahled,
+            ]
+        );
     }
 
     /**

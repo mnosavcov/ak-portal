@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @vite(['resources/css/app.less', 'resources/js/app.js'])
+    <script src="/js/tinymce/tinymce.min.js"></script>
 
     <title>{{ config('app.name') }}</title>
 </head>

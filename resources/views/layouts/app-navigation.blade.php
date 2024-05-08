@@ -82,32 +82,32 @@
                                         {{ __('Výstavba FVE na klíč') }}
                                     </x-dropdown-link>
                                 </div>
-{{--                                <div class="relative">--}}
-{{--                                    <div class="absolute h-full w-[1px] top-0 bg-[#D9E9F2] left-[-35px]"></div>--}}
-{{--                                    <x-dropdown-content>--}}
-{{--                                        {{ __('Aukce') }}--}}
-{{--                                    </x-dropdown-content>--}}
+                                {{--                                <div class="relative">--}}
+                                {{--                                    <div class="absolute h-full w-[1px] top-0 bg-[#D9E9F2] left-[-35px]"></div>--}}
+                                {{--                                    <x-dropdown-content>--}}
+                                {{--                                        {{ __('Aukce') }}--}}
+                                {{--                                    </x-dropdown-content>--}}
 
-{{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
-{{--                                        {{ __('Pozemky k pronájmu') }}--}}
-{{--                                    </x-dropdown-link>--}}
+                                {{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
+                                {{--                                        {{ __('Pozemky k pronájmu') }}--}}
+                                {{--                                    </x-dropdown-link>--}}
 
-{{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
-{{--                                        {{ __('Pozemky na prodej') }}--}}
-{{--                                    </x-dropdown-link>--}}
+                                {{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
+                                {{--                                        {{ __('Pozemky na prodej') }}--}}
+                                {{--                                    </x-dropdown-link>--}}
 
-{{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
-{{--                                        {{ __('Kapacita v síti distributora') }}--}}
-{{--                                    </x-dropdown-link>--}}
+                                {{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
+                                {{--                                        {{ __('Kapacita v síti distributora') }}--}}
+                                {{--                                    </x-dropdown-link>--}}
 
-{{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
-{{--                                        {{ __('Postoupení práv k projektu') }}--}}
-{{--                                    </x-dropdown-link>--}}
+                                {{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
+                                {{--                                        {{ __('Postoupení práv k projektu') }}--}}
+                                {{--                                    </x-dropdown-link>--}}
 
-{{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
-{{--                                        {{ __('Výstavba FVE na klíč') }}--}}
-{{--                                    </x-dropdown-link>--}}
-{{--                                </div>--}}
+                                {{--                                    <x-dropdown-link :href="route('profile.edit')">--}}
+                                {{--                                        {{ __('Výstavba FVE na klíč') }}--}}
+                                {{--                                    </x-dropdown-link>--}}
+                                {{--                                </div>--}}
                                 <div class="col-span-2 text-center"><a href="#">Zobrazit všechny kategorie</a></div>
                             </div>
                         </x-slot>
@@ -154,6 +154,12 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            @if(auth()->user()->superadmin)
+                                <x-dropdown-link :href="route('admin.projects')">
+                                    {{ __('Administrace') }}
+                                </x-dropdown-link>
+                            @endif
+
                             <x-dropdown-link :href="route('profile.overview')">
                                 {{ __('Přehled účtu') }}
                             </x-dropdown-link>

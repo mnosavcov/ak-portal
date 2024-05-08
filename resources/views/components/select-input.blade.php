@@ -1,4 +1,4 @@
-@props(['disabled' => false, 'options' => ''])
+@props(['disabled' => false, 'options' => []])
 
 <select
     {{ $disabled ? 'disabled' : '' }}
@@ -12,5 +12,7 @@
     ]) !!}
 >
 
-    {!! $options !!}
+    @foreach($options as $index => $option)
+        <option value="{{ $index }}">{{ $option['title'] ?? $option }}</option>
+    @endforeach
 </select>

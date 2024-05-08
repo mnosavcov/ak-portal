@@ -4,10 +4,12 @@ import.meta.glob(["../images/**"]);
 
 import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse'
+import mask from '@alpinejs/mask'
 
 window.Alpine = Alpine;
 
 Alpine.plugin(collapse)
+Alpine.plugin(mask)
 
 import './app/faq.js';
 import './app/register.js';
@@ -20,7 +22,7 @@ Alpine.start();
 function tinymceInit()
 {
     tinymce.init({
-        selector: "div.tinyBox",
+        selector: "div.tinyBox textarea",
         theme: "modern",
         // width: '100%',
         height: 250,

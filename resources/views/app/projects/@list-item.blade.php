@@ -9,7 +9,7 @@
     </div>
 
     <div>
-        <template x-if="project.type === 'offer_the_price'">
+        <template x-if="project.type === 'offer-the-price'">
             <div>
                 <div>cenu nabídnete</div>
                 <div>... stav ...</div>
@@ -17,7 +17,7 @@
                 <div>Cena:</div>
             </div>
         </template>
-        <template x-if="project.type === 'fixed_price'">
+        <template x-if="project.type === 'fixed-price'">
             <div>
                 <div>fixní nabídková cena</div>
                 <div>... stav ...</div>

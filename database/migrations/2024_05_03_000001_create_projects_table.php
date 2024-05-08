@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('user_id');
             $table->string('user_account_type');
-            $table->enum('type', ['auction', 'fixed_price', 'offer_the_price'])->nullable();
+            $table->enum('type', ['auction', 'fixed-price', 'offer-the-price'])->nullable();
             $table->string('status')->default('draft');
             $table->date('end_date')->nullable();
             $table->string('title');

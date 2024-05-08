@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
@@ -31,8 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/profil/save', [ProfileController::class, 'profileSave'])->name('profile.save');
     Route::get('/profil/overview/{account?}', [ProfileController::class, 'overview'])->name('profile.overview');
 
-    Route::prefix('admin')->group(function () {
-        Route::view('/', 'admin.index');
+    Route::middleware('user.superadmin')->group(function () {
+        Route::name('admin.')->group(function () {
+            Route::prefix('admin')->group(function () {
+                Route::view('/', 'admin.index')->name('index');
+                Route::get('projects', [AdminController::class, 'projects'])->name('projects');
+                Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
+                Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
+            });
+        });
     });
 });
 
