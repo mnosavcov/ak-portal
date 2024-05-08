@@ -151,6 +151,8 @@ class ProfileController extends Controller
             $projects = (new ProjectInvestorService())->overview();
         } elseif ($account === 'advertiser' || $account === 'real-estate-broker') {
             $projects = (new ProjectNotInvestorService())->overview($account);
+        } else {
+            return redirect()->route('homepage');
         }
 
         return view(

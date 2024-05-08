@@ -160,21 +160,29 @@
                                 </x-dropdown-link>
                             @endif
 
-                            <x-dropdown-link :href="route('profile.overview')">
-                                {{ __('Přehled účtu') }}
-                            </x-dropdown-link>
+                            @if(!auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
+                                <x-dropdown-link :href="route('profile.overview')">
+                                    {{ __('Přehled účtu') }}
+                                </x-dropdown-link>
+                            @endif
 
-                            <x-dropdown-link :href="route('profile.investor')">
-                                {{ __('Profil investora') }}
-                            </x-dropdown-link>
+                            @if(auth()->user()->investor)
+                                <x-dropdown-link :href="route('profile.investor')">
+                                    {{ __('Profil investora') }}
+                                </x-dropdown-link>
+                            @endif
 
-                            <x-dropdown-link :href="route('profile.advertiser')">
-                                {{ __('Profil nabízejícího') }}
-                            </x-dropdown-link>
+                            @if(auth()->user()->advertiser)
+                                <x-dropdown-link :href="route('profile.advertiser')">
+                                    {{ __('Profil nabízejícího') }}
+                                </x-dropdown-link>
+                            @endif
 
-                            <x-dropdown-link :href="route('profile.real-estate-broker')">
-                                {{ __('Profil realitního makléře') }}
-                            </x-dropdown-link>
+                            @if(auth()->user()->real_estate_broker)
+                                <x-dropdown-link :href="route('profile.real-estate-broker')">
+                                    {{ __('Profil realitního makléře') }}
+                                </x-dropdown-link>
+                            @endif
 
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Nastavení účtu') }}
