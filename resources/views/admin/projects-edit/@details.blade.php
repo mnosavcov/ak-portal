@@ -49,11 +49,8 @@
                             </div>
                             <x-textarea-input x-bind:id="id"
                                               x-bind:name="'details[' + detail.id + '][description]'"
-                                              class="block mt-1 w-full leading-[1.5rem] transition-[height]"
-                                              x-bind:class="{
-                                                'h-[2.5rem]': !detail.is_long,
-                                                'h-[5.5rem]': detail.is_long,
-                                              }"
+                                              class="block mt-1 w-full transition-[height]"
+                                              x-bind:style="{ lineHeight: '1.5rem', height: detail.is_long ? '5.5rem' : '2.5rem' }"
                                               type="text"
                                               x-model="detail.description"/>
                         </div>
