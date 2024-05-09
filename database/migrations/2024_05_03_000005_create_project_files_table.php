@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->text('filepath');
             $table->string('filename');
-            $table->string('order');
+            $table->integer('order')->default(0);
             $table->boolean('public')->default(false);
 
             $table->foreign('project_id')->references('id')->on('projects')->constrained();

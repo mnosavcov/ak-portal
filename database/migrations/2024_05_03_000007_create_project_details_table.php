@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('project_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
-            $table->string('order');
+            $table->integer('order')->default(0);
+            $table->string('head_title');
             $table->string('title');
             $table->text('description');
+            $table->boolean('is_long')->default(false);
 
             $table->foreign('project_id')->references('id')->on('projects')->constrained();
         });

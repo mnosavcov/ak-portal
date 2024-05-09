@@ -73,7 +73,7 @@ class Project extends Model
         });
     }
 
-    public function deatils()
+    public function details()
     {
         return $this->hasMany(ProjectDetail::class);
     }

@@ -21,13 +21,18 @@
 
             @include('admin.projects-edit.@user-info')
 
-            <form method="post" action="" x-data="adminProjectEdit"
-                  x-init="projectStates = @js($project->states->pluck(null, 'id'));"
-            >
+            <form method="post" action="" x-data="adminProjectEdit">
+                @if($project->states->count())
+                    <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
+                @endif
+                @if(count($projectDetails))
+                    <div x-init="projectDetails.data = @js($projectDetails);"></div>
+                @endif
                 @csrf
 
-                @include('admin.projects-edit.@detail')
+                @include('admin.projects-edit.@projekt')
                 @include('admin.projects-edit.@states')
+                @include('admin.projects-edit.@details')
 
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">

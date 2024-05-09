@@ -12,6 +12,11 @@ class ProjectDetail extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'order',
+        'head_title',
+        'title',
+        'description',
+        'is_long',
     ];
 
     public function project()

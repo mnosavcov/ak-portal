@@ -87,7 +87,7 @@
                     </div>
                     <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
                          @click="indefinitelyDate = !indefinitelyDate">
-                        Inzerát je vestavený na neurčito
+                        Inzerát je vystavený na neurčito
                     </div>
                 </div>
             </div>

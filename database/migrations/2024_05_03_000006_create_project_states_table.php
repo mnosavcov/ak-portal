@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('project_states', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
-            $table->string('order');
+            $table->integer('order')->default(0);
             $table->string('title');
             $table->text('description');
             $table->enum('state', ['ok', 'no', 'partly']);

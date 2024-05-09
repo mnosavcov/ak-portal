@@ -1,15 +1,39 @@
 import Alpine from "alpinejs";
 
 Alpine.data('adminProjectEdit', (id) => ({
-    projectStates: {},
-    projectStateId: 0,
-    async addProjectState() {
-        this.projectStateId--;
-        this.projectStates[this.projectStateId] = {id: this.projectStateId, title: '', description: ''}
-        await this.$nextTick();
-        window.tinymceInit();
+    init() {
+        this.projectStates.that = this;
+        this.projectDetails.that = this;
     },
-    deleteState(id) {
-        this.projectStates[id].delete = !this.projectStates[id].delete;
-    }
+    projectStates: {
+        that: null,
+        data: {},
+        newId: 0,
+        async add() {
+            this.newId--;
+            this.data[this.newId] = {id: this.newId, state: 'no', title: '', description: ''}
+            await this.that.$nextTick();
+            window.tinymceInit();
+        },
+        remove(id) {
+            this.data[id].delete = !this.data[id].delete;
+        }
+    },
+
+    projectDetails: {
+        that: null,
+        data: [],
+        newId: 0,
+        add(idParent) {
+            this.newId--;
+            this.data[idParent]['data'][this.newId] = {id: this.newId, is_long: false, title: '', description: ''}
+        },
+        addParent() {
+            this.data.push({head_title: '', data: {}})
+            this.add(this.data.length - 1);
+        },
+        remove(idParent, id) {
+            this.data[idParent]['data'][id].delete = !this.data[idParent]['data'][id].delete;
+        }
+    },
 }));

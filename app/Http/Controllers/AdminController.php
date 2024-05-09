@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectDetail;
 use App\Models\ProjectState;
 use App\Services\AdminService;
 use App\Services\ProjectService;
@@ -71,6 +72,15 @@ class AdminController extends Controller
             ],
         ];
 
+        $projectDetails = $project->details->groupBy('head_title')->values()->mapWithKeys(function ($items, $index) {
+            return [
+                $index => [
+                    'head_title' => $items->first()['head_title'],
+                    'data' => $items->keyBy('id')->toArray()
+                ]
+            ];
+        });
+
         return view(
             'admin.projects-edit',
             [
@@ -78,6 +88,7 @@ class AdminController extends Controller
                 'statuses' => $statuses,
                 'subject_offer' => ProjectService::SUBJECT_OFFERS,
                 'location_offer' => ProjectService::LOCATION_OFFERS,
+                'projectDetails' => $projectDetails,
             ]
         );
     }
@@ -113,9 +124,9 @@ class AdminController extends Controller
         $project->update($update);
 
         // states
-        foreach ($request->post('states') as $stateId => $state) {
+        foreach ($request->post('states') ?? [] as $stateId => $state) {
             if ($stateId > 0) {
-                if($state['delete']) {
+                if ($state['delete']) {
                     ProjectState::where('project_id', $project->id)->find($stateId)?->delete();
                 } else {
                     ProjectState::where('project_id', $project->id)->find($stateId)?->update(
@@ -136,6 +147,34 @@ class AdminController extends Controller
                     ]
                 );
                 $project->states()->save($projectSate);
+            }
+        }
+
+        // details
+        foreach ($request->post('details') ?? [] as $detailId => $detail) {
+            if ($detailId > 0) {
+                if ($detail['delete']) {
+                    ProjectDetail::where('project_id', $project->id)->find($detailId)?->delete();
+                } else {
+                    ProjectDetail::where('project_id', $project->id)->find($detailId)?->update(
+                        [
+                            'head_title' => $detail['head_title'] ?? '',
+                            'title' => $detail['title'] ?? '',
+                            'description' => $detail['description'] ?? '',
+                            'is_long' => (bool)$detail['is_long'],
+                        ]
+                    );
+                }
+            } else {
+                $projectSate = new ProjectDetail(
+                    [
+                        'head_title' => $detail['head_title'] ?? '',
+                        'title' => $detail['title'] ?? '',
+                        'description' => $detail['description'] ?? '',
+                        'is_long' => (bool)$detail['is_long'],
+                    ]
+                );
+                $project->details()->save($projectSate);
             }
         }
 
