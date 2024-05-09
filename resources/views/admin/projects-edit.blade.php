@@ -21,10 +21,13 @@
 
             @include('admin.projects-edit.@user-info')
 
-            <form method="post" action="">
+            <form method="post" action="" x-data="adminProjectEdit"
+                  x-init="projectStates = @js($project->states->pluck(null, 'id'));"
+            >
                 @csrf
 
                 @include('admin.projects-edit.@detail')
+                @include('admin.projects-edit.@states')
 
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">

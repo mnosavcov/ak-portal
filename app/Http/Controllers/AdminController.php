@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectState;
 use App\Services\AdminService;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
@@ -110,6 +111,33 @@ class AdminController extends Controller
         }
 
         $project->update($update);
+
+        // states
+        foreach ($request->post('states') as $stateId => $state) {
+            if ($stateId > 0) {
+                if($state['delete']) {
+                    ProjectState::where('project_id', $project->id)->find($stateId)?->delete();
+                } else {
+                    ProjectState::where('project_id', $project->id)->find($stateId)?->update(
+                        [
+                            'title' => $state['title'] ?? '',
+                            'description' => $state['description'] ?? '',
+                            'state' => $state['state'],
+                        ]
+                    );
+                }
+            } else {
+                $projectSate = new ProjectState(
+                    [
+                        'order' => 0,
+                        'title' => $state['title'] ?? '',
+                        'description' => $state['description'] ?? '',
+                        'state' => $state['state'],
+                    ]
+                );
+                $project->states()->save($projectSate);
+            }
+        }
 
         return redirect()->action(
             [AdminController::class, 'projectEdit'],

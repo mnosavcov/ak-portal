@@ -16,6 +16,7 @@ import './app/register.js';
 import './app/profile.js';
 import './app/project-edit.js';
 import './app/project-list.js';
+import './app/admin-project-edit.js';
 
 Alpine.start();
 
@@ -54,4 +55,5 @@ function tinymceInit()
     })
 }
 
+window.tinymceInit = tinymceInit;
 tinymceInit();

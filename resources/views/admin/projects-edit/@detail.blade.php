@@ -96,7 +96,7 @@
                 <div class="bg-[#d8d8d8] p-[10px] rounded-[5px] mb-[10px]">
                     <x-input-label for="description" :value="__('Podrobné informace o projektu *')"/>
                     <div class="border border-white p-[10px] rounded-[5px]">{!! $project->description !!}</div>
-                    <button class="float-right text-gray-500 mt-[5px] text-[11px]" type="button" @click="if(!confirm('Opravdu zkopírovat text?')) {return}; console.log(tinymce.get('about').setContent(description));">zkopírovat do pole "O projektu"</button>
+                    <button class="float-right text-gray-500 mt-[5px] text-[11px]" type="button" @click="if(!confirm('Opravdu zkopírovat text?')) {return}; tinymce.get('about').setContent(description);">zkopírovat do pole "O projektu"</button>
                     <div class="clear-both"></div>
                 </div>
 

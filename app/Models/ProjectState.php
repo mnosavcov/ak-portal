@@ -12,6 +12,10 @@ class ProjectState extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'order',
+        'title',
+        'description',
+        'state',
     ];
 
     public function project()
