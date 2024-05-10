@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectDetail;
+use App\Models\ProjectFile;
 use App\Models\ProjectState;
 use App\Services\AdminService;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -100,8 +103,8 @@ class AdminController extends Controller
             'status' => $request->status,
             'end_date' => null,
             'about' => $request->about,
-            'price' => str_replace(' ', '', $request->price),
-            'minimum_principal' => str_replace(' ', '', $request->minimum_principal),
+            'price' => str_replace(' ', '', $request->price ?? ''),
+            'minimum_principal' => str_replace(' ', '', $request->minimum_principal ?? ''),
             'country' => $request->country,
         ];
 
@@ -175,6 +178,55 @@ class AdminController extends Controller
                     ]
                 );
                 $project->details()->save($projectSate);
+            }
+        }
+
+        // files
+        foreach ($request->file('files') ?? [] as $file) {
+            $path = $file->store($project->user_id . '/' . $project->id);
+            $projectFile = new ProjectFile([
+                'filepath' => $path,
+                'filename' => $file->getClientOriginalName(),
+                'order' => 0,
+                'public' => true,
+            ]);
+
+            $project->files()->save($projectFile);
+        }
+
+        $fileData = json_decode($request->post('file_data'));
+        foreach ($fileData as $file) {
+            if (isset($file->delete) && $file->public === 1) {
+                $projectFile = ProjectFile::where('project_id', $project->id)->where('public', true)->find($file->id);
+                if (!$projectFile) {
+                    continue;
+                }
+
+                Storage::delete($projectFile->filepath);
+                $projectFile->delete();
+            }
+
+            if (isset($file->copy) && $file->public === 0) {
+                $projectFile = ProjectFile::where('project_id', $project->id)->where('public', false)->find($file->id);
+                if (!$projectFile) {
+                    continue;
+                }
+
+                $ext = pathinfo($projectFile->filepath, PATHINFO_EXTENSION);
+                $filename = $project->user_id . '/' . $project->id . '/' . Str::random(40) . '.' . $ext;
+
+                Storage::put(
+                    $filename,
+                    Storage::get($projectFile->filepath)
+                );
+                $projectFile = new ProjectFile([
+                    'filepath' => $filename,
+                    'filename' => $projectFile->filename,
+                    'order' => 0,
+                    'public' => true,
+                ]);
+
+                $project->files()->save($projectFile);
             }
         }
 

@@ -3,7 +3,6 @@ import Alpine from "alpinejs";
 Alpine.data('adminProjectEdit', (id) => ({
     init() {
         this.projectStates.that = this;
-        this.projectDetails.that = this;
     },
     projectStates: {
         that: null,
@@ -21,7 +20,6 @@ Alpine.data('adminProjectEdit', (id) => ({
     },
 
     projectDetails: {
-        that: null,
         data: [],
         newId: 0,
         add(idParent) {
@@ -35,5 +33,9 @@ Alpine.data('adminProjectEdit', (id) => ({
         remove(idParent, id) {
             this.data[idParent]['data'][id].delete = !this.data[idParent]['data'][id].delete;
         }
+    },
+
+    projectFiles: {
+        data: {},
     },
 }));

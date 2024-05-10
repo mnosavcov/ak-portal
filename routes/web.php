@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::middleware('auth')->group(function () {
+    Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
+
     Route::resource('projects', ProjectController::class)->except(['create', 'update']);
     Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');

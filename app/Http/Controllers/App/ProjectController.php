@@ -217,7 +217,7 @@ class ProjectController extends Controller
                 continue;
             }
 
-            $projectFile = ProjectFile::where('project_id', $project->id)->find($file->id);
+            $projectFile = ProjectFile::where('project_id', $project->id)->where('public', false)->find($file->id);
             if (!$projectFile) {
                 continue;
             }
@@ -245,5 +245,19 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    public function file(Project $project, ProjectFile $projectFile, $urlHash)
+    {
+        if($projectFile->project_id !== $project->id) {
+            return redirect()->route('homepage');
+        }
+
+        $hash = sha1(sprintf('%s-KUYGddfg878-%s', $project->id, $projectFile->id));
+        if($urlHash !== $hash) {
+            return redirect()->route('homepage');
+        }
+
+        return Storage::download($projectFile->filepath, $projectFile->filename);
     }
 }

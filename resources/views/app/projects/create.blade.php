@@ -140,10 +140,10 @@
 
                             <template x-for="(fileData, index) in data.files" :key="index">
                                 <div class="contents">
-                                    <div x-text="fileData.filename" :title="fileData.filename"
+                                    <a :href="fileData.url" x-text="fileData.filename" :title="fileData.filename"
                                          class="bg-[#F8F8F8] text-[#5E6468] underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
                                          :class="{'line-through  text-[#5E6468]/50': fileData.delete}"
-                                    ></div>
+                                    ></a>
                                     <div class="cursor-pointer flex items-center">
                                         <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
                                              class="inline-block w-[20px] h-[20px]"
