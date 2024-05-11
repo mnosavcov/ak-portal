@@ -6,7 +6,7 @@ class InvestorService
 {
     public const LISTS = [
         [
-            'title' => 'Nastavení e-mailových notifikací<',
+            'title' => 'Nastavení e-mailových notifikací',
             'info' => 'Zasílat na kontaktní e-mail upozornění na nové projekty',
             'items' => [
                 'investor_pozemky-k-vystavbe' => 'V kategorii <span class="font-Spartan-SemiBold">Pozemky k výstavbě</span>',

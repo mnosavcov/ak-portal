@@ -19,6 +19,7 @@ class Project extends Model
         'price_text',
         'url_part',
         'url_detail',
+        'about_strip',
     ];
 
     protected $fillable = [
@@ -110,8 +111,10 @@ class Project extends Model
 
     public function commonImg(): Attribute
     {
+        $headImg = $this->galleries()->where('head_img', true)->first()?->url;
+
         return Attribute::make(
-            get: fn(mixed $value, array $attributes) => null
+            get: fn(mixed $value, array $attributes) => $headImg
         );
     }
 
@@ -123,7 +126,23 @@ class Project extends Model
         } else {
             $currentDate = Carbon::now();
             $diff = $currentDate->diff($date);
-            $dateText = $diff->format('%d dní %h hodiny');
+            $dateText = '';
+            if (isset($diff->days) && $diff->days > 0) {
+                if ($diff->days === 1) {
+                    $dateText .= '1 den';
+                } elseif ($diff->days > 1 && $diff->days < 5) {
+                    $dateText .= $diff->days . ' dny';
+                } else {
+                    $dateText .= $diff->days . ' dní';
+                }
+            }
+            if ($diff->h === 1) {
+                $dateText .= ' 1 hodina';
+            } elseif ($diff->h > 1 && $diff->h < 5) {
+                $dateText .= ' ' . $diff->h . ' hodiny';
+            } elseif ($diff->h > 4) {
+                $dateText .= ' ' . $diff->h . ' hodin';
+            }
         }
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $dateText
@@ -135,13 +154,15 @@ class Project extends Model
         $price = $this->price;
         $type = $this->type;
         if ($type === 'fixed-price') {
-            if(empty($price)) {
+            if (auth()->guest()) {
+                $priceText = 'Jen pro přihlášené ';
+            } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
-        } elseif($type = 'offer-the-price') {
-            $priceText = 'Cenu nabídne investor';
+        } elseif ($type = 'offer-the-price') {
+            $priceText = 'nabídněte';
         }
 
         return Attribute::make(
@@ -169,6 +190,15 @@ class Project extends Model
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $url
+        );
+    }
+
+    public function aboutStrip(): Attribute
+    {
+        $about = strip_tags($this->about);
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $about
         );
     }
 

@@ -9,7 +9,9 @@ class ProjectInvestorService
 {
     public function overview(int $page = 0)
     {
-        return [
+        $meInvestice = $this->myInvestment($page);
+
+        $ret = [
             'Projekty' => [
                 'selected' => 'Nové projekty',
                 'data' => [
@@ -21,37 +23,44 @@ class ProjectInvestorService
             'Mé investice' => [
                 'selected' => 'Mé investice',
                 'data' => [
-                    'Mé investice' => $this->myInvestment($page),
+                    'Mé investice' => $meInvestice,
                 ],
             ],
         ];
+
+        if (!$meInvestice->count()) {
+            $ret['Mé investice']['selected'] = 'empty';
+            $ret['Mé investice']['empty'] = 'Zatím nemáte nevybranou žádnou investici.';
+        }
+
+        return $ret;
     }
 
     public function news($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->pluck('project_id');
-        $projects = Project::whereNotIn('id', $showed)->isPublicated()->get();
+        $projects = Project::whereNotIn('id', $showed)->isPublicated()->with('tags')->get();
         return $projects;
     }
 
     public function showed($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->pluck('project_id');
-        $projects = Project::whereIn('id', $showed)->isPublicated()->get();
+        $projects = Project::whereIn('id', $showed)->isPublicated()->with('tags')->get();
         return $projects;
     }
 
     public function favorites($page)
     {
         $favourite = ProjectShow::where('user_id', auth()->id())->where('favourite', true)->pluck('project_id');
-        $projects = Project::whereIn('id', $favourite)->isPublicated()->get();
+        $projects = Project::whereIn('id', $favourite)->isPublicated()->with('tags')->get();
         return $projects;
     }
 
     public function myInvestment($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->whereNotNull('price')->pluck('project_id');
-        $projects = Project::whereIn('id', $showed)->isPublicated()->get();
+        $projects = Project::whereIn('id', $showed)->isPublicated()->with('tags')->get();
         return $projects;
     }
 }

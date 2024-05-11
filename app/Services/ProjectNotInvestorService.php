@@ -34,25 +34,25 @@ class ProjectNotInvestorService
 
     public function drafts($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isDrafted()->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isDrafted()->with('tags')->get();
         return $projects;
     }
 
     public function prepared($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPrepared()->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPrepared()->with('tags')->get();
         return $projects;
     }
 
     public function myProjectsActived($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isActive()->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isActive()->with('tags')->get();
         return $projects;
     }
 
     public function myProjectsNotActived($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isNotActive()->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isNotActive()->with('tags')->get();
         return $projects;
     }
 }

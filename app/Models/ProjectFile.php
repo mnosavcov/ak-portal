@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class ProjectFile extends Model
 {
@@ -34,6 +35,11 @@ class ProjectFile extends Model
         $fileId = $this->id;
         $hash = sha1(sprintf('%s-KUYGddfg878-%s', $projectId, $fileId));
         $filename = $this->filename;
+        $partsFilename = explode('.', $filename);
+        foreach($partsFilename as $index => $partFilename) {
+            $partsFilename[$index] = Str::slug($partFilename);
+        }
+        $filename = implode('.', $partsFilename);
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => route('file', [
