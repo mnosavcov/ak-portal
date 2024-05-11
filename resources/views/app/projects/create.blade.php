@@ -11,7 +11,7 @@
             after:absolute after:bg-[url('/resources/images/ico-button-arrow-left.svg')] after:w-[6px] after:h-[10px] after:left-[17px] after:top-[23px]
             ">Ukončit</a>
 
-            <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[30px] rounded-[7px] file-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+            <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                 <div>V této fázi nevytváříte texty, které by byly bez dalšího zveřejněny. Nyní zasíláte pouze vstupní
                     informace. Následně se s vámi spojí naši specialisté, kteří s vámi připraví konečnou podobu nabídky.
@@ -162,7 +162,7 @@
                 class="bg-white px-[30px] py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                 <h2 class="mb-[25px]">Zvolte preferovaný způsob prodeje projektu</h2>
 
-                <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[30px] rounded-[7px] file-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                     <div>Na našem portálu můžete projekty nabídnout třemi způsoby. V tuto chvíli vybíráte jen předběžně.
                         Konečná volba budete realizovat až před zveřejněním projektu.
@@ -202,7 +202,7 @@
                     class="bg-white px-[30px] py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                     <h2 class="mb-[25px]">Zvolte formu zastoupení klienta</h2>
 
-                    <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[30px] rounded-[7px] file-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                    <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                         <div>Náš portál figuruje v roli realitního zprostředkovatele. Před zveřejněním vašeho projektu
                             budeme muset s vlastníkem či vlastníky projektu uzavřít <span class="font-Spartan-SemiBold">Smlouvu o realitním zprostředkování.</span>
