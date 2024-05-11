@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('filename');
             $table->integer('order')->default(0);
             $table->boolean('public')->default(false);
+            $table->boolean('head_img')->default(false);
 
             $table->foreign('project_id')->references('id')->on('projects')->constrained();
         });

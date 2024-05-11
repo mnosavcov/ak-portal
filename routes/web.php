@@ -21,6 +21,7 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
+    Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 
     Route::resource('projects', ProjectController::class)->except(['create', 'update']);
     Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');

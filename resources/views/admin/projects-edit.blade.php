@@ -31,12 +31,16 @@
                 @if($project->files->count())
                     <div x-init="projectFiles.data = @js($project->files->pluck(null, 'id'));"></div>
                 @endif
+                @if($project->galleries->count())
+                    <div x-init="projectGalleries.data = @js($project->galleries->pluck(null, 'id'));"></div>
+                @endif
                 @csrf
 
                 @include('admin.projects-edit.@projekt')
                 @include('admin.projects-edit.@states')
                 @include('admin.projects-edit.@details')
                 @include('admin.projects-edit.@files')
+                @include('admin.projects-edit.@galleries')
 
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">

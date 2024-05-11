@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
+use App\Models\ProjectGallery;
 use App\Models\ProjectState;
 use App\Services\AdminService;
 use App\Services\ProjectService;
@@ -228,6 +229,36 @@ class AdminController extends Controller
 
                 $project->files()->save($projectFile);
             }
+        }
+
+        // galleries
+        foreach ($request->file('galleries') ?? [] as $gallery) {
+            $path = $gallery->store($project->user_id . '/' . $project->id . '/galleries');
+            $projectGallery = new ProjectGallery([
+                'filepath' => $path,
+                'filename' => $gallery->getClientOriginalName(),
+                'order' => 0,
+                'public' => true,
+                'head_img' => 0,
+            ]);
+
+            $project->galleries()->save($projectGallery);
+        }
+
+        $galleryData = json_decode($request->post('gallery_data'));
+        foreach ($galleryData as $gallery) {
+            if (isset($gallery->delete)) {
+                $projectGallery = ProjectGallery::where('project_id', $project->id)->find($gallery->id);
+                if (!$projectGallery) {
+                    continue;
+                }
+
+                Storage::delete($projectGallery->filepath);
+                $projectGallery->delete();
+                continue;
+            }
+
+            ProjectGallery::where('project_id', $project->id)->find($gallery->id)->update(['head_img' => (bool)$gallery->head_img]);
         }
 
         return redirect()->action(

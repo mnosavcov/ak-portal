@@ -38,4 +38,13 @@ Alpine.data('adminProjectEdit', (id) => ({
     projectFiles: {
         data: {},
     },
+
+    projectGalleries: {
+        data: {},
+        setHead() {
+            for (const key in this.data) {
+                this.data[key].head_img = 0;
+            }
+        }
+    },
 }));

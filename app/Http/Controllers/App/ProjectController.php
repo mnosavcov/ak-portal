@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectFile;
+use App\Models\ProjectGallery;
 use App\Services\ProjectService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -259,5 +260,19 @@ class ProjectController extends Controller
         }
 
         return Storage::download($projectFile->filepath, $projectFile->filename);
+    }
+
+    public function gallery(Project $project, ProjectGallery $projectGallery, $urlHash)
+    {
+        if($projectGallery->project_id !== $project->id) {
+            return redirect()->route('homepage');
+        }
+
+        $hash = sha1(sprintf('%s-KUYGddfg878-%s-gallery', $project->id, $projectGallery->id));
+        if($urlHash !== $hash) {
+            return redirect()->route('homepage');
+        }
+
+        return response()->file(Storage::path($projectGallery->filepath));
     }
 }
