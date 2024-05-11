@@ -47,4 +47,13 @@ Alpine.data('adminProjectEdit', (id) => ({
             }
         }
     },
+
+    projectTags: {
+        data: {},
+        newId: 0,
+        add() {
+            this.newId--;
+            this.data[this.newId] = {id: this.newId, title: '', color: 'default'}
+        },
+    },
 }));

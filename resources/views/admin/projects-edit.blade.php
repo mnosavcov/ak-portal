@@ -34,6 +34,9 @@
                 @if($project->galleries->count())
                     <div x-init="projectGalleries.data = @js($project->galleries->pluck(null, 'id'));"></div>
                 @endif
+                @if($project->tags->count())
+                    <div x-init="projectTags.data = @js($project->tags->pluck(null, 'id'));"></div>
+                @endif
                 @csrf
 
                 @include('admin.projects-edit.@projekt')
@@ -41,6 +44,7 @@
                 @include('admin.projects-edit.@details')
                 @include('admin.projects-edit.@files')
                 @include('admin.projects-edit.@galleries')
+                @include('admin.projects-edit.@settings')
 
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">

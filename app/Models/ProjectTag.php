@@ -12,6 +12,8 @@ class ProjectTag extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'title',
+        'color',
     ];
 
     public function project()

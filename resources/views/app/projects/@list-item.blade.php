@@ -1,4 +1,4 @@
-<a :href="project.url_detail" class="block hover:bg-gray-100" x-init="console.log(project);">
+;<a :href="project.url_detail" class="block hover:bg-gray-100">
 <div class="border border-[#D9E9F2] p-[30px] grid grid-cols-[185px_1fr_max-content] gap-x-[30px] rounded-[3px]">
     <template x-if="project.common_img === null">
         <i class="fa-regular fa-image flex items-center justify-center w-full h-full border border-[#D9E9F2] min-h-[100px]"></i>

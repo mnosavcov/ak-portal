@@ -7,6 +7,7 @@ use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Models\ProjectState;
+use App\Models\ProjectTag;
 use App\Services\AdminService;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
@@ -170,7 +171,7 @@ class AdminController extends Controller
                     );
                 }
             } else {
-                $projectSate = new ProjectDetail(
+                $projectDetail = new ProjectDetail(
                     [
                         'head_title' => $detail['head_title'] ?? '',
                         'title' => $detail['title'] ?? '',
@@ -178,7 +179,7 @@ class AdminController extends Controller
                         'is_long' => (bool)$detail['is_long'],
                     ]
                 );
-                $project->details()->save($projectSate);
+                $project->details()->save($projectDetail);
             }
         }
 
@@ -259,6 +260,30 @@ class AdminController extends Controller
             }
 
             ProjectGallery::where('project_id', $project->id)->find($gallery->id)->update(['head_img' => (bool)$gallery->head_img]);
+        }
+
+        // tags
+        foreach ($request->post('tags') ?? [] as $tagId => $tag) {
+            if ($tagId > 0) {
+                if ($tag['delete'] ?? false) {
+                    ProjectTag::where('project_id', $project->id)->find($tagId)?->delete();
+                } else {
+                    ProjectTag::where('project_id', $project->id)->find($tagId)?->update(
+                        [
+                            'title' => $tag['title'] ?? '',
+                            'color' => $tag['color'],
+                        ]
+                    );
+                }
+            } else {
+                $projectTag = new ProjectTag(
+                    [
+                        'title' => $tag['title'] ?? '',
+                        'color' => $tag['color'],
+                    ]
+                );
+                $project->tags()->save($projectTag);
+            }
         }
 
         return redirect()->action(
