@@ -9,25 +9,25 @@
             <template x-for="(tag, index) in projectTags.data" :key="index">
                 <div class="contents">
                     <x-text-input x-bind:name="'tags[' + index + '][title]'"
-                      class="block mt-1 w-full font-bold text-black" type="text"
-                      x-bind:class="{
+                                  class="block mt-1 w-full font-bold text-black" type="text"
+                                  x-bind:class="{
                         'opacity-25': tag.delete,
                         'bg-app-red/25': tag.color === 'red',
                         'bg-app-blue/25': tag.color === 'blue',
                         'bg-app-green/25': tag.color === 'green',
                         'bg-app-orange/25': tag.color === 'orange',
                         }"
-                      x-model="tag.title" />
+                                  x-model="tag.title"/>
                     <x-select-input x-bind:name="'tags[' + index + '][color]'" class="block mt-1 w-full"
-                        :options="[
+                                    :options="[
                             'default' => '',
                             'red' => 'Červená',
                             'blue' => 'Modrá',
                             'green' => 'Zelená',
                             'orange' => 'Oranžová'
                         ]"
-                        x-bind:class="{ 'opacity-25': tag.delete }"
-                        x-model="tag.color"/>
+                                    x-bind:class="{ 'opacity-25': tag.delete }"
+                                    x-model="tag.color"/>
                     <div class="cursor-pointer" @click="tag.delete = !tag.delete">
                         <input type="hidden" x-bind:name="'tags[' + index + '][delete]'" :value="tag.delete ? 1 : 0">
                         <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
@@ -38,9 +38,11 @@
                 </div>
             </template>
 
-            <button class="col-span-3 inline-bock float-right text-gray-900 mt-[5px] text-[11px]"
-                    type="button" @click="projectTags.add()">přidat
-            </button>
+            <div class="col-span-3">
+                <button class="float-right text-gray-900 mt-[5px] text-[11px] mr-[30px]"
+                        type="button" @click="projectTags.add()">přidat
+                </button>
+            </div>
         </div>
     </div>
 </div>
