@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-359b6264.css",
+    "file": "assets/app-6050954a.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -572,6 +572,10 @@
     "file": "assets/ico-cenu-navrhuje-nabizejici-e11fdb53.svg",
     "src": "resources/images/ico-cenu-navrhuje-nabizejici.svg"
   },
+  "resources/images/ico-clocks.svg": {
+    "file": "assets/ico-clocks-d3a631dd.svg",
+    "src": "resources/images/ico-clocks.svg"
+  },
   "resources/images/ico-delete-file.svg": {
     "file": "assets/ico-delete-file-1997e246.svg",
     "src": "resources/images/ico-delete-file.svg"
@@ -596,6 +600,14 @@
     "file": "assets/ico-moznost-vyzadovat-nda-0e536921.svg",
     "src": "resources/images/ico-moznost-vyzadovat-nda.svg"
   },
+  "resources/images/ico-price_fix.svg": {
+    "file": "assets/ico-price_fix-0d744253.svg",
+    "src": "resources/images/ico-price_fix.svg"
+  },
+  "resources/images/ico-price_offer.svg": {
+    "file": "assets/ico-price_offer-d40cd531.svg",
+    "src": "resources/images/ico-price_offer.svg"
+  },
   "resources/images/ico-projekty-a-investori-z-celeho-sveta.svg": {
     "file": "assets/ico-projekty-a-investori-z-celeho-sveta-10465da3.svg",
     "src": "resources/images/ico-projekty-a-investori-z-celeho-sveta.svg"
@@ -607,6 +619,10 @@
   "resources/images/ico-sami-se-vystavbou-zabyvame.svg": {
     "file": "assets/ico-sami-se-vystavbou-zabyvame-315f71f7.svg",
     "src": "resources/images/ico-sami-se-vystavbou-zabyvame.svg"
+  },
+  "resources/images/ico-status.svg": {
+    "file": "assets/ico-status-dc119d72.svg",
+    "src": "resources/images/ico-status.svg"
   },
   "resources/images/ico-upload.svg": {
     "file": "assets/ico-upload-8486d68d.svg",
@@ -635,6 +651,10 @@
   "resources/images/logo-pwc.png": {
     "file": "assets/logo-pwc-537fa381.png",
     "src": "resources/images/logo-pwc.png"
+  },
+  "resources/images/no-img.svg": {
+    "file": "assets/no-img-6ebd3a45.svg",
+    "src": "resources/images/no-img.svg"
   },
   "resources/images/top-img-homepage.png": {
     "file": "assets/top-img-homepage-e2ebef61.png",
