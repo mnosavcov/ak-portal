@@ -7,12 +7,12 @@
 
 {{--            prepinac mezi subkategoriemi--}}
             <template x-if="Object.entries(projectLists.data).length > 1">
-                <div class="h-[50px] mb-[35px]">
+                <div class="flex flex-wrap mb-[35px] gap-x-[70px]">
                     <template x-for="(projects, index) in projectLists.data" :key="index">
                         <div x-text="index + ' (' + Object.entries(projects).length + ')'"
-                             class="px-[30px] h-[50px] leading-[50px] float-left border cursor-pointer"
+                             class="cursor-pointer font-WorkSans-SemiBold text-[18px] leading-[34px]"
                              @click="projectLists.selected = index"
-                             :class="{ 'bg-gray-400': projectLists.selected === index }"></div>
+                             :class="{ 'text-app-orange underline': projectLists.selected === index }"></div>
                     </template>
                 </div>
             </template>

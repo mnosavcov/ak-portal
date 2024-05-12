@@ -1,5 +1,11 @@
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Aktuální stav</div>
+    <x-textarea-input id="actual_state" name="actual_state" class="block mt-1 w-full">{{ $project->actual_state }}</x-textarea-input>
+</div>
+
+<div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                    after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Projekt</div>
     <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]">
         <div>
@@ -80,9 +86,9 @@
 
                 <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
                     <div
-                            class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
-                            :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
-                            @click="indefinitelyDate = !indefinitelyDate"
+                        class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                        :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
+                        @click="indefinitelyDate = !indefinitelyDate"
                     >
                     </div>
                     <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
@@ -92,11 +98,15 @@
                 </div>
             </div>
 
-            <div class="mt-[10px] pt-[25px]" x-data="{ description: @js($project->description), about: @js($project->about) }">
+            <div class="mt-[10px] pt-[25px]"
+                 x-data="{ description: @js($project->description), about: @js($project->about) }">
                 <div class="bg-[#d8d8d8] p-[10px] rounded-[5px] mb-[10px]">
                     <x-input-label for="description" :value="__('Podrobné informace o projektu *')"/>
                     <div class="border border-white p-[10px] rounded-[5px]">{!! $project->description !!}</div>
-                    <button class="float-right text-gray-500 mt-[5px] text-[11px]" type="button" @click="if(!confirm('Opravdu zkopírovat text?')) {return}; tinymce.get('about').setContent(description);">zkopírovat do pole "O projektu"</button>
+                    <button class="float-right text-gray-500 mt-[5px] text-[11px]" type="button"
+                            @click="if(!confirm('Opravdu zkopírovat text?')) {return}; tinymce.get('about').setContent(description);">
+                        zkopírovat do pole "O projektu"
+                    </button>
                     <div class="clear-both"></div>
                 </div>
 

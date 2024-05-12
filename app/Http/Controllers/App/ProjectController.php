@@ -100,16 +100,11 @@ class ProjectController extends Controller
         }
 
         if ($redirect && in_array($project->status, Project::STATUS_DRAFT) && $project->user_id === auth()->id()) {
-            return redirect()->action(
-                [ProjectController::class, 'edit'],
-                [
-                    'project' => $project->url_part
-                ]
-            );
+            return redirect()->route('projects.edit', ['project' => $project->url_part]);
         }
 
         if ($redirect && in_array($project->status, Project::STATUS_PREPARE) && $project->user_id === auth()->id()) {
-            dd('redir prepare');
+            return redirect()->route('projects.prepare', ['project' => $project->url_part]);
         }
 
         if ($redirect) {
@@ -141,6 +136,7 @@ class ProjectController extends Controller
         }
 
         $data = $projectService->getProjectData($project->user_account_type);
+        $data['id'] = $project->id;
         $data['pageTitle'] = 'Úprava projektu';
         $data['route'] = route('projects.edit', ['project' => $project->url_part]);
         $data['routeFetch'] = route('projects.update', ['project' => $project->url_part]);
@@ -241,21 +237,21 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Project $project)
     {
-        //
+        return (new ProjectService())->destroy($project);
     }
 
     public function file(Project $project, ProjectFile $projectFile, $urlHash)
     {
-        if($projectFile->project_id !== $project->id) {
+        if ($projectFile->project_id !== $project->id) {
             return redirect()->route('homepage');
         }
 
         $hash = sha1(sprintf('%s-KUYGddfg878-%s', $project->id, $projectFile->id));
-        if($urlHash !== $hash) {
+        if ($urlHash !== $hash) {
             return redirect()->route('homepage');
         }
 
@@ -264,15 +260,34 @@ class ProjectController extends Controller
 
     public function gallery(Project $project, ProjectGallery $projectGallery, $urlHash)
     {
-        if($projectGallery->project_id !== $project->id) {
+        if ($projectGallery->project_id !== $project->id) {
             return redirect()->route('homepage');
         }
 
         $hash = sha1(sprintf('%s-KUYGddfg878-%s-gallery', $project->id, $projectGallery->id));
-        if($urlHash !== $hash) {
+        if ($urlHash !== $hash) {
             return redirect()->route('homepage');
         }
 
         return response()->file(Storage::path($projectGallery->filepath));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return RedirectResponse|Application|Factory|\Illuminate\Contracts\Foundation\Application|View
+     */
+    public function prepare(ProjectService $projectService, Project $project)
+    {
+        if ($project->user_id !== auth()->id()) {
+            return redirect()->route('homepage');
+        }
+
+        return view(
+            'app.projects.prepare',
+            [
+                'project' => $project,
+            ]
+        );
     }
 }

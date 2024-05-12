@@ -39,28 +39,28 @@ class ProjectInvestorService
     public function news($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->pluck('project_id');
-        $projects = Project::whereNotIn('id', $showed)->isPublicated()->with('tags')->get();
+        $projects = Project::whereNotIn('id', $showed)->isPublicated()->forDetail()->get();
         return $projects;
     }
 
     public function showed($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->pluck('project_id');
-        $projects = Project::whereIn('id', $showed)->isPublicated()->with('tags')->get();
+        $projects = Project::whereIn('id', $showed)->isPublicated()->forDetail()->get();
         return $projects;
     }
 
     public function favorites($page)
     {
         $favourite = ProjectShow::where('user_id', auth()->id())->where('favourite', true)->pluck('project_id');
-        $projects = Project::whereIn('id', $favourite)->isPublicated()->with('tags')->get();
+        $projects = Project::whereIn('id', $favourite)->isPublicated()->forDetail()->get();
         return $projects;
     }
 
     public function myInvestment($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->whereNotNull('price')->pluck('project_id');
-        $projects = Project::whereIn('id', $showed)->isPublicated()->with('tags')->get();
+        $projects = Project::whereIn('id', $showed)->isPublicated()->forDetail()->get();
         return $projects;
     }
 }

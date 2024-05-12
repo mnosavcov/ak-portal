@@ -108,6 +108,7 @@ class AdminController extends Controller
             'price' => str_replace(' ', '', $request->price ?? ''),
             'minimum_principal' => str_replace(' ', '', $request->minimum_principal ?? ''),
             'country' => $request->country,
+            'actual_state' => trim($request->actual_state),
         ];
 
         if (empty($update['price'])) {
@@ -286,11 +287,6 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->action(
-            [AdminController::class, 'projectEdit'],
-            [
-                'project' => $project->url_part
-            ]
-        );
+        return redirect()->route('admin.projects.edit', ['project' => $project->url_part]);
     }
 }

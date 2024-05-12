@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
+
 class ProjectService
 {
     public const SUBJECT_OFFERS = [
@@ -74,5 +77,38 @@ class ProjectService
             ],
             'files' => [],
         ];
+    }
+
+    public function destroy(Project $project)
+    {
+        if($project->user_id !== auth()->id()) {
+            return response()->json([
+                'status' => 'error',
+                'redirect' => route('homepage'),
+            ]);
+        }
+
+        foreach($project->files as $file) {
+            Storage::delete($file->filepath);
+        }
+
+        foreach($project->galleries as $gallery) {
+            Storage::delete($gallery->filepath);
+        }
+
+        $user_account_type = $project->user_account_type;
+
+        $project->details()->delete();
+        $project->files()->delete();
+        $project->galleries()->delete();
+        $project->shows()->delete();
+        $project->states()->delete();
+        $project->tags()->delete();
+        $project->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'redirect' => route('profile.overview', ['account' => $user_account_type]),
+        ]);
     }
 }

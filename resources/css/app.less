@@ -32,8 +32,9 @@ h2 {
     @apply font-Spartan-Regular float-left relative m-0 p-0;
         font-size: 12px;
         color: #31363A;
+
         &:hover {
-            @apply underline;
+        @apply underline;
         }
 
         &.breadcrumbs-mark {
@@ -49,6 +50,62 @@ h2 {
                 height: 8px;
                 background: transparent url('/resources/images/breadcrumbs-mark.svg') 0 0 no-repeat;
             }
+        }
+    }
+}
+
+.app-project {
+    .app-project-about {
+    @apply font-Spartan-Regular;
+        font-size: 15px;
+        line-height: 26px;
+        color: #414141;
+
+        p {
+            margin-bottom: 25px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .app-project-state {
+        .app-project-state-ok {
+        @apply text-app-green;
+        }
+
+        .app-project-state-no {
+        @apply text-app-red;
+        }
+
+        .app-project-state-partly {
+        @apply text-app-orange;
+        }
+
+        .app-project-state-ok,
+        .app-project-state-no,
+        .app-project-state-partly {
+            margin-bottom: 15px;
+        }
+    }
+
+    .app-project-settings {
+        .app-project-default {
+            color: #31363A;
+            background-color: #F8F8F8;
+        }
+        .app-project-red {
+            @apply text-white bg-app-red;
+        }
+        .app-project-blue {
+            @apply text-white bg-app-blue;
+        }
+        .app-project-green {
+            @apply text-white bg-app-green;
+        }
+        .app-project-orange {
+            @apply text-white bg-app-orange;
         }
     }
 }

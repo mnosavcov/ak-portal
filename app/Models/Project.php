@@ -20,6 +20,7 @@ class Project extends Model
         'url_part',
         'url_detail',
         'about_strip',
+        'actual_state_text',
     ];
 
     protected $fillable = [
@@ -30,6 +31,8 @@ class Project extends Model
         'title',
         'description',
         'about',
+        'actual_state',
+        'user_reminder',
         'price',
         'minimum_principal',
         'subject_offer',
@@ -76,7 +79,7 @@ class Project extends Model
 
     public function details()
     {
-        return $this->hasMany(ProjectDetail::class);
+        return $this->hasMany(ProjectDetail::class)->orderBy('head_title')->orderBy('id');
     }
 
     public function files()
@@ -202,6 +205,18 @@ class Project extends Model
         );
     }
 
+    public function actualStateText(): Attribute
+    {
+        $state = null;
+        if(in_array($this->status, self::STATUS_PREPARE)) {
+            $state = htmlspecialchars(trim($this->actual_state ?? '-- neuvedeno --'));
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $state
+        );
+    }
+
     public function scopeIsDrafted(Builder $query): Builder
     {
         return $query->whereIn('status', self::STATUS_DRAFT);
@@ -227,5 +242,10 @@ class Project extends Model
     {
         return $query->whereNotNull('end_date')
             ->whereRaw('end_date < CURRENT_DATE');
+    }
+
+    public function scopeForDetail(Builder $query): Builder
+    {
+        return $query->with(['tags', 'shows']);
     }
 }

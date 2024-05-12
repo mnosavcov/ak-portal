@@ -9,7 +9,7 @@ class ProjectNotInvestorService
 {
     public function overview($userAccountType, int $page = 0)
     {
-        return [
+        $ret = [
             'Rozpracované projekty' => [
                 'selected' => '1',
                 'data' => [
@@ -30,29 +30,39 @@ class ProjectNotInvestorService
                 ],
             ],
         ];
+
+        if(!$ret['Rozpracované projekty']['data']['1']->count()) {
+            unset($ret['Rozpracované projekty']);
+        }
+
+        if(!$ret['Projekty v režimu přípravy před zveřejněním']['data']['1']->count()) {
+            unset($ret['Projekty v režimu přípravy před zveřejněním']);
+        }
+
+        return $ret;
     }
 
     public function drafts($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isDrafted()->with('tags')->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isDrafted()->forDetail()->get();
         return $projects;
     }
 
     public function prepared($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPrepared()->with('tags')->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPrepared()->forDetail()->get();
         return $projects;
     }
 
     public function myProjectsActived($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isActive()->with('tags')->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isActive()->forDetail()->get();
         return $projects;
     }
 
     public function myProjectsNotActived($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isNotActive()->with('tags')->get();
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isNotActive()->forDetail()->get();
         return $projects;
     }
 }

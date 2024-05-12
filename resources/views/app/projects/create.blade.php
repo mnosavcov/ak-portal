@@ -141,8 +141,8 @@
                             <template x-for="(fileData, index) in data.files" :key="index">
                                 <div class="contents">
                                     <a :href="fileData.url" x-text="fileData.filename" :title="fileData.filename"
-                                         class="bg-[#F8F8F8] text-[#5E6468] underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
-                                         :class="{'line-through  text-[#5E6468]/50': fileData.delete}"
+                                       class="bg-[#F8F8F8] text-[#5E6468] underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
+                                       :class="{'line-through  text-[#5E6468]/50': fileData.delete}"
                                     ></a>
                                     <div class="cursor-pointer flex items-center">
                                         <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
@@ -235,7 +235,8 @@
                         </template>
                     </div>
 
-                    <div x-show="data.representation.selected !== null" x-collapse class="w-full max-w-[600px] p-[30px] bg-[#F8F8F8] mt-[30px] rounded-[7px]">
+                    <div x-show="data.representation.selected !== null" x-collapse
+                         class="w-full max-w-[600px] p-[30px] bg-[#F8F8F8] mt-[30px] rounded-[7px]">
                         <div>
                             <x-input-label for="endDate" :value="__('Smlouva má platnost do *')"/>
                             <x-text-input id="endDate" type="date" x-model="data.representation.endDate" required
@@ -262,16 +263,22 @@
                         <div
                             class="w-full grid grid-cols-[8px_1fr_max-content] gap-x-[20px]">
                             <div class="bg-app-blue h-full w-full"></div>
-                            <div class="font-Spartan-SemiBold text-[15px] text-[#414141] leading-[26px]">Je smlouva podepsaná s možností zrušení a výpovědní lhůtou?</div>
+                            <div class="font-Spartan-SemiBold text-[15px] text-[#414141] leading-[26px]">Je smlouva
+                                podepsaná s možností zrušení a výpovědní lhůtou?
+                            </div>
                             <div class="grid grid-cols-[auto_auto] gap-x-[25px]">
-                                <div class="cursor-pointer font-Spartan-SemiBold text-[15px] leading-[50px] h-[50px] text-app-orange border border-[2px] border-app-orange rounded-[10px] px-[30px]"
-                                     :class="{ '!text-white bg-app-orange': data.representation.mayBeCancelled === 'yes' }"
-                                     @click="data.representation.mayBeCancelled = 'yes'"
-                                >Ano</div>
-                                <div class="cursor-pointer font-Spartan-SemiBold text-[15px] leading-[50px] h-[50px] text-app-orange border border-[2px] border-app-orange rounded-[10px] px-[30px]"
-                                     :class="{ '!text-white bg-app-orange': data.representation.mayBeCancelled === 'no' }"
-                                     @click="data.representation.mayBeCancelled = 'no'"
-                                >Ne</div>
+                                <div
+                                    class="cursor-pointer font-Spartan-SemiBold text-[15px] leading-[50px] h-[50px] text-app-orange border border-[2px] border-app-orange rounded-[10px] px-[30px]"
+                                    :class="{ '!text-white bg-app-orange': data.representation.mayBeCancelled === 'yes' }"
+                                    @click="data.representation.mayBeCancelled = 'yes'"
+                                >Ano
+                                </div>
+                                <div
+                                    class="cursor-pointer font-Spartan-SemiBold text-[15px] leading-[50px] h-[50px] text-app-orange border border-[2px] border-app-orange rounded-[10px] px-[30px]"
+                                    :class="{ '!text-white bg-app-orange': data.representation.mayBeCancelled === 'no' }"
+                                    @click="data.representation.mayBeCancelled = 'no'"
+                                >Ne
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -300,6 +307,20 @@
                 >
                     Odeslat projekt
                 </button>
+
+                <template x-if="data.id">
+                    <div x-data="{ enable: false }" class="relative mt-[-70px]">
+                        <div
+                            class="z-10 absolute bg-white left-[20px] top-[40px] cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                            :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': enable}"
+                            @click="enable = !enable"
+                        >
+                        </div>
+                        <button type="button" @click="deleteProject(data.id)"
+                                class="h-[60px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[70px]"
+                        :disabled="!enable">Smazat&nbsp;projekt</button>
+                    </div>
+                </template>
             </div>
         </div>
     </div>

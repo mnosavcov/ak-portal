@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('about')->nullable();
+            $table->text('actual_state')->nullable();
+            $table->text('user_reminder')->nullable();
             $table->integer('price')->nullable();
             $table->integer('minimum_principal')->nullable();
             $table->string('subject_offer');
