@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-6050954a.css",
+    "file": "assets/app-a99e7b11.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -620,6 +620,18 @@
     "file": "assets/ico-sami-se-vystavbou-zabyvame-315f71f7.svg",
     "src": "resources/images/ico-sami-se-vystavbou-zabyvame.svg"
   },
+  "resources/images/ico-state-no.svg": {
+    "file": "assets/ico-state-no-1a6a6663.svg",
+    "src": "resources/images/ico-state-no.svg"
+  },
+  "resources/images/ico-state-ok.svg": {
+    "file": "assets/ico-state-ok-d870e054.svg",
+    "src": "resources/images/ico-state-ok.svg"
+  },
+  "resources/images/ico-state-partly.svg": {
+    "file": "assets/ico-state-partly-53c8e653.svg",
+    "src": "resources/images/ico-state-partly.svg"
+  },
   "resources/images/ico-status.svg": {
     "file": "assets/ico-status-dc119d72.svg",
     "src": "resources/images/ico-status.svg"
@@ -665,7 +677,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-0e753005.js",
+    "file": "assets/app-a32c7976.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
