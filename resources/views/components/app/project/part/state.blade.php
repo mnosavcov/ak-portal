@@ -4,11 +4,11 @@
     @foreach($project->states as $state)
         <div class="grid grid-cols-[35px_1fr] gap-x-[30px] py-[25px] first:pt-0 last:pb-0">
             @if($state->state === 'ok')
-                <img src="{{ Vite::asset('/resources/images/ico-state-ok.svg') }}">
+                <img src="{{ Vite::asset('resources/images/ico-state-ok.svg') }}">
             @elseif($state->state === 'partly')
-                <img src="{{ Vite::asset('/resources/images/ico-state-partly.svg') }}">
+                <img src="{{ Vite::asset('resources/images/ico-state-partly.svg') }}">
             @else
-                <img src="{{ Vite::asset('/resources/images/ico-state-no.svg') }}">
+                <img src="{{ Vite::asset('resources/images/ico-state-no.svg') }}">
             @endif
             <div>
                 <div class="text-Spartan-SemiBold text-[18px]
