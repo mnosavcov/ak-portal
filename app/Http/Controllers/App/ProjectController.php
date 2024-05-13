@@ -92,7 +92,7 @@ class ProjectController extends Controller
     public function show(Request $request, Project $project): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $status = $project->status;
-        $nahled = !in_array($status, Project::STATUS_FOR_DETAIL);
+        $nahled = !in_array($status, Project::STATUS_PUBLIC);
 
         $redirect = false;
         if ($nahled && !auth()->user()->superadmin) {
@@ -135,6 +135,10 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
+        if (!in_array($project->status, Project::STATUS_DRAFT)) {
+            return redirect()->route('homepage');
+        }
+
         $data = $projectService->getProjectData($project->user_account_type);
         $data['id'] = $project->id;
         $data['pageTitle'] = 'Úprava projektu';
@@ -169,6 +173,13 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         if ($project->user_id !== auth()->id()) {
+            return response()->json([
+                'status' => 'error',
+                'redirect' => route('homepage'),
+            ]);
+        }
+
+        if (!in_array($project->status, Project::STATUS_DRAFT)) {
             return response()->json([
                 'status' => 'error',
                 'redirect' => route('homepage'),
@@ -283,11 +294,37 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
+        if (!in_array($project->status, Project::STATUS_PREPARE)) {
+            return redirect()->route('homepage');
+        }
+
         return view(
             'app.projects.prepare',
             [
                 'project' => $project,
             ]
         );
+    }
+
+    public function confirm(Request $request, Project $project)
+    {
+        if ($project->user_id !== auth()->id()) {
+            return redirect()->route('homepage');
+        }
+
+        if ($project->status !== 'prepared') {
+            return redirect()->route('homepage');
+        }
+
+        if($request->post('type') === 'confirm') {
+            $project->status = 'confirm';
+            $project->save();
+        } elseif($request->post('type') === 'reminder') {
+            $project->status = 'reminder';
+            $project->user_reminder = $request->post('user_reminder');
+            $project->save();
+        }
+
+        return redirect()->route('profile.overview', ['account' => $project->user_account_type]);
     }
 }

@@ -18,7 +18,7 @@
             @foreach($projects as $projectsIndex => $projectList)
                 @continue(!count($projectList))
 
-                <h2 class="p-[5px] bg-gray-200 mt-[25px]">{{ $statuses[$projectsIndex] ?? $projectsIndex }}
+                <h2 class="p-[5px] bg-gray-200 mt-[25px]">{{ $statuses[$projectsIndex]['title'] ?? $projectsIndex }}
                     ({{ count($projectList) }})</h2>
 
                 @foreach($projectList as $project)
@@ -30,6 +30,11 @@
                             <div class="pl-[10px]">{{ $project->price_text }}</div>
                         </div>
                         <div class="mb-[5px]">{!! $project->description !!}</div>
+                        @if($project->status === 'reminder')
+                            <div class="bg-app-red text-white p-[10px] rounded-[3px] mb-[5px]">
+                                {{ $project->user_reminder }}
+                            </div>
+                        @endif
                         <div>
                             <a href="{{ $project->url_detail }}"
                                class="text-app-orange underline hover:no-underline">Náhled projektu</a>

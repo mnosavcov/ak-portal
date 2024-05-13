@@ -1,7 +1,16 @@
+@if($project->status === 'reminder')
+    <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                    after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+        <div class="font-WorkSans-Bold text-[18px] mb-[10px] text-app-red">Připomínky zadavatele</div>
+        <div class="bg-app-red p-[10px] rounded-[5px] text-white">{{ $project->user_reminder }}</div>
+    </div>
+@endif
+
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Aktuální stav</div>
-    <x-textarea-input id="actual_state" name="actual_state" class="block mt-1 w-full">{{ $project->actual_state }}</x-textarea-input>
+    <x-textarea-input id="actual_state" name="actual_state"
+                      class="block mt-1 w-full">{{ $project->actual_state }}</x-textarea-input>
 </div>
 
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
@@ -93,7 +102,7 @@
                     </div>
                     <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
                          @click="indefinitelyDate = !indefinitelyDate">
-                        Inzerát je vystavený na neurčito
+                        Projekt je vystavený na neurčito
                     </div>
                 </div>
             </div>

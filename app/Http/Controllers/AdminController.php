@@ -23,15 +23,7 @@ class AdminController extends Controller
             'admin.projects',
             [
                 'projects' => $projects,
-                'statuses' => [
-                    'draft' => 'Rozpracované',
-                    'send' => 'Odesláno ke zpracování',
-                    'prepared' => 'Připraveno ke kontrole zadavatelem',
-                    'confirm' => 'Potvrzeno zadavatelem',
-                    'reminders' => 'Zadavatel má připomínky',
-                    'publicated' => 'Publikované (aktivní)',
-                    'finished' => 'Publikované (dokončené)',
-                ],
+                'statuses' => Project::STATUSES,
                 'user_account_type' => [
                     'advertiser' => 'Nabízející',
                     'real-estate-broker' => 'Realitní makléř',
@@ -46,36 +38,7 @@ class AdminController extends Controller
 
     public function projectEdit(Project $project)
     {
-        $statuses = [
-            'draft' => [
-                'title' => 'Rozpracováno',
-                'description' => 'Stav ve kterém může zadavatel upravovat zadání (nemůže upravovat data, která jsou zadaná administrátorem))',
-            ],
-            'send' => [
-                'title' => 'Odesláno ke zpracování',
-                'description' => 'Zadavatel odeslal své zadání ke zpracování projektu',
-            ],
-            'prepared' => [
-                'title' => 'Připraveno ke kontrole zadavatelem',
-                'description' => 'Zpracované administrátorem a zaslané zadavateli ke schválení',
-            ],
-            'confirm' => [
-                'title' => 'Potvrzeno zadavatelem',
-                'description' => 'Zadavatel potvrdil správnost inzerátu',
-            ],
-            'reminders' => [
-                'title' => 'Zadavatel má připomínky',
-                'description' => 'Zadavatel má výhrady ke správnosti inzerátu',
-            ],
-            'publicated' => [
-                'title' => 'Publikované (aktivní)',
-                'description' => 'Inzerát bude vypublikován a bude veřejně přístupný',
-            ],
-            'finished' => [
-                'title' => 'Publikované (dokončené)',
-                'description' => 'Inzerát bude nastaven na ukončený, ale bude veřejně viditelný se stavem "Ukončení"',
-            ],
-        ];
+        $statuses = Project::STATUSES;
 
         $projectDetails = $project->details->groupBy('head_title')->values()->mapWithKeys(function ($items, $index) {
             return [

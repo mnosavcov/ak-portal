@@ -83,7 +83,7 @@ Alpine.data('projectEdit', (id) => ({
             });
     },
     async deleteProject(id) {
-        if(!confirm('Opravdu si přejete smazat inzerát? Tato akce je nevratná')) {
+        if(!confirm('Opravdu si přejete smazat projekt? Tato akce je nevratná')) {
             return;
         }
 

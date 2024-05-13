@@ -44,6 +44,68 @@ class Project extends Model
         'representation_may_be_cancelled',
     ];
 
+    public const STATUSES = [
+        'draft' => [
+            'title' => 'Rozpracováno',
+            'description' => 'Stav ve kterém může zadavatel upravovat zadání (nemůže upravovat data, která jsou zadaná administrátorem))',
+        ],
+        'send' => [
+            'title' => 'Odesláno ke zpracování',
+            'description' => 'Zadavatel odeslal své zadání ke zpracování projektu',
+        ],
+        'prepared' => [
+            'title' => 'Připraveno ke kontrole zadavatelem',
+            'description' => 'Zpracované administrátorem a zaslané zadavateli ke schválení',
+        ],
+        'confirm' => [
+            'title' => 'Potvrzeno zadavatelem',
+            'description' => 'Zadavatel potvrdil správnost projektu',
+        ],
+        'reminder' => [
+            'title' => 'Zadavatel má připomínky',
+            'description' => 'Zadavatel má připomínky ke správnosti projektu',
+        ],
+        'publicated' => [
+            'title' => 'Publikované (aktivní)',
+            'description' => 'Projekt bude vypublikován a bude veřejně přístupný',
+        ],
+        'finished' => [
+            'title' => 'Publikované (dokončené)',
+            'description' => 'Projekt bude nastaven na ukončený, ale bude veřejně viditelný se stavem "Ukončení"',
+        ],
+    ];
+
+    public const PAID_TYPES = [
+        'fixed-price' => [
+            'value' => 'fixed-price',
+            'text' => 'Cenu stanovíte vy (prodávající)',
+            'description' => 'V projektu nastavíte fixní cenu, kterou chcete za projekt obdržet. Jakmile ji některý z investorů nabídne, dochází k ukončení projektu.',
+        ],
+        'offer-the-price' => [
+            'value' => 'offer-the-price',
+            'text' => 'Cenu stanoví zájemce o projekt (investor)',
+            'description' => 'Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.',
+        ],
+//        'auction' => [
+//            'value' => 'auction',
+//            'text' => 'Prodej formou aukce',
+//            'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
+//        ],
+    ];
+
+    public const REPRESENTATION_OPTIONS = [
+        'exclusive' => [
+            'value' => 'exclusive',
+            'text' => 'Výhradní zastoupení',
+            'description' => 'Klienta zastupujete jen vy. Za zveřejnění projektu nic neplatíte. Platíte jen za úspěšné zprostředkování prodeje ve výši, na které se dohodneme před zveřejněním projektu.',
+        ],
+        'non-exclusive' => [
+            'value' => 'non-exclusive',
+            'text' => 'Nevýhradní zastoupení',
+            'description' => 'Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu platíte dle našeho ceníku. Zaplatíte za úspěšné zprostředkování prodeje naším portále. Od této částky bude odečten poplatek za zveřejnění projektu.',
+        ],
+    ];
+
     public const STATUS_DRAFT = [
         'draft',
     ];
@@ -52,19 +114,15 @@ class Project extends Model
         'send',
         'prepared',
         'confirm',
-        'reminders',
+        'reminder',
     ];
 
     public const STATUS_PUBLIC = [
         'publicated',
-    ];
-
-    public const STATUS_FINISHED = [
         'finished',
     ];
 
-    public const STATUS_FOR_DETAIL = [
-        'publicated',
+    public const STATUS_FINISHED = [
         'finished',
     ];
 
@@ -147,6 +205,11 @@ class Project extends Model
                 $dateText .= ' ' . $diff->h . ' hodin';
             }
         }
+
+        if($this->status === 'finished') {
+            $dateText = 'dokončeno';
+        }
+
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $dateText
         );
@@ -208,8 +271,11 @@ class Project extends Model
     public function actualStateText(): Attribute
     {
         $state = null;
-        if(in_array($this->status, self::STATUS_PREPARE)) {
+        if (in_array($this->status, self::STATUS_PREPARE)) {
             $state = htmlspecialchars(trim($this->actual_state ?? '-- neuvedeno --'));
+            if (empty(trim($state))) {
+                $state = '-- neuvedeno --';
+            }
         }
 
         return Attribute::make(
@@ -234,14 +300,20 @@ class Project extends Model
 
     public function scopeIsActive(Builder $query): Builder
     {
-        return $query->whereNull('end_date')
-            ->orWhereRaw('end_date >= CURRENT_DATE');
+        return $query->WhereRaw('
+            (end_date is null
+            or end_date >= CURRENT_DATE)
+            and status = ?
+            ', 'publicated');
     }
 
     public function scopeIsNotActive(Builder $query): Builder
     {
-        return $query->whereNotNull('end_date')
-            ->whereRaw('end_date < CURRENT_DATE');
+        return $query->WhereRaw('
+            (end_date is not null
+            and end_date < CURRENT_DATE)
+            or status = ?
+            ', 'finished');
     }
 
     public function scopeForDetail(Builder $query): Builder
