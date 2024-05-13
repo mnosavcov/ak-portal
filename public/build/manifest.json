@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-0e009426.css",
+    "file": "assets/app-9113793f.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -659,6 +659,10 @@
   "resources/images/ico-upload.svg": {
     "file": "assets/ico-upload-8486d68d.svg",
     "src": "resources/images/ico-upload.svg"
+  },
+  "resources/images/ico-user.svg": {
+    "file": "assets/ico-user-158517e1.svg",
+    "src": "resources/images/ico-user.svg"
   },
   "resources/images/ico-x.svg": {
     "file": "assets/ico-x-92c44287.svg",
