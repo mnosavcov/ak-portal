@@ -16,7 +16,11 @@ class Project extends Model
     protected $appends = [
         'common_img',
         'end_date_text',
+        'end_date_text_normal',
+        'end_date_text_long',
         'price_text',
+        'price_text_offer',
+        'minimum_principal_text',
         'url_part',
         'url_detail',
         'about_strip',
@@ -182,7 +186,7 @@ class Project extends Model
         );
     }
 
-    public function endDateText(): Attribute
+    public function endDateText($long = false): Attribute
     {
         $date = $this->end_date;
         if ($date === null) {
@@ -191,21 +195,26 @@ class Project extends Model
             $currentDate = Carbon::now();
             $diff = $currentDate->diff($date);
             $dateText = '';
-            if (isset($diff->days) && $diff->days > 0) {
-                if ($diff->days === 1) {
-                    $dateText .= '1 den';
-                } elseif ($diff->days > 1 && $diff->days < 5) {
-                    $dateText .= $diff->days . ' dny';
-                } else {
-                    $dateText .= $diff->days . ' dní';
+
+            if ($long) {
+                $dateText = sprintf('%s d %s h %s m %s s', $diff->days, $diff->h, $diff->i, $diff->s);
+            } else {
+                if (isset($diff->days) && $diff->days > 0) {
+                    if ($diff->days === 1) {
+                        $dateText .= '1 den';
+                    } elseif ($diff->days > 1 && $diff->days < 5) {
+                        $dateText .= $diff->days . ' dny';
+                    } else {
+                        $dateText .= $diff->days . ' dní';
+                    }
                 }
-            }
-            if ($diff->h === 1) {
-                $dateText .= ' 1 hodina';
-            } elseif ($diff->h > 1 && $diff->h < 5) {
-                $dateText .= ' ' . $diff->h . ' hodiny';
-            } elseif ($diff->h > 4) {
-                $dateText .= ' ' . $diff->h . ' hodin';
+                if ($diff->h === 1) {
+                    $dateText .= ' 1 hodina';
+                } elseif ($diff->h > 1 && $diff->h < 5) {
+                    $dateText .= ' ' . $diff->h . ' hodiny';
+                } elseif ($diff->h > 4) {
+                    $dateText .= ' ' . $diff->h . ' hodin';
+                }
             }
         }
 
@@ -218,7 +227,29 @@ class Project extends Model
         );
     }
 
-    public function priceText(): Attribute
+    public function endDateTextLong(): Attribute
+    {
+        return $this->endDateText(true);
+    }
+
+    public function endDateTextNormal(): Attribute
+    {
+        if (empty($this->end_date)) {
+            $dateText = 'bez termínu';
+        } else {
+            $dateText = Carbon::parse($this->end_date)->format('d.m.Y H:i:s');
+        }
+
+        if ($this->status === 'finished') {
+            $dateText = 'dokončeno';
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $dateText
+        );
+    }
+
+    public function priceText($offer = false): Attribute
     {
         $priceText = '';
         $price = $this->price;
@@ -232,7 +263,50 @@ class Project extends Model
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
         } elseif ($type === 'offer-the-price') {
-            $priceText = 'nabídněte';
+            if (auth()->guest()) {
+                if ($offer) {
+                    $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
+                } else {
+                    $priceText = 'Jen pro přihlášené';
+                }
+            } elseif (empty($price)) {
+                $priceText = 'Není zadaná';
+            } else {
+                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+            }
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $priceText
+        );
+    }
+
+    public function priceTextOffer(): Attribute
+    {
+        return $this->priceText(true);
+    }
+
+    public function minimumPrincipalText(): Attribute
+    {
+        $priceText = '';
+        $price = $this->minimum_principal;
+        $type = $this->type;
+        if ($type === 'fixed-price') {
+            if (auth()->guest()) {
+                $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
+            } elseif (empty($price)) {
+                $priceText = 'Cena není zadaná';
+            } else {
+                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+            }
+        } elseif ($type === 'offer-the-price') {
+            if (auth()->guest()) {
+                $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
+            } elseif (empty($price)) {
+                $priceText = 'Cena není zadaná';
+            } else {
+                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+            }
         }
 
         return Attribute::make(
@@ -320,7 +394,6 @@ class Project extends Model
 
                 $ret[] = (object)$item->toArray();
             }
-            $ret = collect($ret);
         }
 
         return Attribute::make(

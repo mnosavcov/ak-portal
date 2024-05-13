@@ -46,6 +46,15 @@
                 <div>
                     <x-app.project.part.settings :project="$project"></x-app.project.part.settings>
                 </div>
+
+                <div>
+                    @if($project->type === 'fixed-price')
+                    <x-app.project.part.detail-fixed-price :project="$project"></x-app.project.part.detail-fixed-price>
+                        @endif
+                        @if($project->type === 'offer-the-price')
+                            <x-app.project.part.detail-offer-the-price :project="$project"></x-app.project.part.detail-offer-the-price>
+                        @endif
+                </div>
             </div>
 
             <div class="col-span-2">

@@ -17,7 +17,7 @@
             @guest
                 <div class="grid grid-cols-2 gap-x-[50px] pt-[110px]">
                     <button type="button"
-                            class="font-Spartan-Regular bg-[#F2940D] text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] justify-self-end"><span
+                            class="font-Spartan-Regular bg-app-orange text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] justify-self-end"><span
                             class="font-Spartan-Bold">Chci investovat</span> do projektu
                     </button>
                     <button type="button"
@@ -64,7 +64,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
                         placerat enim sit amet, aliquet est.
                     </div>
-                    <div class="text-[#F2940D] font-Spartan-Regular text-[15px] leading-[26px] mb-[20px]">
+                    <div class="text-app-orange font-Spartan-Regular text-[15px] leading-[26px] mb-[20px]">
                         Zobrazit projekty
                     </div>
                     <div class="text-[#0376C8] font-Spartan-Regular text-[15px] leading-[26px]">Nabídnout
@@ -83,7 +83,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
                         placerat enim sit amet, aliquet est.
                     </div>
-                    <div class="text-[#F2940D] font-Spartan-Regular text-[15px] leading-[26px] mb-[20px]">
+                    <div class="text-app-orange font-Spartan-Regular text-[15px] leading-[26px] mb-[20px]">
                         Zobrazit projekty
                     </div>
                     <div class="text-[#0376C8] font-Spartan-Regular text-[15px] leading-[26px]">Nabídnout
