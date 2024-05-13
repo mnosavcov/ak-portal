@@ -220,6 +220,7 @@ class Project extends Model
 
     public function priceText(): Attribute
     {
+        $priceText = '';
         $price = $this->price;
         $type = $this->type;
         if ($type === 'fixed-price') {

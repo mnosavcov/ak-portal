@@ -1,16 +1,23 @@
 <x-app-layout>
+    <div class="w-full bg-cover bg-center h-[894px] absolute"
+         @if($project->common_img)
+             style="background-image: url('{{ $project->common_img }}')"
+         @else
+             style="background-image: url('{{ Vite::asset('resources/images/bg-project-default.png') }}')"
+        @endif
+    ></div>
     @if($nahled)
         <div
-            class="font-WorkSans-SemiBold text-white bg-app-orange rounded-[3px] max-w-[1200px] mx-auto p-[25px] text-center text-[32px] leading-[44px] mb-[25px]">
+            class="relative font-WorkSans-SemiBold text-white bg-app-orange rounded-[3px] max-w-[1200px] mx-auto p-[25px] text-center text-[32px] leading-[44px] mb-[25px]">
             Náhled projektu před zveřejněním
         </div>
     @endif
-    <div class="app-project">
-        <div class="w-full max-w-[1200px] mx-auto">
+    <div class="app-project relative">
+        <div class="w-full max-w-[1200px] mx-auto text-white">
             <x-app.breadcrumbs :breadcrumbs="[
             'Projekty' => route('projects.index'),
             $project->title => $project->url_detail,
-        ]"></x-app.breadcrumbs>
+        ]" :color="'text-white'" :mark="'breadcrumbs-mark-white'"></x-app.breadcrumbs>
 
             <h1 class="mb-[50px]">{{ $project->title }}</h1>
         </div>
@@ -42,7 +49,7 @@
             </div>
 
             <div class="col-span-2">
-                <x-app.project.part.gallery :project="$project"></x-app.project.part.gallery>
+                <x-app.project.part.gallery-detail :project="$project"></x-app.project.part.gallery-detail>
             </div>
 
             <div class="col-span-2 mt-[70px]">
