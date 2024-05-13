@@ -2,7 +2,7 @@
 
 <div class="app-project-details grid grid-cols-2 gap-x-[70px]">
     <div>
-        @foreach($project->details as $detail)
+        @foreach($project->details_prepared as $detail)
             @if($temp !== $detail->head_title)
                 @if($nextDiv === $halfCount)
                     </div><div>

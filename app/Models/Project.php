@@ -22,6 +22,8 @@ class Project extends Model
         'about_strip',
         'actual_state_text',
         'status_text',
+        'states_prepared',
+        'details_prepared',
     ];
 
     protected $fillable = [
@@ -207,7 +209,7 @@ class Project extends Model
             }
         }
 
-        if($this->status === 'finished') {
+        if ($this->status === 'finished') {
             $dateText = 'dokončeno';
         }
 
@@ -288,14 +290,66 @@ class Project extends Model
     {
         $state = '---';
 
-        if($this->status === 'publicated') {
+        if ($this->status === 'publicated') {
             $state = '<span class="text-app-green">Aktivní</span>';
-        } elseif($this->status === 'publicated') {
+        } elseif ($this->status === 'publicated') {
             $state = '<span class="text-app-green">Ukončeno</span>';
         }
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $state
+        );
+    }
+
+    public function statesPrepared(): Attribute
+    {
+        $data = $this->states;
+        $ret = $data;
+
+        if (auth()->guest()) {
+            $ret = [];
+            foreach ($data as $item) {
+                $description = html_entity_decode($item->description ?? '');
+                $description = preg_split("/\R/", strip_tags($description));
+                foreach ($description as $index => $itemX) {
+                    $strLen = ceil((mb_strlen($itemX) / 2) * 1.5);
+                    $description[$index] = '<p><span style="background-color: #EBE9E9; overflow: hidden">' . str_repeat(' &nbsp;', $strLen) . '</span></p>';
+                }
+                $item->description = implode("\n", $description);
+
+                $ret[] = (object)$item->toArray();
+            }
+            $ret = collect($ret);
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $ret
+        );
+    }
+
+    public function detailsPrepared(): Attribute
+    {
+        $data = $this->details;
+        $ret = $data;
+
+        if (auth()->guest()) {
+            $ret = [];
+            foreach ($data as $item) {
+                $description = html_entity_decode($item->description ?? '');
+                $description = preg_split("/\R/", strip_tags($description));
+                foreach ($description as $index => $itemX) {
+                    $strLen = ceil((mb_strlen($itemX) / 2) * 1.5);
+                    $description[$index] = '<p><span style="background-color: #EBE9E9; overflow: hidden">' . str_repeat(' &nbsp;', $strLen) . '</span></p>';
+                }
+                $item->description = implode("\n", $description);
+
+                $ret[] = (object)$item->toArray();
+            }
+            $ret = collect($ret);
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $ret
         );
     }
 

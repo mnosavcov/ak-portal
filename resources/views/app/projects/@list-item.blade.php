@@ -46,11 +46,11 @@
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]"
-                        x-text="project.status_text">
+                        x-html="project.status_text">
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-clocks.svg')] after:w-[15px] after:h-[15px]"
-                        x-html="project.end_date_text">
+                        x-text="project.end_date_text">
                     </div>
                     <div
                         class="font-Spartan-Regular text-[14px] text-[#31363A]">
