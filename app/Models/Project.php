@@ -227,7 +227,7 @@ class Project extends Model
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
-        } elseif ($type = 'offer-the-price') {
+        } elseif ($type === 'offer-the-price') {
             $priceText = 'nabídněte';
         }
 
