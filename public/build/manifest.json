@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-a99e7b11.css",
+    "file": "assets/app-18ad393f.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -677,7 +677,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-a32c7976.js",
+    "file": "assets/app-f936a7ee.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
