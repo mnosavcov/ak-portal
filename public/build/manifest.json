@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-82113354.css",
+    "file": "assets/app-4228b144.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -607,6 +607,10 @@
   "resources/images/ico-price_offer.svg": {
     "file": "assets/ico-price_offer-d40cd531.svg",
     "src": "resources/images/ico-price_offer.svg"
+  },
+  "resources/images/ico-private.svg": {
+    "file": "assets/ico-private-29ed48e1.svg",
+    "src": "resources/images/ico-private.svg"
   },
   "resources/images/ico-projekty-a-investori-z-celeho-sveta.svg": {
     "file": "assets/ico-projekty-a-investori-z-celeho-sveta-10465da3.svg",
