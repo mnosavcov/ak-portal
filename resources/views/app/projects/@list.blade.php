@@ -3,9 +3,9 @@
         <div
             class="bg-white px-[30px] py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
 
-            <h2 class="mb-[50px]" x-text="index"></h2>
+            <h2 class="mb-[50px]" :class="{'text-center': projectLists.titleCenter }" x-text="index"></h2>
 
-{{--            prepinac mezi subkategoriemi--}}
+            {{--            prepinac mezi subkategoriemi--}}
             <template x-if="Object.entries(projectLists.data).length > 1">
                 <div class="flex flex-wrap mb-[35px] gap-x-[70px]">
                     <template x-for="(projects, index) in projectLists.data" :key="index">
@@ -17,7 +17,7 @@
                 </div>
             </template>
 
-{{--            nahled projektu--}}
+            {{--            nahled projektu--}}
             <template x-for="(projects, index) in projectLists.data" :key="index">
                 <div x-show="projectLists.selected === index" class="grid gap-y-[25px]">
                     <template x-for="(project, index) in projects" :key="index">
@@ -26,8 +26,16 @@
                 </div>
             </template>
 
-            <div x-show="projectLists.selected === 'empty'" class="grid gap-y-[25px]" x-text="projectLists.empty">
-            </div>
+            <div x-show="projectLists.selected === 'empty'" class="grid gap-y-[25px]" x-text="projectLists.empty"></div>
+
+            @isset($projectsListButtonAll)
+                <div
+                    class="text-center mt-[50px]">
+                    <a class="inline-block px-[30px] h-[58px] leading-[58px] font-Spartan-SemiBold text-[16px] text-[#31363A] border border-[2px] border-[#31363A]"
+                       href="{{ $projectsListButtonAll['url'] }}">{{ $projectsListButtonAll['title'] }}
+                    </a>
+                </div>
+            @endisset
         </div>
     </template>
 </div>

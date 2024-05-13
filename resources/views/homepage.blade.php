@@ -31,8 +31,8 @@
         </div>
     </x-app.top-content>
 
-    <div class="relative">
-        @include('app.@projects')
+    <div class="relative min-h-[500px]">
+        @include('app.projects.@list')
     </div>
 
     @include('app.@proc')

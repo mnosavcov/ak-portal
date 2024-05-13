@@ -21,6 +21,7 @@ class Project extends Model
         'url_detail',
         'about_strip',
         'actual_state_text',
+        'status_text',
     ];
 
     protected $fillable = [
@@ -276,6 +277,21 @@ class Project extends Model
             if (empty(trim($state))) {
                 $state = '-- neuvedeno --';
             }
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $state
+        );
+    }
+
+    public function statusText(): Attribute
+    {
+        $state = '---';
+
+        if($this->status === 'publicated') {
+            $state = '<span class="text-app-green">Aktivní</span>';
+        } elseif($this->status === 'publicated') {
+            $state = '<span class="text-app-green">Ukončeno</span>';
         }
 
         return Attribute::make(

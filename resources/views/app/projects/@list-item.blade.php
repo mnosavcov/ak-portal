@@ -44,13 +44,13 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_offer.svg')] after:w-[15px] after:h-[15px]">
                         cenu nabídnete
                     </div>
-                    {{--                    <div--}}
-                    {{--                        class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]"--}}
-                    {{--                        x-text="project.end_date_text">--}}
-                    {{--                    </div>--}}
+                    <div
+                        class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]"
+                        x-text="project.status_text">
+                    </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-clocks.svg')] after:w-[15px] after:h-[15px]"
-                        x-text="project.end_date_text">
+                        x-html="project.end_date_text">
                     </div>
                     <div
                         class="font-Spartan-Regular text-[14px] text-[#31363A]">
@@ -70,10 +70,10 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_fix.svg')] after:w-[15px] after:h-[15px]">
                         fixní nabídková cena
                     </div>
-                    {{--                    <div--}}
-                    {{--                        class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]"--}}
-                    {{--                        x-text="project.end_date_text">--}}
-                    {{--                    </div>--}}
+                    <div
+                        class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]"
+                        x-html="project.status_text">
+                    </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-clocks.svg')] after:w-[15px] after:h-[15px]"
                         x-text="project.end_date_text">
@@ -93,9 +93,11 @@
         </div>
 
         <template x-if="project.actual_state_text">
-            <div class="mt-[15px] col-span-3 grid grid-cols-[min-content_1fr] bg-[#F8F8F8] p-[10px] rounded-[3px] gap-x-[15px]">
+            <div
+                class="mt-[15px] col-span-3 grid grid-cols-[min-content_1fr] bg-[#F8F8F8] p-[10px] rounded-[3px] gap-x-[15px]">
                 <div class="font-Spartan-SemiBold text-[14px] text-[#31363A]">Aktuální&nbsp;stav:</div>
-                <div class="font-Spartan-Regular text-[14px] text-[#31363A]" x-html="project.actual_state_text.trim().replace(/\n/g, '<br>')"></div>
+                <div class="font-Spartan-Regular text-[14px] text-[#31363A]"
+                     x-html="project.actual_state_text.trim().replace(/\n/g, '<br>')"></div>
             </div>
         </template>
     </div>

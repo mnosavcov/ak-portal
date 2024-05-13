@@ -19,7 +19,21 @@ class ProjectController extends Controller
 
     public function index()
     {
-        return view('app.projects.index');
+        $projectAll = Project::isPublicated()->forDetail()->get();
+
+        $projects = [
+            'Projekty' => [
+                'selected' => '1',
+                'titleCenter' => true,
+                'data' => [
+                    '1' => $projectAll,
+                ],
+            ]
+        ];
+
+        return view('app.projects.index', [
+            'projects' => $projects,
+        ]);
     }
 
     /**
