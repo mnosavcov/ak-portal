@@ -36,9 +36,23 @@ h1 {
 
 h2 {
 @apply font-WorkSans-SemiBold;
-    font-size: 28px;
+    font-size: 18px;
     line-height: 34px;
     color: #414141;
+}
+
+@media (min-width: @tablet) {
+    h2 {
+        font-size: 23px;
+        line-height: 40px;
+    }
+}
+
+@media (min-width: @laptop) {
+    h2 {
+        font-size: 28px;
+        line-height: 34px;
+    }
 }
 
 #breadcrumbs {

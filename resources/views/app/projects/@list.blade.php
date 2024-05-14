@@ -1,9 +1,17 @@
-<div x-data="projectList" x-init="projectsData = @js($projects);">
+<div x-data="projectList" x-init="projectsData = @js($projects);" class="w-full px-[15px]">
     <template x-for="(projectLists, index) in projectsData" :key="index">
         <div
-            class="bg-white px-[30px] py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
+            class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto
+            px-[10px] py-[25px]
+            tablet:px-[20px] tablet:py-[35px]
+            laptop:px-[30px] laptop:py-[50px]
+            ">
 
-            <h2 class="mb-[50px]" :class="{'text-center': projectLists.titleCenter }" x-text="index"></h2>
+            <h2 class="
+                mb-[20px]
+                tablet:mb-[35px]
+                laptop:mb-[50px]
+            " :class="{'text-center': projectLists.titleCenter }" x-text="index"></h2>
 
             {{--            prepinac mezi subkategoriemi--}}
             <template x-if="Object.entries(projectLists.data).length > 1">

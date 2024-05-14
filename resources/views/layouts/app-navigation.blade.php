@@ -341,7 +341,27 @@
 
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="mt-3 space-y-1">
+                <div class="space-y-1">
+                    <div class="space-y-1">
+                        <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
+                            {{ __('Projekty') }}
+                        </x-responsive-nav-link>
+                    </div>
+                    <div class="space-y-1">
+                        <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('xhomepage')">
+                            {{ __('Jak to funguje') }}
+                        </x-responsive-nav-link>
+                    </div>
+                    <div class="space-y-1">
+                        <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('xhomepage')">
+                            {{ __('O nás') }}
+                        </x-responsive-nav-link>
+                    </div>
+                    <div class="pb-3 space-y-1">
+                        <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('xhomepage')">
+                            {{ __('Kontakt') }}
+                        </x-responsive-nav-link>
+                    </div>
                     <x-responsive-nav-link :href="route('login')">
                         {{ __('Přihlásit se') }}
                     </x-responsive-nav-link>

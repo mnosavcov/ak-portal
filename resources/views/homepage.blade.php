@@ -27,16 +27,16 @@
                     tablet:gap-x-[30px] tablet:pt-[80px] tablet:grid-cols-2
                     laptop:gap-x-[50px] laptop:pt-[110px]
                     ">
-                <a
-                        class="font-Spartan-Regular bg-app-orange text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                <a href="{{ auth()->user() ? route('projects.index') : route('login') }}"
+                   class="font-Spartan-Regular bg-app-orange text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
                              laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
                              "><span
                         class="font-Spartan-Bold">Chci investovat</span> do projektu
                 </a>
-                <a
-                        class="font-Spartan-Regular bg-[#0376C8] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                <a href="{{ auth()->user() ? route('projects.create', ['accountType' => 'advertiser']) : route('login') }}"
+                   class="font-Spartan-Regular bg-[#0376C8] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
                              laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
@@ -55,62 +55,120 @@
 
     @include('app.@proc')
 
-    <div class="bg-white pb-[210px]">
-        <div class="w-full bg-cover bg-center h-[672px] relative"
-             style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')">
-            <div class="max-w-[1440px] mx-auto p-[60px] text-white text-center">
+    <div class="bg-white pb-[50px] laptop:pb-[0px]">
+        <div class="w-full bg-cover bg-center h-full relative">
+            <div class="absolute top-0 left-0 right-0 bottom-[130px] bg-center bg-cover"
+                 style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')"></div>
+            <div class="relative mx-auto p-[60px] text-white text-center">
                 <h2 class="mb-[35px] text-white">
                     Jak se u nás projekty nabízejí?
                 </h2>
-                <div class="text-[20px] leading-[30px] max-w-[720px] mx-auto">Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit. Nunc ac sem finibus, placerat enim
+                <div class="max-w-[720px] mx-auto
+                    text-[16px] leading-[16px]
+                    tablet:text-[18px] tablet:leading-[24px]
+                    laptop:text-[20px] laptop:leading-[30px]
+                    ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus, placerat enim
                     sit amet, aliquet est. Suspendisse ultricies nisi nec ipsum posuere ullamcorper id eu
-                    neque.
-                    Vivamus ultrices elit sed scelerisque vulputate.
+                    neque. Vivamus ultrices elit sed scelerisque vulputate.
                 </div>
             </div>
 
-            <div class="max-w-[1440px] mx-auto grid grid-cols-2 mb-[100px] gap-x-[100px]">
-                <div
-                    class="bg-white w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center justify-self-end rounded-[3px]">
-                    <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-kupujici.svg') }}"
-                         class="h-[100px] mb-[50px] mx-auto">
-                    <div class="text-[#31363A] text-[18px] font-Spartan-Bold leading-[30px] mb-[30px]">Cenu
-                        navrhuje kupující
-                    </div>
-                    <div class="text-[#31363A] font-Spartan-Regular text-[15px] leading-[26px] mb-[30px]">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
-                        placerat enim sit amet, aliquet est.
-                    </div>
-                    <div class="text-app-orange font-Spartan-Regular text-[15px] leading-[26px] mb-[20px]">
-                        Zobrazit projekty
-                    </div>
-                    <div class="text-[#0376C8] font-Spartan-Regular text-[15px] leading-[26px]">Nabídnout
-                        svůj projekt
+            <div class="relative max-w-[1440px] mx-auto grid gap-x-[100px] gap-y-[50px]
+                    grid-cols-1
+                    laptop:grid-cols-2
+                    ">
+                <div class="w-full max-w-[440px] px-[15px] justify-self-center laptop:justify-self-end">
+                    <div
+                        class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
+                        ">
+                        <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-kupujici.svg') }}"
+                             class="h-[100px] mx-auto
+                          mb-[25px]
+                          tablet:mb-[35px]
+                          laptop:mb-[50px]
+                         ">
+
+                        <div class="text-[#31363A] font-Spartan-Bold leading-[30px]
+                         text-[13px] mb-[25px]
+                         tablet:text-[15px]
+                         laptop:text-[18px] laptop:mb-[30px]
+                        ">
+                            Cenu navrhuje kupující
+                        </div>
+
+                        <div class="text-[#31363A] font-Spartan-Regular
+                         text-[12px] mb-[25px] leading-[18px]
+                         tablet:text-[13px] tablet:leading-[22px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                        ">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
+                            placerat enim sit amet, aliquet est.
+                        </div>
+
+                        <div class="text-app-orange font-Spartan-Regular mb-[20px]
+                         text-[12px] leading-[18px]
+                         tablet:text-[13px] tablet:leading-[22px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                    ">
+                            Zobrazit projekty
+                        </div>
+
+                        <div class="text-[#0376C8] font-Spartan-Regular
+                        text-[12px] leading-[18px]
+                         tablet:text-[13px] tablet:leading-[22px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         ">Nabídnout svůj projekt
+                        </div>
                     </div>
                 </div>
 
-                <div
-                    class="bg-white w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]">
-                    <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-nabizejici.svg') }}"
-                         class="h-[100px] mb-[50px] mx-auto">
-                    <div class="text-[#31363A] text-[18px] font-Spartan-Bold leading-[30px] mb-[30px]">Cenu
-                        navrhuje nabízející
-                    </div>
-                    <div class="text-[#31363A] font-Spartan-Regular text-[15px] leading-[26px] mb-[30px]">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
-                        placerat enim sit amet, aliquet est.
-                    </div>
-                    <div class="text-app-orange font-Spartan-Regular text-[15px] leading-[26px] mb-[20px]">
-                        Zobrazit projekty
-                    </div>
-                    <div class="text-[#0376C8] font-Spartan-Regular text-[15px] leading-[26px]">Nabídnout
-                        svůj projekt
+                <div class="w-full max-w-[440px] px-[15px] justify-self-center laptop:justify-self-start">
+                    <div
+                        class="relative bg-white w-full px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
+                        ">
+                        <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-nabizejici.svg') }}"
+                             class="h-[100px] mx-auto
+                          mb-[25px]
+                          tablet:mb-[35px]
+                          laptop:mb-[50px]
+                         ">
+                        <div class="text-[#31363A] font-Spartan-Bold leading-[30px]
+                         text-[13px] mb-[25px]
+                         tablet:text-[15px]
+                         laptop:text-[18px] laptop:mb-[30px]
+                        ">
+                            Cenu navrhuje nabízející
+                        </div>
+                        <div class="text-[#31363A] font-Spartan-Regular
+                         text-[12px] mb-[25px] leading-[18px]
+                         tablet:text-[13px] tablet:leading-[22px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                        ">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
+                            placerat enim sit amet, aliquet est.
+                        </div>
+                        <div class="text-app-orange font-Spartan-Regular mb-[20px]
+                         text-[12px] leading-[18px]
+                         tablet:text-[13px] tablet:leading-[22px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                    ">
+                            Zobrazit projekty
+                        </div>
+                        <div class="text-[#0376C8] font-Spartan-Regular
+                        text-[12px] leading-[18px]
+                         tablet:text-[13px] tablet:leading-[22px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                    ">Nabídnout
+                            svůj projekt
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @include('app.@faq')
+    <div class="pt-[25px] laptop:pt-[100px] bg-white">
+        @include('app.@faq')
+    </div>
 </x-app-layout>
