@@ -64,8 +64,8 @@
                     Jak se u nás projekty nabízejí?
                 </h2>
                 <div class="max-w-[720px] mx-auto
-                    text-[16px] leading-[16px]
-                    tablet:text-[18px] tablet:leading-[24px]
+                    text-[16px] leading-[26px]
+                    tablet:text-[18px] tablet:leading-[28px]
                     laptop:text-[20px] laptop:leading-[30px]
                     ">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus, placerat enim
@@ -98,8 +98,8 @@
                         </div>
 
                         <div class="text-[#31363A] font-Spartan-Regular
-                         text-[12px] mb-[25px] leading-[18px]
-                         tablet:text-[13px] tablet:leading-[22px]
+                         text-[12px] mb-[25px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
@@ -107,16 +107,16 @@
                         </div>
 
                         <div class="text-app-orange font-Spartan-Regular mb-[20px]
-                         text-[12px] leading-[18px]
-                         tablet:text-[13px] tablet:leading-[22px]
+                         text-[12px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                     ">
                             Zobrazit projekty
                         </div>
 
                         <div class="text-[#0376C8] font-Spartan-Regular
-                        text-[12px] leading-[18px]
-                         tablet:text-[13px] tablet:leading-[22px]
+                        text-[12px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          ">Nabídnout svůj projekt
                         </div>
@@ -141,23 +141,23 @@
                             Cenu navrhuje nabízející
                         </div>
                         <div class="text-[#31363A] font-Spartan-Regular
-                         text-[12px] mb-[25px] leading-[18px]
-                         tablet:text-[13px] tablet:leading-[22px]
+                         text-[12px] mb-[25px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
                             placerat enim sit amet, aliquet est.
                         </div>
                         <div class="text-app-orange font-Spartan-Regular mb-[20px]
-                         text-[12px] leading-[18px]
-                         tablet:text-[13px] tablet:leading-[22px]
+                         text-[12px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                     ">
                             Zobrazit projekty
                         </div>
                         <div class="text-[#0376C8] font-Spartan-Regular
-                        text-[12px] leading-[18px]
-                         tablet:text-[13px] tablet:leading-[22px]
+                        text-[12px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                     ">Nabídnout
                             svůj projekt
