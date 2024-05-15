@@ -7,7 +7,7 @@
             Nejčastější otázky a odpovědi
         </h2>
 
-        <div class="w-full tablet:w-auto inline-grid mb-[50px]"
+        <div class="w-full px-[15px] tablet:w-auto tablet:px-0 inline-grid mb-[50px]"
              :style="'grid-template-columns: repeat(' + data.proKohoCount + ', 1fr)'">
             <template x-for="(proKoho, index) in data.proKoho" :key="index">
                 <div class="relative">
@@ -48,7 +48,7 @@
                             <div x-text="faq.odpoved" class="bg-[#f8f8f8]  rounded-[3px] text-[#31363A] font-Spartan-Regular rounded-[3px]
                                  text-[13px] leading-[22px] p-[10px] mt-[10px]
                                  tablet:text-[14px] tablet:leading-[24px] tablet::p-[20px] tablet::mt-[20px]
-                                 laptop:text-[16px] laptop:leading-[26px] laptop:p-[25px] laptop:mt-[25px]
+                                 laptop:text-[16px] laptop:leading-[26px] laptop:p-[25px] laptop:mt-[25px]"
 
                                  x-show="open"></div>
                         </div>

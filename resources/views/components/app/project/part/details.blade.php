@@ -1,6 +1,9 @@
 @props(['project', 'temp' => null, 'halfCount' => (int)ceil($project->details->groupBy('head_title')->count() / 2), 'nextDiv' => 0, 'marginTop' => false])
 
-<div class="app-project-details grid grid-cols-2 gap-x-[70px]">
+<div class="app-project-details grid gap-x-[70px]
+    grid-cols-1
+    laptop:grid-cols-2
+    ">
     <div>
         @foreach($project->details_prepared as $detail)
             @if($temp !== $detail->head_title)
@@ -17,7 +20,12 @@
                 @endphp
 
                 <div
-                        class="font-WorkSans-SemiBold text-[28px] leading-[34px] text-[#414141] mb-[25px] {{ ($marginTop) ? 'mt-[60px]' : '' }}">{{ $detail->head_title }}
+                        class="font-WorkSans-SemiBold text-[28px] leading-[34px] text-[#414141]
+                         mb-[5px] {{ ($marginTop) ? 'mt-[30px]' : 'mt-[30px] laptop:mt-0' }}
+                         laptop:mb-[25px] {{ ($marginTop) ? 'laptop:mt-[60px]' : '' }}">{{ $detail->head_title }}
+
+
+
                 </div>
             @else
                 @continue(true)

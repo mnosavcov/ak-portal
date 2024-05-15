@@ -3,10 +3,14 @@
 <!-- Slider main container -->
 <div class=" relative">
     <div
-        class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-30px)] left-[-110px] z-50">
+        class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-30px)] z-50
+         left-0
+         min-[1450px]:left-[-110px]">
         <img src="{{ Vite::asset('resources/images/btn-slider-left.svg') }}" class="w-full h-full">
     </div>
-    <div class="swiper-button-next-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-30px)] right-[-110px] z-50">
+    <div class="swiper-button-next-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-30px)] z-50
+        right-0
+        min-[1450px]:right-[-110px]">
         <img src="{{ Vite::asset('resources/images/btn-slider-right.svg') }}" class="w-full h-full">
     </div>
     <div class="swiper w-full h-[300px]">
@@ -35,7 +39,11 @@
         spaceBetween: 0,
 
         breakpoints: {
-            1536: {
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 0,
+            },
+            1024: {
                 slidesPerView: 3,
                 spaceBetween: 0,
             },

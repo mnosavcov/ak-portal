@@ -104,8 +104,8 @@ h2 {
 .app-project {
     .app-project-about {
     @apply font-Spartan-Regular;
-        font-size: 15px;
-        line-height: 26px;
+        font-size: 11px;
+        line-height: 20px;
         color: #414141;
 
         p {
@@ -114,6 +114,16 @@ h2 {
             &:last-child {
                 margin-bottom: 0;
             }
+        }
+
+        @media (min-width: @tablet) {
+            font-size: 13px;
+            line-height: 23px;
+        }
+
+        @media (min-width: @laptop) {
+            font-size: 15px;
+            line-height: 26px;
         }
     }
 
@@ -142,17 +152,21 @@ h2 {
             color: #31363A;
             background-color: #F8F8F8;
         }
+
         .app-project-red {
-            @apply text-white bg-app-red;
+        @apply text-white bg-app-red;
         }
+
         .app-project-blue {
-            @apply text-white bg-app-blue;
+        @apply text-white bg-app-blue;
         }
+
         .app-project-green {
-            @apply text-white bg-app-green;
+        @apply text-white bg-app-green;
         }
+
         .app-project-orange {
-            @apply text-white bg-app-orange;
+        @apply text-white bg-app-orange;
         }
     }
 }
