@@ -29,6 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (!Auth::user()->hasVerifiedEmail()) {
+            return redirect()->intended(route('profile.edit'))->with(['after-login' => true]);
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

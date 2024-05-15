@@ -101,6 +101,33 @@ h2 {
     }
 }
 
+#loader {
+@apply grid top-0 left-0 right-0 bottom-0 fixed content-center justify-center;
+    background-color: rgba(49, 54, 58, 0.15);
+    z-index: 999999999;
+
+    .loader {
+    @apply justify-self-center;
+        width: 58px;
+        height: 58px;
+        border: 7px solid #888;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
 .app-project {
     .app-project-about {
     @apply font-Spartan-Regular;

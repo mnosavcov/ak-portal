@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\EmailNotification;
+use App\Models\User;
 use App\Services\AdvertiserService;
 use App\Services\InvestorService;
 use App\Services\ProjectNotInvestorService;
 use App\Services\ProjectInvestorService;
 use App\Services\RealEstateBrokerService;
+use Exception;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -162,5 +166,58 @@ class ProfileController extends Controller
                 'projects' => $projects,
             ]
         );
+    }
+
+
+    public function resendValidationEmail(): JsonResponse
+    {
+        $user = Auth::user();
+
+        if (!$user->hasVerifiedEmail()) {
+            $user->notify(new VerifyEmail);
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'statusMessage' => 'Zpráva s aktivačním odkazem byla úspěšně odeslána',
+        ]);
+    }
+
+    public function verifyNewEmail(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'status' => 'ok',
+                'statusMessage' => 'Email byl již úspěšně verifikován',
+            ]);
+        }
+
+        if (User::where('email', $request->post('newEmail'))->count()) {
+            return response()->json([
+                'status' => 'error',
+                'statusMessage' => 'Email je již zaregistrovaný',
+            ]);
+        }
+
+        try {
+            $user->email = $request->post('newEmail');
+            $user->save();
+        } catch (Exception) {
+            return response()->json([
+                'status' => 'error',
+                'statusMessage' => 'Email se nepodařilo změnit',
+            ]);
+        }
+
+        if (!$user->hasVerifiedEmail()) {
+            $user->notify(new VerifyEmail);
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'statusMessage' => 'Email byl úspěšně změněn a zpráva s aktivačním odkazem byla úspěšně odeslána',
+        ]);
     }
 }
