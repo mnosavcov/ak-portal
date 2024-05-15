@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-e81ed649.css",
+    "file": "assets/app-9b2f2e87.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -591,6 +591,10 @@
   "resources/images/ico-clocks.svg": {
     "file": "assets/ico-clocks-d3a631dd.svg",
     "src": "resources/images/ico-clocks.svg"
+  },
+  "resources/images/ico-close.svg": {
+    "file": "assets/ico-close-7c870f4b.svg",
+    "src": "resources/images/ico-close.svg"
   },
   "resources/images/ico-delete-file.svg": {
     "file": "assets/ico-delete-file-1997e246.svg",
