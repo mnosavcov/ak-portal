@@ -173,9 +173,14 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->hasVerifiedEmail()) {
-            $user->notify(new VerifyEmail);
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'status' => 'ok',
+                'statusMessage' => 'Email byl již úspěšně verifikován',
+            ]);
         }
+
+        $user->notify(new VerifyEmail);
 
         return response()->json([
             'status' => 'ok',
@@ -211,9 +216,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        if (!$user->hasVerifiedEmail()) {
-            $user->notify(new VerifyEmail);
-        }
+        $user->notify(new VerifyEmail);
 
         return response()->json([
             'status' => 'ok',
