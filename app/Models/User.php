@@ -56,4 +56,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->owner;
     }
+
+    public function isVerified()
+    {
+        return auth()->user()->check_status === 'verified' && auth()->user()->hasVerifiedEmail();
+    }
 }

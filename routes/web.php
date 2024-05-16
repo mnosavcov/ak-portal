@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,23 @@ Route::get('projects/{project}', [ProjectController::class, 'show'])->name('proj
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 
 Route::middleware('auth')->group(function () {
+    Route::get('test-email', function(Request $request) {
+        $request->user()->email_verified_at = null;
+        $request->user()->save();
+        return redirect()->route('profile.edit');
+    })->name('test.email');
+    Route::get('test-valid-false', function(Request $request) {
+        $request->user()->check_status = 'not_verified';
+        $request->user()->save();
+        return redirect()->route('profile.edit');
+    })->name('test.verify.false');
+    Route::get('test-valid-true', function(Request $request) {
+        $request->user()->check_status = 'verified';
+        $request->user()->save();
+        return redirect()->route('profile.edit');
+    })->name('test.verify.true');
+
+
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
 
     Route::resource('projects', ProjectController::class)->except(['create', 'update', 'index', 'show']);

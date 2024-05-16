@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('investor')->default(false);
             $table->boolean('advertiser')->default(false);
             $table->boolean('real_estate_broker')->default(false);
-            $table->enum('check_status', ['not_verified', 'verified'])->default('not_verified');
+            $table->enum('check_status', ['not_verified', 'waiting', 'verified'])->default('not_verified');
             $table->boolean('show_check_status')->default(false);
         });
     }

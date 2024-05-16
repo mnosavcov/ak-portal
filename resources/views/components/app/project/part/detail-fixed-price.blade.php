@@ -40,31 +40,49 @@
 
     <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
 
-    @guest
+    @if(auth()->guest() || !auth()->user()->isVerified())
         <div class="grid gap-x-[20px] mb-[25px]
             grid-cols-1
             laptop:grid-cols-2
             ">
-            <div>
-                <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a zobrazení
-                    všech údajů se musíte přihlásit a mít ověřený účet.
+
+            @if(auth()->guest())
+                <div>
+                    <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a
+                        zobrazení
+                        všech údajů se musíte přihlásit a mít ověřený účet.
+                    </div>
+                    <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
+                        Nemáte účet?
+                        <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">Registrujte se</a>
+                    </div>
                 </div>
-                <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
-                    Nemáte účet?
-                    <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">Registrujte se</a>
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="button"
-                        class="self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                <div class="text-center">
+                    <button type="button"
+                            class="self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                    Přihlásit se
-                </button>
-            </div>
+                        Přihlásit se
+                    </button>
+                </div>
+            @else
+                <div>
+                    <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a
+                        zobrazení všech údajů musíte ověřit účet.
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="{{ route('profile.edit') }}"
+                            class="inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                        mt-[15px]
+                     laptop:mt-0">
+                        Ověřit účet
+                    </a>
+                </div>
+            @endif
         </div>
-    @endguest
-    @auth
+    @endif
+    @if(auth()->user() && auth()->user()->isVerified())
         <div class="text-center">
             <button type="button"
                     class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
@@ -87,7 +105,7 @@
             justify-self-start
             laptop:justify-self-end
             ">{!! $project->minimum_principal_text !!}
-            @if(auth()->guest())
+            @if(auth()->guest() || !auth()->user()->isVerified())
                 <div
                     class="absolute bg-[url('/resources/images/ico-private.svg')]  bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left

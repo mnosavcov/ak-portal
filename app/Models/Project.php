@@ -257,6 +257,8 @@ class Project extends Model
         if ($type === 'fixed-price') {
             if (auth()->guest()) {
                 $priceText = 'Jen pro přihlášené ';
+            } elseif (!auth()->user()->isVerified()) {
+                $priceText = 'Pro potvrzený účet';
             } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
             } else {
@@ -269,6 +271,8 @@ class Project extends Model
                 } else {
                     $priceText = 'Jen pro přihlášené';
                 }
+            } elseif (!auth()->user()->isVerified()) {
+                $priceText = 'Pro potvrzený účet';
             } elseif (empty($price)) {
                 $priceText = 'Není zadaná';
             } else {
@@ -292,7 +296,7 @@ class Project extends Model
         $price = $this->minimum_principal;
         $type = $this->type;
         if ($type === 'fixed-price') {
-            if (auth()->guest()) {
+            if (auth()->guest() || !auth()->user()->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
@@ -300,7 +304,7 @@ class Project extends Model
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
         } elseif ($type === 'offer-the-price') {
-            if (auth()->guest()) {
+            if (auth()->guest() || !auth()->user()->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
@@ -381,7 +385,7 @@ class Project extends Model
         $data = $this->states;
         $ret = $data;
 
-        if (auth()->guest()) {
+        if (auth()->guest() || !auth()->user()->isVerified()) {
             $ret = [];
             foreach ($data as $item) {
                 $description = html_entity_decode($item->description ?? '');
@@ -406,7 +410,7 @@ class Project extends Model
         $data = $this->details;
         $ret = $data;
 
-        if (auth()->guest()) {
+        if (auth()->guest() || !auth()->user()->isVerified()) {
             $ret = [];
             foreach ($data as $item) {
                 $description = html_entity_decode($item->description ?? '');

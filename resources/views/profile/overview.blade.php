@@ -31,6 +31,22 @@
             </div>
         @endif
 
+        @if(auth()->guest() || !auth()->user()->isVerified())
+            <div class="max-w-[1230px] px-[15px] mx-auto pb-[20px] mt-[-20px]">
+                <div
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] grid grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                    <div>
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET</div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
+                            všechny informace o nabízených projektech, nebo projekty sami nabízet, musíte zadat osobní
+                            údaje a ověřit svůj účet.
+                        </div>
+                    </div>
+                    <a href="{{ route('profile.edit') }}" class="font-Spartan-Bold text-[14px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">Ověřit účet</a>
+                </div>
+            </div>
+        @endif
+
         @if($account === 'advertiser')
             <div class="max-w-[1200px] mx-auto mb-[30px]">
                 <a href="{{ route('projects.create', ['accountType' => 'advertiser']) }}"

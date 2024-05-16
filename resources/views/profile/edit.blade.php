@@ -1,36 +1,86 @@
 <x-app-layout>
-    <div class="w-full max-w-[1200px] mx-auto">
+    <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
             'Nastavení účtu' => route('profile.edit'),
         ]"></x-app.breadcrumbs>
+    </div>
+
+    <div class="w-full max-w-[1230px] mx-auto px-[15px]">
 
         <h1 class="mb-[25px]">Nastavení účtu</h1>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('profile.partials.update-profile-information-form')
+        @if(auth()->user()->hasVerifiedEmail())
+            <a type="button" href="{{ route('test.email') }}"
+               class=" text-center font-Spartan-SemiBold bg-app-red text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
+                [zrušit validaci emailu]
+            </a>
+        @endif
+
+        @if(auth()->user()->check_status !== 'verified')
+            <a type="button" href="{{ route('test.verify.true') }}"
+               class=" text-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
+                [nastavit OVĚŘENO]
+            </a>
+        @else
+            <a type="button" href="{{ route('test.verify.false') }}"
+               class=" text-center font-Spartan-SemiBold bg-app-red text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
+                [nastavit NEOVĚŘENO]
+            </a>
+        @endif
+
+        @if(!auth()->user()->hasVerifiedEmail())
+            <div
+                class="p-[15px] bg-app-orange w-full max-w-[900px] grid grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[20px]">
+                <div>
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ EMAIL
+                    </div>
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
+                        všechny informace o nabízených projektech, musíte ověřit email.
                     </div>
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('profile.partials.update-password-form')
+                <button type="button" x-data
+                        class="cursor-pointer font-Spartan-Bold text-[14px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
+                        @click="$dispatch('open-modal', 'not-verify-email')">
+                    Ověřit email
+                </button>
+            </div>
+        @endif
+
+        @if(auth()->user()->check_status !== 'verified')
+            <div class="mb-[20px]">
+                <div class="max-w-[1200px] mx-auto">
+                    <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+                        <div><span class="font-Spartan-SemiBold">Jak probíhá ověření účtu?</span>
+                            Na portálu chceme vytvářet důvěryhodné a transparentní prostředí.
+                            Proto ověřujeme každého uživatele. Nejčastěji se s vámi spojíme telefonicky, seznámíme se s
+                            vašimi záměry a očekáváními. Jakmile účet ověříme, můžete projekty sami nakupovat, nebo
+                            nabízet.
+                        </div>
                     </div>
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('profile.partials.delete-user-form')
+                <div
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET</div>
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
+                        všechny informace o nabízených projektech, nebo projekty sami nabízet, musíte zadat osobní
+                        údaje a ověřit svůj účet.
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
+
+        @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting')
+            @include('profile.edit-verified')
+        @else
+            @include('profile.edit-not-verified')
+        @endif
     </div>
 
-    @if(session()->get('after-login'))
-        <x-modal name="not-verify-user" show="true">
+    @if(!auth()->user()->hasVerifiedEmail())
+        <x-modal name="not-verify-email" :show="session()->get('after-login')">
             <div class="p-[50px_40px] text-center" x-data="{ newEmailOpen: false, newEmail: '', valid: true,
                 successMessage: null, errorMessage: null, loaderShow: false, email: @js(auth()->user()->email),
                 isValid() {
@@ -108,17 +158,21 @@
                 </div>
 
                 <div x-cloak x-show="successMessage !== null">
-                    <div class="mt-[20px] mb-[30px] rounded-[3px] text-app-blue bg-app-blue/10 w-full p-[15px] font-Spartan-SemiBold text-[15px]" x-text="successMessage">
+                    <div
+                        class="mt-[20px] mb-[30px] rounded-[3px] text-app-blue bg-app-blue/10 w-full p-[15px] font-Spartan-SemiBold text-[15px]"
+                        x-text="successMessage">
                     </div>
                 </div>
 
                 <div x-cloak x-show="errorMessage !== null">
-                    <div class="mt-[20px] mb-[30px] rounded-[3px] text-app-red bg-app-red/10 w-full p-[15px] font-Spartan-SemiBold text-[15px]" x-text="errorMessage">
+                    <div
+                        class="mt-[20px] mb-[30px] rounded-[3px] text-app-red bg-app-red/10 w-full p-[15px] font-Spartan-SemiBold text-[15px]"
+                        x-text="errorMessage">
                     </div>
                 </div>
 
                 <div @click="resend()"
-                    class="cursor-pointer text-center font-Spartan-Bold text-[11px] leading-[16px] text-app-green mb-[20px]">
+                     class="cursor-pointer text-center font-Spartan-Bold text-[11px] leading-[16px] text-app-green mb-[20px]">
                     Znovu odeslat aktivační email
                 </div>
 

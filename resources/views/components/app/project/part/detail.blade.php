@@ -13,7 +13,7 @@
             <div
                 class="relative font-Spartan-Regular text-[13px] leading-[22px] text-[#414141] self-center {{ $detailRows->is_long ? 'col-span-2 mb-[8px] !leading-1 justify-self-end' : 'justify-self-start col-span-2 mb-[15px] tablet:justify-self-end tablet:col-span-1 tablet:mb-0' }}">
                 {!! $detailRows->description !!}
-                @if(auth()->guest())
+                @if(auth()->guest() || !auth()->user()->isVerified())
                     @if(!$detailRows->is_long)
                         <div
                             class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0 left-[20px] min-w-[35px] bg-left tablet:left-auto tablet:right-[20px] tablet:bg-right">

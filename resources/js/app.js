@@ -17,6 +17,7 @@ import './app/profile.js';
 import './app/project-edit.js';
 import './app/project-list.js';
 import './app/admin-project-edit.js';
+import './app/verify-user-account.js';
 
 Alpine.start();
 
