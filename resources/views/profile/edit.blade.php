@@ -19,12 +19,12 @@
         @if(auth()->user()->check_status !== 'verified')
             <a type="button" href="{{ route('test.verify.true') }}"
                class=" text-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                [nastavit OVĚŘENO]
+                [nastavit účet jako OVĚŘENÝ]
             </a>
         @else
             <a type="button" href="{{ route('test.verify.false') }}"
                class=" text-center font-Spartan-SemiBold bg-app-red text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                [nastavit NEOVĚŘENO]
+                [nastavit účet jako NEOVĚŘENÝ]
             </a>
         @endif
 
@@ -47,7 +47,7 @@
             </div>
         @endif
 
-        @if(auth()->user()->check_status !== 'verified')
+        @if(auth()->user()->check_status === 'not_verified')
             <div class="mb-[20px]">
                 <div class="max-w-[1200px] mx-auto">
                     <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
@@ -72,11 +72,20 @@
             </div>
         @endif
 
-        @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting')
-            @include('profile.edit-verified')
-        @else
-            @include('profile.edit-not-verified')
+        @if(auth()->user()->check_status === 'waiting')
+            <div class="mb-[20px]">
+                <div
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ</div>
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                        Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme proces
+                        ověření účtu.
+                    </div>
+                </div>
+            </div>
         @endif
+
+        @include('profile.edit-account')
     </div>
 
     @if(!auth()->user()->hasVerifiedEmail())

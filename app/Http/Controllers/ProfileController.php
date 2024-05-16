@@ -168,7 +168,6 @@ class ProfileController extends Controller
         );
     }
 
-
     public function resendValidationEmail(): JsonResponse
     {
         $user = Auth::user();
@@ -221,6 +220,31 @@ class ProfileController extends Controller
         return response()->json([
             'status' => 'ok',
             'statusMessage' => 'Email byl úspěšně změněn a zpráva s aktivačním odkazem byla úspěšně odeslána',
+        ]);
+    }
+
+    public function verifyAccount(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+
+        $data = $request->post('data');
+
+        $user->update([
+            'title_before' => $data['title_before'],
+            'name' => $data['name'] ?? '',
+            'surname' => $data['surname'],
+            'title_after' => $data['title_after'],
+            'street' => $data['street'],
+            'street_number' => $data['street_number'],
+            'city' => $data['city'],
+            'psc' => $data['psc'],
+            'country' => $data['country'],
+            'more_info' => $data['more_info'],
+            'check_status' => 'waiting',
+        ]);
+
+        return response()->json([
+            'status' => 'ok',
         ]);
     }
 }

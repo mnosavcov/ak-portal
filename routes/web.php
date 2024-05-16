@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil/overview/{account?}', [ProfileController::class, 'overview'])->name('profile.overview');
     Route::post('/profil/resend-verify-email', [ProfileController::class, 'resendValidationEmail'])->name('profile.resend-verify-email');
     Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])->name('profile.verify-new-email');
+    Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])->name('profile.verify-new-email');
+    Route::post('/profil/verify-account', [ProfileController::class, 'verifyAccount'])->name('profile.verify-account');
 
     Route::middleware('user.superadmin')->group(function () {
         Route::name('admin.')->group(function () {
