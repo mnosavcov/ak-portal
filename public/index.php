@@ -5,30 +5,6 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-
-//// Nastavení uživatelských jmen a hesel
-//$valid_users = array("pvtrusted" => "heslo1234");
-//
-//// Funkce pro ověření uživatelského jména a hesla
-//function authenticate($username, $password)
-//{
-//    global $valid_users;
-//    return isset($valid_users[$username]) && $valid_users[$username] === $password;
-//}
-//
-//// Ověření uživatelských údajů
-//if (!isset($_SERVER['PHP_AUTH_USER'])) {
-//    header('WWW-Authenticate: Basic realm="My Realm"');
-//    header('HTTP/1.0 401 Unauthorized');
-//    echo 'Přístup odmítnut';
-//    exit;
-//} elseif (!authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
-//    header('WWW-Authenticate: Basic realm="My Realm"');
-//    header('HTTP/1.0 401 Unauthorized');
-//    echo 'Přístup odmítnut';
-//    exit;
-//}
-
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
