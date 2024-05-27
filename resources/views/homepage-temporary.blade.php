@@ -299,7 +299,7 @@
                 <div class="px-[10px] py-[15px] mb:px-[50px] mb:py-[50px] w-full bg-[#F8F8F8] rounded-[3px]" x-data="{
                     confirm: false,
                     valid: false,
-                    success: true,
+                    success: false,
                     email: '',
                     isValid() {
                         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
