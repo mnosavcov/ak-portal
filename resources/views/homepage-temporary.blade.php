@@ -154,14 +154,14 @@
         >
             <div class="max-w-[900px] mx-auto">
                 <div class="grid gap-y-[20px] tablet:gap-y-[25px] laptop:gap-y-[30px]">
-                    <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px] order-2
+                    <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px]
                     tablet:text-[19px] tablet:leading-[22px] tablet:order-2
                     laptop:text-[22px] laptop:leading-[25px] laptop:order-1
                     ">
                         Prodej a nákup projektů na výstavbu fotovoltaiky – od rané fáze až po příležitosti s platným
                         stavebním povolením a rezervovaným výkonem v distribuční soustavě.
                     </div>
-                    <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px] order-1
+                    <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px]
                     tablet:text-[19px] tablet:leading-[22px] tablet:order-1
                     laptop:text-[22px] laptop:leading-[25px] laptop:order-2
                     ">
@@ -175,21 +175,41 @@
 
         <div class="max-w-[1230px] w-full mx-auto relative">
             <div
-                class="mx-[15px] py-[50px] px-[30px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[100px]">
-                <div class="mx-auto mb-[50px] font-WorkSans-SemiBold text-[28px] text-[#414141]">Projekt zveřejníme již
+                class="mx-[15px] py-[50px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[50px] md:mb-[100px]
+                    px-[15px] md:px-[30px]">
+                <div class="mx-auto font-WorkSans-SemiBold text-[#414141]
+                    text-[18px] mb-[30px]
+                    md:text-[28px] md:mb-[50px]
+                    ">Projekt zveřejníme již
                     <span class="text-app-green">{{ $date->format('j.n.Y') }} v {{ $date->format('H:i') }}</span>
                 </div>
 
-                <div class="px-[60px] border  border-app-orange pt-[20px] pb-[35px] mb-[50px]
-                    inline-grid grid-cols-[80px_120px_80px_120px_80px_120px_80px]
+                <div class="border border-app-orange mx-auto
+                    grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] max-w-[450px] px-[15px] pt-[10px] pb-[10px] mb-[30px] grid
+                    md:grid-cols-[80px_100px_80px_100px_80px_100px_80px] md:max-w-none md:inline-grid md:pt-[20px] md:pb-[35px] md:mb-[40px]
+                    lg:grid-cols-[80px_120px_80px_120px_80px_120px_80px] lg:px-[60px] lg:mb-[50px]
                     " id="countdown">
 
                     <div>
-                        <div id="days" class="poppins-light text-[60px] text-app-orange">{{ $days }}</div>
-                        <div class="poppins-regular text-[16px] text-[#31363A]">DNÍ</div>
+                        <div id="days" class="poppins-light text-app-orange
+                        text-[30px] md:text-[60px]">{{ $days }}</div>
+                        <div class="poppins-regular text-[12px] md:text-[16px] text-[#31363A]">DNÍ</div>
                     </div>
 
-                    <div class="flex items-center justify-center">
+                    <div class="flex items-center justify-center md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3.018" height="12.406"
+                             viewBox="0 0 3.018 12.406">
+                            <g id="Group_20813" data-name="Group 20813" transform="translate(-175.983 -529)">
+                                <path id="Path_25373" data-name="Path 25373"
+                                      d="M214.271,79.117a1.509,1.509,0,1,0-1.509-1.509,1.509,1.509,0,0,0,1.509,1.509"
+                                      transform="translate(-36.779 452.902)" fill="#31363a"/>
+                                <path id="Path_25374" data-name="Path 25374"
+                                      d="M214.271,96.837a1.509,1.509,0,1,0,1.509,1.509,1.509,1.509,0,0,0-1.509-1.509"
+                                      transform="translate(-36.779 441.551)" fill="#31363a"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="items-center justify-center hidden md:flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="4.912" height="25.652"
                              viewBox="0 0 4.912 25.652">
                             <g id="Group_20803" data-name="Group 20803" transform="translate(-736.824 -626.098)">
@@ -204,11 +224,25 @@
                     </div>
 
                     <div>
-                        <div id="hours" class="poppins-light text-[60px] text-app-orange">{{ $hours }}</div>
-                        <div class="poppins-regular text-[16px] text-[#31363A]">HODIN</div>
+                        <div id="hours" class="poppins-light text-app-orange
+                        text-[30px] md:text-[60px]">{{ $hours }}</div>
+                        <div class="poppins-regular text-[12px] md:text-[16px] text-[#31363A]">HODIN</div>
                     </div>
 
-                    <div class="flex items-center justify-center">
+                    <div class="flex items-center justify-center md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3.018" height="12.406"
+                             viewBox="0 0 3.018 12.406">
+                            <g id="Group_20813" data-name="Group 20813" transform="translate(-175.983 -529)">
+                                <path id="Path_25373" data-name="Path 25373"
+                                      d="M214.271,79.117a1.509,1.509,0,1,0-1.509-1.509,1.509,1.509,0,0,0,1.509,1.509"
+                                      transform="translate(-36.779 452.902)" fill="#31363a"/>
+                                <path id="Path_25374" data-name="Path 25374"
+                                      d="M214.271,96.837a1.509,1.509,0,1,0,1.509,1.509,1.509,1.509,0,0,0-1.509-1.509"
+                                      transform="translate(-36.779 441.551)" fill="#31363a"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="items-center justify-center hidden md:flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="4.912" height="25.652"
                              viewBox="0 0 4.912 25.652">
                             <g id="Group_20803" data-name="Group 20803" transform="translate(-736.824 -626.098)">
@@ -223,11 +257,25 @@
                     </div>
 
                     <div>
-                        <div id="minutes" class="poppins-light text-[60px] text-app-orange">{{ $minutes }}</div>
-                        <div class="poppins-regular text-[16px] text-[#31363A]">MINUT</div>
+                        <div id="minutes" class="poppins-light text-app-orange
+                        text-[30px] md:text-[60px]">{{ $minutes }}</div>
+                        <div class="poppins-regular text-[12px] md:text-[16px] text-[#31363A]">MINUT</div>
                     </div>
 
-                    <div class="flex items-center justify-center">
+                    <div class="flex items-center justify-center md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3.018" height="12.406"
+                             viewBox="0 0 3.018 12.406">
+                            <g id="Group_20813" data-name="Group 20813" transform="translate(-175.983 -529)">
+                                <path id="Path_25373" data-name="Path 25373"
+                                      d="M214.271,79.117a1.509,1.509,0,1,0-1.509-1.509,1.509,1.509,0,0,0,1.509,1.509"
+                                      transform="translate(-36.779 452.902)" fill="#31363a"/>
+                                <path id="Path_25374" data-name="Path 25374"
+                                      d="M214.271,96.837a1.509,1.509,0,1,0,1.509,1.509,1.509,1.509,0,0,0-1.509-1.509"
+                                      transform="translate(-36.779 441.551)" fill="#31363a"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="items-center justify-center hidden md:flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="4.912" height="25.652"
                              viewBox="0 0 4.912 25.652">
                             <g id="Group_20803" data-name="Group 20803" transform="translate(-736.824 -626.098)">
@@ -242,15 +290,16 @@
                     </div>
 
                     <div>
-                        <div id="seconds" class="poppins-light text-[60px] text-app-orange">{{ $seconds }}</div>
-                        <div class="poppins-regular text-[16px] text-[#31363A]">SEKUND</div>
+                        <div id="seconds" class="poppins-light text-app-orange
+                        text-[30px] md:text-[60px]">{{ $seconds }}</div>
+                        <div class="poppins-regular text-[12px] md:text-[16px] text-[#31363A]">SEKUND</div>
                     </div>
                 </div>
 
-                <div class="p-[50px] w-full bg-[#F8F8F8] rounded-[3px]" x-data="{
+                <div class="px-[10px] py-[15px] mb:px-[50px] mb:py-[50px] w-full bg-[#F8F8F8] rounded-[3px]" x-data="{
                     confirm: false,
                     valid: false,
-                    success: false,
+                    success: true,
                     email: '',
                     isValid() {
                         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -278,12 +327,14 @@
                             });
                     }
                     }">
-                    <div class="mb-[30px] font-WorkSans-SemiBold text-[28px] text-[#414141]">
+                    <div
+                        class="mb-[20px] md:mb-[30px] font-WorkSans-SemiBold text-[18px] md:text-[28px] text-[#414141]">
                         Zadejte svůj e-mail a spuštění vám připomeneme
                     </div>
 
                     <div x-cloak x-show="success" x-collapse>
-                        <div class="bg-app-orange inline-block px-[100px] h-[50px] leading-[50px] mb-[25px] rounded-[3px] text-white font-Spartan-Regular">
+                        <div
+                            class="bg-app-orange inline-block md:px-[100px] text-[14px] md:text-[28px] w-full md:w-auto min-h-[50px] leading-[50px] mb-[25px] rounded-[3px] text-white font-Spartan-Regular">
                             Email byl úspěšně uložený
                         </div>
                     </div>
@@ -292,29 +343,31 @@
 
                     <label class="block mb-[10px] font-Spartan-Bold text-[13px] text-[#676464]">Váš e-mail</label>
                     <form x-ref="form">
-                        <x-text-input id="email" class="block mb-[25px] w-[350px] mx-auto" type="email" name="email"
+                        <x-text-input id="email" class="block mb-[25px] w-[350px] max-w-full mx-auto" type="email"
+                                      name="email"
                                       @input="isValid()" @change="isValid()"
                                       required autofocus x-model="email"/>
                     </form>
 
                     <div></div>
                     <div
-                        class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] mb-[30px]">
+                        class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] min-h-[50px] max-md:py-[15px] max-md:text-[12px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] mb-[30px]">
                         <div
                             class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white"
                             @click="confirm = !confirm">
                             <div x-show="confirm" x-cloak
                                  class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"></div>
                         </div>
-                        <div @click="confirm = !confirm">Odesláním souhlasím se <a href="#"
-                                                                                   class="underline cursor-pointer">Zásadami
+                        <div @click="confirm = !confirm" class="text-left md:text-center max-md:leading-[22px]">
+                            Odesláním souhlasím se <a href="#"
+                                                      class="underline cursor-pointer">Zásadami
                                 zpracování osobních údajů</a></div>
                     </div>
 
                     <div class=""></div>
 
                     <button type="button"
-                            class="h-[60px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale"
+                            class="h-[50px] leading-[50px] md:h-[60px] md:leading-[60px] md:px-[100px] w-full md:w-auto font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale"
                             :disabled="!confirm || !valid"
                             @click="sendRegister()"
                     >
