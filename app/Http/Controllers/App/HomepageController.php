@@ -44,35 +44,16 @@ class HomepageController extends Controller
     public function temporary()
     {
         $targetDateTime = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = Carbon::now()->subHours(-1);
+        $currentDateTime = Carbon::now()->subHours(-2);
 
-        $currentHour = $currentDateTime->hour;
-        $targetHour = $targetDateTime->hour;
-        $hourDifference = $targetHour - $currentHour - 2;
-        if ($hourDifference < 0) {
-            $hourDifference += 24;
-        }
-
-        $currentMinute = $currentDateTime->minute;
-        $targetMinute = $targetDateTime->minute;
-        $minutDifference = $targetMinute - $currentMinute - 1;
-        if ($minutDifference < 0) {
-            $minutDifference += 60;
-        }
-
-        $currentSecond = $currentDateTime->second;
-        $targetSecond = $targetDateTime->second;
-        $secondDifference = $targetSecond - $currentSecond - 1;
-        if ($secondDifference < 0) {
-            $secondDifference += 60;
-        }
+        $diff = $targetDateTime->diff($currentDateTime);
 
         return view('homepage-temporary', [
             'date' => $targetDateTime,
-            'days' => $targetDateTime->diffInDays(),
-            'hours' => $hourDifference,
-            'minutes' => $minutDifference,
-            'seconds' => $secondDifference,
+            'days' => $diff->format('%d'),
+            'hours' => $diff->format('%h'),
+            'minutes' => $diff->format('%i'),
+            'seconds' => $diff->format('%s'),
         ]);
     }
 
