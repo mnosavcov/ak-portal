@@ -19,6 +19,7 @@ class BeforeMiddleware
     {
         if (!empty(env('DATE_PUBLISH'))) {
             $date = Carbon::create(env('DATE_PUBLISH'));
+            $date->subHours(+2);
 
             if (!in_array($request->getRequestUri(),
                     [

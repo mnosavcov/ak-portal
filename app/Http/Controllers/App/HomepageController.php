@@ -14,8 +14,10 @@ class HomepageController extends Controller
     public function index(Request $request)
     {
         $date = Carbon::create(env('DATE_PUBLISH'));
+        $currentDateTime = clone $date;
+        $currentDateTime->subHours(+2);
 
-        if (!$date->isPast()) {
+        if (!$currentDateTime->isPast()) {
             return $this->temporary();
         }
 
@@ -42,11 +44,11 @@ class HomepageController extends Controller
     public function temporary()
     {
         $targetDateTime = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = Carbon::now();
+        $currentDateTime = Carbon::now()->subHours(-1);
 
         $currentHour = $currentDateTime->hour;
         $targetHour = $targetDateTime->hour;
-        $hourDifference = $targetHour - $currentHour - 1;
+        $hourDifference = $targetHour - $currentHour - 2;
         if ($hourDifference < 0) {
             $hourDifference += 24;
         }

@@ -389,12 +389,14 @@
         const target = new Date(targetDate).getTime();
 
         function updateCountdown() {
-            const now = new Date().getTime();
+            let now = new Date();
+            now.setHours(now.getHours() + 2);
+            now = now.getTime();
             const distance = target - now;
 
             if (distance < 0) {
                 clearInterval(interval);
-                document.getElementById("countdown").innerHTML = "EXPIRED";
+                window.location.reload()
                 return;
             }
 
