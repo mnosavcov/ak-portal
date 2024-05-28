@@ -165,12 +165,14 @@
                     <div class="text-center font-Spartan-Bold mb-[30px] text-[22px]">Zásady ochrany osobních údajů
                         (GDPR)
                     </div>
-                    <div class="font-Spartan-Bold mb-[30px]">Prostřednictvím těchto Zásad zpracování osobních údajů
-                        informuje společnost
-                        Senkovská energie s.r.o. (dále jen „Společnost“) subjekty údajů, tj. fyzické osoby,
-                        jejichž osobní údaje zpracovává, o zásadách ochrany jejich soukromí a o
-                        prováděných činnostech zpracování (dle nařízení Evropské unie o ochraně osobních
-                        údajů známé pod zkratkou „GDPR“).
+                    <div class="font-Spartan-Bold mb-[30px]">Prostřednictvím těchto Zásad zpracování osobních údajů informuje společnost
+                        Senkovská energie s.r.o., IČO 198 18 971, se sídlem Praha 4, U zahrádkářské
+                        kolonie 810/4, PSČ 140 00, zapsaná v obchodním rejstříku vedeném Městským
+                        soudem v Praze pod sp. zn. C 392101 (dále jen „Společnost“) subjekty údajů, tj.
+                        fyzické osoby, jejichž osobní údaje zpracovává, o zásadách ochrany jejich soukromí
+                        a o prováděných činnostech zpracování (dle nařízení Evropské unie o ochraně
+                        osobních údajů známé pod zkratkou „GDPR“). V současné době je v řízení změna
+                        názvu názvu Společnosti na PV Trusted s.r.o.
                     </div>
                     <div class="mb-[30px]">Zásady zpracování osobních údajů se vztahují na všechny klienty, dodavatele a
                         odběratele Společnosti, a také na kohokoli jiného, kdo Společnost kontaktuje nebo jí
@@ -237,6 +239,8 @@
                                     stránkách <a
                                         href="{{ route('homepage') }}">www.pvtrusted.cz</a>
                                 </li>
+                                <li>prostřednictvím nabídkového formuláře na webových stránkách
+                                    www.pvtrusted.cz</li>
                                 <li>pokud subjekt údajů Společnost kontaktuje z jiného důvodu.</li>
                             </ul>
                             <ul class="list-none">
@@ -293,10 +297,15 @@
                     <ul class="list-decimal mb-[25px]">
                         <li class="mb-[15px]">
                             Oslovování pro spolupráci a marketing
-                            Kontaktní údaje Společnost využije jen pro e-mailové sdělení o oficiálním
-                            spuštění služeb na <a href="{{ route('homepage') }}">www.PVtrusted.cz</a>, nebo pro nabídku
+                            Kontaktní údaje z formuláře (e-mail) využije Společnost jen pro e-mailové
+                            sdělení o oficiálním spuštění služeb na <a href="{{ route('homepage') }}">www.PVtrusted.cz</a>, nebo pro nabídku
                             služeb tohoto
                             portálu.
+                            <br>
+                            <br>
+                            Kontaktní údaje z nabídkového formuláře (e-mail a telefonní číslo) využije
+                            Společnost pro kontaktování uživatele za účelem potenciálního realitního
+                            zprostředkování při prodeji projektu FVE.
                         </li>
                     </ul>
 
