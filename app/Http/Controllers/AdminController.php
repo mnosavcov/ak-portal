@@ -11,11 +11,22 @@ use App\Models\ProjectTag;
 use App\Services\AdminService;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        return view(
+            'admin.index',
+            [
+                'emails' => DB::table('emails')->select('email')->orderBy('id', 'desc')->get()->pluck('email')
+            ]
+        );
+    }
+
     public function projects()
     {
         $projects = (new AdminService)->getList();

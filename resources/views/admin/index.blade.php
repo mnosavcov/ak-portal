@@ -15,6 +15,12 @@
                 <h1 class="text-2xl font-semibold pt-2 pb-6">Dashboard</h1>
             </div>
 
+            <ul class="mt-[25px]">
+                @foreach($emails as $email)
+                    <li class="mb-[5px]"><a href="mailto:{{ $email }}">{{ $email }}</a></li>
+                @endforeach
+            </ul>
+
             <!-- STATISTICS -->
 {{--            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-6">--}}
 {{--                <div class="bg-white shadow rounded-sm flex justify-between items-center py-3.5 px-3.5">--}}

@@ -409,10 +409,10 @@
 
                 <div class="max-w-[1200px] mx-auto text-center mb-[40px] md:mb-[60px]">
                     <a href="{{ route('projects.add') }}"
-                       class="inline-block font-Spartan-Regular bg-[#0376C8] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                       class="inline-block font-Spartan-Regular text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
-                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
+                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] bg-app-orange
                              "><span
                             class="font-Spartan-Bold">Chci nabídnout</span> projekt
                     </a>

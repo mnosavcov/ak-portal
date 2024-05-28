@@ -84,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('user.superadmin')->group(function () {
         Route::name('admin.')->group(function () {
             Route::prefix('admin')->group(function () {
-                Route::view('/', 'admin.index')->name('index');
+                Route::get('/', [AdminController::class, 'index'])->name('index');
                 Route::get('projects', [AdminController::class, 'projects'])->name('projects');
                 Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
