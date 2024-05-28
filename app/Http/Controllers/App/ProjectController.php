@@ -72,6 +72,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $date = Carbon::create(env('DATE_PUBLISH'));
+        $currentDateTime = clone $date;
+        $currentDateTime->subHours(+2);
+
         $data = json_decode($request->post('data'));
         $insert = [
             'user_account_type' => $data->data->accountType,
@@ -93,6 +97,10 @@ class ProjectController extends Controller
             $insert['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
         }
 
+        if (!$currentDateTime->isPast()) {
+            $insert['user_account_type'] = $data->data->email . '|' . $data->data->phone;
+        }
+
         $project = Project::create($insert);
 
         foreach ($request->file('files') ?? [] as $file) {
@@ -107,9 +115,6 @@ class ProjectController extends Controller
             $project->files()->save($projectFile);
         }
 
-        $date = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = clone $date;
-        $currentDateTime->subHours(+2);
 
         if (!$currentDateTime->isPast()) {
             session()->flash('project-added', 'Projekt byl úspěšně vytvořen.');
