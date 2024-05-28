@@ -117,7 +117,7 @@ class ProjectController extends Controller
 
 
         if (!$currentDateTime->isPast()) {
-            session()->flash('project-added', 'Děkujeme za odeslání nabídky svého projektu. Po jejím zpracování vás budeme kontaktovat.');
+            session()->flash('project-added', 'Děkujeme, že jste nám zaslali nabídku svého projektu. Po jejím zpracování vás budeme kontaktovat.');
             return response()->json([
                 'status' => 'success',
                 'redirect' => route('homepage'),
