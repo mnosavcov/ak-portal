@@ -52,6 +52,20 @@ Alpine.data('projectEdit', (id) => ({
 
         return show;
     },
+    enableSendTemporary() {
+        let show = this.showSdelteViceInformaci();
+        show &&= !!this.data.title.trim().length;
+        show &&= !!this.data.country.trim().length;
+        show &&= !!this.data.description.trim().length;
+        show &&= !!this.data.email.trim().length;
+        show &&= !!this.data.phone.trim().length;
+        show &&= !!this.data.confirm;
+
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        show &&= re.test(this.data.email.toLowerCase())
+
+        return show;
+    },
     async sendProject(status = 'draft') {
         this.data.status = status;
         const formData = new FormData();
@@ -83,7 +97,7 @@ Alpine.data('projectEdit', (id) => ({
             });
     },
     async deleteProject(id) {
-        if(!confirm('Opravdu si přejete smazat projekt? Tato akce je nevratná')) {
+        if (!confirm('Opravdu si přejete smazat projekt? Tato akce je nevratná')) {
             return;
         }
 

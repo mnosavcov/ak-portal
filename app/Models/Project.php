@@ -138,7 +138,15 @@ class Project extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->user_id = auth()->id();
+            $date = Carbon::create(env('DATE_PUBLISH'));
+            $currentDateTime = clone $date;
+            $currentDateTime->subHours(+2);
+
+            if (!$currentDateTime->isPast()) {
+                $model->user_id = User::first()->id;
+            } else {
+                $model->user_id = auth()->id();
+            }
         });
     }
 

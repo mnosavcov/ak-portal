@@ -26,6 +26,8 @@ class BeforeMiddleware
                         '/',
                         '/save-email',
                         '/zpracovani-osobnich-udaju',
+                        '/projects/add',
+                        '/projects/save',
                     ]
                 ) && !$date->isPast()
             ) {

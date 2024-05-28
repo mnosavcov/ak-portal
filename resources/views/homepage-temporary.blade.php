@@ -157,6 +157,15 @@
 
     <!-- Page Content -->
     <main>
+        @if (session('project-added'))
+            <div class="mx-[15px]">
+                <div
+                    class="text-center w-[calc(100%-[30px])] max-w-[1200px] mx-auto bg-app-orange text-white rounded-[3px] p-[15px] block my-[25px]">
+                    {{ session('project-added') }}
+                </div>
+            </div>
+        @endif
+
         <x-app.top-content
             imgSrc="{{ Vite::asset('resources/images/top-img-homepage.png') }}"
             header="On-line tržiště projektů FVE"
@@ -178,13 +187,13 @@
                     </div>
                 </div>
 
-                <div class="h-[65px]"></div>
+                <div class="h-[75px]"></div>
             </div>
         </x-app.top-content>
 
         <div class="max-w-[1230px] w-full mx-auto relative">
             <div
-                class="mx-[15px] py-[50px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[50px] md:mb-[100px]
+                class="mx-[15px] py-[50px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[50px] md:mb-[70px]
                     px-[15px] md:px-[30px]">
                 <div class="mx-auto font-WorkSans-SemiBold text-[#414141]
                     text-[18px] mb-[30px]
@@ -387,14 +396,34 @@
             </div>
         </div>
 
-        <div class="text-center md:mt-[-50px]">
-            <div class="mx-[15px] font-WorkSans-SemiBold text-[#414141]
-                    text-[18px] mb-[10px]
-                    md:text-[28px] md:mb-[20px]
-                    ">Chcete prodat projekt FVE? Potřebujete více informaci?
-            </div>
+        <div class="max-w-[1230px] w-full mx-auto relative">
+            <div
+                class="mx-[15px] py-[30px] md:py-[50px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[50px] md:mb-[100px]
+                    px-[15px] md:px-[30px]">
 
-            <a href="mailto:info@pvtrusted.cz" class="mb-[50px] inline-block text-[13px] md:text-[16px]">info@pvtrusted.cz</a>
+;                <div class="mx-[15px] font-WorkSans-SemiBold text-[#414141]
+                    text-[18px] mb-[30px]
+                    md:text-[28px] md:mb-[50px]
+                    ">Máte FVE projekt na prodej?
+                </div>
+
+                <div class="max-w-[1200px] mx-auto text-center mb-[40px] md:mb-[60px]">
+                    <a href="{{ route('projects.add') }}"
+                       class="inline-block font-Spartan-Regular bg-[#0376C8] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                             text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
+                             tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
+                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
+                             "><span
+                            class="font-Spartan-Bold">Chci nabídnout</span> projekt
+                    </a>
+                </div>
+
+                <div class="text-center">
+                    <div class="mb-[30px] font-Spartan-Regular text-[16px] md:text-[20px] text-[#414141]">Máte dotazy? Potřebujete více informací?</div>
+
+                    <a href="mailto:info@pvtrusted.cz" class="inline-block text-[13px] md:text-[15px] font-Spartan-Bold text-app-orange">info@pvtrusted.cz</a>
+                </div>
+            </div>
         </div>
     </main>
 

@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Services\ProjectService;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -46,6 +47,19 @@ class ProjectController extends Controller
         $data['pageTitle'] = 'Přidání projektu';
         $data['route'] = route('projects.create', ['accountType' => $accountType]);
         $data['routeFetch'] = route('projects.store');
+
+        $date = Carbon::create(env('DATE_PUBLISH'));
+        $currentDateTime = clone $date;
+        $currentDateTime->subHours(+2);
+
+        if (!$currentDateTime->isPast()) {
+            $data['confirm'] = false;
+            $data['email'] = '';
+            $data['phone'] = '';
+            $data['pageTitle'] = 'Nabídka FVE projektu';
+            $data['routeFetch'] = route('projects.save');
+            return view('app.projects.create-temporary', ['data' => $data]);
+        }
 
         return view('app.projects.create', ['data' => $data]);
     }
@@ -91,6 +105,18 @@ class ProjectController extends Controller
             ]);
 
             $project->files()->save($projectFile);
+        }
+
+        $date = Carbon::create(env('DATE_PUBLISH'));
+        $currentDateTime = clone $date;
+        $currentDateTime->subHours(+2);
+
+        if (!$currentDateTime->isPast()) {
+            session()->flash('project-added', 'Projekt byl úspěšně vytvořen.');
+            return response()->json([
+                'status' => 'success',
+                'redirect' => route('homepage'),
+            ]);
         }
 
         return response()->json([
