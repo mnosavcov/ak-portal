@@ -386,6 +386,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="text-center md:mt-[-50px]">
+            <div class="mx-[15px] font-WorkSans-SemiBold text-[#414141]
+                    text-[18px] mb-[10px]
+                    md:text-[28px] md:mb-[20px]
+                    ">Chcete prodat projekt FVE? Potřebujete více informaci?
+            </div>
+
+            <a href="mailto:info@pvtrusted.cz" class="mb-[50px] inline-block text-[13px] md:text-[16px]">info@pvtrusted.cz</a>
+        </div>
     </main>
 
     <div
