@@ -343,8 +343,9 @@
 
                     <div x-cloak x-show="success" x-collapse>
                         <div
-                            class="bg-app-orange inline-block md:px-[100px] text-[14px] md:text-[28px] w-full md:w-auto min-h-[50px] leading-[50px] mb-[25px] rounded-[3px] text-white font-Spartan-Regular">
-                            Email byl úspěšně uložený
+                            class="py-[15px] bg-app-orange inline-block md:px-[100px] text-[14px] md:text-[28px] w-full md:w-auto min-h-[50px] leading-[25px] md:leading-[50px] mb-[25px] rounded-[3px] text-white font-Spartan-Regular">
+                            Váš e-mail byl úspěšně odeslaný. Jakmile bude naše platforma oficiálně spuštěna, budeme vás
+                            kontaktovat.
                         </div>
                     </div>
 
@@ -368,7 +369,7 @@
                                  class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"></div>
                         </div>
                         <div @click="confirm = !confirm" class="text-left md:text-center max-md:leading-[22px]">
-                            Odesláním souhlasím se <a href="#"
+                            Odesláním souhlasím se <a href="{{ route('zpracovani-osobnich-udaju') }}"
                                                       class="underline cursor-pointer">Zásadami
                                 zpracování osobních údajů</a></div>
                     </div>

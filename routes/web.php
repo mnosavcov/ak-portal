@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,17 @@ Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
+Route::get('zpracovani-osobnich-udaju', function() {
+    $date = Carbon::create(env('DATE_PUBLISH'));
+    $currentDateTime = clone $date;
+    $currentDateTime->subHours(+2);
+
+    if (!$currentDateTime->isPast()) {
+        return view('app.zpracovani-osobnich-udaju-temp');
+    }
+
+    return view('app.zpracovani-osobnich-udaju');
+})->name('zpracovani-osobnich-udaju');
 
 Route::middleware('auth')->group(function () {
     Route::get('test-email', function(Request $request) {
