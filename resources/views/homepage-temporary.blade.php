@@ -401,7 +401,7 @@
                 class="mx-[15px] py-[30px] md:py-[50px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[50px] md:mb-[100px]
                     px-[15px] md:px-[30px]">
 
-;                <div class="mx-[15px] font-WorkSans-SemiBold text-[#414141]
+                <div class="mx-[15px] font-WorkSans-SemiBold text-[#414141]
                     text-[18px] mb-[30px]
                     md:text-[28px] md:mb-[50px]
                     ">Máte FVE projekt na prodej?
