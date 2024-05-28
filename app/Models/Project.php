@@ -262,7 +262,7 @@ class Project extends Model
         $priceText = '';
         $price = $this->price;
         $type = $this->type;
-        if ($type === 'fixed-price') {
+        if ($type === 'fixed-price' || $type === null) {
             if (auth()->guest()) {
                 $priceText = 'Jen pro přihlášené ';
             } elseif (!auth()->user()->isVerified()) {
@@ -303,7 +303,7 @@ class Project extends Model
         $priceText = '';
         $price = $this->minimum_principal;
         $type = $this->type;
-        if ($type === 'fixed-price') {
+        if ($type === 'fixed-price' || $type === null) {
             if (auth()->guest() || !auth()->user()->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {

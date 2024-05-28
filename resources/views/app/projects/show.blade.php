@@ -61,11 +61,11 @@
                     </div>
 
                     <div>
-                        @if($project->type === 'fixed-price')
+                        @if($project->type === 'fixed-price' || $project->type === null)
                             <x-app.project.part.detail-fixed-price
                                 :project="$project"></x-app.project.part.detail-fixed-price>
                         @endif
-                        @if($project->type === 'offer-the-price')
+                        @if($project->type === 'offer-the-price' || $project->type === null)
                             <x-app.project.part.detail-offer-the-price
                                 :project="$project"></x-app.project.part.detail-offer-the-price>
                         @endif

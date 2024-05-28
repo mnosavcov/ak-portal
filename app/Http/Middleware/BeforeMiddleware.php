@@ -28,8 +28,15 @@ class BeforeMiddleware
                         '/zpracovani-osobnich-udaju',
                         '/projects/add',
                         '/projects/save',
+                        '/login',
+                        '/logout',
+                        '/admin',
+                        '/admin/projects',
                     ]
                 ) && !$date->isPast()
+                && !str_starts_with($request->getRequestUri(), '/admin/projects')
+                && !str_starts_with($request->getRequestUri(), '/projects/')
+                && !str_starts_with($request->getRequestUri(), '/gallery/')
             ) {
                 return redirect()->route('homepage');
             }

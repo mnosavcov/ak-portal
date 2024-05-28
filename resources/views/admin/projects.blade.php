@@ -25,7 +25,7 @@
                     <div class="mb-[0px] border-b py-[15px] px-[5px] hover:bg-gray-200">
                         <h3 class="font-bold mb-[5px]">{{ $project->title }}</h3>
                         <div class="flex flex-row gap-x-[10px] divide-x divide-gray-400 mb-[5px]">
-                            <div>{{ $user_account_type[$project->user_account_type] ?? $projects->user_account_type }}</div>
+                            <div>{{ $user_account_type[$project->user_account_type] ?? $project->user_account_type }}</div>
                             <div class="pl-[10px]">{{ $project->end_date_text }}</div>
                             <div class="pl-[10px]">{{ $project->price_text }}</div>
                         </div>

@@ -60,7 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isSuperadmin(): bool
     {
-        return $this->superadmin;
+        return (bool)$this->superadmin;
     }
 
     public function isOwner(): bool
@@ -70,6 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isVerified()
     {
+        if($this->isSuperadmin()) {
+            return true;
+        }
+
         return auth()->user()->check_status === 'verified' && auth()->user()->hasVerifiedEmail();
     }
 }
