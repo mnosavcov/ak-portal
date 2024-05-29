@@ -36,7 +36,7 @@
                         class="font-Spartan-Bold">Chci investovat</span> do projektu
                 </a>
                 <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('projects.create', ['accountType' => 'advertiser']) : route('login') }}"
-                   class="font-Spartan-Regular bg-[#0376C8] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                   class="font-Spartan-Regular bg-app-blue text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
                              laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
@@ -106,20 +106,24 @@
                             placerat enim sit amet, aliquet est.
                         </div>
 
-                        <div class="text-app-orange font-Spartan-Regular mb-[20px]
+                        <a href="#" class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
+                         after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
+                         after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                     ">
                             Zobrazit projekty
-                        </div>
-
-                        <div class="text-[#0376C8] font-Spartan-Regular
-                        text-[12px] leading-[22px]
+                        </a>
+                        <div></div>
+                        <a href="#" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                         after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
+                         after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
+                         text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          ">Nabídnout svůj projekt
-                        </div>
+                        </a>
                     </div>
                 </div>
 
@@ -148,20 +152,25 @@
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
                             placerat enim sit amet, aliquet est.
                         </div>
-                        <div class="text-app-orange font-Spartan-Regular mb-[20px]
+                        <a href="#" class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
+                         after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
+                         after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
-                    ">
+                            ">
                             Zobrazit projekty
-                        </div>
-                        <div class="text-[#0376C8] font-Spartan-Regular
-                        text-[12px] leading-[22px]
+                        </a>
+                        <div></div>
+                        <a href="#" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                         after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
+                         after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
+                         text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
-                    ">Nabídnout
-                            svůj projekt
-                        </div>
+                            ">
+                            Nabídnout svůj projekt
+                        </a>
                     </div>
                 </div>
             </div>

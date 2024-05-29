@@ -34,6 +34,15 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'phone_number' => ['required', 'string', 'min:9'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'email.required' => 'E-mail je povinné pole.',
+            'email.email' => 'E-mail musí být platný.',
+            'email.unique' => 'E-mail je již zaregistrován.',
+            'phone_number.required' => 'Telefonní číslo je povinné.',
+            'phone_number.min' => 'Telefonní číslo musí mít alespoň 9 znaků.',
+            'password.required' => 'Heslo je povinné.',
+            'password.confirmed' => 'Hesla se neshodují.',
+            'password.min' => 'Heslo musí mít alespoň :min znaků.',
         ]);
 
         if ($validator->errors()->count()) {

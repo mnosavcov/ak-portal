@@ -27,7 +27,7 @@
                 <template x-for="(subject, index) in data.subjectOffers" :key="index">
                     <div
                         class="cursor-pointer font-Spartan-SemiBold text-[13px] text-[#676464] p-[31px_21px] text-center leading-[22px] rounded-[3px] border border-[#D9E9F2] m-[1px] p-[1px] flex items-center justify-center"
-                        :class="{'!font-Spartan-Bold !border-[#0376C8] border-[3px] !m-0 !p-[30px_20px] !text-[#0376C8] shadow-[0_3px_6px_rgba(0,0,0,0.16)]': index === data.subjectOffer}"
+                        :class="{'!font-Spartan-Bold !border-app-blue border-[3px] !m-0 !p-[30px_20px] !text-app-blue shadow-[0_3px_6px_rgba(0,0,0,0.16)]': index === data.subjectOffer}"
                         x-text="subject" @click="data.subjectOffer = index"></div>
                 </template>
             </div>
@@ -41,7 +41,7 @@
                 <template x-for="(location, index) in data.locationOffers" :key="index">
                     <div
                         class="cursor-pointer font-Spartan-SemiBold text-[13px] text-[#676464] p-[31px_21px] text-center leading-[22px] rounded-[3px] border border-[#D9E9F2] m-[1px] p-[1px] flex items-center justify-center"
-                        :class="{'!font-Spartan-Bold !border-[#0376C8] border-[3px] !m-0 !p-[30px_20px] !text-[#0376C8] shadow-[0_3px_6px_rgba(0,0,0,0.16)]': index === data.locationOffer}"
+                        :class="{'!font-Spartan-Bold !border-app-blue border-[3px] !m-0 !p-[30px_20px] !text-app-blue shadow-[0_3px_6px_rgba(0,0,0,0.16)]': index === data.locationOffer}"
                         x-text="location" @click="data.locationOffer = index"></div>
                 </template>
             </div>
@@ -173,7 +173,7 @@
                     <template x-for="(typeData, index) in data.types" :key="index">
                         <div
                             class="max-w-[900px] cursor-pointer grid grid-cols-[20px_1fr] gap-x-[20px] w-full rounded-[3px] border border-[#D9E9F2] p-[26px_21px] m-[1px]"
-                            :class="{'!border-[#0376C8] border-[3px] !m-0 !p-[25px_20px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]': typeData.value === data.type}"
+                            :class="{'!border-app-blue border-[3px] !m-0 !p-[25px_20px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]': typeData.value === data.type}"
                             @click="data.type = typeData.value">
                             <div
                                 class="relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-full shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
@@ -184,7 +184,7 @@
                             <div>
                                 <div
                                     class="font-Spartan-SemiBold text-[15px] text-[#676464] leading-[24px] mb-[15px]"
-                                    :class="{'!font-Spartan-Bold !text-[#0376C8]': typeData.value === data.type}"
+                                    :class="{'!font-Spartan-Bold !text-app-blue': typeData.value === data.type}"
                                     x-text="typeData.text">
                                 </div>
                                 <div class="font-Spartan-Regular text-[13px] text-[#414141] leading-[22px]"
@@ -213,7 +213,7 @@
                         <template x-for="(representationData, index) in data.representationOptions" :key="index">
                             <div
                                 class="max-w-[900px] cursor-pointer grid grid-cols-[20px_1fr] gap-x-[20px] w-full rounded-[3px] border border-[#D9E9F2] p-[26px_21px] m-[1px]"
-                                :class="{'!border-[#0376C8] border-[3px] !m-0 !p-[25px_20px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]': representationData.value === data.representation.selected}"
+                                :class="{'!border-app-blue border-[3px] !m-0 !p-[25px_20px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]': representationData.value === data.representation.selected}"
                                 @click="data.representation.selected = representationData.value">
                                 <div
                                     class="relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-full shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
@@ -224,7 +224,7 @@
                                 <div>
                                     <div
                                         class="font-Spartan-SemiBold text-[15px] text-[#676464] leading-[24px] mb-[15px]"
-                                        :class="{'!font-Spartan-Bold !text-[#0376C8]': representationData.value === data.representation.selected}"
+                                        :class="{'!font-Spartan-Bold !text-app-blue': representationData.value === data.representation.selected}"
                                         x-text="representationData.text">
                                     </div>
                                     <div class="font-Spartan-Regular text-[13px] text-[#414141] leading-[22px]"

@@ -85,11 +85,6 @@
                         <div class="font-Spartan-SemiBold">Cena:</div>
                         <div class="font-Spartan-Regular" x-text="project.price_text"></div>
                     </div>
-                    <div>
-                        <i class="fa-regular fa-star" x-show="!project.shows[0] || !project.shows[0].favourite"></i>
-                        <i class="fa-solid fa-star text-app-orange"
-                           x-show="project.shows[0] && project.shows[0].favourite"></i>
-                    </div>
                 </div>
             </template>
             <template x-if="project.type === 'fixed-price'">
@@ -117,11 +112,6 @@
                         text-[11px] tablet:text-[12px] laptop:text-[14px]">
                         <div class="font-Spartan-SemiBold">Cena:</div>
                         <div class="font-Spartan-Regular" x-text="project.price_text"></div>
-                    </div>
-                    <div class="tablet:mt-[-10px]">
-                        <i class="fa-regular fa-star" x-show="!project.shows[0] || !project.shows[0].favourite"></i>
-                        <i class="fa-solid fa-star text-app-orange"
-                           x-show="project.shows[0] && project.shows[0].favourite"></i>
                     </div>
                 </div>
             </template>

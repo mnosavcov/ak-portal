@@ -76,7 +76,9 @@
             <div class="mb-[20px]">
                 <div
                     class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ</div>
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">VÁŠ ÚČET ČEKÁ NA
+                        OVĚŘENÍ
+                    </div>
                     <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
                         Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme proces
                         ověření účtu.
@@ -90,7 +92,7 @@
 
     @if(!auth()->user()->hasVerifiedEmail())
         <x-modal name="not-verify-email" :show="session()->get('after-login')">
-            <div class="p-[50px_40px] text-center" x-data="{ newEmailOpen: false, newEmail: '', valid: true,
+            <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{ newEmailOpen: false, newEmail: '', valid: true,
                 successMessage: null, errorMessage: null, loaderShow: false, email: @js(auth()->user()->email),
                 isValid() {
                     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -160,7 +162,7 @@
                 }
                 }">
                 <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="show = false;"
-                     class="cursor-pointer w-[20px] h-[20px] float-right relative top-[-20px] right-[-15px]">
+                     class="cursor-pointer w-[20px] h-[20px] float-right relative top-[-20px] tablet:right-[-15px] right-[5px]">
 
                 <div class="text-center mb-[30px]">
                     <h1>Ověření e-mailu</h1>
@@ -186,14 +188,14 @@
                 </div>
 
                 <div
-                    class="p-[25px] rounded-[7px] bg-[#F4FAFE] font-Spartan-Regular text-[20px] leading-[30px] text-[#414141] text-center mb-[30px]">
+                    class="p-[25px] rounded-[7px] bg-[#F4FAFE] font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px] text-[#414141] text-center mb-[30px]">
                     Na váš e-mail <span x-text="email"></span> jsme odeslali zprávu s <span
                         class="font-Spartan-SemiBold">aktivačním odkazem</span>. Potvrďte přes něj
                     svou registraci a vlastnictví e-mailu.
                 </div>
 
                 <div
-                    class="text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue pb-[35px] cursor-pointer transition"
+                    class="text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue pb-[15px] tablet:pb-[35px] cursor-pointer transition"
                     @click="newEmailOpen = !newEmailOpen; isValid();"
                     :class="{'text-app-orange': newEmailOpen}">
                     Zadali jste špatnou e-mailovou adresu?

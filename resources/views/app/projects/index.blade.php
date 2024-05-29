@@ -18,7 +18,7 @@
 {{--        </a>--}}
 
         <a href="{{ auth()->user() ? route('projects.create', ['accountType' => 'advertiser']) : route('login') }}"
-           class="inline-block font-Spartan-Regular bg-[#0376C8] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+           class="inline-block font-Spartan-Regular bg-app-blue text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
                              laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]

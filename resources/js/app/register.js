@@ -29,8 +29,8 @@ Alpine.data('register', (id) => ({
         enabled &&= this.kontakt.email.includes('@');
         enabled &&= this.kontakt.email.includes('.');
         enabled &&= this.kontakt.phone_number.length >= 9;
-        enabled &&= this.kontakt.password.length >= 6;
-        enabled &&= this.kontakt.password_confirmation.length >= 6;
+        enabled &&= this.kontakt.password.length >= 0;
+        enabled &&= this.kontakt.password_confirmation.length >= 0;
         enabled &&= this.confirm;
 
         return enabled;

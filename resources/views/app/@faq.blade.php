@@ -17,7 +17,7 @@
                             h-[50px] leading-[50px] w-full
                             tablet:h-[54px] tablet:leading-[54px] tablet:w-[200px]
                             "
-                            :class="{'!bg-[#0376C8] text-white': proKoho === data.proKohoSelected}"
+                            :class="{'!bg-app-blue text-white': proKoho === data.proKohoSelected}"
                             @click="data.proKohoSelected = proKoho"
                     >
                     </button>
@@ -42,15 +42,21 @@
                             <div x-text="faq.otazka" @click="open = !open" class="cursor-pointer text-[#31363A] font-Spartan-SemiBold
                              text-[13px] leading-[22px]
                              tablet:text-[14px] tablet:leading-[24px]
-                             laptop:text-[16px] laptop:leading-[26px]
-                            "></div>
+                             laptop:text-[16px] laptop:leading-[26px] relative
+                             after:absolute after:right-[0px] after:top-[7px] after:bg-no-repeat after:transition
+                             after:w-[12px] after:h-[8px] after:bg-[url('/resources/images/arrow-down-black-12x8.svg')]
+                             laptop:after:w-[22px] laptop:after:h-[14px] laptop:after:bg-[url('/resources/images/arrow-down-black-22x14.svg')]
+                            "
+                            :class="{'after:rotate-180': open}"
+                            ></div>
 
-                            <div x-text="faq.odpoved" class="bg-[#f8f8f8]  rounded-[3px] text-[#31363A] font-Spartan-Regular rounded-[3px]
+                            <div x-show="open" x-collapse>
+                                <div x-text="faq.odpoved" class="bg-[#f8f8f8]  rounded-[3px] text-[#31363A] font-Spartan-Regular
                                  text-[13px] leading-[22px] p-[10px] mt-[10px]
                                  tablet:text-[14px] tablet:leading-[24px] tablet::p-[20px] tablet::mt-[20px]
-                                 laptop:text-[16px] laptop:leading-[26px] laptop:p-[25px] laptop:mt-[25px]"
-
-                                 x-show="open"></div>
+                                 laptop:text-[16px] laptop:leading-[26px] laptop:p-[25px] laptop:mt-[25px]">
+                                </div>
+                            </div>
                         </div>
                     </template>
                 </template>
