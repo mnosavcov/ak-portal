@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-5d7de4bd.css",
+    "file": "assets/app-9727791a.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -544,6 +544,30 @@
     "file": "assets/WorkSans-ThinItalic-b418b086.woff2",
     "src": "resources/fonts/WorkSans/WorkSans-ThinItalic.woff2"
   },
+  "resources/images/arrow-down-black-12x8.svg": {
+    "file": "assets/arrow-down-black-12x8-4cfc8476.svg",
+    "src": "resources/images/arrow-down-black-12x8.svg"
+  },
+  "resources/images/arrow-down-black-22x14.svg": {
+    "file": "assets/arrow-down-black-22x14-ee76202d.svg",
+    "src": "resources/images/arrow-down-black-22x14.svg"
+  },
+  "resources/images/arrow-right-black-6x10.svg": {
+    "file": "assets/arrow-right-black-6x10-141535e9.svg",
+    "src": "resources/images/arrow-right-black-6x10.svg"
+  },
+  "resources/images/arrow-right-blue-11x17.svg": {
+    "file": "assets/arrow-right-blue-11x17-ec02547c.svg",
+    "src": "resources/images/arrow-right-blue-11x17.svg"
+  },
+  "resources/images/arrow-right-blue-6x10.svg": {
+    "file": "assets/arrow-right-blue-6x10-b290aab2.svg",
+    "src": "resources/images/arrow-right-blue-6x10.svg"
+  },
+  "resources/images/arrow-right-orange-6x10.svg": {
+    "file": "assets/arrow-right-orange-6x10-8649a734.svg",
+    "src": "resources/images/arrow-right-orange-6x10.svg"
+  },
   "resources/images/bg-project-default.png": {
     "file": "assets/bg-project-default-2d6728ab.png",
     "src": "resources/images/bg-project-default.png"
@@ -705,7 +729,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-d3734101.js",
+    "file": "assets/app-c54e120b.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
