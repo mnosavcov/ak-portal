@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,40 @@ Route::get('projects/add/{accountType?}', function () {
     return app()->call('App\Http\Controllers\App\ProjectController@create', ['accountType' => 'advertiser']);
 })->name('projects.add');
 Route::post('projects/save', [ProjectController::class, 'store'])->name('projects.save');
+
+Route::view('jak-to-funguje', 'homepage', [
+    'projects' => [
+        'Nejnovější projekty' => [
+            'selected' => '1',
+            'titleCenter' => true,
+            'data' => [
+                '1' => Project::isPublicated()->forDetail()->get(),
+            ],
+        ]
+    ],
+])->name('jak-to-funguje');
+Route::view('o-nas', 'homepage', [
+    'projects' => [
+        'Nejnovější projekty' => [
+            'selected' => '1',
+            'titleCenter' => true,
+            'data' => [
+                '1' => Project::isPublicated()->forDetail()->get(),
+            ],
+        ]
+    ],
+])->name('o-nas');
+Route::view('kontakt', 'homepage', [
+    'projects' => [
+        'Nejnovější projekty' => [
+            'selected' => '1',
+            'titleCenter' => true,
+            'data' => [
+                '1' => Project::isPublicated()->forDetail()->get(),
+            ],
+        ]
+    ],
+])->name('kontakt');
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-email');
