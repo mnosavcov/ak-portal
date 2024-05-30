@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100" :class="{'!border-transparent': open}">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-[1230px] mx-auto px-[15px]">
+    <div class="max-w-[1230px] mx-auto px-[15px] relative z-50 bg-white">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -25,7 +25,7 @@
                     <x-dropdown align="left-170" width="">
                         <x-slot name="trigger">
                             <button
-                                    class="{{ $classes }}">
+                                class="{{ $classes }}">
                                 <div>Projekty</div>
 
                                 <div class="ml-1">
@@ -40,7 +40,8 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <div class="px-[35px] pt-[15px] pb-[40px] grid grid-cols-[max-content_max-content_max-content] gap-x-[69px]">
+                            <div
+                                class="px-[35px] pt-[15px] pb-[40px] grid grid-cols-[max-content_max-content_max-content] gap-x-[69px]">
                                 <div>
                                     <x-dropdown-content>
                                         {{ __('Cenu navrhuje kupující') }}
@@ -119,7 +120,9 @@
                                     </x-dropdown-link>
                                 </div>
                                 <div class="mt-[20px] col-span-3 text-center">
-                                    <a href="{{ route('projects.index') }}" class="font-Spartan-Bold text-[15px] text-app-blue underline hover:no-underline">Zobrazit všechny kategorie</a>
+                                    <a href="{{ route('projects.index') }}"
+                                       class="font-Spartan-Bold text-[15px] text-app-blue underline hover:no-underline">Zobrazit
+                                        všechny kategorie</a>
                                 </div>
                             </div>
                         </x-slot>
@@ -161,7 +164,7 @@
                     <x-dropdown align="right" width="56">
                         <x-slot name="trigger">
                             <button
-                                    class="{{ $classes }}">
+                                class="{{ $classes }}">
                                 <div>Váš účet</div>
 
                                 <div class="ml-1">
@@ -269,7 +272,7 @@
                               transform="translate(14 18)" fill="#414141"/>
                     </svg>
 
-                    <svg x-show="open" xmlns="http://www.w3.org/2000/svg" width="20.999" height="21"
+                    <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg" width="20.999" height="21"
                          viewBox="0 0 20.999 21">
                         <g id="Group_20638" data-name="Group 20638" transform="translate(-442.333 -32.832)">
                             <rect id="Rectangle_1397" data-name="Rectangle 1397" width="26.997" height="2.7" rx="1"
@@ -285,42 +288,40 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    @auth
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden laptop:hidden">
-            <div class="pt-2 space-y-1">
-                <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-                    {{ __('Hlavní stránka') }}
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden laptop:hidden">
+        <div class="fixed top-0 left-0 right-0 bottom-0 bg-gray-500/75 z-10"></div>
+        <div class="absolute z-10 bg-[#F8F8F8] rounded-[0_0_10px_10px] left-0 right-0 border-t border-gray-100">
+            @guest
+                <x-responsive-nav-link :href="route('login')"
+                                       class="py-[25px] !font-Spartan-Bold !text-[15px] underline">
+                    {{ __('Přihlásit se') }}
                 </x-responsive-nav-link>
-            </div>
-            <div class="space-y-1">
-                <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
-                    {{ __('Projekty') }}
-                </x-responsive-nav-link>
-            </div>
-            <div class="space-y-1">
-                <x-responsive-nav-link :href="route('jak-to-funguje')" :active="request()->routeIs('jak-to-funguje')">
-                    {{ __('Jak to funguje') }}
-                </x-responsive-nav-link>
-            </div>
-            <div class="space-y-1">
-                <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')">
-                    {{ __('O nás') }}
-                </x-responsive-nav-link>
-            </div>
-            <div class="pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')">
-                    {{ __('Kontakt') }}
-                </x-responsive-nav-link>
-            </div>
+            @endguest
+            @auth
+                <div class="pl-[15px] grid grid-cols-[30px_1fr]">
+                    <div class="self-center">
+                        <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
 
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">Váš účet</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                        <x-responsive-nav-link :href="route('logout')"
+                                               class="py-[25px] text-right"
+                                               onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                            <div class="inline-grid grid-cols-[20px_1fr] gap-x-[15px]">
+                                <img src="{{ Vite::asset('resources/images/ico-logout.svg') }}">
+                                <div class="!font-Spartan-Bold !text-[15px] underline">
+                                    {{ __('Odhlásit se') }}
+                                </div>
+                            </div>
+                        </x-responsive-nav-link>
+                    </form>
                 </div>
+            @endauth
 
-                <div class="mt-3 space-y-1">
+            @auth
+                <div class="space-y-[25px] py-[25px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
                     @if(auth()->user()->superadmin)
                         <x-responsive-nav-link :href="route('admin.projects')">
                             {{ __('Administrace') }}
@@ -328,92 +329,171 @@
                     @endif
 
                     @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
-                        <x-responsive-nav-link :href="route('profile.overview')">
+                        <x-responsive-nav-link :href="route('profile.overview')"
+                                               :active="request()->routeIs('profile.overview')">
                             {{ __('Přehled účtu') }}
                         </x-responsive-nav-link>
                     @endif
 
                     @if(auth()->user()->investor)
-                        <x-responsive-nav-link :href="route('profile.investor')">
+                        <x-responsive-nav-link :href="route('profile.investor')"
+                                               :active="request()->routeIs('profile.investor')">
                             {{ __('Profil investora') }}
                         </x-responsive-nav-link>
                     @endif
 
                     @if(auth()->user()->advertiser)
-                        <x-responsive-nav-link :href="route('profile.advertiser')">
+                        <x-responsive-nav-link :href="route('profile.advertiser')"
+                                               :active="request()->routeIs('profile.advertiser')">
                             {{ __('Profil nabízejícího') }}
                         </x-responsive-nav-link>
                     @endif
 
                     @if(auth()->user()->real_estate_broker)
-                        <x-responsive-nav-link :href="route('profile.real-estate-broker')">
+                        <x-responsive-nav-link :href="route('profile.real-estate-broker')"
+                                               :active="request()->routeIs('profile.real-estate-broker')">
                             {{ __('Profil realitního makléře') }}
                         </x-responsive-nav-link>
                     @endif
 
-                    <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         {{ __('Nastavení účtu') }}
                     </x-responsive-nav-link>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <x-responsive-nav-link :href="route('logout')"
-                                               onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                            {{ __('Odhlásit se') }}
-                        </x-responsive-nav-link>
-                    </form>
                 </div>
-            </div>
-        </div>
-    @endauth
+            @endauth
 
-    @guest
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden laptop:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-                    {{ __('Hlavní stránka') }}
-                </x-responsive-nav-link>
-            </div>
-
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="space-y-1">
-                    <div class="space-y-1">
-                        <x-responsive-nav-link :href="route('projects.index')"
-                                               :active="request()->routeIs('projects.index')">
+            <div x-data="{open: false}">
+                <div class="rounded-[3px] transition mx-[15px]" :class="{'bg-white' : open}">
+                    <x-responsive-nav-link :active="request()->routeIs('projects.*')"
+                                           @click="open = !open"
+                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] mr-[15px] cursor-pointer">
+                        <div class="grid grid-cols-[1fr_10px] pr-[15px]">
                             {{ __('Projekty') }}
-                        </x-responsive-nav-link>
-                    </div>
-                    <div class="space-y-1">
-                        <x-responsive-nav-link :href="route('jak-to-funguje')"
-                                               :active="request()->routeIs('jak-to-funguje')">
-                            {{ __('Jak to funguje') }}
-                        </x-responsive-nav-link>
-                    </div>
-                    <div class="space-y-1">
-                        <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')">
-                            {{ __('O nás') }}
-                        </x-responsive-nav-link>
-                    </div>
-                    <div class="pb-3 space-y-1">
-                        <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')">
-                            {{ __('Kontakt') }}
-                        </x-responsive-nav-link>
-                    </div>
-                    <x-responsive-nav-link :href="route('login')">
-                        {{ __('Přihlásit se') }}
+                            <div class="self-center">
+                                <img src="{{ Vite::asset('resources/images/arrow-down-black-10x6.svg') }}"
+                                     class="transition"
+                                     :class="{'rotate-180': open}">
+                            </div>
+                        </div>
                     </x-responsive-nav-link>
 
-                    {{--                    @if (Route::has('register'))--}}
-                    {{--                        <x-responsive-nav-link :href="route('register')">--}}
-                    {{--                            {{ __('Register') }}--}}
-                    {{--                        </x-responsive-nav-link>--}}
-                    {{--                    @endif--}}
+                    <div x-show="open" x-collapse>
+                        <div class="pt-[15px] pb-[20px] grid">
+                            <x-dropdown-content class="!text-[13px] !font-WorkSans-SemiBold !p-0 !px-[15px] !pb-[25px]">
+                                {{ __('Cenu navrhuje kupující') }}
+                            </x-dropdown-content>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]"
+                                                   :active="request()->routeIs('projects.*')">
+                                {{ __('Pozemky k pronájmu') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Pozemky na prodej') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Kapacita v síti distributora') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Postoupení práv k projektu') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
+                                                   class="pb-[40px]">
+                                {{ __('Výstavba FVE na klíč') }}
+                            </x-responsive-nav-link>
+
+                            <x-dropdown-content class="!text-[13px] !font-WorkSans-SemiBold !p-0 !px-[15px] !pb-[25px]">
+                                {{ __('Cenu navrhuje prodávající') }}
+                            </x-dropdown-content>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Pozemky k pronájmu') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Pozemky na prodej') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Kapacita v síti distributora') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Postoupení práv k projektu') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
+                                                   class="pb-[40px]">
+                                {{ __('Výstavba FVE na klíč') }}
+                            </x-responsive-nav-link>
+
+                            <x-dropdown-content class="!text-[13px] !font-WorkSans-SemiBold !p-0 !px-[15px] !pb-[25px]">
+                                {{ __('Aukce') }}
+                            </x-dropdown-content>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Pozemky k pronájmu') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Pozemky na prodej') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Kapacita v síti distributora') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   class="pb-[20px]">
+                                {{ __('Postoupení práv k projektu') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link :href="route('profile.edit')" class="mb-[40px]">
+                                {{ __('Výstavba FVE na klíč') }}
+                            </x-responsive-nav-link>
+                            <a href="{{ route('projects.index') }}"
+                               class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline px-[15px]">Zobrazit
+                                všechny kategorie</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+            <div>
+                <x-responsive-nav-link :href="route('jak-to-funguje')" :active="request()->routeIs('jak-to-funguje')"
+                                       class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
+                    {{ __('Jak to funguje') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+            <div>
+                <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"
+                                       class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
+                    {{ __('O nás') }}
+                </x-responsive-nav-link>
+            </div>
+            <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+            <div class="pb-[25px]">
+                <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"
+                                       class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
+                    {{ __('Kontakt') }}
+                </x-responsive-nav-link>
+            </div>
         </div>
-    @endguest
+    </div>
 </nav>
