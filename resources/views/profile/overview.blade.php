@@ -56,7 +56,7 @@
         @if($account === 'advertiser')
             <div class="max-w-[1230px] px-[15px] mx-auto mb-[30px]">
                 <a href="{{ route('projects.create', ['accountType' => 'advertiser']) }}"
-                   class="text-center max-tablet:w-full leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+                   class="text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
                 >
                     + Přidat nový projekt
                 </a>
@@ -66,7 +66,7 @@
         @if($account === 'real-estate-broker')
             <div class="max-w-[1230px] px-[15px] mx-auto mb-[30px]">
                 <a href="{{ route('projects.create', ['accountType' => 'real-estate-broker']) }}"
-                   class="text-center max-tablet:w-full leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+                   class="text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
                 >
                     + Přidat nový projekt
                 </a>
