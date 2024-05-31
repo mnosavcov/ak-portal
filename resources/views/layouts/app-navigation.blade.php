@@ -161,13 +161,18 @@
                                     : '!text-[15px] inline-flex items-center px-1 text-sm font-medium leading-5 text-[#31363A]/80 hover:text-[#31363A] transition duration-150 ease-in-out font-Spartan-SemiBold';
                 @endphp
                 <div class="{{ $classeW }}">
-                    <x-dropdown align="right" width="56">
+                    <x-dropdown align="right" width="56" :contentClasses="'py-[10px] bg-white'">
                         <x-slot name="trigger">
                             <button
                                 class="{{ $classes }}">
-                                <div>Váš účet</div>
+                                <div class="grid grid-cols-[30px_1fr] gap-x-[15px]">
+                                    <div class="self-center">
+                                        <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
+                                    </div>
+                                    <div class="self-center mt-[8px]">Váš účet</div>
+                                </div>
 
-                                <div class="ml-1">
+                                <div class="ml-1 mt-[8px]">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                          viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
@@ -180,47 +185,59 @@
 
                         <x-slot name="content">
                             @if(auth()->user()->superadmin)
-                                <x-dropdown-link :href="route('admin.projects')">
+                                <x-dropdown-link :href="route('admin.projects')" class="px-[30px]">
                                     {{ __('Administrace') }}
                                 </x-dropdown-link>
                             @endif
 
                             @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
-                                <x-dropdown-link :href="route('profile.overview')">
+                                <x-dropdown-link :href="route('profile.overview')" class="px-[30px]"
+                                                 :active="request()->routeIs('profile.overview')">
                                     {{ __('Přehled účtu') }}
                                 </x-dropdown-link>
                             @endif
 
                             @if(auth()->user()->investor)
-                                <x-dropdown-link :href="route('profile.investor')">
+                                <x-dropdown-link :href="route('profile.investor')" class="px-[30px]"
+                                                 :active="request()->routeIs('profile.investor')">
                                     {{ __('Profil investora') }}
                                 </x-dropdown-link>
                             @endif
 
                             @if(auth()->user()->advertiser)
-                                <x-dropdown-link :href="route('profile.advertiser')">
+                                <x-dropdown-link :href="route('profile.advertiser')" class="px-[30px]"
+                                                 :active="request()->routeIs('profile.advertiser')">
                                     {{ __('Profil nabízejícího') }}
                                 </x-dropdown-link>
                             @endif
 
                             @if(auth()->user()->real_estate_broker)
-                                <x-dropdown-link :href="route('profile.real-estate-broker')">
+                                <x-dropdown-link :href="route('profile.real-estate-broker')" class="px-[30px]"
+                                                 :active="request()->routeIs('profile.real-estate-broker')">
                                     {{ __('Profil realitního makléře') }}
                                 </x-dropdown-link>
                             @endif
 
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.edit')" class="px-[30px]"
+                                             :active="request()->routeIs('profile.edit')">
                                 {{ __('Nastavení účtu') }}
                             </x-dropdown-link>
+
+                            <div class="h-[1px] bg-[#D9E9F2] mx-[30px] mt-[10px]"></div>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-dropdown-link :href="route('logout')"
+                                <x-dropdown-link :href="route('logout')" class="px-[30px]"
                                                  onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Odhlásit se') }}
+                                    <div class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] mt-[5px]">
+                                        <img src="{{ Vite::asset('resources/images/ico-logout.svg') }}">
+                                        <div class="!font-Spartan-SemiBold !text-[13px] underline">
+                                            {{ __('Odhlásit se') }}
+                                        </div>
+                                    </div>
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
