@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-9727791a.css",
+    "file": "assets/app-a3ae614f.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -544,6 +544,10 @@
     "file": "assets/WorkSans-ThinItalic-b418b086.woff2",
     "src": "resources/fonts/WorkSans/WorkSans-ThinItalic.woff2"
   },
+  "resources/images/arrow-down-black-10x6.svg": {
+    "file": "assets/arrow-down-black-10x6-3837cd06.svg",
+    "src": "resources/images/arrow-down-black-10x6.svg"
+  },
   "resources/images/arrow-down-black-12x8.svg": {
     "file": "assets/arrow-down-black-12x8-4cfc8476.svg",
     "src": "resources/images/arrow-down-black-12x8.svg"
@@ -596,6 +600,10 @@
     "file": "assets/ico-aukce-a175c6cf.svg",
     "src": "resources/images/ico-aukce.svg"
   },
+  "resources/images/ico-avatar.svg": {
+    "file": "assets/ico-avatar-c8dee979.svg",
+    "src": "resources/images/ico-avatar.svg"
+  },
   "resources/images/ico-button-arrow-left.svg": {
     "file": "assets/ico-button-arrow-left-9aa18a2f.svg",
     "src": "resources/images/ico-button-arrow-left.svg"
@@ -639,6 +647,10 @@
   "resources/images/ico-info-orange.svg": {
     "file": "assets/ico-info-orange-53dccf1d.svg",
     "src": "resources/images/ico-info-orange.svg"
+  },
+  "resources/images/ico-logout.svg": {
+    "file": "assets/ico-logout-caff80ee.svg",
+    "src": "resources/images/ico-logout.svg"
   },
   "resources/images/ico-moznost-vyzadovat-nda.svg": {
     "file": "assets/ico-moznost-vyzadovat-nda-0e536921.svg",
