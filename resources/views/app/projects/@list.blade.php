@@ -7,18 +7,20 @@
             laptop:px-[30px] laptop:py-[50px]
             ">
 
-            <h2 class="
-                mb-[20px]
-                tablet:mb-[35px]
+            <template x-if="!projectLists.titleHide">
+                <h2 class="
+                mb-[20px] text-center
+                tablet:mb-[35px] tablet:text-left
                 laptop:mb-[50px]
-            " :class="{'text-center': projectLists.titleCenter }" x-text="index"></h2>
+                " :class="{'!text-center': projectLists.titleCenter }" x-text="index"></h2>
+            </template>
 
             {{--            prepinac mezi subkategoriemi--}}
             <template x-if="Object.entries(projectLists.data).length > 1">
-                <div class="flex flex-wrap mb-[35px] gap-x-[70px]">
+                <div class="flex flex-wrap mb-[35px] gap-x-[30px] tablet:gap-x-[70px]">
                     <template x-for="(projects, index) in projectLists.data" :key="index">
                         <div x-text="index + ' (' + Object.entries(projects).length + ')'"
-                             class="cursor-pointer font-WorkSans-SemiBold text-[18px] leading-[34px]"
+                             class="cursor-pointer font-WorkSans-SemiBold text-[15px] tablet:text-[18px] leading-[34px]"
                              @click="projectLists.selected = index"
                              :class="{ 'text-app-orange underline': projectLists.selected === index }"></div>
                     </template>
@@ -34,7 +36,10 @@
                 </div>
             </template>
 
-            <div x-show="projectLists.selected === 'empty'" class="grid gap-y-[25px]" x-text="projectLists.empty"></div>
+            <div x-show="projectLists.selected === 'empty'"
+                 class="grid min-h-[50px] py-[14px] leading-[22px] bg-[#F8F8F8] rounded-[3px] text-center font-Spartan-Regular text-[13px] content-center"
+                 x-text="projectLists.empty">
+            </div>
 
             @isset($projectsListButtonAll)
                 <div

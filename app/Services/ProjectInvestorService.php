@@ -17,7 +17,7 @@ class ProjectInvestorService
                 'data' => [
                     'Nové projekty' => $this->news($page),
                     'Již zobrazené' => $this->showed($page),
-                    'Oblíbené' => $this->favorites($page),
+//                    'Oblíbené' => $this->favorites($page),
                 ],
             ],
             'Mé investice' => [
@@ -30,7 +30,7 @@ class ProjectInvestorService
 
         if (!$meInvestice->count()) {
             $ret['Mé investice']['selected'] = 'empty';
-            $ret['Mé investice']['empty'] = 'Zatím nemáte nevybranou žádnou investici.';
+            $ret['Mé investice']['empty'] = 'Zatím jste neinvestovali do žádného projektu.';
         }
 
         return $ret;

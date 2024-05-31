@@ -26,6 +26,7 @@ class ProjectController extends Controller
             'Projekty' => [
                 'selected' => '1',
                 'titleCenter' => true,
+                'titleHide' => true,
                 'data' => [
                     '1' => $projectAll,
                 ],
