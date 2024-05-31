@@ -293,12 +293,12 @@
         <div class="absolute z-10 bg-[#F8F8F8] rounded-[0_0_10px_10px] left-0 right-0 border-t border-gray-100">
             @guest
                 <x-responsive-nav-link :href="route('login')"
-                                       class="py-[25px] !font-Spartan-Bold !text-[15px] underline">
+                                       class="py-[25px] px-[15px] !font-Spartan-Bold !text-[15px] underline">
                     {{ __('Přihlásit se') }}
                 </x-responsive-nav-link>
             @endguest
             @auth
-                <div class="pl-[15px] grid grid-cols-[30px_1fr]">
+                <div class="px-[15px] grid grid-cols-[30px_1fr]">
                     <div class="self-center">
                         <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
                     </div>
@@ -321,7 +321,7 @@
             @endauth
 
             @auth
-                <div class="space-y-[25px] py-[25px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
+                <div class="space-y-[25px] py-[25px] px-[15px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
                     @if(auth()->user()->superadmin)
                         <x-responsive-nav-link :href="route('admin.projects')">
                             {{ __('Administrace') }}
@@ -477,7 +477,7 @@
                     </div>
                 </div>
 
-                <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>
                 <div>
                     <x-responsive-nav-link :href="route('jak-to-funguje')"
                                            :active="request()->routeIs('jak-to-funguje')"
@@ -485,14 +485,14 @@
                         {{ __('Jak to funguje') }}
                     </x-responsive-nav-link>
                 </div>
-                <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>
                 <div>
                     <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"
                                            class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
                         {{ __('O nás') }}
                     </x-responsive-nav-link>
                 </div>
-                <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>
                 <div class="pb-[25px]">
                     <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"
                                            class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
