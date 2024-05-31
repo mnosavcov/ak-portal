@@ -362,137 +362,143 @@
                 </div>
             @endauth
 
-            <div x-data="{open: false}">
-                <div class="rounded-[3px] transition mx-[15px]" :class="{'bg-white' : open}">
-                    <x-responsive-nav-link :active="request()->routeIs('projects.*')"
-                                           @click="open = !open"
-                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] mr-[15px] cursor-pointer">
-                        <div class="grid grid-cols-[1fr_10px] pr-[15px]">
-                            {{ __('Projekty') }}
-                            <div class="self-center">
-                                <img src="{{ Vite::asset('resources/images/arrow-down-black-10x6.svg') }}"
-                                     class="transition"
-                                     :class="{'rotate-180': open}">
+            <div class="mx-[15px]">
+                <div x-data="{open: false}">
+                    <div class="rounded-[3px] transition px-[15px]" :class="{'bg-white' : open}">
+                        <x-responsive-nav-link :active="request()->routeIs('projects.*')"
+                                               @click="open = !open"
+                                               class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] mr-[15px] cursor-pointer">
+                            <div class="grid grid-cols-[1fr_10px] pr-[15px]">
+                                {{ __('Projekty') }}
+                                <div class="self-center">
+                                    <img src="{{ Vite::asset('resources/images/arrow-down-black-10x6.svg') }}"
+                                         class="transition"
+                                         :class="{'rotate-180': open}">
+                                </div>
                             </div>
-                        </div>
-                    </x-responsive-nav-link>
+                        </x-responsive-nav-link>
 
-                    <div x-show="open" x-collapse>
-                        <div class="pt-[15px] pb-[20px] grid">
-                            <x-dropdown-content class="!text-[13px] !font-WorkSans-SemiBold !p-0 !px-[15px] !pb-[25px]">
-                                {{ __('Cenu navrhuje kupující') }}
-                            </x-dropdown-content>
+                        <div x-show="open" x-collapse>
+                            <div class="pt-[15px] pb-[20px] grid">
+                                <x-dropdown-content
+                                    class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]">
+                                    {{ __('Cenu navrhuje kupující') }}
+                                </x-dropdown-content>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]"
-                                                   :active="request()->routeIs('projects.*')">
-                                {{ __('Pozemky k pronájmu') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]"
+                                                       :active="request()->routeIs('projects.*')">
+                                    {{ __('Pozemky k pronájmu') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Pozemky na prodej') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Pozemky na prodej') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Kapacita v síti distributora') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Kapacita v síti distributora') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Postoupení práv k projektu') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Postoupení práv k projektu') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
-                                                   class="pb-[40px]">
-                                {{ __('Výstavba FVE na klíč') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
+                                                       class="pb-[40px]">
+                                    {{ __('Výstavba FVE na klíč') }}
+                                </x-responsive-nav-link>
 
-                            <x-dropdown-content class="!text-[13px] !font-WorkSans-SemiBold !p-0 !px-[15px] !pb-[25px]">
-                                {{ __('Cenu navrhuje prodávající') }}
-                            </x-dropdown-content>
+                                <x-dropdown-content
+                                    class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]">
+                                    {{ __('Cenu navrhuje prodávající') }}
+                                </x-dropdown-content>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Pozemky k pronájmu') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Pozemky k pronájmu') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Pozemky na prodej') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Pozemky na prodej') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Kapacita v síti distributora') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Kapacita v síti distributora') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Postoupení práv k projektu') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Postoupení práv k projektu') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
-                                                   class="pb-[40px]">
-                                {{ __('Výstavba FVE na klíč') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
+                                                       class="pb-[40px]">
+                                    {{ __('Výstavba FVE na klíč') }}
+                                </x-responsive-nav-link>
 
-                            <x-dropdown-content class="!text-[13px] !font-WorkSans-SemiBold !p-0 !px-[15px] !pb-[25px]">
-                                {{ __('Aukce') }}
-                            </x-dropdown-content>
+                                <x-dropdown-content
+                                    class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]">
+                                    {{ __('Aukce') }}
+                                </x-dropdown-content>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Pozemky k pronájmu') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Pozemky k pronájmu') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Pozemky na prodej') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Pozemky na prodej') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Kapacita v síti distributora') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Kapacita v síti distributora') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   class="pb-[20px]">
-                                {{ __('Postoupení práv k projektu') }}
-                            </x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('profile.edit')"
+                                                       class="pb-[20px]">
+                                    {{ __('Postoupení práv k projektu') }}
+                                </x-responsive-nav-link>
 
-                            <x-responsive-nav-link :href="route('profile.edit')" class="mb-[40px]">
-                                {{ __('Výstavba FVE na klíč') }}
-                            </x-responsive-nav-link>
-                            <a href="{{ route('projects.index') }}"
-                               class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline px-[15px]">Zobrazit
-                                všechny kategorie</a>
+                                <x-responsive-nav-link :href="route('profile.edit')" class="mb-[40px]">
+                                    {{ __('Výstavba FVE na klíč') }}
+                                </x-responsive-nav-link>
+                                <a href="{{ route('projects.index') }}"
+                                   class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline">Zobrazit
+                                    všechny kategorie</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
-            <div>
-                <x-responsive-nav-link :href="route('jak-to-funguje')" :active="request()->routeIs('jak-to-funguje')"
-                                       class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                    {{ __('Jak to funguje') }}
-                </x-responsive-nav-link>
-            </div>
-            <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
-            <div>
-                <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"
-                                       class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                    {{ __('O nás') }}
-                </x-responsive-nav-link>
-            </div>
-            <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
-            <div class="pb-[25px]">
-                <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"
-                                       class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                    {{ __('Kontakt') }}
-                </x-responsive-nav-link>
+                <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+                <div>
+                    <x-responsive-nav-link :href="route('jak-to-funguje')"
+                                           :active="request()->routeIs('jak-to-funguje')"
+                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
+                        {{ __('Jak to funguje') }}
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+                <div>
+                    <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"
+                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
+                        {{ __('O nás') }}
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pt-[5px] border-b border-[#D9E9F2] mx-[15px]"></div>
+                <div class="pb-[25px]">
+                    <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"
+                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
+                        {{ __('Kontakt') }}
+                    </x-responsive-nav-link>
+                </div>
             </div>
         </div>
     </div>
