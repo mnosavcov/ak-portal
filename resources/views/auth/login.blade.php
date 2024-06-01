@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <div class="pt-[50px] tablet:pt-[100px] bg-white">
+    <div class="pt-[50px] laptop:pt-[100px] bg-white">
         @include('app.@faq')
     </div>
 </x-app-layout>
