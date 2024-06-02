@@ -123,6 +123,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('projects', [AdminController::class, 'projects'])->name('projects');
                 Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
+                Route::get('users', [AdminController::class, 'users'])->name('users');
+                Route::post('save-user', [AdminController::class, 'userSave'])->name('save-user');
             });
         });
     });

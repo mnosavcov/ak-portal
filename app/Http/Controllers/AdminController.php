@@ -8,6 +8,7 @@ use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Models\ProjectState;
 use App\Models\ProjectTag;
+use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
@@ -262,5 +263,26 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.projects.edit', ['project' => $project->url_part]);
+    }
+
+    public function users()
+    {
+        return view(
+            'admin.users',
+            [
+                'users' => User::all()->pluck([], 'id')
+            ]
+        );
+    }
+
+    public function userSave(Request $request)
+    {
+        User::find($request->post('data')['id'])->update($request->post('data'));
+        return response()->json(
+            [
+                'status' => 'ok',
+                'user' => User::find($request->post('data')['id'])
+            ]
+        );
     }
 }

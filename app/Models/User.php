@@ -23,7 +23,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'investor',
         'advertiser',
         'real_estate_broker',
-        'newsletters',
         'check_status',
 
         'title_before',
@@ -36,6 +35,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'psc',
         'country',
         'more_info',
+        'phone_number',
+        'notice',
+        'investor_info',
     ];
 
     /**

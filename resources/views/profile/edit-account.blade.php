@@ -127,7 +127,7 @@
 
             <div>
                 <div class="mt-[10px] pt-[25px]">
-                    <x-input-label for="more_info" value="Státní občanství (země)"/>
+                    <x-input-label for="more_info" value="Za jakým účelem či účely chcete náš portál využívat?"/>
                     <x-textarea-input id="more_info" name="more_info"
                                       class="block mt-1 w-full" x-model="data.more_info"></x-textarea-input>
                 </div>
