@@ -194,9 +194,23 @@
 
                 <div
                     class="text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue pb-[15px] tablet:pb-[35px] cursor-pointer transition"
-                    @click="newEmailOpen = !newEmailOpen; isValid();"
-                    :class="{'text-app-orange': newEmailOpen}">
-                    Zadali jste špatnou e-mailovou adresu?
+                    :class="{
+                            'text-app-orange': newEmailOpen && !valid,
+                            'text-app-green': newEmailOpen && valid,
+                        }"
+                    @click="
+                        if(!newEmailOpen) {
+                            newEmailOpen = true;
+                        }
+
+                        isValid();
+
+                        if(newEmailOpen && valid) {
+                            newEmailSend();
+                            return;
+                        }
+                        "
+                    x-text="newEmailOpen ? (valid ? 'Odeslat novou zprávu' : 'Vyplňte správný email') : 'Zadali jste špatnou e-mailovou adresu?'">
                 </div>
 
                 <div x-show="newEmailOpen" x-collapse x-cloak="">
@@ -214,17 +228,8 @@
 
                 <button
                     class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
-                    x-text="newEmailOpen ? (valid ? 'Odeslat novou zprávu' : 'Vyplňte správný email') : 'Změnit emailovou adresu'"
-                    @click="
-                        if(newEmailOpen && valid) {
-                            newEmailSend();
-                            return;
-                        }
-
-                        newEmailOpen = !newEmailOpen;
-                        isValid();"
-                    :disabled="!valid"
-                >
+                    @click="window.location.reload()"
+                >Hotovo
                 </button>
 
                 <div id="loader" x-show="loaderShow" x-cloak>

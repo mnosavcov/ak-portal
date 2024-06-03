@@ -51,6 +51,7 @@ class BeforeMiddleware
                     $request->getUri() === route('profile.edit')
                     || $request->getUri() === route('profile.resend-verify-email')
                     || $request->getUri() === route('logout')
+                    || $request->getUri() === route('profile.verify-new-email')
                     || str_starts_with($request->getUri(), route('verification.notice'))
                 )
             ) {

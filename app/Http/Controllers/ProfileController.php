@@ -219,7 +219,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'status' => 'ok',
-            'statusMessage' => 'Email byl úspěšně změněn a zpráva s aktivačním odkazem byla úspěšně odeslána',
+            'statusMessage' => 'E-mail byl úspěšně změněn a zpráva s aktivačním odkazem byla úspěšně odeslána',
         ]);
     }
 
