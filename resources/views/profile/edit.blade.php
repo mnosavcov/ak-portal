@@ -91,7 +91,7 @@
     </div>
 
     @if(!auth()->user()->hasVerifiedEmail())
-        <x-modal name="not-verify-email" :show="session()->get('after-login')">
+        <x-modal name="not-verify-email" :show="true" :hidenable="false">
             <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{ newEmailOpen: false, newEmail: '', valid: true,
                 successMessage: null, errorMessage: null, loaderShow: false, email: @js(auth()->user()->email),
                 isValid() {
@@ -161,8 +161,6 @@
                         });
                 }
                 }">
-                <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="show = false;"
-                     class="cursor-pointer w-[20px] h-[20px] float-right relative top-[-20px] tablet:right-[-15px] right-[5px]">
 
                 <div class="text-center mb-[30px]">
                     <h1>Ověření e-mailu</h1>

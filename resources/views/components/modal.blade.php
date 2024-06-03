@@ -1,7 +1,8 @@
 @props([
     'name',
     'show' => false,
-    'maxWidth' => '2xl'
+    'maxWidth' => '2xl',
+    'hidenable' => true
 ])
 
 @php
@@ -16,6 +17,7 @@
 
 <div
     x-data="{
+        hidenable: @js($hidenable),
         show: @js($show),
         focusables() {
             // All focusable element types...
@@ -41,7 +43,7 @@
     })"
     x-on:open-modal.window="$event.detail == '{{ $name }}' ? show = true : null"
     x-on:close.stop="show = false"
-    x-on:keydown.escape.window="show = false"
+    x-on:keydown.escape.window="if(hidenable) show = false"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
@@ -51,7 +53,7 @@
     <div
         x-show="show"
         class="fixed inset-0 transform transition-all bottom-0 top-0 left-0 right-0"
-        x-on:click="show = false"
+        x-on:click="if(hidenable) show = false"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"

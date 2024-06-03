@@ -1,4 +1,4 @@
-<div x-data="verifyUserAccount" x-init="data = @js($user), countries = @js(\App\Services\CountryServices::COUNTRIES)">
+<div x-data="verifyUserAccount" x-init="data = @js($user); countries = @js(\App\Services\CountryServices::COUNTRIES)">
     <div class="max-w-[1200px] mx-auto mb-[50px] float-right" x-cloak x-show="step > 0">
         <div @click="step = 0"
             class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer">
