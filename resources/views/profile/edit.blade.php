@@ -9,23 +9,12 @@
 
         <h1 class="mb-[25px]">Nastavení účtu</h1>
 
-        @if(auth()->user()->hasVerifiedEmail())
-            <a type="button" href="{{ route('test.email') }}"
-               class=" text-center font-Spartan-SemiBold bg-app-red text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                [zrušit validaci emailu]
-            </a>
-        @endif
-
-        @if(auth()->user()->check_status !== 'verified')
-            <a type="button" href="{{ route('test.verify.true') }}"
-               class=" text-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                [nastavit účet jako OVĚŘENÝ]
-            </a>
-        @else
-            <a type="button" href="{{ route('test.verify.false') }}"
-               class=" text-center font-Spartan-SemiBold bg-app-red text-white text-[18px] h-[60px] leading-[60px] px-[30px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                [nastavit účet jako NEOVĚŘENÝ]
-            </a>
+        @if ($errors->any())
+            <ul class="bg-app-red text-white p-[15px] rounded-[3px] mb-[50px]">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         @endif
 
         @if(!auth()->user()->hasVerifiedEmail())
@@ -48,7 +37,7 @@
         @endif
 
         @if(auth()->user()->check_status === 'not_verified')
-            <div class="mb-[20px]">
+            <div class="mb-[50px]">
                 <div class="max-w-[1200px] mx-auto">
                     <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">

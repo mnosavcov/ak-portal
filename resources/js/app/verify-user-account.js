@@ -2,6 +2,7 @@ import Alpine from "alpinejs";
 
 Alpine.data('verifyUserAccount', (id) => ({
     step: 0,
+    verified: false,
     countries: {},
     data: {},
     nextBtnClick() {

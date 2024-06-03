@@ -34,6 +34,7 @@ return new class extends Migration
 
             $table->text('notice')->nullable();
             $table->text('investor_info')->nullable();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

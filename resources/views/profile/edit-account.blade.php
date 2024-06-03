@@ -1,7 +1,13 @@
-<div x-data="verifyUserAccount" x-init="data = @js($user); countries = @js(\App\Services\CountryServices::COUNTRIES)">
+<div x-data="verifyUserAccount"
+     x-init="
+        data = @js($user);
+        countries = @js(\App\Services\CountryServices::COUNTRIES);
+        verified = {{ auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' ? 'true' : 'false' }}
+     "
+     class="mb-[50px]">
     <div class="max-w-[1200px] mx-auto mb-[50px] float-right" x-cloak x-show="step > 0">
         <div @click="step = 0"
-            class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer">
+             class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer">
             Zrušit
         </div>
     </div>
@@ -30,35 +36,43 @@
             laptop:px-[30px] laptop:py-[50px]
             ">
 
-        @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting')
-            <div x-show="step === 0">
-                <h2>Vaše osobní údaje</h2>
+        <div x-show="step === 0 && verified">
+            <h2>Vaše osobní údaje</h2>
 
-                <div
-                    class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid grid-cols-[200px_1fr] gap-x-[50px] gap-y-[15px]">
-                    <div>Jméno a příjmení</div>
-                    <div>
-                        {{ $user['title_before'] . ' ' . $user['name'] . ' ' . $user['surname'] . ' ' . $user['title_after'] }}
-                    </div>
-                    <div>Adresa trvalého bydliště</div>
-                    <div>
-                        {{ $user['street'] . ' ' . $user['street_number'] . ' ' . $user['city'] . ' ' . $user['psc'] }}
-                    </div>
-                    <div>Státní občanství (země)</div>
-                    <div>{{ \App\Services\CountryServices::COUNTRIES[$user['country']] ?? '' }}</div>
+            <div
+                class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid grid-cols-[250px_1fr] gap-x-[50px] gap-y-[15px]">
+                <div>Státní občanství (země)</div>
+                <div>{{ \App\Services\CountryServices::COUNTRIES[$user['country']] ?? '' }}</div>
+
+                <div>Jméno a příjmení</div>
+                <div>
+                    {{ $user['title_before'] . ' ' . $user['name'] . ' ' . $user['surname'] . ' ' . $user['title_after'] }}
+                </div>
+
+                <div>Adresa trvalého bydliště</div>
+                <div>
+                    {{ $user['street'] . ' ' . $user['street_number'] . ' ' . $user['city'] . ' ' . $user['psc'] }}
                 </div>
             </div>
-        @else
-            <div x-show="step === 0">
-                <h2>Vaše osobní údaje</h2>
 
-                <button type="button" @click="step = 1"
-                        class="mt-[30px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
-                >
-                    Zadat a ověřit účet
-                </button>
-            </div>
-        @endif
+            <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?</div>
+
+            <button type="button" x-data
+                    class="cursor-pointer font-Spartan-SemiBold text-[14px] h-[45px] leading-[45px] text-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] px-[25px] bg-app-blue"
+                    @click="step = 1">
+                Aktualizovat osobní údaje
+            </button>
+        </div>
+
+        <div x-show="step === 0 && !verified">
+            <h2>Vaše osobní údaje</h2>
+
+            <button type="button" @click="step = 1"
+                    class="mt-[30px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+            >
+                Zadat a ověřit účet
+            </button>
+        </div>
 
         <div x-show="step === 1" x-cloak>
             <h2>Identifikujte se jako fyzická osoba</h2>
@@ -151,7 +165,10 @@
         </div>
     </div>
 
-    <button type="button" @click="prevBtnClick()" x-cloak x-show="step > 1">Zpět</button>
+    <button type="button" @click="prevBtnClick()" x-cloak x-show="step > 1"
+            class="font-Spartan-SemiBold text-app-blue text-[15px] leading-[22px] mr-[100px]">
+        Zpět
+    </button>
 
     <button type="button" @click="nextBtnClick()" x-cloak x-show="step > 0"
             class="leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
@@ -159,21 +176,6 @@
     </button>
 </div>
 
-
-<div class="py-12">
-    <div class="w-full mx-auto px-[15px]">
-        @include('profile.partials.update-profile-information-form')
-    </div>
-
-    <div class="p-4 tablet:p-8 bg-white shadow tablet:rounded-lg">
-        <div class="max-w-xl">
-            @include('profile.partials.update-password-form')
-        </div>
-    </div>
-
-    <div class="p-4 tablet:p-8 bg-white shadow tablet:rounded-lg">
-        <div class="max-w-xl">
-            @include('profile.partials.delete-user-form')
-        </div>
-    </div>
+<div class="w-full mx-auto">
+    @include('profile.partials.update-profile-information-form')
 </div>

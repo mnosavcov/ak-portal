@@ -41,6 +41,16 @@
                             <div class="bg-[#F8F8F8] rounded-[5px] p-[5px]" x-text="statusText(user.check_status)"
                                 :class="statusColor(user.check_status)">
                             </div>
+                            <template x-if="!user.email_verified_at">
+                                <div class="bg-app-red text-white rounded-[5px] p-[5px]">
+                                    E-MAIL NENÍ OVĚŘENÝ
+                                </div>
+                            </template>
+                            <template x-if="user.deleted_at">
+                                <div class="bg-app-red text-white rounded-[5px] p-[5px]">
+                                    SMAZÁNO: <span x-text="user.deleted_at"></span>
+                                </div>
+                            </template>
                         </div>
 
                         <img class="self-center transition"
