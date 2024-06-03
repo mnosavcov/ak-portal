@@ -44,13 +44,18 @@ class BeforeMiddleware
             }
         } else
 
-        if(
-            Auth::user()
-            && (!Auth::user()->hasVerifiedEmail())
-            && $request->getUri() !== route('profile.edit')
-        ) {
-            return redirect()->route('profile.edit');
-        }
+            if (
+                Auth::user()
+                && (!Auth::user()->hasVerifiedEmail())
+                && !(
+                    $request->getUri() === route('profile.edit')
+                    || $request->getUri() === route('profile.resend-verify-email')
+                    || $request->getUri() === route('logout')
+                    || str_starts_with($request->getUri(), route('verification.notice'))
+                )
+            ) {
+                return redirect()->route('profile.edit');
+            }
 
         Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'finished']);
         return $next($request);
