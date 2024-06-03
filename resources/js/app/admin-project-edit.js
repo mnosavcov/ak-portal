@@ -56,4 +56,28 @@ Alpine.data('adminProjectEdit', (id) => ({
             this.data[this.newId] = {id: this.newId, title: '', color: 'default'}
         },
     },
+
+    async deleteProject(id) {
+        if (!confirm('Opravdu si přejete smazat projekt? Tato akce je nevratná')) {
+            return;
+        }
+
+        await fetch('/projects/' + id, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+            },
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.status === 'success') {
+                    window.location.href = data.redirect;
+                    return;
+                }
+                alert('Chyba smazání');
+                window.location.href = data.redirect;
+            })
+            .catch((error) => {
+                alert('Chyba smazání')
+            });
+    },
 }));

@@ -54,7 +54,7 @@ class ProjectService
 
     public function destroy(Project $project)
     {
-        if($project->user_id !== auth()->id()) {
+        if($project->user_id !== auth()->id() && !auth()->user()->isSuperadmin()) {
             return response()->json([
                 'status' => 'error',
                 'redirect' => route('homepage'),
@@ -79,9 +79,14 @@ class ProjectService
         $project->tags()->delete();
         $project->delete();
 
+        $redirect = route('profile.overview', ['account' => $user_account_type]);
+        if(auth()->user()->isSuperadmin()) {
+            $redirect = route('admin.projects');
+        }
+
         return response()->json([
             'status' => 'success',
-            'redirect' => route('profile.overview', ['account' => $user_account_type]),
+            'redirect' => $redirect,
         ]);
     }
 }

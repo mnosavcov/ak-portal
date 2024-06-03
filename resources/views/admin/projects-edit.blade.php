@@ -50,6 +50,19 @@
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">
                     Uložit změny
                 </button>
+
+                <div x-data="{ enable: false }" class="mt-[-15px]">
+                    <div
+                        class="z-10 relative bg-white left-[20px] top-[35px] tablet:top-[40px] cursor-pointer w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                        :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': enable}"
+                        @click="enable = !enable"
+                    >
+                    </div>
+                    <button type="button" @click="deleteProject({{ $project->id }})"
+                            class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[70px]"
+                            :disabled="!enable">Smazat&nbsp;projekt
+                    </button>
+                </div>
             </form>
 
         </section>

@@ -125,6 +125,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
                 Route::get('users', [AdminController::class, 'users'])->name('users');
                 Route::post('save-user', [AdminController::class, 'userSave'])->name('save-user');
+                Route::delete('projects/{project}', [AdminController::class, 'destroy']);
             });
         });
     });

@@ -285,4 +285,9 @@ class AdminController extends Controller
             ]
         );
     }
+
+    public function destroy(Project $project)
+    {
+        return (new ProjectService())->destroy($project);
+    }
 }
