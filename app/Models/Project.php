@@ -28,6 +28,7 @@ class Project extends Model
         'status_text',
         'states_prepared',
         'details_prepared',
+        'about_prepared',
     ];
 
     protected $fillable = [
@@ -353,6 +354,12 @@ class Project extends Model
     {
         $about = strip_tags($this->about);
 
+        if (auth()->guest()) {
+            $about = 'Jen pro přihlášené ';
+        } elseif (!auth()->user()->isVerified()) {
+            $about = 'Pro potvrzený účet';
+        }
+
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $about
         );
@@ -432,6 +439,27 @@ class Project extends Model
                 $ret[] = (object)$item->toArray();
             }
             $ret = collect($ret);
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $ret
+        );
+    }
+
+    public function aboutPrepared(): Attribute
+    {
+        $ret = $this->about;
+
+        if (auth()->guest() || !auth()->user()->isVerified()) {
+            $description = html_entity_decode($ret ?? '');
+            $description = preg_split("/\R/", strip_tags($description));
+            foreach ($description as $index => $itemX) {
+                $strLen = ceil((mb_strlen($itemX) / 2) * 1.5);
+                $description[$index] = '<p><span style="background-color: #EBE9E9; overflow: hidden">' . str_repeat(' &nbsp;', $strLen) . '</span></p>';
+            }
+            $item = implode("\n", $description);
+
+            $ret = $item;
         }
 
         return Attribute::make(
