@@ -63,6 +63,8 @@ Alpine.data('adminUser', (id) => ({
             return 'ČEKÁ NA OVĚŘENÍ';
         } else if (status === 'verified') {
             return 'OVĚŘENO';
+        } else if (status === 're_verified') {
+            return 'ČEKÁ NA OPAKOVANÉ OVĚŘENÍ';
         }
 
         return 'neznámý stav: "' + status + '"'
@@ -70,7 +72,7 @@ Alpine.data('adminUser', (id) => ({
     statusColor(status) {
         if (status === 'not_verified') {
             return 'bg-app-red text-white'
-        } else if (status === 'waiting') {
+        } else if (status === 'waiting' || status === 're_verified') {
             return 'bg-app-orange text-white'
         } else if (status === 'verified') {
             return 'bg-app-green text-white'

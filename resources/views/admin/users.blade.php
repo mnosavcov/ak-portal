@@ -39,7 +39,7 @@
                             <div x-text="user.name" class="self-center"></div>
                             <div x-text="user.surname" class="self-center"></div>
                             <div class="bg-[#F8F8F8] rounded-[5px] p-[5px]" x-text="statusText(user.check_status)"
-                                :class="statusColor(user.check_status)">
+                                 :class="statusColor(user.check_status)">
                             </div>
                             <template x-if="!user.email_verified_at">
                                 <div class="bg-app-red text-white rounded-[5px] p-[5px]">
@@ -73,20 +73,29 @@
                         </div>
 
                         <div class="mt-[15px] grid grid-cols-4 gap-[10px]">
-                            <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
-                                 :class="{'!bg-app-green': (parseInt(user.investor) === 1)}"
-                                 @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0">
-                                Investor
+                            <div>
+                                <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
+                                     :class="{'!bg-app-green': (parseInt(user.investor) === 1)}"
+                                     @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0">
+                                    Investor
+                                </div>
+                                <x-revalidate-column column="investor" :yesNo="true"></x-revalidate-column>
                             </div>
-                            <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
-                                 :class="{'!bg-app-green': (parseInt(user.advertiser) === 1)}"
-                                 @click="user.advertiser = (!(parseInt(user.advertiser) === 1)) ? 1 : 0">
-                                Nabízející
+                            <div>
+                                <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
+                                     :class="{'!bg-app-green': (parseInt(user.advertiser) === 1)}"
+                                     @click="user.advertiser = (!(parseInt(user.advertiser) === 1)) ? 1 : 0">
+                                    Nabízející
+                                </div>
+                                <x-revalidate-column column="advertiser" :yesNo="true"></x-revalidate-column>
                             </div>
-                            <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
-                                 :class="{'!bg-app-green': (parseInt(user.real_estate_broker) === 1)}"
-                                 @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0">
-                                Realitní makléř
+                            <div>
+                                <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
+                                     :class="{'!bg-app-green': (parseInt(user.real_estate_broker) === 1)}"
+                                     @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0">
+                                    Realitní makléř
+                                </div>
+                                <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
                             </div>
                             <div></div>
 
@@ -94,47 +103,56 @@
                                 <x-input-label for="title_before" :value="__('Titul(y) před')"/>
                                 <x-text-input id="title_before" class="block mt-1 w-full" type="text"
                                               x-model="user.title_before"/>
+                                <x-revalidate-column column="title_before"></x-revalidate-column>
                             </div>
                             <div>
                                 <x-input-label for="name" :value="__('Jméno *')"/>
                                 <x-text-input id="name" class="block mt-1 w-full" type="text"
                                               x-model="user.name" required/>
+                                <x-revalidate-column column="name"></x-revalidate-column>
                             </div>
                             <div>
                                 <x-input-label for="surname" :value="__('Příjmení *')"/>
                                 <x-text-input id="surname" class="block mt-1 w-full" type="text"
                                               x-model="user.surname" required/>
+                                <x-revalidate-column column="surname"></x-revalidate-column>
                             </div>
                             <div>
                                 <x-input-label for="title_after" :value="__('Titul(y) za')"/>
                                 <x-text-input id="title_after" class="block mt-1 w-full" type="text"
                                               x-model="user.title_after"/>
+                                <x-revalidate-column column="title_after"></x-revalidate-column>
                             </div>
 
                             <div>
                                 <x-input-label for="street" :value="__('Ulice *')"/>
                                 <x-text-input id="street" class="block mt-1 w-full" type="text"
                                               x-model="user.street" required/>
+                                <x-revalidate-column column="street"></x-revalidate-column>
                             </div>
                             <div>
                                 <x-input-label for="street_number" :value="__('Číslo domu / Číslo orientační *')"/>
                                 <x-text-input id="street_number" class="block mt-1 w-full" type="text"
                                               x-model="user.street_number" required/>
+                                <x-revalidate-column column="street_number"></x-revalidate-column>
                             </div>
                             <div>
                                 <x-input-label for="city" :value="__('Obec *')"/>
                                 <x-text-input id="city" class="block mt-1 w-full" type="text"
                                               x-model="user.city" required/>
+                                <x-revalidate-column column="city"></x-revalidate-column>
                             </div>
                             <div>
                                 <x-input-label for="psc" :value="__('PSČ *')"/>
                                 <x-text-input id="psc" class="block mt-1 w-full" type="text"
                                               x-model="user.psc" required/>
+                                <x-revalidate-column column="psc"></x-revalidate-column>
                             </div>
 
                             <div>
                                 <x-input-label for="country" :value="__('Státní občanství (země)')" class="mb-1"/>
                                 <x-countries-select id="country" class="block mt-1 w-full" type="text"/>
+                                <x-revalidate-column column="country"></x-revalidate-column>
                             </div>
                             <div></div>
                             <div></div>
@@ -155,18 +173,25 @@
 
                             <div class="col-span-4">
                                 <x-input-label for="investor_info" :value="__('Informace o investorovi')"/>
-                                <x-textarea-input id="investor_info" class="block mt-1 w-full h-[5rem] leading-[1.5]" type="text"
-                                              x-model="user.investor_info"/>
+                                <x-textarea-input id="investor_info" class="block mt-1 w-full h-[5rem] leading-[1.5]"
+                                                  type="text"
+                                                  x-model="user.investor_info"/>
                             </div>
 
                             <div class="col-span-4">
-                                <x-input-label for="notice" :value="__('Poznámka ke kontaktu (interní informace, není vidět veřejně)')" class="text-app-red"/>
-                                <x-textarea-input id="notice" class="block mt-1 w-full leading-[1.5] h-[5rem]" type="text"
-                                              x-model="user.notice"/>
+                                <x-input-label for="notice"
+                                               :value="__('Poznámka ke kontaktu (interní informace, není vidět veřejně)')"
+                                               class="text-app-red"/>
+                                <x-textarea-input id="notice" class="block mt-1 w-full leading-[1.5] h-[5rem]"
+                                                  type="text"
+                                                  x-model="user.notice"/>
                             </div>
 
-                            <div class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[15px] mb-[15px]"
-                                 x-text="user.more_info">
+                            <div>
+                                <div class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[15px] mb-[15px]"
+                                     x-text="user.more_info">
+                                </div>
+                                <x-revalidate-column column="more_info"></x-revalidate-column>
                             </div>
 
                             <div class="col-span-4" x-show="isChanged(user.id)" x-cloak x-collapse>

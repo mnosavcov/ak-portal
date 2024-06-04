@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProfileService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\EmailNotification;
@@ -24,6 +25,7 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display the user's profile form.
      */
@@ -259,26 +261,17 @@ class ProfileController extends Controller
 
     public function verifyAccount(Request $request): JsonResponse
     {
-        $user = Auth::user();
-
-        $data = $request->post('data');
-
-        $user->update([
-            'title_before' => $data['title_before'],
-            'name' => $data['name'] ?? '',
-            'surname' => $data['surname'],
-            'title_after' => $data['title_after'],
-            'street' => $data['street'],
-            'street_number' => $data['street_number'],
-            'city' => $data['city'],
-            'psc' => $data['psc'],
-            'country' => $data['country'],
-            'more_info' => $data['more_info'],
-            'check_status' => 'waiting',
-        ]);
-
-        return response()->json([
-            'status' => 'ok',
+        return (new ProfileService)->verifyAccount($request, [
+            'title_before',
+            'name',
+            'surname',
+            'title_after',
+            'street',
+            'street_number',
+            'city',
+            'psc',
+            'country',
+            'more_info',
         ]);
     }
 }
