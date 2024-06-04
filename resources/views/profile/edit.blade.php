@@ -61,17 +61,52 @@
             </div>
         @endif
 
-        @if(auth()->user()->check_status === 'waiting')
+        @if(auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
             <div class="mb-[20px]">
                 <div
                     class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">VÁŠ ÚČET ČEKÁ NA
-                        OVĚŘENÍ
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                        VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ
                     </div>
                     <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
                         Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme proces
                         ověření účtu.
                     </div>
+                </div>
+            </div>
+        @endif
+
+        @if(auth()->user()->check_status === 'verified' && auth()->user()->show_check_status)
+            <div class="mb-[20px]" x-data="{
+                    openInfo: true,
+                    async closeInfo() {
+                        this.openInfo = false;
+                        await fetch('/profil/hide-verify-info', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                            },
+                        }).then((response) => response.json())
+                            .then((data) => {
+                            })
+                            .catch((error) => {
+                            });
+                    },
+                }" x-show="openInfo" x-collapse>
+                <div
+                    class="p-[15px] bg-app-green w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] relative">
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                        VÁŠ ÚČET BYL ÚSPĚŠNĚ OVĚŘEN
+                    </div>
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                        Nyní můžete náš portál využívat bez omezení.
+                    </div>
+
+                    <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
+                        class="absolute cursor-pointer h-[33px] w-[33px] right-[-16px] top-[-16px]"
+                         @click="closeInfo()"
+                    >
                 </div>
             </div>
         @endif

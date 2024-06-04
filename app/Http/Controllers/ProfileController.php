@@ -274,4 +274,10 @@ class ProfileController extends Controller
             'more_info',
         ]);
     }
+
+    public function hideVerifyInfo(Request $request)
+    {
+        $request->user()->show_check_status = false;
+        $request->user()->save();
+    }
 }

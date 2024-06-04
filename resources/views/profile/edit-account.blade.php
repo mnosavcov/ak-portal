@@ -36,7 +36,7 @@
             laptop:px-[30px] laptop:py-[50px]
             ">
 
-        <div x-show="step === 0 && verified">
+        <div x-show="step === 0 && verified" x-cloak>
             <h2>Vaše osobní údaje</h2>
 
             <div
@@ -64,7 +64,7 @@
             </button>
         </div>
 
-        <div x-show="step === 0 && !verified">
+        <div x-show="step === 0 && !verified" x-cloak>
             <h2>Vaše osobní údaje</h2>
 
             <button type="button" @click="step = 1"
@@ -160,7 +160,7 @@
                 <div>Státní občanství (země)</div>
                 <div x-text="countryText()"></div>
                 <div>Upřesnění záměrů</div>
-                <div x-text="moreInfoText()"></div>
+                <div x-html="moreInfoText()"></div>
             </div>
         </div>
     </div>

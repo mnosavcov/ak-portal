@@ -187,11 +187,13 @@
                                                   x-model="user.notice"/>
                             </div>
 
-                            <div>
+                            <div class="col-span-4">
+                                <x-input-label for="notice"
+                                               :value="__('Za jakým účelem či účely chce uživatel náš portál využívat')"/>
                                 <div class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[15px] mb-[15px]"
-                                     x-text="user.more_info">
+                                     x-html="user.more_info === null ? '' : user.more_info.trim().replace(/\n/g, '<br>')">
                                 </div>
-                                <x-revalidate-column column="more_info"></x-revalidate-column>
+                                <x-revalidate-column column="more_info" :br="true"></x-revalidate-column>
                             </div>
 
                             <div class="col-span-4" x-show="isChanged(user.id)" x-cloak x-collapse>

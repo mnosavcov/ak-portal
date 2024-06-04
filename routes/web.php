@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])->name('profile.verify-new-email');
     Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])->name('profile.verify-new-email');
     Route::post('/profil/verify-account', [ProfileController::class, 'verifyAccount'])->name('profile.verify-account');
+    Route::post('profil/hide-verify-info', [ProfileController::class, 'hideVerifyInfo'])->name('profile.hide-verify-info');
 
     Route::middleware('user.superadmin')->group(function () {
         Route::name('admin.')->group(function () {
@@ -108,7 +109,6 @@ Route::middleware('auth')->group(function () {
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
                 Route::get('users', [AdminController::class, 'users'])->name('users');
                 Route::post('save-user', [AdminController::class, 'userSave'])->name('save-user');
-                Route::delete('projects/{project}', [AdminController::class, 'destroy']);
             });
         });
     });

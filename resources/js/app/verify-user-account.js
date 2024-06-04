@@ -11,6 +11,12 @@ Alpine.data('verifyUserAccount', (id) => ({
             return;
         }
 
+        if(this.data.check_status === 'verified') {
+            if(!confirm('Při změně bude potřeba znovu ověřit účet.')) {
+                return;
+            }
+        }
+
         this.sendData();
     },
     prevBtnClick() {
@@ -67,7 +73,7 @@ Alpine.data('verifyUserAccount', (id) => ({
         return this.countries[this.data.country]
     },
     moreInfoText() {
-        return String(this.data.more_info);
+        return String(this.data.more_info.replace(/\n/g, '<br>'));
     },
     async sendData() {
         await fetch('/profil/verify-account', {

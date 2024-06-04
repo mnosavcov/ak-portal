@@ -60,12 +60,16 @@ class ProfileService
         }
 
         if ($checkStatus === 'not_verified') {
+            $user->show_check_status = true;
+            $user->save();
             $status = 'waiting';
         } elseif ($checkStatus === 'waiting') {
             $status = 'waiting';
         } elseif ($checkStatus === 're_verified') {
             $status = 're_verified';
         } elseif ($checkStatus === 'verified' && $existsChange) {
+            $user->show_check_status = true;
+            $user->save();
             $status = 're_verified';
             $saveOldData = true;
         }
