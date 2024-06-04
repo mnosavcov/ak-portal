@@ -35,7 +35,7 @@ class ProfileService
         foreach ($columns as $column) {
             $update[$column] = $data[$column];
         }
-        $update['check_status'] = $this->getStatus($user, $data);
+        $update['check_status'] = $this->getStatus($user, $data, $columns);
 
         $user->update($update);
 
@@ -44,7 +44,7 @@ class ProfileService
         ]);
     }
 
-    private function getStatus($user, $data)
+    private function getStatus($user, $data, $columns)
     {
         $checkStatus = $user->check_status;
         $status = $checkStatus;
@@ -53,7 +53,10 @@ class ProfileService
         $oldData = [];
         $existsChange = false;
         foreach (self::VERIFY_COLUMNS as $column) {
-            if(trim($user->{$column} ?? '') !== trim($data[$column] ?? '')) {
+            if(
+                in_array($column, $columns)
+                && trim($user->{$column} ?? '') !== trim($data[$column] ?? '')
+            ) {
                 $existsChange = true;
             }
             $oldData[$column] = $user->{$column};

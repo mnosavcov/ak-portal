@@ -275,6 +275,15 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function setAccountTypes(Request $request): JsonResponse
+    {
+        return (new ProfileService)->verifyAccount($request, [
+            'investor',
+            'advertiser',
+            'real_estate_broker',
+        ]);
+    }
+
     public function hideVerifyInfo(Request $request)
     {
         $request->user()->show_check_status = false;

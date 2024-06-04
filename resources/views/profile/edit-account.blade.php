@@ -179,3 +179,7 @@
 <div class="w-full mx-auto">
     @include('profile.partials.update-profile-information-form')
 </div>
+
+<div class="w-full mx-auto">
+    @include('profile.partials.active-types-accounts')
+</div>

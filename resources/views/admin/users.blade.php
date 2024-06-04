@@ -181,7 +181,7 @@
                             <div class="col-span-4">
                                 <x-input-label for="notice"
                                                :value="__('Poznámka ke kontaktu (interní informace, není vidět veřejně)')"
-                                               class="text-app-red"/>
+                                               class="text-app-blue"/>
                                 <x-textarea-input id="notice" class="block mt-1 w-full leading-[1.5] h-[5rem]"
                                                   type="text"
                                                   x-model="user.notice"/>

@@ -54,9 +54,11 @@
                                         class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
                                         x-show="userType.investor"></div>
                                 </div>
-                                <div class="mt-[4px]"><span class="font-Spartan-SemiBold">Účet investora</span> (jsem
-                                    zájemce o koupi, nebo
-                                    ho zastupuji)
+                                <div class="mt-[4px]">
+                                    <span class="font-Spartan-SemiBold">
+                                        {{ \App\Services\AccountTypes::TYPES['investor']['title'] }}
+                                    </span>
+                                    {{ \App\Services\AccountTypes::TYPES['investor']['short'] }}
                                 </div>
                             </div>
                             <div
@@ -69,9 +71,11 @@
                                         class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
                                         x-show="userType.advertiser"></div>
                                 </div>
-                                <div class="mt-[4px]"><span class="font-Spartan-SemiBold">Účet nabízejícího</span> (jsem
-                                    vlastník projektu,
-                                    nebo jednám jeho jménem)
+                                <div class="mt-[4px]">
+                                    <span class="font-Spartan-SemiBold">
+                                        {{ \App\Services\AccountTypes::TYPES['advertiser']['title'] }}
+                                    </span>
+                                    {{ \App\Services\AccountTypes::TYPES['advertiser']['short'] }}
                                 </div>
                             </div>
                             <div
@@ -84,9 +88,10 @@
                                         class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
                                         x-show="userType.realEstateBroker"></div>
                                 </div>
-                                <div class="mt-[4px]"><span class="font-Spartan-SemiBold">Účet realitního makléře</span>
-                                    (zprostředkovávám
-                                    prodej projektu na základě smlouvy o realitním zprostředkování)
+                                <div class="mt-[4px]"><span class="font-Spartan-SemiBold">
+                                        {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['title'] }}
+                                    </span>
+                                    {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['short'] }}
                                 </div>
                             </div>
                             <div
@@ -107,7 +112,10 @@
                         <div>
                             <div x-show="userType.investor"
                                  class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
-                                <div>Účet investora (jsem zájemce o koupi, nebo ho zastupuji)</div>
+                                <div>
+                                    {{ \App\Services\AccountTypes::TYPES['investor']['title'] }}
+                                    {{ \App\Services\AccountTypes::TYPES['investor']['short'] }}
+                                </div>
                                 <div @click="userType.investor = false">
                                     <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
                                          class="h-[26px] w-[26px] cursor-pointer">
@@ -118,7 +126,8 @@
                         <div>
                             <div x-show="userType.advertiser"
                                  class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
-                                Účet nabízejícího (jsem vlastník projektu, nebo jednám jeho jménem)
+                                {{ \App\Services\AccountTypes::TYPES['advertiser']['title'] }}
+                                {{ \App\Services\AccountTypes::TYPES['advertiser']['short'] }}
                                 <div @click="userType.advertiser = false">
                                     <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
                                          class="h-[26px] w-[26px] cursor-pointer">
@@ -129,8 +138,8 @@
                         <div>
                             <div x-show="userType.realEstateBroker"
                                  class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
-                                Účet realitního makléře (zprostředkovávám prodej projektu na základě smlouvy o realitním
-                                zprostředkování)
+                                {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['title'] }}
+                                {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['short'] }}
                                 <div @click="userType.realEstateBroker = false">
                                     <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
                                          class="h-[26px] w-[26px] cursor-pointer">

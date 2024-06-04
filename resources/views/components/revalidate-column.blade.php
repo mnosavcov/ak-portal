@@ -19,9 +19,25 @@
                     }
 
                     return text
+                },
+                colorX(column) {
+                    let textOld = this.dataUser[column];
+                    textOld = (textOld === null ? '' : textOld);
+                    textOld = String(textOld).trim();
+
+                    let textActual = proxyData.usersOrigin[user.id][column];
+                    textActual = (textActual === null ? '' : textActual);
+                    textActual = String(textActual).trim();
+
+                    if(textOld !== textActual) {
+                        return 'text-app-red';
+                    }
+
+                    return 'text-app-orange';
                 }
             }"
-         class="block font-Spartan-Bold text-[11px] tablet:text-[13px] leading-29px text-app-orange"
-         x-html="textX(column)">
+         class="block font-Spartan-Bold text-[11px] tablet:text-[13px] leading-29px"
+         :class="colorX(column)"
+         x-html="textX(column) === '' && colorX(column) === 'text-app-red' ? '&lt; empty &gt;' : textX(column)">
     </div>
 </template>
