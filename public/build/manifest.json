@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-19f70463.css",
+    "file": "assets/app-09ec048e.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -704,6 +704,10 @@
     "file": "assets/ico-user-158517e1.svg",
     "src": "resources/images/ico-user.svg"
   },
+  "resources/images/ico-x-rounded_33x33.svg": {
+    "file": "assets/ico-x-rounded_33x33-f053085d.svg",
+    "src": "resources/images/ico-x-rounded_33x33.svg"
+  },
   "resources/images/ico-x.svg": {
     "file": "assets/ico-x-92c44287.svg",
     "src": "resources/images/ico-x.svg"
@@ -741,7 +745,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-c7cf4fef.js",
+    "file": "assets/app-e63e3dbd.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
