@@ -162,24 +162,24 @@
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">Upřesnění projektu</h2>
                         <div
-                            class="bg-[#F8F8F8] rounded-[3px] p-[25px] grid grid-cols-[max-content_1fr] gap-x-[75px] mb-[30px]">
+                            class="bg-[#F8F8F8] rounded-[3px] p-[25px] grid tablet:grid-cols-[max-content_1fr] gap-x-[75px] mb-[30px]">
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Předmět&nbsp;nabídky
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141]">{{ \App\Services\ProjectService::SUBJECT_OFFERS[$project->subject_offer] }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::SUBJECT_OFFERS[$project->subject_offer] }}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Umístění projektu
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141]">{{ \App\Services\ProjectService::LOCATION_OFFERS[$project->location_offer] }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::LOCATION_OFFERS[$project->location_offer] }}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Název projektu
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141]">{{ $project->title }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ $project->title }}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Země umístění projektu

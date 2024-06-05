@@ -1,11 +1,11 @@
 @props(['project', 'temp'])
 
-<div class="xxx">
+<div>
     @foreach($project->details_prepared as $detailRows)
         @continue($detailRows->head_title !== $temp)
         <div
             class="grid grid-cols-[auto_auto] even:bg-[#F8F8F8] min-h-[38px] leading-[38px] content-center gap-x-[50px] px-[15px] py-[5px] tablet:px-[20px]
-             border-[#d8d8d8]
+             border-transparent
             {{ $detailRows->is_long ? 'border-b-[8px]' : 'border-b-[15px]' }}
 
             ">
