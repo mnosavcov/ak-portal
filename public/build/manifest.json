@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-ae3abe3e.css",
+    "file": "assets/app-db9a3898.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -555,6 +555,10 @@
   "resources/images/arrow-down-black-22x14.svg": {
     "file": "assets/arrow-down-black-22x14-ee76202d.svg",
     "src": "resources/images/arrow-down-black-22x14.svg"
+  },
+  "resources/images/arrow-left-black-6x10.svg": {
+    "file": "assets/arrow-left-black-6x10-7f6bab8a.svg",
+    "src": "resources/images/arrow-left-black-6x10.svg"
   },
   "resources/images/arrow-right-black-6x10.svg": {
     "file": "assets/arrow-right-black-6x10-141535e9.svg",
