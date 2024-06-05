@@ -69,7 +69,7 @@
 
             <div class="text-center tablet:text-left">
                 <button type="button" @click="step = 1"
-                        class="mt-[25px] tablet:mt-[30px] leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+                        class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
                 >
                     Zadat a ověřit účet
                 </button>
