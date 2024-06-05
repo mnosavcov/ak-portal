@@ -41,7 +41,7 @@
 
     <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
 
-    @if(auth()->guest() || !auth()->user()->isVerified())
+    @if(!$project->isVerified())
         <div class="grid gap-x-[20px] mb-[25px]
             grid-cols-1
             laptop:grid-cols-2
@@ -83,7 +83,7 @@
             @endif
         </div>
     @endif
-    @if(auth()->user() && auth()->user()->isVerified())
+    @if($project->isVerified())
         <div class="grid grid-cols-1">
             <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Zadejte částku své nabídky</div>
             <div>
@@ -138,7 +138,7 @@
             justify-self-start
             laptop:justify-self-end">
             {!! $project->minimum_principal_text !!}
-            @if(auth()->guest() || !auth()->user()->isVerified())
+            @if(!$project->isVerified())
                 <div
                     class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left

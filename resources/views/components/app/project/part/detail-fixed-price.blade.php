@@ -40,7 +40,7 @@
 
     <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
 
-    @if(auth()->guest() || !auth()->user()->isVerified())
+    @if(!$project->isVerified())
         <div class="grid gap-x-[20px] mb-[25px]
             grid-cols-1
             laptop:grid-cols-2
@@ -82,7 +82,7 @@
             @endif
         </div>
     @endif
-    @if(auth()->user() && auth()->user()->isVerified())
+    @if($project->isVerified())
         <div class="text-center">
             <button type="button"
                     class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
@@ -105,7 +105,7 @@
             justify-self-start
             laptop:justify-self-end
             ">{!! $project->minimum_principal_text !!}
-            @if(auth()->guest() || !auth()->user()->isVerified())
+            @if(!$project->isVerified())
                 <div
                     class="absolute bg-[url('/resources/images/ico-private.svg')]  bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left

@@ -266,7 +266,7 @@ class Project extends Model
         if ($type === 'fixed-price' || $type === null) {
             if (auth()->guest()) {
                 $priceText = 'Jen pro přihlášené ';
-            } elseif (!auth()->user()->isVerified()) {
+            } elseif (!$this->isVerified()) {
                 $priceText = 'Pro potvrzený účet';
             } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
@@ -280,7 +280,7 @@ class Project extends Model
                 } else {
                     $priceText = 'Jen pro přihlášené';
                 }
-            } elseif (!auth()->user()->isVerified()) {
+            } elseif (!$this->isVerified()) {
                 $priceText = 'Pro potvrzený účet';
             } elseif (empty($price)) {
                 $priceText = 'Není zadaná';
@@ -305,7 +305,7 @@ class Project extends Model
         $price = $this->minimum_principal;
         $type = $this->type;
         if ($type === 'fixed-price' || $type === null) {
-            if (auth()->guest() || !auth()->user()->isVerified()) {
+            if (!$this->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
@@ -313,7 +313,7 @@ class Project extends Model
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
         } elseif ($type === 'offer-the-price') {
-            if (auth()->guest() || !auth()->user()->isVerified()) {
+            if (!$this->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
                 $priceText = 'Cena není zadaná';
@@ -352,11 +352,11 @@ class Project extends Model
 
     public function aboutStrip(): Attribute
     {
-        $about = strip_tags($this->about);
+        $about = strip_tags($this->about ?? '');
 
         if (auth()->guest()) {
             $about = 'Jen pro přihlášené ';
-        } elseif (!auth()->user()->isVerified()) {
+        } elseif (!$this->isVerified()) {
             $about = 'Pro potvrzený účet';
         }
 
@@ -369,7 +369,7 @@ class Project extends Model
     {
         $state = null;
         if (in_array($this->status, self::STATUS_PREPARE)) {
-            $state = htmlspecialchars(trim($this->actual_state ?? '-- neuvedeno --'));
+            $state = nl2br(htmlspecialchars(trim($this->actual_state ?? '-- neuvedeno --')));
             if (empty(trim($state))) {
                 $state = '-- neuvedeno --';
             }
@@ -397,12 +397,14 @@ class Project extends Model
 
     public function statesPrepared(): Attribute
     {
-        $data = $this->states;
-        $ret = $data;
+        $retX = [];
+        foreach ($this->states as $item) {
+            $retX[] = (object)$item->toArray();
+        }
 
-        if (auth()->guest() || !auth()->user()->isVerified()) {
+        if (!$this->isVerified()) {
             $ret = [];
-            foreach ($data as $item) {
+            foreach ($retX as $item) {
                 $description = html_entity_decode($item->description ?? '');
                 $description = preg_split("/\R/", strip_tags($description));
                 foreach ($description as $index => $itemX) {
@@ -411,8 +413,10 @@ class Project extends Model
                 }
                 $item->description = implode("\n", $description);
 
-                $ret[] = (object)$item->toArray();
+                $ret[] = $item;
             }
+        } else {
+            $ret = $retX;
         }
 
         return Attribute::make(
@@ -422,12 +426,14 @@ class Project extends Model
 
     public function detailsPrepared(): Attribute
     {
-        $data = $this->details;
-        $ret = $data;
+        $retX = [];
+        foreach ($this->details as $item) {
+            $retX[] = (object)$item->toArray();
+        }
 
-        if (auth()->guest() || !auth()->user()->isVerified()) {
+        if (!$this->isVerified()) {
             $ret = [];
-            foreach ($data as $item) {
+            foreach ($retX as $item) {
                 $description = html_entity_decode($item->description ?? '');
                 $description = preg_split("/\R/", strip_tags($description));
                 foreach ($description as $index => $itemX) {
@@ -436,9 +442,10 @@ class Project extends Model
                 }
                 $item->description = implode("\n", $description);
 
-                $ret[] = (object)$item->toArray();
+                $ret[] = $item;
             }
-            $ret = collect($ret);
+        } else {
+            $ret = $retX;
         }
 
         return Attribute::make(
@@ -450,7 +457,7 @@ class Project extends Model
     {
         $ret = $this->about;
 
-        if (auth()->guest() || !auth()->user()->isVerified()) {
+        if (!$this->isVerified()) {
             $description = html_entity_decode($ret ?? '');
             $description = preg_split("/\R/", strip_tags($description));
             foreach ($description as $index => $itemX) {
@@ -503,5 +510,18 @@ class Project extends Model
     public function scopeForDetail(Builder $query): Builder
     {
         return $query->with(['tags', 'shows']);
+    }
+
+    public function isVerified(): bool
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+
+        if ($this->user_id === auth()->id()) {
+            return true;
+        }
+
+        return auth()->user()->isVerified();
     }
 }

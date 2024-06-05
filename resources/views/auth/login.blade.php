@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="w-full max-w-[1200px] mx-auto">
+    <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
             'Přihlásit se' => route('login'),
         ]"></x-app.breadcrumbs>

@@ -44,15 +44,15 @@
             <h2>Vaše osobní údaje</h2>
 
             <div
-                class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] gap-y-[10px]">
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Jméno a příjmení</div>
-                <div x-text="nameAndSurnameText()" class="max-tablet:mb-[15px]"></div>
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Adresa trvalého bydliště</div>
-                <div x-text="addressText()" class="max-tablet:mb-[15px]"></div>
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Státní občanství (země)</div>
-                <div x-text="countryText()" class="max-tablet:mb-[15px]"></div>
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Upřesnění záměrů</div>
-                <div x-html="moreInfoText()"></div>
+                class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Jméno a příjmení</div>
+                <div x-text="nameAndSurnameText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Adresa trvalého bydliště</div>
+                <div x-text="addressText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Státní občanství (země)</div>
+                <div x-text="countryText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Upřesnění záměrů</div>
+                <div x-html="moreInfoText()" class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
             </div>
 
             <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?</div>
@@ -152,15 +152,15 @@
             <h2>Zkontrolujte zadané údaje</h2>
 
             <div
-                class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] gap-y-[10px]">
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Jméno a příjmení</div>
-                <div x-text="nameAndSurnameText()" class="max-tablet:mb-[15px]"></div>
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Adresa trvalého bydliště</div>
-                <div x-text="addressText()" class="max-tablet:mb-[15px]"></div>
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Státní občanství (země)</div>
-                <div x-text="countryText()" class="max-tablet:mb-[15px]"></div>
-                <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-black">Upřesnění záměrů</div>
-                <div x-html="moreInfoText()"></div>
+                class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Jméno a příjmení</div>
+                <div x-text="nameAndSurnameText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Adresa trvalého bydliště</div>
+                <div x-text="addressText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Státní občanství (země)</div>
+                <div x-text="countryText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Upřesnění záměrů</div>
+                <div x-html="moreInfoText()" class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
             </div>
         </div>
     </div>

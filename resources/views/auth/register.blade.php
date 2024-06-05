@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="w-full max-w-[1200px] mx-auto" x-data="register">
+    <div class="w-full max-w-[1230px] mx-auto" x-data="register">
         <x-app.breadcrumbs :breadcrumbs="[
             'Registrace' => route('register'),
         ]"></x-app.breadcrumbs>

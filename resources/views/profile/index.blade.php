@@ -1,6 +1,6 @@
 <x-app-layout>
     <div x-data="profile" x-init="data = @js($data)">
-        <div class="w-full max-w-[1200px] mx-auto">
+        <div class="w-full max-w-[1230px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
             $title => $route
         ]"></x-app.breadcrumbs>

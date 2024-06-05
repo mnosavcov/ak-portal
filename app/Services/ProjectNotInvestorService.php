@@ -10,16 +10,11 @@ class ProjectNotInvestorService
     public function overview($userAccountType, int $page = 0)
     {
         $ret = [
-            'Rozpracované projekty' => [
-                'selected' => '1',
-                'data' => [
-                    '1' => $this->drafts($userAccountType, $page),
-                ],
-            ],
             'Projekty v režimu přípravy před zveřejněním' => [
-                'selected' => '1',
+                'selected' => 'Projekty ke schválení',
                 'data' => [
-                    '1' => $this->prepared($userAccountType, $page),
+                    'Projekty ke schválení' => $this->prepared($userAccountType, $page),
+                    'Rozpracované projekty' => $this->drafts($userAccountType, $page),
                 ],
             ],
             'Mé projekty' => [
@@ -31,11 +26,9 @@ class ProjectNotInvestorService
             ],
         ];
 
-        if(!$ret['Rozpracované projekty']['data']['1']->count()) {
-            unset($ret['Rozpracované projekty']);
-        }
-
-        if(!$ret['Projekty v režimu přípravy před zveřejněním']['data']['1']->count()) {
+        if (!$ret['Projekty v režimu přípravy před zveřejněním']['data']['Projekty ke schválení']->count()
+            && !$ret['Projekty v režimu přípravy před zveřejněním']['data']['Rozpracované projekty']->count()
+        ) {
             unset($ret['Projekty v režimu přípravy před zveřejněním']);
         }
 

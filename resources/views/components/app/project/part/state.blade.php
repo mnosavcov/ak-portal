@@ -32,7 +32,7 @@
                      tablet:text-[13px] tablet:leading-[23px] tablet:col-span-1
                      laptop:text-[15px] laptop:leading-[26px]">
                 {!! $state->description !!}
-                @if(auth()->guest() || !auth()->user()->isVerified())
+                @if(!$project->isVerified())
                     <div
                         class="absolute bg-[url('/resources/images/ico-private.svg')] bg-center bg-no-repeat w-full h-full top-0 left-0">
                     </div>

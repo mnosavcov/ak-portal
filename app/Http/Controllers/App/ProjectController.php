@@ -141,7 +141,7 @@ class ProjectController extends Controller
         $nahled = !in_array($status, Project::STATUS_PUBLIC);
 
         $redirect = false;
-        if ($nahled && !auth()->user()->superadmin) {
+        if ($nahled && !auth()->user()?->superadmin) {
             $redirect = true;
         }
 
