@@ -19,7 +19,7 @@
 
         @if(!auth()->user()->hasVerifiedEmail())
             <div
-                class="p-[15px] bg-app-orange w-full max-w-[900px] grid grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[20px]">
+                class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[20px]">
                 <div>
                     <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ EMAIL
                     </div>
@@ -29,7 +29,7 @@
                 </div>
 
                 <button type="button" x-data
-                        class="cursor-pointer font-Spartan-Bold text-[14px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
+                        class="justify-self-center cursor-pointer font-Spartan-Bold text-[14px] w-full max-w-[350px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
                         @click="$dispatch('open-modal', 'not-verify-email')">
                     Ověřit email
                 </button>
@@ -37,7 +37,7 @@
         @endif
 
         @if(auth()->user()->check_status === 'not_verified')
-            <div class="mb-[50px]">
+            <div class="mb-[20px]">
                 <div class="max-w-[1200px] mx-auto">
                     <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
@@ -104,7 +104,7 @@
                     </div>
 
                     <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
-                        class="absolute cursor-pointer h-[33px] w-[33px] right-[-16px] top-[-16px]"
+                        class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
                          @click="closeInfo()"
                     >
                 </div>
@@ -251,7 +251,7 @@
                 </div>
 
                 <button
-                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
+                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
                     @click="window.location.reload()"
                 >Hotovo
                 </button>

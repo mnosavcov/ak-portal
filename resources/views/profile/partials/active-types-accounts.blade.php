@@ -75,7 +75,7 @@
         <div x-cloak x-collapse x-show="showBtn()">
             <button type="submit"
                     @click.prevent="$dispatch('open-modal', 'add-account-types')"
-                    class="mb-[50px] col-span-full leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
+                    class="mb-[30px] tablet:mb-[40px] laptop:mb-[50px] col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
             >
                 + Přidat typ účtu
             </button>
@@ -89,12 +89,13 @@
             @foreach(\App\Services\AccountTypes::TYPES as $index => $type)
                 <div x-cloak x-show="{{ $index }}" x-collapse>
                     <div
-                        class="grid grid-cols-[minmax(100px,900px)_1fr] gap-x-[50px] border border-[#D9E9F2] rounded-[3px] px-[25px] py-[20px]">
-                        <div class="font-Spartan-Regular text-[13px] text-[#454141] leading-[22px]">
+                        class="grid tablet:grid-cols-[minmax(100px,900px)_1fr] gap-y-[15px] gap-x-[50px] border border-[#D9E9F2] rounded-[3px] px-[25px] py-[20px]">
+                        <div
+                            class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center">
                             {{ $type['title'] }}
                             {{ $type['short'] }}
                         </div>
-                        <div class="text-right w-full">
+                        <div class="text-right w-full max-tablet:text-center">
                             <button @click="removeType('{{ $index }}')"
                                     class="inline-block font-Spartan-SemiBold text-[13px] text-app-red leading-[22px]">
                                 Zrušit&nbsp;typ&nbsp;účtu
@@ -107,34 +108,38 @@
 
         <button type="submit" x-cloak x-show="change" x-collapse
                 @click="setAccountTypes()"
-                class="mt-[30px] col-span-full leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
+                class="mt-[30px] col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
         >
             Uložit změny
         </button>
     </div>
 
     <x-modal name="add-account-types">
-        <div class="relative">
+        <div class="relative p-[50px_15px_30px]">
             <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="$dispatch('close')"
-                 class="cursor-pointer w-[20px] h-[20px] float-right relative top-[-20px] tablet:right-[-15px] right-[5px]">
+                 class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
-            @foreach(\App\Services\AccountTypes::TYPES as $index => $type)
-                <div x-cloak x-show="!{{ $index }}" x-collapse>
-                    <div
-                        class="mb-[25px] grid grid-cols-[minmax(100px,900px)_1fr] gap-x-[50px] border border-[#D9E9F2] rounded-[3px] px-[25px] py-[20px]">
-                        <div class="font-Spartan-Regular text-[13px] text-[#454141] leading-[22px]">
-                            {{ $type['title'] }}
-                            {{ $type['short'] }}
-                        </div>
-                        <div class="text-right w-full">
-                            <button @click="addType('{{ $index }}')"
-                                    class="inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px]">
-                                Přidat&nbsp;typ&nbsp;účtu
-                            </button>
+            <div class="grid gap-y-[15px]">
+                @foreach(\App\Services\AccountTypes::TYPES as $index => $type)
+                    <div x-cloak x-show="!{{ $index }}" x-collapse>
+                        <div
+                            class="grid tablet:grid-cols-[minmax(100px,900px)_1fr] gap-y-[15px] gap-x-[50px]
+                         border border-[#D9E9F2] rounded-[3px] px-[25px] py-[20px]">
+                            <div
+                                class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center">
+                                {{ $type['title'] }}
+                                {{ $type['short'] }}
+                            </div>
+                            <div class="text-right w-full max-tablet:text-center">
+                                <button @click="addType('{{ $index }}')"
+                                        class="inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px]">
+                                    Přidat&nbsp;typ&nbsp;účtu
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </x-modal>
 </section>

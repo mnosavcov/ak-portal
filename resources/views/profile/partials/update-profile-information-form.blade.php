@@ -49,7 +49,7 @@
             </div>
 
             <button type="submit"
-                    class="col-span-full leading-[60px] px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
+                    class="col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
             >
                 Uložit změny
             </button>
@@ -64,19 +64,19 @@
             </button>
 
             <x-modal name="confirm-user-deletion">
-                <div class="relative">
+                <div class="relative p-[50px_15px_30px]">
                     <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="$dispatch('close')"
-                         class="cursor-pointer w-[20px] h-[20px] float-right relative top-[-20px] tablet:right-[-15px] right-[5px]">
+                         class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
-                    <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+                    <form method="post" action="{{ route('profile.destroy') }}">
                         @csrf
                         @method('delete')
 
-                        <h2 class="text-lg font-medium text-gray-900">
+                        <h2 class="mb-[15px] max-tablet:text-center">
                             {{ __('Jste si jistí, že chcete smazat váš účet?') }}
                         </h2>
 
-                        <p class="mt-1 text-sm text-gray-600">
+                        <p class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center">
                             {{ __('Jakmile bude váš účet smazán, budou trvale smazány všechny jeho zdroje a data. Zadejte prosím své heslo pro potvrzení, že chcete trvale zrušit svůj účet.') }}
                         </p>
 
@@ -85,15 +85,17 @@
 
                             <x-text-input
                                 id="password_delete" name="password_delete" type="password"
-                                class="mt-1 block w-3/4"
+                                class="mt-1 block w-3/4 max-tablet:w-full" required="required"
                                 placeholder="{{ __('Heslo') }}"
                             />
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <x-danger-button class="ml-3">
-                                {{ __('Zrušit účet') }}
-                            </x-danger-button>
+                            <button type="submit"
+                                    class="col-span-full h-[50px] leading-[50px] w-full tablet:max-w-[250px] font-Spartan-Bold text-[18px] text-white bg-app-red rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
+                            >
+                                Zrušit účet
+                            </button>
                         </div>
                     </form>
                 </div>
