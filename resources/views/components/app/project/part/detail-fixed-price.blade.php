@@ -20,7 +20,15 @@
     <div class="grid mb-[20px] gap-x-[25px]
         grid-cols-1
         tablet:grid-cols-2
-        ">
+        "
+         x-data="{countDownDate: false}"
+         x-init="
+        countDownDate = @js($project->use_countdown_date_text_long);
+        if(countDownDate !== false) {
+            window.onload = function() {
+                window.countdown(countDownDate);
+            }
+        }">
         <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]
             order-1
             ">Aktuální cena
@@ -34,7 +42,7 @@
             ">{{ $project->price_text }}</div>
         <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green
             order-4
-            ">{{ $project->end_date_text_long }}
+            " id="projectEndDate">{{ $project->end_date_text_long }}
         </div>
     </div>
 
@@ -81,15 +89,14 @@
                 </div>
             @endif
         </div>
-    @endif
-    @if($project->isVerified())
+    @else
         <div class="text-center">
             <button type="button"
                     class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
                 Koupit hned
             </button>
         </div>
-    @endauth
+    @endif
 
     <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
 

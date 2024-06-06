@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
     Route::get('projects/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
     Route::post('projects/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
+    Route::post('projects/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
     Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 

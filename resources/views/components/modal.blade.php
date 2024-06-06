@@ -17,6 +17,7 @@
 
 <div
     x-data="{
+        inputData: {},
         hidenable: @js($hidenable),
         show: @js($show),
         focusables() {
@@ -41,8 +42,13 @@
             document.body.classList.remove('overflow-y-hidden');
         }
     })"
-    x-on:open-modal.window="console.log($event.detail); $event.detail == '{{ $name }}' ? show = true : null"
-    x-on:close-modal.window="console.log($event.detail); $event.detail == '{{ $name }}' ? show = false : null"
+    x-on:open-modal.window="
+            if(typeof $event.detail === 'object') {
+                inputData = $event.detail;
+            }
+            $event.detail == '{{ $name }}' || $event.detail.name == '{{ $name }}' ? show = true : null
+        "
+    x-on:close-modal.window="$event.detail == '{{ $name }}' || $event.detail.name == '{{ $name }}' ? show = false : null"
     x-on:close.stop="show = false"
     x-on:keydown.escape.window="if(hidenable) show = false"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"

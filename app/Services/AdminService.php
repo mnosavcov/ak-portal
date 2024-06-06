@@ -14,6 +14,7 @@ class AdminService
         $confirm = Project::where('status', 'confirm')->get();
         $reminder = Project::where('status', 'reminder')->get();
         $publicated = Project::where('status', 'publicated')->get();
+        $evaluation = Project::where('status', 'evaluation')->get();
         $finished = Project::where('status', 'finished')->get();
         $projects = [
             'draft' => $draft,
@@ -22,6 +23,7 @@ class AdminService
             'confirm' => $confirm,
             'reminder' => $reminder,
             'publicated' => $publicated,
+            'evaluation' => $evaluation,
             'finished' => $finished,
         ];
 

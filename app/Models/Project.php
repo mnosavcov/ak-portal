@@ -29,6 +29,7 @@ class Project extends Model
         'states_prepared',
         'details_prepared',
         'about_prepared',
+        'use_countdown_date_text_long',
     ];
 
     protected $fillable = [
@@ -77,9 +78,13 @@ class Project extends Model
             'title' => 'Publikované (aktivní)',
             'description' => 'Projekt bude vypublikován a bude veřejně přístupný',
         ],
+        'evaluation' => [
+            'title' => 'Publikované (čeká na vyhodnocení)',
+            'description' => 'Projekt bude nastaven na čeká na vyhodnocení, ale bude veřejně viditelný se stavem "Vyhodnocování"',
+        ],
         'finished' => [
             'title' => 'Publikované (dokončené)',
-            'description' => 'Projekt bude nastaven na ukončený, ale bude veřejně viditelný se stavem "Ukončení"',
+            'description' => 'Projekt bude nastaven na ukončený, ale bude veřejně viditelný se stavem "Ukončeno"',
         ],
     ];
 
@@ -127,7 +132,12 @@ class Project extends Model
 
     public const STATUS_PUBLIC = [
         'publicated',
+        'evaluation',
         'finished',
+    ];
+
+    public const STATUS_EVALUATE = [
+        'evaluation',
     ];
 
     public const STATUS_FINISHED = [
@@ -139,11 +149,10 @@ class Project extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $date = Carbon::create(env('DATE_PUBLISH'));
-            $currentDateTime = clone $date;
-            $currentDateTime->subHours(+2);
+            $date = Carbon::parse(env('DATE_PUBLISH'), 'Europe/Prague');
+            $utcDate = $date->setTimezone('UTC');
 
-            if (!$currentDateTime->isPast()) {
+            if (!$utcDate->isPast()) {
                 $model->user_id = User::first()->id;
             } else {
                 $model->user_id = auth()->id();
@@ -201,8 +210,13 @@ class Project extends Model
         if ($date === null) {
             $dateText = 'bez termínu';
         } else {
-            $currentDate = Carbon::now();
-            $diff = $currentDate->diff($date);
+            $date = Carbon::parse($date, 'Europe/Prague');
+            $utcDate = $date->setTimezone('UTC');
+
+            $currentDate = Carbon::now('Europe/Prague');
+            $utcCurrentDate = $currentDate->setTimezone('UTC');
+            $diff = $utcCurrentDate->diff($utcDate);
+
             $dateText = '';
 
             if ($long) {
@@ -227,7 +241,9 @@ class Project extends Model
             }
         }
 
-        if ($this->status === 'finished') {
+        if ($this->status === 'evaluation') {
+            $dateText = 'vyhodnocování';
+        } elseif ($this->status === 'finished') {
             $dateText = 'dokončeno';
         }
 
@@ -239,6 +255,25 @@ class Project extends Model
     public function endDateTextLong(): Attribute
     {
         return $this->endDateText(true);
+    }
+
+    public function useCountdownDateTextLong(): Attribute
+    {
+        if (empty($this->end_date)) {
+            $ret = false;
+        } else {
+            $ret = Carbon::parse($this->end_date, 'Europe/Prague');
+            $utcDate = $ret->setTimezone('UTC');
+            $ret = $utcDate->format('Y-m-d\U\T\CH:i:s');
+        }
+
+        if ($this->status !== 'publicated') {
+            $ret = false;
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $ret
+        );
     }
 
     public function endDateTextNormal(): Attribute
@@ -386,7 +421,9 @@ class Project extends Model
 
         if ($this->status === 'publicated') {
             $state = '<span class="text-app-green">Aktivní</span>';
-        } elseif ($this->status === 'publicated') {
+        } elseif ($this->status === 'evaluation') {
+            $state = '<span class="text-app-green">Vyhodnocování</span>';
+        } elseif ($this->status === 'finished') {
             $state = '<span class="text-app-green">Ukončeno</span>';
         }
 
@@ -523,5 +560,25 @@ class Project extends Model
         }
 
         return auth()->user()->isVerified();
+    }
+
+    public function isMine(): bool
+    {
+        return ($this->user_id === auth()->id());
+    }
+
+    public function offers()
+    {
+        if (!$this->isMine()) {
+            return [];
+        }
+
+        return $this->shows()->where('offer', 1)->get();
+    }
+
+    public function myOffer()
+    {
+        return ProjectShow::where('user_id', auth()->id())->where('project_id', $this->id)->where('offer', 1)->first();
+
     }
 }

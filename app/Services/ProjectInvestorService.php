@@ -45,7 +45,7 @@ class ProjectInvestorService
 
     public function showed($page)
     {
-        $showed = ProjectShow::where('user_id', auth()->id())->pluck('project_id');
+        $showed = ProjectShow::where('user_id', auth()->id())->where('showed', 1)->pluck('project_id');
         $projects = Project::whereIn('id', $showed)->isPublicated()->forDetail()->get();
         return $projects;
     }

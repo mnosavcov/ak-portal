@@ -57,5 +57,29 @@ function tinymceInit()
     })
 }
 
+function countdown(targetDate) {
+    const target = new Date(targetDate).getTime();
+
+    function updateCountdown() {
+        let now = new Date();
+        const distance = target - now;
+
+        if (distance < 0) {
+            clearInterval(interval);
+            document.getElementById('projectEndDate').textContent = '0 d 0 h 0 m 0 s';
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('projectEndDate').textContent = days + ' d ' + hours + ' h ' + minutes + ' m ' + seconds + ' s';
+    }
+    const interval = setInterval(updateCountdown, 1000);
+}
+
 window.tinymceInit = tinymceInit;
+window.countdown = countdown;
 tinymceInit();

@@ -20,7 +20,15 @@
     <div class="grid mb-[20px] gap-x-[25px]
         grid-cols-1
         tablet:grid-cols-2
-        ">
+        "
+         x-data="{countDownDate: false}"
+         x-init="
+        countDownDate = @js($project->use_countdown_date_text_long);
+        if(countDownDate !== false) {
+            window.onload = function() {
+                window.countdown(countDownDate);
+            }
+        }">
         <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]
             order-1
             ">Aktuální cena
@@ -31,85 +39,332 @@
         </div>
         <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-orange
             order-2 tablet:order-3
-            ">nabídněte
+            ">nabídne investor
         </div>
         <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green
             order-4
-            ">{{ $project->end_date_text_long }}
+            " id="projectEndDate">{{ $project->end_date_text_long }}
         </div>
     </div>
 
-    <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
+    <div class="h-[1px] bg-[#D9E9F2] w-full mb-[20px] tablet:mb-[30px]"></div>
 
-    @if(!$project->isVerified())
-        <div class="grid gap-x-[20px] mb-[25px]
-            grid-cols-1
-            laptop:grid-cols-2
+    {{--    jsem zadavatel --}}
+    @if($project->isMine())
+        <div class="font-Spartan-Regular text-[#414141]
+                text-[15px] leading-[20px] mb-[15px]
+                tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
+                laptop:text-[20px] laptop:leading-[30px]">
+            Obdržené nabídky
+        </div>
+
+        @if($project->offers()->count())
+            <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative
+    after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat">
+                {{ $project->offers()->count() }} nabízejících
+            </div>
+        @else
+            <div class="font-Spartan-Regular text-[#414141] bg-[#F8F8F8] rounded-[3px]
+                text-[13px] leading-[24px] mb-[25px] p-[15px]
+                laptop:text-[15px] laptop:leading-[26px] laptop:mb-[30px] laptop:p-[20px]
             ">
+                U projektu zatím nemáte žádné nabídky.
+            </div>
+        @endif
+        {{--    nejsem zadavatel--}}
+    @else
+        {{--        NEverifikovaný--}}
+        @if(!$project->isVerified())
+            <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
 
-            @if(auth()->guest())
-                <div>
-                    <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a
-                        zobrazení
-                        všech údajů se musíte přihlásit a mít ověřený účet.
+                @if(auth()->guest())
+                    <div>
+                        <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a
+                            zobrazení
+                            všech údajů se musíte přihlásit a mít ověřený účet.
+                        </div>
+                        <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
+                            Nemáte účet?
+                            <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">Registrujte se</a>
+                        </div>
                     </div>
-                    <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
-                        Nemáte účet?
-                        <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">Registrujte se</a>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button type="button"
-                            class="self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                    <div class="text-center">
+                        <a type="button" href="{{ route('login') }}"
+                           class="self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                        Přihlásit se
-                    </button>
-                </div>
+                            Přihlásit se
+                        </a>
+                    </div>
+                @else
+                    <div>
+                        <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a
+                            zobrazení všech údajů musíte ověřit účet.
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a href="{{ route('profile.edit') }}"
+                           class="inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                        mt-[15px]
+                     laptop:mt-0">
+                            Ověřit účet
+                        </a>
+                    </div>
+                @endif
+            </div>
+            {{--            VERIFIKOVANÝ--}}
+        @else
+            @if(auth()->user()->investor)
+                @if($project->myOffer())
+
+                    <div
+                        class="space-y-[10px] p-[15px] tablet:p-[20px] {{ $project->myOffer()->winner ? 'border-[3px] border-app-green' : 'border border-[#D9E9F2]' }} rounded-[3px] mb-[25px] tablet:mb-[35px]">
+                        <div
+                            class="font-Spartan-Bold text-[#31363A] text-[16px] leading-[24px] tablet:text-[18px] tablet:leading-[30px]">
+                            Vaše nabídka
+                        </div>
+
+                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
+                            <div class="font-Spartan-SemiBold text-[14px]">Čas přidání nabídky:</div>
+                            <div
+                                class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($project->myOffer()->offer_time)->format('d.m.Y H:i:s') }}</div>
+                        </div>
+
+                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
+                            <div class="font-Spartan-SemiBold text-[14px]">Výše nabídky:</div>
+                            <div
+                                class="font-Spartan-Regular text-[14px]">{{ number_format($project->myOffer()->price ?? 0, 0, '.', ' ') }}
+                                Kč
+                            </div>
+                        </div>
+
+                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
+                            <div class="font-Spartan-SemiBold text-[14px]">Složena jistina:</div>
+                            <div class="font-Spartan-Regular text-[14px]">
+                                @if($project->myOffer()->principal_paid)
+                                    <span class="text-app-green">ano</span>
+                                @else
+                                    <span class="text-app-red">ne</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="pt-[10px]">
+                            <div
+                                class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10x]">
+                                <div
+                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                    Jméno a příjmení
+                                </div>
+                                <div
+                                    class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                    {{ auth()->user()->title_before . ' ' . auth()->user()->name . ' ' . auth()->user()->surname . ' ' . auth()->user()->title_after }}
+                                </div>
+                                <div
+                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                    Adresa trvalého bydliště
+                                </div>
+                                <div
+                                    class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                    {{ auth()->user()->street . ' ' . auth()->user()->street_number . ', ' . auth()->user()->psc . ', ' . auth()->user()->city }}
+                                </div>
+                                <div
+                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                    Státní občanství (země)
+                                </div>
+                                <div
+                                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                    {{ \App\Services\CountryServices::COUNTRIES[auth()->user()->country] ?? auth()->user()->country }}
+                                </div>
+                                <div
+                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2">
+                                    Investor
+                                </div>
+                                <div
+                                    class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
+                                    {!! nl2br(auth()->user()->investor_info) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-2 text-center pt-[15px] tablet:pt-[20px]">
+                            @if($project->myOffer()->winner)
+                                <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">Nabízející akceptoval vaši nabídku</span>
+                            @elseif($project->myOffer()->principal_paid)
+                                <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">Jistinu jste zaplatili</span>
+                            @else
+                                <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-red">Čeká se, až uhradíte jistinu</span>
+                            @endif
+                        </div>
+                    </div>
+
+                @else
+                    <div class="grid grid-cols-1" x-data="{minPrice: @js($project->price), offerPrice: '',
+                    formatMoney(value, decimalSeparator = '.', thousandSeparator = ' ', decimalPlaces = 0) {
+                    let [integer, decimal] = parseFloat(parseInt(value.replace(/\s+/g, ''))).toFixed(decimalPlaces).split('.');
+                    integer = integer.replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
+                    if(integer === 'NaN') {
+                        return 0;
+                    }
+                    return decimalPlaces ? `${integer}${decimalSeparator}${decimal}` : integer;
+                    }}">
+                        <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
+                            Zadejte částku své nabídky
+                        </div>
+                        <div>
+                            <div class="relative inline-block">
+                                <x-text-input id="nabidka" x-model="offerPrice"
+                                              class="mb-[25px] relative block mt-1 w-[250px] pr-[60px]"
+                                              x-mask:dynamic="$money($input, '.', ' ', 0)"
+                                              type="text"/>
+                                <div
+                                    class="absolute text-[#A7A4A4] right-[40px] text-[13px] top-0 leading-[52px] font-Spartan-Regular">
+                                    Kč
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-left">
+                            <button x-data type="button" @click.next="
+                                        let offer = parseInt(offerPrice.replace(/\s+/g, ''))
+                                        let offerFormated = offerPrice
+                                        if(Number.isNaN(offer) || offer < minPrice) {
+                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!}')
+                                            return;
+                                        }
+                                    $dispatch('open-modal', {name: 'send-offer', offer: offer, offerFormated: formatMoney(offerPrice)})
+                                "
+                                    class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px] disabled:grayscale"
+                                    :disabled="(Number.isNaN(parseInt(offerPrice.replace(/\s+/g, ''))) || parseInt(offerPrice.replace(/\s+/g, '')) < minPrice)">
+                                Nabídnout
+                            </button>
+                        </div>
+                    </div>
+
+                    <x-modal name="send-offer">
+                        <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{
+                            loaderShow: false,
+                            projectId: @js($project->id),
+                            async addOffer(offer) {
+                                this.loaderShow = true;
+                                await fetch('/projects/add-offer', {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        offer: offer,
+                                        projectId: this.projectId,
+                                    }),
+                                    headers: {
+                                        'Content-type': 'application/json; charset=UTF-8',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                                    },
+                                }).then((response) => response.json())
+                                    .then((data) => {
+                                    console.log(data.status);
+                                        if(data.status === 'ok') {
+                                            window.location.reload()
+                                            return;
+                                        }
+
+                                        alert('Nepodařilo se vložit nabídku')
+                                        this.loaderShow = false;
+                                    })
+                                    .catch((error) => {
+                                        alert('Chyba vložení nabídky')
+                                        this.loaderShow = false;
+                                    });
+                            }
+                        }">
+
+                            <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="$dispatch('close')"
+                                 class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
+
+                            <div class="text-center mb-[30px]">
+                                <h1>Podání nabídky</h1>
+                            </div>
+
+                            <div
+                                class="p-[25px] rounded-[7px] bg-[#F4FAFE] text-[#414141] text-center tablet:text-left mb-[20px] space-y-[15px]">
+                                <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
+                                    <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
+                                        Projekt:
+                                    </div>
+                                    <div
+                                        class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]">
+                                        {{ $project->title }}
+                                    </div>
+                                </div>
+
+                                <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
+                                    <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
+                                        Nabídková cena:
+                                    </div>
+                                    <div
+                                        class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]"
+                                        x-text="inputData.offerFormated + ' Kč'">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="max-w-[1200px] mx-auto">
+                                <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px] bg-[#F8F8F8]
+                                    after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+                                    <div class="text-left">
+                                        <p class="mb-[10px]">
+                                            <span class="font-Spartan-SemiBold">Podáním nabídky se určuje pořadí projeveného zájmu o koupi.</span>Aby
+                                            vaše nabídka byla platná, je třeba uhradit <span
+                                                class="font-Spartan-SemiBold">jistinu</span>,
+                                            jejíž výše je uvedena u projektu.
+                                        </p>
+                                        <p class="mb-[10px]">
+                                            Po potvrzení vašeho zájmu podáním nabídky vás budeme kontaktovat a zašleme
+                                            vám
+                                            instrukce k úhradě jistiny.
+                                        </p>
+                                        <p>
+                                            Jistina musí být připsána na náš účet nejpozději do dvou pracovních dní od
+                                            zaslání instrukcí k úhradě. V opačném případě může být vaše nabídka z
+                                            pořadníku
+                                            vyloučena.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
+                                @click="addOffer(inputData.offer)"
+                            >Podat nabídku
+                            </button>
+
+                            <div id="loader" x-show="loaderShow" x-cloak>
+                                <span class="loader"></span>
+                            </div>
+                        </div>
+                    </x-modal>
+                @endif
+                {{--                nemam investorsky ucet--}}
             @else
-                <div>
-                    <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky a
-                        zobrazení všech údajů musíte ověřit účet.
+                <div class="grid gap-x-[20px] mb-[25px]
+                grid-cols-1
+                laptop:grid-cols-2
+                ">
+                    <div>
+                        <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
+                            Pro zaslání nabídky a musíte nastavit typ účty jako investor.
+                        </div>
                     </div>
-                </div>
-                <div class="text-center">
-                    <a href="{{ route('profile.edit') }}"
-                       class="inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                    <div class="text-center">
+                        <a href="{{ route('profile.edit') }}"
+                           class="inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                        Ověřit účet
-                    </a>
+                            Nastavit účet
+                        </a>
+                    </div>
                 </div>
             @endif
-        </div>
+        @endif
     @endif
-    @if($project->isVerified())
-        <div class="grid grid-cols-1">
-            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Zadejte částku své nabídky</div>
-            <div>
-                <div class="relative inline-block">
-                    <x-text-input id="nabidka" name="nabidka" class="mb-[25px] relative block mt-1 w-[250px] pr-[60px]"
-                                  type="text"/>
-                    <div
-                        class="absolute text-[#A7A4A4] right-[40px] text-[13px] top-0 leading-[52px] font-Spartan-Regular">
-                        Kč
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-left">
-                <button type="button"
-                        class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                    Nabídnout
-                </button>
-            </div>
-        </div>
-    @endif
-
-    <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative
-    after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat">
-        0 nabízejících
-    </div>
 
     <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
 

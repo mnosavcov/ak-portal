@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
+use App\Models\ProjectShow;
 use App\Services\ProjectService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -137,6 +138,15 @@ class ProjectController extends Controller
      */
     public function show(Request $request, Project $project): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
+        $projectCount = ProjectShow::where('user_id', auth()->id())->where('project_id', $project->id)->count();
+        if(!$projectCount) {
+            $projectShow = new ProjectShow;
+            $projectShow->user_id = auth()->id();
+            $projectShow->project_id = $project->id;
+            $projectShow->showed = true;
+            $projectShow->save();
+        }
+
         $status = $project->status;
         $nahled = !in_array($status, Project::STATUS_PUBLIC);
 
@@ -372,5 +382,20 @@ class ProjectController extends Controller
         }
 
         return redirect()->route('profile.overview', ['account' => $project->user_account_type]);
+    }
+
+    public function addOffer(Request $request)
+    {
+        $projectShow = ProjectShow::where('user_id', auth()->id())->where('project_id', $request->post('projectId'))->first();
+        $projectShow->price = $request->post('offer');
+        $projectShow->offer = true;
+        $currentDate = Carbon::now('Europe/Prague');
+        $utcCurrentDate = $currentDate->setTimezone('UTC');
+        $projectShow->offer_time = $utcCurrentDate;
+        $projectShow->save();
+
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }

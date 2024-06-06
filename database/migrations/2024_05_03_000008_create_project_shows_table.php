@@ -18,6 +18,11 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->boolean('favourite')->default(false);
             $table->integer('price')->nullable();
+            $table->boolean('offer')->default(false);
+            $table->dateTime('offer_time')->nullable();
+            $table->boolean('principal_paid')->default(false);
+            $table->boolean('winner')->default(false);
+            $table->boolean('showed')->default(false);
 
             $table->unique(['user_id', 'project_id']);
 
