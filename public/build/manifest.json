@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-a0780306.css",
+    "file": "assets/app-a239a08b.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -557,7 +557,7 @@
     "src": "resources/images/arrow-down-black-22x14.svg"
   },
   "resources/images/arrow-left-black-6x10.svg": {
-    "file": "assets/arrow-left-black-6x10-7f6bab8a.svg",
+    "file": "assets/arrow-left-black-6x10-364e00cf.svg",
     "src": "resources/images/arrow-left-black-6x10.svg"
   },
   "resources/images/arrow-right-black-6x10.svg": {
@@ -749,7 +749,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-e63e3dbd.js",
+    "file": "assets/app-0583ecbc.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
