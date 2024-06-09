@@ -58,7 +58,7 @@ class BeforeMiddleware
                 return redirect()->route('profile.edit');
             }
 
-        Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'finished']);
+        Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'evaluation']);
         return $next($request);
     }
 }

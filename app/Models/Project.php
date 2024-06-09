@@ -51,6 +51,7 @@ class Project extends Model
         'representation_end_date',
         'representation_indefinitely_date',
         'representation_may_be_cancelled',
+        'exclusive_contract',
     ];
 
     public const STATUSES = [
@@ -538,9 +539,9 @@ class Project extends Model
     public function scopeIsNotActive(Builder $query): Builder
     {
         return $query->WhereRaw('
-            (end_date is not null
+            ((end_date is not null
             and end_date < CURRENT_DATE)
-            or status = ?
+            or status = ?)
             ', 'finished');
     }
 
@@ -569,7 +570,7 @@ class Project extends Model
 
     public function offers()
     {
-        if (!$this->isMine()) {
+        if (!$this->isMine() && !auth()->user()->isSuperadmin()) {
             return [];
         }
 
@@ -579,6 +580,22 @@ class Project extends Model
     public function myOffer()
     {
         return ProjectShow::where('user_id', auth()->id())->where('project_id', $this->id)->where('offer', 1)->first();
+    }
 
+    public function isStateEvaluation()
+    {
+        if ($this->shows()->where('winner', 1)->count()) {
+            return false;
+        }
+
+        if ($this->status === 'evaluation') {
+            return true;
+        }
+
+        if ($this->status === 'publicated' && $this->end_date === null) {
+            return true;
+        }
+
+        return false;
     }
 }

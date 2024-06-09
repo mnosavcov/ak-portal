@@ -138,13 +138,15 @@ class ProjectController extends Controller
      */
     public function show(Request $request, Project $project): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        $projectCount = ProjectShow::where('user_id', auth()->id())->where('project_id', $project->id)->count();
-        if(!$projectCount) {
-            $projectShow = new ProjectShow;
-            $projectShow->user_id = auth()->id();
-            $projectShow->project_id = $project->id;
-            $projectShow->showed = true;
-            $projectShow->save();
+        if (auth()->id()) {
+            $projectCount = ProjectShow::where('user_id', auth()->id())->where('project_id', $project->id)->count();
+            if (!$projectCount) {
+                $projectShow = new ProjectShow;
+                $projectShow->user_id = auth()->id();
+                $projectShow->project_id = $project->id;
+                $projectShow->showed = true;
+                $projectShow->save();
+            }
         }
 
         $status = $project->status;
@@ -372,10 +374,10 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
-        if($request->post('type') === 'confirm') {
+        if ($request->post('type') === 'confirm') {
             $project->status = 'confirm';
             $project->save();
-        } elseif($request->post('type') === 'reminder') {
+        } elseif ($request->post('type') === 'reminder') {
             $project->status = 'reminder';
             $project->user_reminder = $request->post('user_reminder');
             $project->save();
@@ -396,6 +398,31 @@ class ProjectController extends Controller
 
         return response()->json([
             'status' => 'ok'
+        ]);
+    }
+
+    public function pickAWinner(Request $request)
+    {
+        $projectShow = ProjectShow::where('id', $request->offerId)->where('offer', 1)->where('principal_paid', 1)->first();
+        if (!$projectShow) {
+            return response()->json(['status' => 'error']);
+        }
+
+        $project = Project::find($projectShow->project_id);
+        if ($project->user_id !== auth()->id()) {
+            return response()->json(['status' => 'error']);
+        }
+
+        $winners = ProjectShow::where('project_id', $project->id)->where('winner', 1)->get()->count();
+        if ($winners) {
+            return response()->json(['status' => 'error']);
+        }
+
+        $projectShow->update(['winner' => 1]);
+        $project->update(['status' => 'finished']);
+        return response()->json([
+            'status' => 'success',
+            'value' => $projectShow->id,
         ]);
     }
 }

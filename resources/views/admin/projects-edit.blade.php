@@ -46,6 +46,19 @@
                 @include('admin.projects-edit.@galleries')
                 @include('admin.projects-edit.@settings')
 
+                <div x-data="{exclusive: @js($project->exclusive_contract ? 1 : 0)}">
+                    <input type="hidden" x-model="exclusive" name="exclusive_contract">
+                    <div
+                        @click="exclusive = (exclusive ? 0 : 1)"
+                        class="text-white p-[15px] inline-block mb-[50px] rounded-[3px] cursor-pointer"
+                        x-text="exclusive ? 'Exkluzivní smlouva' : 'Neexkluzivní smlouva'"
+                        :class="{
+                            'bg-app-green': exclusive,
+                            'bg-app-red': !exclusive,
+                        }">
+                    </div>
+                </div>
+
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">
                     Uložit změny

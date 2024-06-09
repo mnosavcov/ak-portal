@@ -1,7 +1,7 @@
 @props(['project'])
 
 <!-- Slider main container -->
-<div class=" relative">
+<div class="relative mt-[15px] laptop:mt-[25px]">
     <div
         class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-30px)] z-50
          left-0

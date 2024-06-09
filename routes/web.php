@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('projects/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
     Route::post('projects/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
     Route::post('projects/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
+    Route::post('projects/pick-a-winner', [ProjectController::class, 'pickAWinner'])->name('projects.pick-a-winner');
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
     Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
@@ -107,6 +108,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('index');
                 Route::get('projects', [AdminController::class, 'projects'])->name('projects');
+                Route::post('projects/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
                 Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
                 Route::get('users', [AdminController::class, 'users'])->name('users');

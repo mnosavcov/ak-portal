@@ -12,6 +12,8 @@ class ProjectShow extends Model
     protected $fillable = [
         'project_id',
         'favourite',
+        'winner',
+        'principal_paid',
     ];
 
     protected static function boot()

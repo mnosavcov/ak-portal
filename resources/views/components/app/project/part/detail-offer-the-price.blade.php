@@ -50,7 +50,7 @@
     <div class="h-[1px] bg-[#D9E9F2] w-full mb-[20px] tablet:mb-[30px]"></div>
 
     {{--    jsem zadavatel --}}
-    @if($project->isMine())
+    @if(auth()->user() && auth()->user()->isSuperadmin())
         <div class="font-Spartan-Regular text-[#414141]
                 text-[15px] leading-[20px] mb-[15px]
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
@@ -59,10 +59,91 @@
         </div>
 
         @if($project->offers()->count())
-            <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative
-    after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat">
-                {{ $project->offers()->count() }} nabízejících
+            <div x-data="{offersOpen: false}">
+                <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative {{ $project->offers()->count() ? 'cursor-pointer' : '' }}
+                    after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat"
+                     @if($project->offers()->count())
+                         @click="offersOpen = !offersOpen"
+                    @endif
+                >
+                    {{ $project->offers()->count() }}
+
+                    @if($project->offers()->count() > 0 && $project->offers()->count() < 5)
+                        nabízející
+                    @else
+                        nabízejících
+                    @endif
+                </div>
+
+                <div x-show="offersOpen" x-cloak x-collapse>
+                    @foreach($project->offers() as $offer)
+                        @include(
+                            'components.app.project.part.@nabidka',
+                            [
+                                'title' => 'Nabídka ' . $loop->iteration,
+                                'type' => 'superadmin',
+                                'offer' => $offer,
+                                'user' => \App\Models\User::find($offer->user_id)
+                            ]
+                        )
+                    @endforeach
+                </div>
             </div>
+
+        @else
+            <div class="font-Spartan-Regular text-[#414141] bg-[#F8F8F8] rounded-[3px]
+                text-[13px] leading-[24px] mb-[25px] p-[15px]
+                laptop:text-[15px] laptop:leading-[26px] laptop:mb-[30px] laptop:p-[20px]
+            ">
+                U projektu zatím nemáte žádné nabídky.
+            </div>
+        @endif
+    @elseif($project->isMine())
+        <div class="font-Spartan-Regular text-[#414141]
+                text-[15px] leading-[20px] mb-[15px]
+                tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
+                laptop:text-[20px] laptop:leading-[30px]">
+            Obdržené nabídky
+        </div>
+
+        @if($project->offers()->count())
+            <div x-data="{offersOpen: false}">
+                <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative {{ $project->offers()->count() ? 'cursor-pointer' : '' }}
+                    after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat"
+                     @if($project->offers()->count())
+                         @click="offersOpen = !offersOpen"
+                    @endif
+                >
+                    {{ $project->offers()->count() }}
+
+                    @if($project->offers()->count() > 0 && $project->offers()->count() < 5)
+                        nabízející
+                    @else
+                        nabízejících
+                    @endif
+                </div>
+
+                <div x-show="offersOpen" x-cloak x-collapse x-data="{winner: null}">
+                    @foreach($project->offers() as $offer)
+                        <div
+                            @if($offer->winner)
+                                x-init="winner = @js($offer->id);"
+                            @endif
+                        >
+                            @include(
+                                'components.app.project.part.@nabidka',
+                                [
+                                    'title' => 'Nabídka ' . $loop->iteration,
+                                    'type' => 'advertiser',
+                                    'offer' => $offer,
+                                    'user' => ($project->exclusive_contract ? \App\Models\User::find($offer->user_id) : false)
+                                ]
+                            )
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
         @else
             <div class="font-Spartan-Regular text-[#414141] bg-[#F8F8F8] rounded-[3px]
                 text-[13px] leading-[24px] mb-[25px] p-[15px]
@@ -117,86 +198,15 @@
             @if(auth()->user()->investor)
                 @if($project->myOffer())
 
-                    <div
-                        class="space-y-[10px] p-[15px] tablet:p-[20px] {{ $project->myOffer()->winner ? 'border-[3px] border-app-green' : 'border border-[#D9E9F2]' }} rounded-[3px] mb-[25px] tablet:mb-[35px]">
-                        <div
-                            class="font-Spartan-Bold text-[#31363A] text-[16px] leading-[24px] tablet:text-[18px] tablet:leading-[30px]">
-                            Vaše nabídka
-                        </div>
-
-                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-                            <div class="font-Spartan-SemiBold text-[14px]">Čas přidání nabídky:</div>
-                            <div
-                                class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($project->myOffer()->offer_time)->format('d.m.Y H:i:s') }}</div>
-                        </div>
-
-                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-                            <div class="font-Spartan-SemiBold text-[14px]">Výše nabídky:</div>
-                            <div
-                                class="font-Spartan-Regular text-[14px]">{{ number_format($project->myOffer()->price ?? 0, 0, '.', ' ') }}
-                                Kč
-                            </div>
-                        </div>
-
-                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-                            <div class="font-Spartan-SemiBold text-[14px]">Složena jistina:</div>
-                            <div class="font-Spartan-Regular text-[14px]">
-                                @if($project->myOffer()->principal_paid)
-                                    <span class="text-app-green">ano</span>
-                                @else
-                                    <span class="text-app-red">ne</span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="pt-[10px]">
-                            <div
-                                class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10x]">
-                                <div
-                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                    Jméno a příjmení
-                                </div>
-                                <div
-                                    class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                    {{ auth()->user()->title_before . ' ' . auth()->user()->name . ' ' . auth()->user()->surname . ' ' . auth()->user()->title_after }}
-                                </div>
-                                <div
-                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                    Adresa trvalého bydliště
-                                </div>
-                                <div
-                                    class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                    {{ auth()->user()->street . ' ' . auth()->user()->street_number . ', ' . auth()->user()->psc . ', ' . auth()->user()->city }}
-                                </div>
-                                <div
-                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                    Státní občanství (země)
-                                </div>
-                                <div
-                                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                    {{ \App\Services\CountryServices::COUNTRIES[auth()->user()->country] ?? auth()->user()->country }}
-                                </div>
-                                <div
-                                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2">
-                                    Investor
-                                </div>
-                                <div
-                                    class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
-                                    {!! nl2br(auth()->user()->investor_info) !!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-span-2 text-center pt-[15px] tablet:pt-[20px]">
-                            @if($project->myOffer()->winner)
-                                <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">Nabízející akceptoval vaši nabídku</span>
-                            @elseif($project->myOffer()->principal_paid)
-                                <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">Jistinu jste zaplatili</span>
-                            @else
-                                <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-red">Čeká se, až uhradíte jistinu</span>
-                            @endif
-                        </div>
-                    </div>
+                    @include(
+                        'components.app.project.part.@nabidka',
+                        [
+                            'title' => 'Vaše nabídka',
+                            'type' => 'investor',
+                            'offer' => $project->myOffer(),
+                            'user' => auth()->user()
+                        ]
+                    )
 
                 @else
                     <div class="grid grid-cols-1" x-data="{minPrice: @js($project->price), offerPrice: '',

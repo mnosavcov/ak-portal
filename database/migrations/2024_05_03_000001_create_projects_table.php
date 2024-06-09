@@ -33,6 +33,9 @@ return new class extends Migration
             $table->date('representation_end_date')->nullable();
             $table->boolean('representation_indefinitely_date')->nullable();
             $table->boolean('representation_may_be_cancelled')->nullable();
+            $table->boolean('representation_may_be_cancelled')->nullable();
+            $table->boolean('exclusive_contract')->default(false);
+            $table->boolean('details_on_request')->default(true);
 
             $table->foreign('user_id')->references('id')->on('users')->constrained();
         });

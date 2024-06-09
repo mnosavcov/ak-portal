@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
+use App\Models\ProjectShow;
 use App\Models\ProjectState;
 use App\Models\ProjectTag;
 use App\Models\User;
@@ -84,6 +85,7 @@ class AdminController extends Controller
             'minimum_principal' => str_replace(' ', '', $request->minimum_principal ?? ''),
             'country' => $request->country,
             'actual_state' => trim($request->actual_state),
+            'exclusive_contract' => (bool)$request->exclusive_contract,
         ];
 
         if (empty($update['price'])) {
@@ -289,5 +291,26 @@ class AdminController extends Controller
     public function destroy(Project $project)
     {
         return (new ProjectService())->destroy($project);
+    }
+
+    public function setPrincipalPaid(Request $request)
+    {
+        if(!auth()->user()->isSuperadmin()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                ]
+            );
+        }
+
+        $projectShow = ProjectShow::find($request->post('offerId'));
+        $projectShow->update(['principal_paid' => ($projectShow->principal_paid ? 0 : 1)]);
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'value' => $projectShow->principal_paid
+            ]
+        );
     }
 }
