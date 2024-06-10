@@ -409,7 +409,13 @@ class ProjectController extends Controller
         }
 
         $project = Project::find($projectShow->project_id);
-        if ($project->user_id !== auth()->id()) {
+        if ($project->type === 'offer-the-price' && $project->user_id !== auth()->id()) {
+            return response()->json(['status' => 'error']);
+        }
+        if ($project->type === 'fixed-price' && !auth()->user()->isSuperadmin()) {
+            return response()->json(['status' => 'error']);
+        }
+        if ($project->user_id !== auth()->id() && !auth()->user()->isSuperadmin()) {
             return response()->json(['status' => 'error']);
         }
 

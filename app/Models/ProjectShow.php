@@ -12,6 +12,7 @@ class ProjectShow extends Model
     protected $fillable = [
         'project_id',
         'favourite',
+        'offer',
         'winner',
         'principal_paid',
     ];

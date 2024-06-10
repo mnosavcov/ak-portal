@@ -195,11 +195,11 @@
             <div
                 class="mx-[15px] py-[50px] bg-white rounded-[3px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center mb-[50px] md:mb-[70px]
                     px-[15px] md:px-[30px]">
-                <div class="mx-auto font-WorkSans-SemiBold text-[#414141]
+                <div class="mx-auto font-WorkSans-SemiBold text-[#414141] max-w-[820px]
                     text-[18px] mb-[30px]
                     md:text-[28px] md:mb-[50px]
-                    ">Projekt zveřejníme již
-                    <span class="text-app-green">{{ $date->format('j.n.Y') }} v {{ $date->format('H:i') }}</span>
+                    ">Spuštění projektu jsme z provozně-technických důvodů odložili. Aktuální předpoklad zveřejnění je
+                    <span class="text-app-green">{{ $date->format('j.n.Y') }}&nbsp;ve&nbsp;{{ $date->format('H:i') }}</span>
                 </div>
 
                 <div class="border border-app-orange mx-auto
