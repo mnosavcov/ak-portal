@@ -190,40 +190,44 @@
                                 </x-dropdown-link>
                             @endif
 
-                            @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
-                                <x-dropdown-link :href="route('profile.overview')" class="px-[30px]"
-                                                 :active="request()->routeIs('profile.overview')">
-                                    {{ __('Přehled účtu') }}
+                            @if(!auth()->user()->superadmin && !auth()->user()->advisor)
+                                @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
+                                    <x-dropdown-link :href="route('profile.overview')" class="px-[30px]"
+                                                     :active="request()->routeIs('profile.overview')">
+                                        {{ __('Přehled účtu') }}
+                                    </x-dropdown-link>
+                                @endif
+
+                                @if(auth()->user()->investor)
+                                    <x-dropdown-link :href="route('profile.investor')" class="px-[30px]"
+                                                     :active="request()->routeIs('profile.investor')">
+                                        {{ __('Profil investora') }}
+                                    </x-dropdown-link>
+                                @endif
+
+                                @if(auth()->user()->advertiser)
+                                    <x-dropdown-link :href="route('profile.advertiser')" class="px-[30px]"
+                                                     :active="request()->routeIs('profile.advertiser')">
+                                        {{ __('Profil nabízejícího') }}
+                                    </x-dropdown-link>
+                                @endif
+
+                                @if(auth()->user()->real_estate_broker)
+                                    <x-dropdown-link :href="route('profile.real-estate-broker')" class="px-[30px]"
+                                                     :active="request()->routeIs('profile.real-estate-broker')">
+                                        {{ __('Profil realitního makléře') }}
+                                    </x-dropdown-link>
+                                @endif
+
+                                <x-dropdown-link :href="route('profile.edit')" class="px-[30px]"
+                                                 :active="request()->routeIs('profile.edit')">
+                                    {{ __('Nastavení účtu') }}
                                 </x-dropdown-link>
                             @endif
 
-                            @if(auth()->user()->investor)
-                                <x-dropdown-link :href="route('profile.investor')" class="px-[30px]"
-                                                 :active="request()->routeIs('profile.investor')">
-                                    {{ __('Profil investora') }}
-                                </x-dropdown-link>
+                            @if(auth()->user()->superadmin || auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
+                                <div class="h-[1px] bg-[#D9E9F2] mx-[30px] mt-[10px]"></div>
                             @endif
-
-                            @if(auth()->user()->advertiser)
-                                <x-dropdown-link :href="route('profile.advertiser')" class="px-[30px]"
-                                                 :active="request()->routeIs('profile.advertiser')">
-                                    {{ __('Profil nabízejícího') }}
-                                </x-dropdown-link>
-                            @endif
-
-                            @if(auth()->user()->real_estate_broker)
-                                <x-dropdown-link :href="route('profile.real-estate-broker')" class="px-[30px]"
-                                                 :active="request()->routeIs('profile.real-estate-broker')">
-                                    {{ __('Profil realitního makléře') }}
-                                </x-dropdown-link>
-                            @endif
-
-                            <x-dropdown-link :href="route('profile.edit')" class="px-[30px]"
-                                             :active="request()->routeIs('profile.edit')">
-                                {{ __('Nastavení účtu') }}
-                            </x-dropdown-link>
-
-                            <div class="h-[1px] bg-[#D9E9F2] mx-[30px] mt-[10px]"></div>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -338,45 +342,52 @@
             @endauth
 
             @auth
-                <div class="space-y-[25px] py-[25px] px-[15px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
-                    @if(auth()->user()->superadmin)
-                        <x-responsive-nav-link :href="route('admin.projects')">
-                            {{ __('Administrace') }}
-                        </x-responsive-nav-link>
-                    @endif
+                @if(auth()->user()->superadmin || auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
+                    <div class="space-y-[25px] py-[25px] px-[15px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
+                        @if(auth()->user()->superadmin)
+                            <x-responsive-nav-link :href="route('admin.projects')">
+                                {{ __('Administrace') }}
+                            </x-responsive-nav-link>
+                        @endif
 
-                    @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
-                        <x-responsive-nav-link :href="route('profile.overview')"
-                                               :active="request()->routeIs('profile.overview')">
-                            {{ __('Přehled účtu') }}
-                        </x-responsive-nav-link>
-                    @endif
+                        @if(!auth()->user()->superadmin)
+                            @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
+                                <x-responsive-nav-link :href="route('profile.overview')"
+                                                       :active="request()->routeIs('profile.overview')">
+                                    {{ __('Přehled účtu') }}
+                                </x-responsive-nav-link>
+                            @endif
 
-                    @if(auth()->user()->investor)
-                        <x-responsive-nav-link :href="route('profile.investor')"
-                                               :active="request()->routeIs('profile.investor')">
-                            {{ __('Profil investora') }}
-                        </x-responsive-nav-link>
-                    @endif
+                            @if(auth()->user()->investor)
+                                <x-responsive-nav-link :href="route('profile.investor')"
+                                                       :active="request()->routeIs('profile.investor')">
+                                    {{ __('Profil investora') }}
+                                </x-responsive-nav-link>
+                            @endif
 
-                    @if(auth()->user()->advertiser)
-                        <x-responsive-nav-link :href="route('profile.advertiser')"
-                                               :active="request()->routeIs('profile.advertiser')">
-                            {{ __('Profil nabízejícího') }}
-                        </x-responsive-nav-link>
-                    @endif
+                            @if(auth()->user()->advertiser)
+                                <x-responsive-nav-link :href="route('profile.advertiser')"
+                                                       :active="request()->routeIs('profile.advertiser')">
+                                    {{ __('Profil nabízejícího') }}
+                                </x-responsive-nav-link>
+                            @endif
 
-                    @if(auth()->user()->real_estate_broker)
-                        <x-responsive-nav-link :href="route('profile.real-estate-broker')"
-                                               :active="request()->routeIs('profile.real-estate-broker')">
-                            {{ __('Profil realitního makléře') }}
-                        </x-responsive-nav-link>
-                    @endif
+                            @if(auth()->user()->real_estate_broker)
+                                <x-responsive-nav-link :href="route('profile.real-estate-broker')"
+                                                       :active="request()->routeIs('profile.real-estate-broker')">
+                                    {{ __('Profil realitního makléře') }}
+                                </x-responsive-nav-link>
+                            @endif
 
-                    <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                        {{ __('Nastavení účtu') }}
-                    </x-responsive-nav-link>
-                </div>
+                            <x-responsive-nav-link :href="route('profile.edit')"
+                                                   :active="request()->routeIs('profile.edit')">
+                                {{ __('Nastavení účtu') }}
+                            </x-responsive-nav-link>
+                        @endif
+                    </div>
+                    @else
+                    <div class="h-[25px]"></div>
+                @endif
             @endauth
 
             <div class="mx-[15px]">

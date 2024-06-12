@@ -45,7 +45,8 @@
 
             <div x-cloak x-show="newPasswordOpen" x-collapse>
                 <x-input-label for="password_confirmation" :value="__('Zadejte heslo znovu pro kontrolu *')"/>
-                <x-text-input id="password_confirmation" name="password_confirmation" class="block mt-1 w-full" type="password"/>
+                <x-text-input id="password_confirmation" name="password_confirmation" class="block mt-1 w-full"
+                              type="password"/>
             </div>
 
             <button type="submit"
@@ -58,10 +59,17 @@
         </form>
 
         <div class="col-span-full mt-[20px]">
-            <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer"
-                    @click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
-                Zrušit celý účet
-            </button>
+            @if(auth()->user()->deletable)
+                <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer"
+                        @click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
+                    Zrušit celý účet
+                </button>
+            @else
+                <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer grayscale"
+                        @click.prevent="alert('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt.')">
+                    Zrušit celý účet
+                </button>
+            @endif
 
             <x-modal name="confirm-user-deletion">
                 <div class="relative p-[50px_15px_30px]">

@@ -4,7 +4,11 @@ namespace App\Providers;
 
 use App\Listeners\AfterUserRegistered;
 use Illuminate\Auth\Events\Registered;
+use App\Events\RegisteredAdmin;
+use App\Events\RegisteredAdvisor;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Listeners\SendEmailVerificationNotificationAdmin;
+use App\Listeners\SendEmailVerificationNotificationAdvisor;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -19,6 +23,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
             AfterUserRegistered::class,
+        ],
+        RegisteredAdmin::class => [
+            SendEmailVerificationNotificationAdmin::class,
+        ],
+        RegisteredAdvisor::class => [
+            SendEmailVerificationNotificationAdvisor::class,
         ],
     ];
 

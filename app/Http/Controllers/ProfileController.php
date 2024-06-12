@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ProfileService;
+use App\Services\UsersService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\EmailNotification;
@@ -81,7 +82,7 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request, UsersService $usersService): RedirectResponse
     {
         $request->validate([
             'password_delete' => ['required', 'current_password'],
@@ -91,12 +92,13 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        if(!$user->deletable) {
+            return Redirect::to(route('profile.edit'));
+        }
 
         Auth::logout();
 
-        $user->email = $user->email . '.deleted.' . time();
-        $user->deleted_at = Carbon::now();
-        $user->save();
+        $usersService->deleteUser($user->id);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

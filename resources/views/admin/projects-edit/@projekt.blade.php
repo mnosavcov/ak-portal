@@ -88,7 +88,7 @@
 
             <div class="mt-[10px] pt-[25px]" x-data="{ indefinitelyDate: null }"
                  x-init="indefinitelyDate = {{ empty($project->end_date) ? 'true' : 'false' }}">
-                <x-input-label for="end_date" :value="__('Konec platnosti smlouvy *')"/>
+                <x-input-label for="end_date" :value="__('Ukončení sběru nabídek *')"/>
                 <x-text-input id="end_date" name="end_date" type="date" value="{{ $project->end_date }}"
                               x-bind:disabled="indefinitelyDate"
                               class="mb-[10px] relative block mt-1 w-[350px] pl-[60px]

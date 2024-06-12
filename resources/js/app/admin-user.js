@@ -1,6 +1,18 @@
 import Alpine from "alpinejs";
 
 Alpine.data('adminUser', (id) => ({
+    actualTab: 'all',
+    tabs: {
+        all: 'Všichni',
+        not_verified: 'Neověření',
+        investor: 'Investoři',
+        advertiser: 'Nabízející',
+        real_estate_broker: 'Realitní makléři',
+        superadmin: 'Administrátoři',
+        advisor: 'Advisoři',
+        banned: 'Zabanovaní',
+        deleted: 'Smazaní',
+    },
     loaderShow: false,
     itemsForChange: [
         'title_before',
@@ -21,6 +33,8 @@ Alpine.data('adminUser', (id) => ({
         'check_status',
         'notice',
         'investor_info',
+        'ban_info',
+        'deleted_at',
     ],
     data: {
         users: [],
@@ -30,10 +44,83 @@ Alpine.data('adminUser', (id) => ({
         users: [],
         usersOrigin: [],
     },
+    getDataFor(indexTab) {
+        return Object.fromEntries(
+            Object.entries(this.proxyData.users).filter(([key, obj]) => (
+                indexTab === 'ultimate'
+                || (indexTab === 'all'
+                    && this.proxyData.usersOrigin[obj.id].deleted_at == null
+                    && this.proxyData.usersOrigin[obj.id].banned_at == null
+                )
+                || (
+                    (
+                        indexTab === 'investor'
+                        || indexTab === 'advertiser'
+                        || indexTab === 'real_estate_broker'
+                        || indexTab === 'superadmin'
+                        || indexTab === 'advisor'
+                    )
+                    && this.proxyData.usersOrigin[obj.id].deleted_at == null
+                    && this.proxyData.usersOrigin[obj.id].banned_at == null
+                    && this.proxyData.usersOrigin[obj.id][indexTab] == 1
+                )
+                || (
+                    indexTab === 'banned'
+                    && this.proxyData.usersOrigin[obj.id].deleted_at == null
+                    && (
+                        this.proxyData.usersOrigin[obj.id].banned_at != null
+                        || this.proxyData.users[obj.id].banned_at == 'NEW'
+                    )
+                )
+                || (
+                    indexTab === 'deleted'
+                    && (
+                        this.proxyData.usersOrigin[obj.id].deleted_at != null
+                        || this.proxyData.users[obj.id].deleted_at == 'NEW'
+                    )
+                )
+                || (
+                    indexTab === 'not_verified'
+                    && this.proxyData.usersOrigin[obj.id].deleted_at == null
+                    && this.proxyData.usersOrigin[obj.id].banned_at == null
+                    && this.proxyData.usersOrigin[obj.id].check_status !== 'verified'
+                )
+            ))
+        )
+    },
+    setActualTab(tab) {
+        this.actualTab = tab;
+        document.cookie = 'admin_user_tab=' + tab + '; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+    },
     setData(users) {
         this.data.users = JSON.parse(JSON.stringify(users));
         this.data.usersOrigin = JSON.parse(JSON.stringify(users));
         this.proxyData = this.data;
+    },
+    removeChanges(id) {
+        this.proxyData.users[id] = JSON.parse(JSON.stringify(this.proxyData.usersOrigin[id]));
+    },
+    deleteUser(id) {
+        if (!this.proxyData.users[id].deletable) {
+            alert('Uživatel má aktivní projekt');
+            return;
+        }
+
+        if (!confirm('Smazání je nevratné!!! opravu smazat?')) {
+            return;
+        }
+        this.proxyData.users[id].deleted_at = 'NEW';
+    },
+    isChangedTab(indexTab) {
+        let users = this.getDataFor(indexTab)
+        let changed = false;
+        Object.keys(users).forEach(key => {
+            if (this.isChanged(key)) {
+                changed = true;
+            }
+        });
+
+        return changed;
     },
     isChanged(id) {
         let change = false;
@@ -91,12 +178,20 @@ Alpine.data('adminUser', (id) => ({
             this.proxyData.users[id].check_status = 'verified';
         }
     },
-    async saveUser(id) {
+    async saveUsers() {
         this.loaderShow = true;
-        await fetch('/admin/save-user', {
+        let sendData = {};
+
+        Object.keys(this.proxyData.users).forEach(key => {
+            if (this.isChanged(key)) {
+                sendData[key] = this.proxyData.users[key];
+            }
+        });
+
+        await fetch('/admin/save-users', {
             method: 'POST',
             body: JSON.stringify({
-                data: this.proxyData.users[id],
+                data: sendData,
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -105,8 +200,13 @@ Alpine.data('adminUser', (id) => ({
         }).then((response) => response.json())
             .then((data) => {
                 if (data.status === 'ok') {
-                    this.proxyData.users[id] = JSON.parse(JSON.stringify(data.user));
-                    this.proxyData.usersOrigin[id] = JSON.parse(JSON.stringify(data.user));
+                    Object.keys(data.user).forEach(key => {
+                        console.log(key);
+                        console.log(data.user[key]);
+
+                        this.proxyData.users[key] = JSON.parse(JSON.stringify(data.user[key]));
+                        this.proxyData.usersOrigin[key] = JSON.parse(JSON.stringify(data.user[key]));
+                    });
                 }
                 if (data.status === 'error') {
                     alert('Chyba: '.data.statusMessage)

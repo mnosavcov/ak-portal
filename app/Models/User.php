@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'investor',
         'advertiser',
+        'advisor',
         'real_estate_broker',
         'check_status',
 
@@ -38,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number',
         'notice',
         'investor_info',
+        'ban_info',
     ];
 
     /**
@@ -48,6 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $appends = [
+        'deletable'
     ];
 
     /**
@@ -72,10 +79,22 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isVerified()
     {
-        if($this->isSuperadmin()) {
+        if ($this->isSuperadmin()) {
             return true;
         }
 
         return auth()->user()->check_status === 'verified' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function deletable(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => !$this->projects()->whereIn('status', Project::STATUS_NOT_DELETE_USER)->count()
+        );
     }
 }

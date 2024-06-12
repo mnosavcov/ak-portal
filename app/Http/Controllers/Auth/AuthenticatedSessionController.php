@@ -33,6 +33,10 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('profile.edit'));
         }
 
+        if (Auth::user()->isSuperadmin()) {
+            return redirect()->intended(route('admin.index'));
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

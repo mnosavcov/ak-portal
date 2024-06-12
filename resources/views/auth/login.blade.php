@@ -24,7 +24,7 @@
 
                     <div class="max-md:col-span-2">
                         <x-input-label for="email" :value="__('E-mail')"/>
-                        <x-text-input id="email" name="email" class="block mt-1 w-full min-w-[350px]" type="email"
+                        <x-text-input id="email" name="email" class="block mt-1 w-full tablet:min-w-[350px]" type="email"
                                       :value="old('email')"
                                       required autocomplete="email"/>
                         <x-input-error :messages="$errors->get('email')" class="mt-2"/>
@@ -34,7 +34,7 @@
                     <div class="max-md:col-span-2">
                         <x-input-label for="password" :value="__('Heslo')"/>
 
-                        <x-text-input id="password" name="password" class="block mt-1 w-full min-w-[350px]"
+                        <x-text-input id="password" name="password" class="block mt-1 w-full tablet:min-w-[350px]"
                                       type="password"
                                       required autocomplete="new-password"/>
                         <x-input-error :messages="$errors->get('password')" class="mt-2"/>

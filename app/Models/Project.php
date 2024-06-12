@@ -111,12 +111,12 @@ class Project extends Model
         'exclusive' => [
             'value' => 'exclusive',
             'text' => 'Výhradní zastoupení',
-            'description' => 'Klienta zastupujete jen vy. Za zveřejnění projektu nic neplatíte. Platíte jen za úspěšné zprostředkování prodeje ve výši, na které se dohodneme před zveřejněním projektu.',
+            'description' => 'Klienta zastupujete jen vy. Za zveřejnění projektu nic neplatíte. Platíte jen provizi za úspěšné zprostředkování prodeje ve výši, na které se dohodneme před zveřejněním projektu.',
         ],
         'non-exclusive' => [
             'value' => 'non-exclusive',
             'text' => 'Nevýhradní zastoupení',
-            'description' => 'Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu platíte dle našeho ceníku. Zaplatíte za úspěšné zprostředkování prodeje naším portále. Od této částky bude odečten poplatek za zveřejnění projektu.',
+            'description' => 'Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu zaplatíte inzertní poplatek. Pokud dojde k úspěšnému zprostředkování prodeje skrze portál, zaplatíte nám provizi z prodeje, na jejíž výši se domluvíme před spuštěním projektu. Od této částky bude odečten inzertní poplatek.',
         ],
     ];
 
@@ -143,6 +143,11 @@ class Project extends Model
 
     public const STATUS_FINISHED = [
         'finished',
+    ];
+
+    public const STATUS_NOT_DELETE_USER = [
+        'publicated',
+        'evaluation',
     ];
 
     protected static function boot()
@@ -405,9 +410,9 @@ class Project extends Model
     {
         $state = null;
         if (in_array($this->status, self::STATUS_PREPARE)) {
-            $state = nl2br(htmlspecialchars(trim($this->actual_state ?? '-- neuvedeno --')));
+            $state = nl2br(htmlspecialchars(trim($this->actual_state ?? 'Projekt čeká na kontrolu provozovatelem')));
             if (empty(trim($state))) {
-                $state = '-- neuvedeno --';
+                $state = 'Projekt čeká na kontrolu provozovatelem';
             }
         }
 

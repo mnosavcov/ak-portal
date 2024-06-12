@@ -29,12 +29,15 @@ return new class extends Migration
             $table->boolean('investor')->default(false);
             $table->boolean('advertiser')->default(false);
             $table->boolean('real_estate_broker')->default(false);
+            $table->boolean('advisor')->default(false);
             $table->enum('check_status', ['not_verified', 'waiting', 're_verified', 'verified'])->default('not_verified');
             $table->boolean('show_check_status')->default(false);
 
             $table->text('notice')->nullable();
             $table->text('investor_info')->nullable();
             $table->dateTime('deleted_at')->nullable();
+            $table->dateTime('banned_at')->nullable();
+            $table->text('ban_info')->nullable();
             $table->text('last_verified_data')->nullable();
         });
     }

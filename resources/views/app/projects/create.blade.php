@@ -65,7 +65,7 @@
                         class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px] tablet:mb-[50px]">Sdělte nám co nejvíce informací o svém projektu</h2>
 
-                        <div class="grid lg:grid-cols-[2fr_1fr] gap-x-[20px] gap-y-[20px] tablet:gap-y-[25px]">
+                        <div class="grid lg:grid-cols-[2fr_1fr] gap-y-[20px] tablet:gap-y-[25px]">
                             <div>
                                 <x-input-label for="title" :value="__('Zvolte název projektu *')" class="mb-[10px]"/>
                                 <x-text-input id="title" class="block mt-1 w-full" type="text" x-model="data.title"
@@ -220,10 +220,8 @@
 
                             <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                                <div>Náš portál figuruje v roli realitního zprostředkovatele. Před zveřejněním vašeho
-                                    projektu
-                                    budeme muset s vlastníkem či vlastníky projektu uzavřít <span
-                                        class="font-Spartan-SemiBold">Smlouvu o realitním zprostředkování.</span>
+                                <div>Abychom mohli definovat odpovídající režim naší spolupráce, potřebujeme vědět, jaký
+                                    máte mandát k zastupování klienta a do kdy s ním máte platnou smlouvu.
                                 </div>
                             </div>
 
@@ -311,13 +309,14 @@
                         <div
                             class="w-full min-h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center p-[15px] mb-[30px]">
                             <div>
-                                Po odeslání projektu vás bude kontaktovat náš specialista. Společně připravíte finální zadání projektu.
+                                Po odeslání projektu vás bude kontaktovat náš specialista. Společně připravíte finální
+                                zadání projektu.
                             </div>
                         </div>
 
                         <button type="button"
                                 class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] mr-[15px] mb-[15px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-blue/75 rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
-                                @click="sendProject()"0
+                                @click="sendProject()" 0
                         >
                             Uložit rozpracovaný projekt
                         </button>

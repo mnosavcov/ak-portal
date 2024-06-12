@@ -2,7 +2,7 @@
     <script>
         window.changedAll = false;
     </script>
-    <main class="flex-1 h-screen overflow-y-scroll overflow-x-hidden" x-data="adminUser"
+    <main class="flex-1 h-screen overflow-y-scroll overflow-x-auto" x-data="adminUser"
           x-init="setData(@js($users));
             window.onload = function() {
                 window.addEventListener('beforeunload', function (event) {
@@ -11,7 +11,9 @@
                         event.returnValue = '';
                     }
                 })
-            };">
+            };
+            actualTab = @js(($_COOKIE['admin_user_tab'] ?? 'all'));
+            ">
         <div class="md:hidden justify-between items-center bg-black text-white flex">
             <h1 class="text-2xl font-bold px-4">{{ env('APP_NAME') }}</h1>
             <button @click="navOpen = !navOpen" class="btn p-4 focus:outline-none hover:bg-gray-800">
@@ -22,197 +24,325 @@
                 </svg>
             </button>
         </div>
-        <section class="max-w-7xl mx-auto py-4 px-5">
+        <section class="mx-auto py-4">
             <div class="flex justify-between items-center border-b border-gray-300 mb-[25px]">
                 <h1 class="text-2xl font-semibold pt-2 pb-6">Uživatelé</h1>
+                <a href="{{ route('admin.new-advisor') }}"
+                   x-cloak x-show="actualTab === 'advisor'" target="_blank"
+                   class="bg-[#d8d8d8] text-white p-[10px_15px] rounded-[3px] relative text-[15px] font-Spartan-SemiBold bg-app-red"
+                   @click=""
+                >
+                    Přidat advisora
+                </a>
+                @if(auth()->user()->isOwner())
+                    <a href="{{ route('admin.new-admin') }}"
+                       x-cloak x-show="actualTab === 'superadmin'" target="_blank"
+                       class="bg-[#d8d8d8] text-white p-[10px_15px] rounded-[3px] relative text-[15px] font-Spartan-SemiBold bg-app-red"
+                       @click=""
+                    >
+                        Přidat administrátora
+                    </a>
+                @endif
             </div>
 
-            <template x-for="(user, index) in data.users" :key="index">
-                <form class="p-[20px] rounded-[10px] bg-white mb-[15px]" x-data="{open: false, data: {country: null}}"
-                      @submit.prevent="saveUser(user.id);"
-                      x-modelable="data.country" x-model="user.country">
-                    <div class="grid grid-cols-[1fr_12px] gap-x-[25px] cursor-pointer"
-                         @click="if(isChanged(user.id)) {return} open = !open">
+            <div class="flex gap-[5px] mb-[15px]">
+                <template x-for="(tab, index) in tabs" :key="index">
+                    <button
+                        class="bg-[#d8d8d8] text-black p-[10px_15px] rounded-[3px] relative text-[15px] font-Spartan-SemiBold"
+                        :class="{
+                                    '!bg-app-blue text-white': actualTab === index,
+                                    'pr-[35px] after:top-[11px] after:right-[7px] after:absolute after:block after:w-[20px] after:h-[20px] after:bg-app-red after:rounded-full': isChangedTab(index)
+                                }"
+                        @click="setActualTab(index)"
+                        x-text="tab + ' (' + (Object.keys(getDataFor(index)).length) + ')'"
+                    >
+                    </button>
+                </template>
+            </div>
 
-                        <div class="flex flex-row gap-x-[15px]">
-                            <div x-text="user.id" class="self-center font-semibold"></div>
-                            <div x-text="user.name" class="self-center"></div>
-                            <div x-text="user.surname" class="self-center"></div>
-                            <div class="bg-[#F8F8F8] rounded-[5px] p-[5px]" x-text="statusText(user.check_status)"
-                                 :class="statusColor(user.check_status)">
-                            </div>
-                            <template x-if="!user.email_verified_at">
-                                <div class="bg-app-red text-white rounded-[5px] p-[5px]">
-                                    E-MAIL NENÍ OVĚŘENÝ
-                                </div>
-                            </template>
-                            <template x-if="user.deleted_at">
-                                <div class="bg-app-red text-white rounded-[5px] p-[5px]">
-                                    SMAZÁNO: <span x-text="user.deleted_at"></span>
-                                </div>
-                            </template>
-                        </div>
+            <template x-for="(tab, indexTab) in tabs" :key="indexTab">
+                <table x-show="actualTab === indexTab" x-cloak
+                       class="table w-auto"
+                >
+                    <tr class="font-Spartan-SemiBold text-[15px] text-left">
+                        <th class="pr-[10px]">ID</th>
+                        <th class="min-w-[400px] text-app-blue ">
+                            Poznámka ke kontaktu (interní informace, není vidět veřejně)
+                        </th>
+                        <th class="min-w-[400px] text-app-red" x-show="indexTab === 'banned'">Důvod</th>
+                        <th class="whitespace-nowrap">E-mail</th>
+                        <th class="whitespace-nowrap" x-show="indexTab === 'deleted'">Smazáno</th>
+                        <th class="whitespace-nowrap">Ověřeno</th>
+                        <th class="whitespace-nowrap">Investor</th>
+                        <th class="whitespace-nowrap">Nabízející</th>
+                        <th class="whitespace-nowrap">Makléř</th>
+                        <th class="min-w-[100px]">Titul(y) před</th>
+                        <th class="min-w-[200px]">Jméno</th>
+                        <th class="min-w-[200px]">Příjmení</th>
+                        <th class="min-w-[100px]">Titul(y) za</th>
+                        <th class="min-w-[200px]">Ulice</th>
+                        <th class="min-w-[100px]">ČP</th>
+                        <th class="min-w-[200px]">Obec</th>
+                        <th class="min-w-[100px]">PSČ</th>
+                        <th class="min-w-[250px]">Občanství</th>
+                        <th class="min-w-[200px]">E-mail</th>
+                        <th class="min-w-[200px]">Telefon</th>
+                        <th class="min-w-[400px]">Informace o investorovi</th>
+                        <th class="min-w-[400px]">Za jakým účelem chce uživatel náš portál využívat</th>
+                        <th class="whitespace-nowrap"></th>
+                    </tr>
 
-                        <img class="self-center transition"
-                             src="{{ Vite::asset('resources/images/arrow-down-black-12x8.svg') }}"
-                             :class="{'rotate-180': open}"
+                    <template x-for="(user, index) in getDataFor(indexTab)"
+                              :key="index">
+                        <tr class="group hover:bg-gray-300" x-data="{data: {country: null}}"
+                            :class="{'bg-app-red/50 hover:bg-app-red': isChanged(user.id)}"
+                            x-modelable="data.country" x-model="user.country"
                         >
-                    </div>
-
-                    <div class="mt-[15px] bg-gray-600 text-white rounded-[5px] p-[15px] mb-[15px] cursor-pointer"
-                         x-collapse
-                         x-show="user.notice !== null && String(user.notice).trim().length > 0"
-                         x-html="String(user.notice).trim().replace(/\n/g, '<br>')">
-                    </div>
-
-                    <div x-show="open || isChanged(user.id)" x-collapse>
-                        <div class="mt-[15px] col-span-4 bg-[#F8F8F8] rounded-[5px] p-[15px] mb-[15px] cursor-pointer"
-                             x-text="statusText(user.check_status)"
-                             :class="statusColor(user.check_status)"
-                             @click="changeStatus(user.id)">
-                        </div>
-
-                        <div class="mt-[15px] grid grid-cols-4 gap-[10px]">
-                            <div>
-                                <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
-                                     :class="{'!bg-app-green': (parseInt(user.investor) === 1)}"
-                                     @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0">
-                                    Investor
-                                </div>
-                                <x-revalidate-column column="investor" :yesNo="true"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
-                                     :class="{'!bg-app-green': (parseInt(user.advertiser) === 1)}"
-                                     @click="user.advertiser = (!(parseInt(user.advertiser) === 1)) ? 1 : 0">
-                                    Nabízející
-                                </div>
-                                <x-revalidate-column column="advertiser" :yesNo="true"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <div class="bg-app-red text-white rounded-[3px] p-[10px] cursor-pointer"
-                                     :class="{'!bg-app-green': (parseInt(user.real_estate_broker) === 1)}"
-                                     @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0">
-                                    Realitní makléř
-                                </div>
-                                <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
-                            </div>
-                            <div></div>
-
-                            <div>
-                                <x-input-label for="title_before" :value="__('Titul(y) před')"/>
-                                <x-text-input id="title_before" class="block mt-1 w-full" type="text"
-                                              x-model="user.title_before"/>
-                                <x-revalidate-column column="title_before"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <x-input-label for="name" :value="__('Jméno *')"/>
-                                <x-text-input id="name" class="block mt-1 w-full" type="text"
-                                              x-model="user.name" required/>
-                                <x-revalidate-column column="name"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <x-input-label for="surname" :value="__('Příjmení *')"/>
-                                <x-text-input id="surname" class="block mt-1 w-full" type="text"
-                                              x-model="user.surname" required/>
-                                <x-revalidate-column column="surname"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <x-input-label for="title_after" :value="__('Titul(y) za')"/>
-                                <x-text-input id="title_after" class="block mt-1 w-full" type="text"
-                                              x-model="user.title_after"/>
-                                <x-revalidate-column column="title_after"></x-revalidate-column>
-                            </div>
-
-                            <div>
-                                <x-input-label for="street" :value="__('Ulice *')"/>
-                                <x-text-input id="street" class="block mt-1 w-full" type="text"
-                                              x-model="user.street" required/>
-                                <x-revalidate-column column="street"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <x-input-label for="street_number" :value="__('Číslo domu / Číslo orientační *')"/>
-                                <x-text-input id="street_number" class="block mt-1 w-full" type="text"
-                                              x-model="user.street_number" required/>
-                                <x-revalidate-column column="street_number"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <x-input-label for="city" :value="__('Obec *')"/>
-                                <x-text-input id="city" class="block mt-1 w-full" type="text"
-                                              x-model="user.city" required/>
-                                <x-revalidate-column column="city"></x-revalidate-column>
-                            </div>
-                            <div>
-                                <x-input-label for="psc" :value="__('PSČ *')"/>
-                                <x-text-input id="psc" class="block mt-1 w-full" type="text"
-                                              x-model="user.psc" required/>
-                                <x-revalidate-column column="psc"></x-revalidate-column>
-                            </div>
-
-                            <div>
-                                <x-input-label for="country" :value="__('Státní občanství (země)')" class="mb-1"/>
-                                <x-countries-select id="country" class="block mt-1 w-full" type="text"/>
-                                <x-revalidate-column column="country"></x-revalidate-column>
-                            </div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-
-                            <div>
-                                <x-input-label for="email" :value="__('E-mail *')"/>
-                                <x-text-input id="email" class="block mt-1 w-full" type="email"
-                                              x-model="user.email"/>
-                            </div>
-                            <div>
-                                <x-input-label for="phone_number" :value="__('Telefonní číslo *')"/>
-                                <x-text-input id="phone_number" class="block mt-1 w-full" type="text"
-                                              x-model="user.phone_number"/>
-                            </div>
-                            <div></div>
-                            <div></div>
-
-                            <div class="col-span-4">
-                                <x-input-label for="investor_info" :value="__('Informace o investorovi')"/>
-                                <x-textarea-input id="investor_info" class="block mt-1 w-full h-[5rem] leading-[1.5]"
-                                                  type="text"
-                                                  x-model="user.investor_info"/>
-                            </div>
-
-                            <div class="col-span-4">
-                                <x-input-label for="notice"
-                                               :value="__('Poznámka ke kontaktu (interní informace, není vidět veřejně)')"
-                                               class="text-app-blue"/>
-                                <x-textarea-input id="notice" class="block mt-1 w-full leading-[1.5] h-[5rem]"
+                            <td class="align-top">
+                                <div x-text="user.id"
+                                     class="self-center font-semibold pr-[10px] leading-[50px]"></div>
+                            </td>
+                            <td class="align-top">
+                                <x-textarea-input id="notice"
+                                                  class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
+                                                  x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.notice !== null && user.notice.trim()}"
                                                   type="text"
                                                   x-model="user.notice"/>
-                            </div>
-
-                            <div class="col-span-4">
-                                <x-input-label for="notice"
-                                               :value="__('Za jakým účelem či účely chce uživatel náš portál využívat')"/>
-                                <div class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[15px] mb-[15px]"
-                                     x-html="user.more_info === null ? '' : user.more_info.trim().replace(/\n/g, '<br>')">
+                            </td>
+                            <td class="align-top" x-show="indexTab === 'banned'">
+                                <x-textarea-input id="ban_info"
+                                                  class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
+                                                  x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.ban_info !== null && user.ban_info.trim()}"
+                                                  type="text"
+                                                  x-model="user.ban_info"/>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block"
+                                    :class="{'!bg-app-green': user.email_verified_at}"
+                                    x-text="user.email_verified_at ? 'OK' : 'Neověřený'">
+                                </div>
+                            </td>
+                            <td class="align-top" x-show="indexTab === 'deleted'">
+                                <div
+                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block whitespace-nowrap text-center"
+                                    :class="{'!bg-app-green': !user.deleted_at}"
+                                    x-html="user.deleted_at ? user.deleted_at.replace(/ /g, '<br>') : 'NE'">
+                                </div>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                    x-text="statusText(user.check_status)"
+                                    :class="statusColor(user.check_status)"
+                                    @click="changeStatus(user.id)">
+                                </div>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
+                                    :class="{'!bg-app-green': (parseInt(user.investor) === 1)}"
+                                    @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0"
+                                    x-text="user.investor ? 'ANO' : 'NE'"
+                                >
+                                </div>
+                                <x-revalidate-column column="investor" :yesNo="true"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
+                                    :class="{'!bg-app-green': (parseInt(user.advertiser) === 1)}"
+                                    @click="user.advertiser = (!(parseInt(user.advertiser) === 1)) ? 1 : 0"
+                                    x-text="user.advertiser ? 'ANO' : 'NE'"
+                                >
+                                </div>
+                                <x-revalidate-column column="advertiser" :yesNo="true"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
+                                    :class="{'!bg-app-green': (parseInt(user.real_estate_broker) === 1)}"
+                                    @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0"
+                                    x-text="user.real_estate_broker ? 'ANO' : 'NE'"
+                                >
+                                </div>
+                                <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="title_before" class="block w-full group-hover:bg-gray-200"
+                                              type="text"
+                                              x-model="user.title_before" required/>
+                                <x-revalidate-column column="title_before"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="name" class="block w-full group-hover:bg-gray-200" type="text"
+                                              x-model="user.name" required/>
+                                <x-revalidate-column column="name"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="surname" class="block w-full group-hover:bg-gray-200" type="text"
+                                              x-model="user.surname" required/>
+                                <x-revalidate-column column="surname"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="title_after" class="block w-full group-hover:bg-gray-200"
+                                              type="text"
+                                              x-model="user.title_after" required/>
+                                <x-revalidate-column column="title_after"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="street" class="block w-full group-hover:bg-gray-200" type="text"
+                                              x-model="user.street" required/>
+                                <x-revalidate-column column="street"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="street_number" class="block w-full group-hover:bg-gray-200"
+                                              type="text"
+                                              x-model="user.street_number" required/>
+                                <x-revalidate-column column="street_number"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="city" class="block w-full group-hover:bg-gray-200" type="text"
+                                              x-model="user.city" required/>
+                                <x-revalidate-column column="city"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="psc" class="block w-full group-hover:bg-gray-200" type="text"
+                                              x-model="user.psc" required/>
+                                <x-revalidate-column column="psc"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <div class="bg-white group-hover:bg-gray-200 min-w-[235px]">
+                                    <x-countries-select id="country"
+                                                        class="block mt-1 w-full group-hover:bg-gray-200"
+                                                        type="text"/>
+                                </div>
+                                <x-revalidate-column column="country"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="email" class="block group-hover:bg-gray-200" type="text"
+                                              x-model="user.email" required/>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="phone_number"
+                                              class="block x-full group-hover:bg-gray-200"
+                                              type="text"
+                                              x-model="user.phone_number" required/>
+                            </td>
+                            <td class="align-top">
+                                <x-textarea-input id="investor_info"
+                                                  class="block w-full h-[6rem] leading-[1.45] min-w-[250px] group-hover:bg-gray-200"
+                                                  type="text"
+                                                  x-model="user.investor_info"/>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                    x-html="user.more_info === null ? '' : user.more_info.trim().replace(/\n/g, '<br>')">
                                 </div>
                                 <x-revalidate-column column="more_info" :br="true"></x-revalidate-column>
-                            </div>
-
-                            <div class="col-span-4" x-show="isChanged(user.id)" x-cloak x-collapse>
-                                <button
-                                    class="text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+                            </td>
+                            <td class="align-top">
+                                <button type="button" x-show="indexTab !== 'deleted'"
+                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
+                                        :disabled="!user.deletable"
+                                        @click="deleteUser(user.id)"
                                 >
-                                    Uložit
+                                    smazat
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                                <button type="button"
+                                        x-show="(indexTab !== 'deleted' && indexTab !== 'banned') || (indexTab === 'banned' && user.banned_at === 'NEW')"
+                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
+                                        @click="$dispatch('open-modal', {name: 'set-ban', user: user})"
+                                >
+                                    BAN
+                                </button>
+                                <button type="button"
+                                        x-show="(indexTab === 'banned' || (indexTab !== 'banned' && user.banned_at === 'NEW'))"
+                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
+                                        @click="user.banned_at = 'REMOVE'; user.ban_info = '';"
+                                >
+                                    ZRUŠIT BAN
+                                </button>
+                                <button type="button" x-show="isChanged(user.id)"
+                                        class="font-Spartan-SemiBold text-[15px] text-app-red bg-white p-[5px] rounded-[3px]"
+                                        @click="removeChanges(user.id)"
+                                >
+                                    zrušit&nbsp;změny
+                                </button>
+                            </td>
+                        </tr>
+                    </template>
+                </table>
             </template>
 
-
+            <button type="button"
+                    @click.prevent="saveUsers();"
+                    class="mt-[15px] text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
+                    :disabled="!isChangedTab('ultimate')"
+            >
+                Uložit
+            </button>
         </section>
 
         <div id="loader" x-show="loaderShow" x-cloak>
             <span class="loader"></span>
         </div>
     </main>
+
+    <x-modal name="set-ban">
+        <div class="p-[40px_10px] tablet:p-[50px_40px] text-center"
+             x-init="$watch('show', value => {
+                    if (value) {
+                        banInfo = inputData.user.ban_info ?? '';
+                    }
+                })"
+             x-data="{
+                    banInfo: '',
+                }">
+
+            <img src="{{ Vite::asset('resources/images/ico-close.svg') }}"
+                 @click="$dispatch('close')"
+                 class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
+
+            <div class="text-center mb-[30px]">
+                <h1>Ban</h1>
+            </div>
+
+            <template x-if="typeof inputData.user !== 'undefined'">
+                <div>
+                    <div class="text-left">
+                        <x-input-label for="ban_info" :value="__('Důvod:')"/>
+                        <x-textarea-input id="ban_info" class="block mt-1 w-full" type="text" name="ban_info"
+                                          x-model="banInfo"
+                        />
+                    </div>
+                </div>
+            </template>
+
+            <button
+                @click="
+                        inputData.user.ban_info = banInfo;
+                        inputData.user.banned_at = 'NEW';
+                        $dispatch('close-modal', 'set-ban')
+                    "
+                class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
+                :disabled="!banInfo.trim().length"
+            >
+                Nastavit ban
+            </button>
+            <br>
+
+            <button
+                @click="
+                        inputData.user.ban_info = '';
+                        inputData.user.banned_at = null;
+                        $dispatch('close-modal', 'set-ban')
+                    "
+                class="mt-[13px] cursor-pointer text-center font-Spartan-Regular text-[15px] text-app-red"
+            >
+                Zrušit ban
+            </button>
+        </div>
+    </x-modal>
 </x-admin-layout>

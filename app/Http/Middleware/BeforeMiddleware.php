@@ -46,6 +46,17 @@ class BeforeMiddleware
 
             if (
                 Auth::user()
+                && (Auth::user()->banned_at)
+                && !(
+                    $request->getUri() === route('profile.edit')
+                    || $request->getUri() === route('logout')
+                )
+            ) {
+                return redirect()->route('profile.edit');
+            }
+
+            if (
+                Auth::user()
                 && (!Auth::user()->hasVerifiedEmail())
                 && !(
                     $request->getUri() === route('profile.edit')

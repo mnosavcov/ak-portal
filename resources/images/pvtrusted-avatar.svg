@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Vrstva_1" data-name="Vrstva 1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 109 88">
+    <defs>
+        <style>
+            .cls-1 {
+            fill: url(#Nepojmenovaný_přechod_70);
+            }
+
+            .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+            stroke-width: 0px;
+            }
+
+            .cls-2 {
+            fill: url(#Nepojmenovaný_přechod_55);
+            }
+
+            .cls-3 {
+            fill: url(#Nepojmenovaný_přechod_70-2);
+            }
+
+            .cls-4 {
+            fill: url(#Nepojmenovaný_přechod_55-2);
+            }
+
+            .cls-5 {
+            fill: #1a2664;
+            }
+
+            .cls-6 {
+            fill: #f1930d;
+            }
+        </style>
+        <linearGradient id="Nepojmenovaný_přechod_70" data-name="Nepojmenovaný přechod 70" x1="41.96" y1="86.56" x2="104.43" y2="43.64" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#f1930d"/>
+            <stop offset="1" stop-color="#f9c504"/>
+        </linearGradient>
+        <linearGradient id="Nepojmenovaný_přechod_55" data-name="Nepojmenovaný přechod 55" x1="-1254.89" y1="1309.08" x2="-1192.42" y2="1266.15" gradientTransform="translate(-1187.74 1309.98) rotate(-180)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#096cb4"/>
+            <stop offset="1" stop-color="#11a3de"/>
+        </linearGradient>
+        <linearGradient id="Nepojmenovaný_přechod_55-2" data-name="Nepojmenovaný přechod 55" x1="82.36" y1="43.81" x2="52.23" y2=".3" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Nepojmenovaný_přechod_55"/>
+        <linearGradient id="Nepojmenovaný_přechod_70-2" data-name="Nepojmenovaný přechod 70" x1="27.23" y1="43.29" x2="56.2" y2="87.5" xlink:href="#Nepojmenovaný_přechod_70"/>
+    </defs>
+    <g>
+        <path class="cls-1" d="M42.17,87.46h22.07c3.85,0,7.49-1.76,9.88-4.78l30.83-38.95h-28.17l-34.62,43.73Z"/>
+        <path class="cls-2" d="M66.94,0h-22.07C41.02,0,37.38,1.76,34.99,4.78L4.16,43.73h28.17L66.94,0Z"/>
+        <path class="cls-4" d="M69.17,0h-18.48c4.35,0,7.88,3.53,7.88,7.88v35.85h23.2V12.6c0-6.96-5.64-12.6-12.6-12.6Z"/>
+        <path class="cls-3" d="M50.55,79.58v-35.85h-23.2v31.13c0,6.96,5.64,12.6,12.6,12.6h18.48c-4.35,0-7.88-3.53-7.88-7.88Z"/>
+    </g>
+</svg>

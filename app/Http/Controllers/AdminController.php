@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RegisteredAdmin;
+use App\Events\RegisteredAdvisor;
 use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
@@ -12,10 +14,14 @@ use App\Models\ProjectTag;
 use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ProjectService;
+use App\Services\UsersService;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules;
 
 class AdminController extends Controller
 {
@@ -272,18 +278,32 @@ class AdminController extends Controller
         return view(
             'admin.users',
             [
-                'users' => User::all()->pluck([], 'id')
+                'users' => User::all()->pluck([], 'id'),
             ]
         );
     }
 
-    public function userSave(Request $request)
+    public function usersSave(Request $request, UsersService $usersService)
     {
-        User::find($request->post('data')['id'])->update($request->post('data'));
+        $ret = [];
+
+        foreach ($request->post('data') as $index => $item) {
+            if ($item['deleted_at'] === 'NEW') {
+                $usersService->deleteUser($item['id']);
+            } elseif ($item['banned_at'] === 'REMOVE') {
+                $usersService->removeBan($item['id']);
+            } elseif ($item['banned_at'] === 'NEW') {
+                $usersService->addBan($item['id'], $item);
+            } else {
+                User::find($index)->update($item);
+            }
+            $ret[$index] = User::find($index);
+        }
+
         return response()->json(
             [
                 'status' => 'ok',
-                'user' => User::find($request->post('data')['id'])
+                'user' => $ret
             ]
         );
     }
@@ -295,7 +315,7 @@ class AdminController extends Controller
 
     public function setPrincipalPaid(Request $request)
     {
-        if(!auth()->user()->isSuperadmin()) {
+        if (!auth()->user()->isSuperadmin()) {
             return response()->json(
                 [
                     'status' => 'error',
@@ -312,5 +332,85 @@ class AdminController extends Controller
                 'value' => $projectShow->principal_paid
             ]
         );
+    }
+
+    public function addAdvisor(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'password' => Str::random(40),
+        ]);
+
+        $user->advisor = true;
+        $user->save();
+
+        event(new RegisteredAdvisor($user));
+
+        return redirect()->route('admin.advisor-ok');
+    }
+
+    public function addAdmin(Request $request)
+    {
+        if (!auth()->user()->isOwner()) {
+            return redirect()->route('admin.index');
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'password' => Str::random(40),
+        ]);
+
+        $user->superadmin = true;
+        $user->save();
+
+        event(new RegisteredAdmin($user));
+
+        return redirect()->route('admin.admin-ok');
+    }
+
+    public function createPassword(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'password.required' => 'Heslo je povinné.',
+            'password.confirmed' => 'Hesla se neshodují.',
+            'password.min' => 'Heslo musí mít alespoň :min znaků.',
+        ]);
+
+        $user = User::find($request->id);
+
+        if (! hash_equals((string) $user->getKey(), (string) $request->id)) {
+            return redirect()->route('homepage');
+        }
+
+        if (! hash_equals(sha1($user->getEmailForVerification()), (string) $request->hash)) {
+            return redirect()->route('homepage');
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->check_status = 'verified';
+        $user->show_check_status = false;
+        $user->save();
+
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
+
+        return redirect()->route('login');
     }
 }

@@ -64,7 +64,7 @@ Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-
 Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
-Route::get('zpracovani-osobnich-udaju', function() {
+Route::get('zpracovani-osobnich-udaju', function () {
     $date = Carbon::create(env('DATE_PUBLISH'));
     $currentDateTime = clone $date;
     $currentDateTime->subHours(+2);
@@ -112,7 +112,27 @@ Route::middleware('auth')->group(function () {
                 Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
                 Route::get('users', [AdminController::class, 'users'])->name('users');
-                Route::post('save-user', [AdminController::class, 'userSave'])->name('save-user');
+                Route::post('save-users', [AdminController::class, 'usersSave'])->name('save-users');
+                Route::view('new-advisor', 'admin.register', [
+                    'title' => 'Vytvořit advisora',
+                    'url' => url('admin/user-new-advisor'),
+                ])->name('new-advisor');
+                Route::view('new-admin', 'admin.register', [
+                    'title' => 'Vytvořit administrátora',
+                    'url' => url('admin/user-new-admin'),
+                ])->name('new-admin');
+
+                Route::view('advisor-ok', 'admin.register-ok', [
+                    'title' => 'Účet advisora',
+                    'url' => url('admin/new-advisor'),
+                ])->name('advisor-ok');
+                Route::view('admin-ok', 'admin.register-ok', [
+                    'title' => 'Účet administrátora',
+                    'url' => url('admin/new-admin'),
+                ])->name('admin-ok');
+
+                Route::post('user-new-advisor', [AdminController::class, 'addAdvisor'])->name('user.new-advisor');
+                Route::post('user-new-admin', [AdminController::class, 'addAdmin'])->name('user.new-admin');
             });
         });
     });

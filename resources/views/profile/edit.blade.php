@@ -113,7 +113,26 @@
         @include('profile.edit-account')
     </div>
 
-    @if(!auth()->user()->hasVerifiedEmail())
+    @if(auth()->user()->banned_at)
+        <x-modal name="not-verify-email" :show="true" :hidenable="false">
+            <div class="p-[40px_10px] tablet:p-[50px_40px] text-center">
+
+                <div class="text-center mb-[30px]">
+                    <h1>Váš účet byl zablokován</h1>
+                </div>
+                <div class="text-left mb-[10px]">
+                    <div class="block font-Spartan-Bold text-[11px] tablet:text-[13px] leading-29px text-[#676464]">
+                        Zdůvodnění:
+                    </div>
+                </div>
+
+                <div
+                    class="p-[25px] rounded-[7px] bg-[#F4FAFE] font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px] text-[#414141] text-left">
+                    {!! nl2br(auth()->user()->ban_info) !!}
+                </div>
+            </div>
+        </x-modal>
+    @elseif(!auth()->user()->hasVerifiedEmail())
         <x-modal name="not-verify-email" :show="true" :hidenable="false">
             <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{ newEmailOpen: false, newEmail: '', valid: true,
                 successMessage: null, errorMessage: null, loaderShow: false, email: @js(auth()->user()->email),
