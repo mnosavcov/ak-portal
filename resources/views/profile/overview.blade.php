@@ -41,9 +41,8 @@
                     <div>
                         <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET
                         </div>
-                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
-                            všechny informace o nabízených projektech, nebo projekty sami nabízet, musíte zadat osobní
-                            údaje a ověřit svůj účet.
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Abyste mohli využívat všechny funkce portálu, musíte zadat osobní údaje a ověřit svůj účet.
                         </div>
                     </div>
                     <a href="{{ route('profile.edit') }}"

@@ -80,7 +80,11 @@
                 <x-select-input id="status" name="status" class="block mt-1 w-full" type="text" :options="$statuses"
                                 x-model="statusSelected"/>
                 <div x-text="data[statusSelected].description" class="mt-[5px]"></div>
+                @if($project->user->check_status !== 'verified')
+                    <div class="p-[5px_15px] rounded-[3px] text-white bg-app-red">Zadavatel není ověřený</div>
+                @endif
             </div>
+
 
             <div class="mt-[10px] pt-[25px]" x-data="{ indefinitelyDate: null }"
                  x-init="indefinitelyDate = {{ empty($project->end_date) ? 'true' : 'false' }}">

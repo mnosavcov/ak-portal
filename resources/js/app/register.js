@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 
 Alpine.data('register', (id) => ({
+    loaderShow: false,
     selectedOpen: false,
     confirm: false,
     userType: {
@@ -37,6 +38,7 @@ Alpine.data('register', (id) => ({
     },
 
     async sendRegister() {
+        this.loaderShow = true;
         await fetch('/register', {
             method: 'POST',
             body: JSON.stringify({
@@ -53,10 +55,12 @@ Alpine.data('register', (id) => ({
                     window.location.href = '/';
                 }
 
+                this.loaderShow = false;
                 this.errors = data.errors;
             })
             .catch((error) => {
                 alert('Chyba registrace')
+                this.loaderShow = false;
             });
     }
 }));

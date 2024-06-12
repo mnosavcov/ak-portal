@@ -11,7 +11,7 @@
                     text-[16px] leading-[19px] mb-[35px]
                     tablet:text-[22px] tablet:leading-[26px] tablet:mb-[50px]
                 ">Už u nás máte účet? <a
-                    href="{{ route('login') }}" class="font-Spartan-SemiBold">Přihlaste se</a></div>
+                    href="{{ route('login') }}" class="font-Spartan-SemiBold underline">Přihlaste se</a></div>
 
             <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[20px] tablet:mb-[50px]
                  px-[10px] py-[25px]
@@ -236,6 +236,10 @@
             </button>
 
             <div class="h-[50px]"></div>
+        </div>
+
+        <div id="loader" x-show="loaderShow" x-cloak>
+            <span class="loader"></span>
         </div>
     </div>
 

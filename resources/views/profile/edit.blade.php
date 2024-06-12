@@ -53,9 +53,8 @@
                 <div
                     class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                     <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET</div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
-                        všechny informace o nabízených projektech, nebo projekty sami nabízet, musíte zadat osobní
-                        údaje a ověřit svůj účet.
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                        Abyste mohli využívat všechny funkce portálu, musíte zadat osobní údaje a ověřit svůj účet.
                     </div>
                 </div>
             </div>
@@ -104,7 +103,7 @@
                     </div>
 
                     <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
-                        class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
+                         class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
                          @click="closeInfo()"
                     >
                 </div>
@@ -204,11 +203,6 @@
                     </div>
                 </div>
 
-                <div @click="resend()"
-                     class="cursor-pointer text-center font-Spartan-Bold text-[11px] leading-[16px] text-app-green mb-[20px]">
-                    Znovu odeslat aktivační email
-                </div>
-
                 <div
                     class="p-[25px] rounded-[7px] bg-[#F4FAFE] font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px] text-[#414141] text-center mb-[30px]">
                     Na váš e-mail <span x-text="email"></span> jsme odeslali zprávu s <span
@@ -216,29 +210,29 @@
                     svou registraci a vlastnictví e-mailu.
                 </div>
 
-                <div
-                    class="text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue pb-[15px] tablet:pb-[35px] cursor-pointer transition"
-                    :class="{
+                <div x-show="!newEmailOpen" x-collapse>
+                    <div @click="resend()"
+                         class="cursor-pointer text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue mb-[20px]">
+                        Znovu odeslat aktivační e-mail
+                    </div>
+
+                    <div
+                        class="text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue pb-[15px] tablet:pb-[35px] cursor-pointer transition"
+                        @click="if(!newEmailOpen) {
+                                newEmailOpen = true;
+                            }
+                             isValid();"
+                        :class="{
                             'text-app-orange': newEmailOpen && !valid,
                             'text-app-green': newEmailOpen && valid,
+                            'cursor-text': newEmailOpen,
                         }"
-                    @click="
-                        if(!newEmailOpen) {
-                            newEmailOpen = true;
-                        }
-
-                        isValid();
-
-                        if(newEmailOpen && valid) {
-                            newEmailSend();
-                            return;
-                        }
-                        "
-                    x-text="newEmailOpen ? (valid ? 'Odeslat novou zprávu' : 'Vyplňte správný email') : 'Zadali jste špatnou e-mailovou adresu?'">
+                        x-text="newEmailOpen ? (valid ? 'Odeslat novou zprávu' : 'Vyplňte správný e-mail') : 'Zadali jste špatnou e-mailovou adresu?'">
+                    </div>
                 </div>
 
                 <div x-show="newEmailOpen" x-collapse x-cloak="">
-                    <div class="pb-[20px]">
+                    <div class="pb-[10px]">
                         <div class="text-center font-Spartan-Bold text-[13px] leading-[29px] text-[#676464]">
                             Zadejte správný kontaktní e-mail *
                         </div>
@@ -248,12 +242,29 @@
                             />
                         </form>
                     </div>
+
+                    <div @click="newEmailOpen = false; newEmail = '';"
+                         class="cursor-pointer text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue mb-[20px]">
+                        zrušit
+                    </div>
                 </div>
 
                 <button
                     class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
-                    @click="window.location.reload()"
-                >Hotovo
+                    @click="
+                        if(newEmailOpen) {
+                            newEmailSend();
+                            newEmailOpen = false;
+                            return;
+                        } else {
+                            window.location.reload()
+                        }
+                        "
+                    :disabled="
+                        !((!newEmailOpen) || (newEmailOpen && valid))
+                    "
+                    x-text="newEmailOpen ? 'Odeslat' : 'Hotovo'">
+                    >Hotovo
                 </button>
 
                 <div id="loader" x-show="loaderShow" x-cloak>

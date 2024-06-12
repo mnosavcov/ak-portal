@@ -73,7 +73,7 @@ Alpine.data('verifyUserAccount', (id) => ({
         return this.countries[this.data.country]
     },
     moreInfoText() {
-        return String(this.data.more_info.replace(/\n/g, '<br>'));
+        return String(String(this.data.more_info).replace(/\n/g, '<br>'));
     },
     async sendData() {
         await fetch('/profil/verify-account', {

@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-f2021065.css",
+    "file": "assets/app-8a73d5df.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -648,6 +648,10 @@
     "file": "assets/ico-in-be308301.svg",
     "src": "resources/images/ico-in.svg"
   },
+  "resources/images/ico-info-gray.svg": {
+    "file": "assets/ico-info-gray-a8eeb937.svg",
+    "src": "resources/images/ico-info-gray.svg"
+  },
   "resources/images/ico-info-orange.svg": {
     "file": "assets/ico-info-orange-53dccf1d.svg",
     "src": "resources/images/ico-info-orange.svg"
@@ -749,7 +753,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-0583ecbc.js",
+    "file": "assets/app-87bad8df.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

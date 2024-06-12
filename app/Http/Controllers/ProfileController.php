@@ -211,7 +211,7 @@ class ProfileController extends Controller
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'status' => 'ok',
-                'statusMessage' => 'Email byl již úspěšně verifikován',
+                'statusMessage' => 'E-mail byl již úspěšně verifikován',
             ]);
         }
 
@@ -230,14 +230,14 @@ class ProfileController extends Controller
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'status' => 'ok',
-                'statusMessage' => 'Email byl již úspěšně verifikován',
+                'statusMessage' => 'E-mail byl již úspěšně verifikován',
             ]);
         }
 
         if (User::where('email', $request->post('newEmail'))->count()) {
             return response()->json([
                 'status' => 'error',
-                'statusMessage' => 'Email je již zaregistrovaný',
+                'statusMessage' => 'E-mail je již zaregistrovaný',
             ]);
         }
 
@@ -247,7 +247,7 @@ class ProfileController extends Controller
         } catch (Exception) {
             return response()->json([
                 'status' => 'error',
-                'statusMessage' => 'Email se nepodařilo změnit',
+                'statusMessage' => 'E-mail se nepodařilo změnit',
             ]);
         }
 

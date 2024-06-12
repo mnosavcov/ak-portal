@@ -12,9 +12,9 @@
                     tablet:text-[22px] tablet:leading-[26px] tablet:mb-[50px]
                 ">
                 Ještě u nás nemáte účet?
-                <a href="{{ route('register') }}" class="font-Spartan-SemiBold">Registrujte se</a></div>
+                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline">Registrujte se</a></div>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}" x-data="{loaderShow: false}" @submit="loaderShow = true">
                 @csrf
                 <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[20px] tablet:mb-[50px] grid grid-cols-2 gap-x-[20px] gap-y-[25px]
                  px-[10px] py-[25px]
@@ -72,6 +72,10 @@
                             >
                         Přihlásit se
                     </button>
+                </div>
+
+                <div id="loader" x-show="loaderShow" x-cloak>
+                    <span class="loader"></span>
                 </div>
             </form>
 
