@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-8a73d5df.css",
+    "file": "assets/app-af63d008.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -649,7 +649,7 @@
     "src": "resources/images/ico-in.svg"
   },
   "resources/images/ico-info-gray.svg": {
-    "file": "assets/ico-info-gray-a8eeb937.svg",
+    "file": "assets/ico-info-gray-51640337.svg",
     "src": "resources/images/ico-info-gray.svg"
   },
   "resources/images/ico-info-orange.svg": {
@@ -744,6 +744,18 @@
     "file": "assets/no-img-6ebd3a45.svg",
     "src": "resources/images/no-img.svg"
   },
+  "resources/images/pvtrusted-avatar.svg": {
+    "file": "assets/pvtrusted-avatar-73b5f80b.svg",
+    "src": "resources/images/pvtrusted-avatar.svg"
+  },
+  "resources/images/pvtrusted-invert.svg": {
+    "file": "assets/pvtrusted-invert-d0f34ed9.svg",
+    "src": "resources/images/pvtrusted-invert.svg"
+  },
+  "resources/images/pvtrusted.svg": {
+    "file": "assets/pvtrusted-dfd17b44.svg",
+    "src": "resources/images/pvtrusted.svg"
+  },
   "resources/images/top-img-homepage.png": {
     "file": "assets/top-img-homepage-e2ebef61.png",
     "src": "resources/images/top-img-homepage.png"
@@ -753,7 +765,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-87bad8df.js",
+    "file": "assets/app-217867ba.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
