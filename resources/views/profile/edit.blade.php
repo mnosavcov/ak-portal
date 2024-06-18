@@ -148,6 +148,7 @@
                     this.loaderShow = true;
                     this.successMessage = null;
                     this.errorMessage = null;
+                    let showError = true;
 
                     await fetch('/profil/resend-verify-email', {
                         method: 'POST',
@@ -155,7 +156,23 @@
                             'Content-type': 'application/json; charset=UTF-8',
                             'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
                         },
-                    }).then((response) => response.json())
+                    }).then((response) => {
+                            if (response.status === 429) {
+                                showError = false;
+                                let retryAfter = response.headers.get('retry-after');
+                                let minutes = Math.floor(retryAfter / 60);
+                                let seconds = retryAfter - 60 * minutes;
+                                if(minutes < 0) {
+                                    minutes = 0;
+                                }
+                                if(seconds < 0 || seconds > 59) {
+                                    seconds = 0;
+                                }
+                                alert(`Zprávu s aktivačním odkazem jsme vám již odeslali. Z důvodu ochrany našeho systému můžete o další zaslání požádat až za ${minutes} min ${seconds} sec`)
+                            } else {
+                                return response.json();
+                            }
+                        })
                         .then((data) => {
                             if(data.status === 'ok') {
                                 this.successMessage = data.statusMessage
@@ -166,7 +183,10 @@
                             this.loaderShow = false;
                         })
                         .catch((error) => {
-                            alert('Chyba znovuodelání verifikačního emailu')
+                            if (showError) {
+                                alert('Chyba znovuodelání verifikačního emailu')
+                            }
+
                             this.loaderShow = false;
                         });
                 },
@@ -174,6 +194,7 @@
                     this.loaderShow = true;
                     this.successMessage = null;
                     this.errorMessage = null;
+                    let showError = true;
 
                     await fetch('/profil/verify-new-email', {
                         method: 'POST',
@@ -184,7 +205,23 @@
                             'Content-type': 'application/json; charset=UTF-8',
                             'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
                         },
-                    }).then((response) => response.json())
+                    }).then((response) => {
+                            if (response.status === 429) {
+                                showError = false;
+                                let retryAfter = response.headers.get('retry-after');
+                                let minutes = Math.floor(retryAfter / 60);
+                                let seconds = retryAfter - 60 * minutes;
+                                if(minutes < 0) {
+                                    minutes = 0;
+                                }
+                                if(seconds < 0 || seconds > 59) {
+                                    seconds = 0;
+                                }
+                                alert(`Z důvodu ochrany našeho systému můžete provést změnu e-mailu až za ${minutes} min ${seconds} sec`)
+                            } else {
+                                return response.json();
+                            }
+                        })
                         .then((data) => {
                             if(data.status === 'ok') {
                                 this.email = this.newEmail;
@@ -198,7 +235,9 @@
                             this.loaderShow = false;
                         })
                         .catch((error) => {
-                            alert('Chyba změny emailu')
+                            if (showError) {
+                                alert('Chyba změny emailu')
+                            }
                             this.loaderShow = false;
                         });
                 }

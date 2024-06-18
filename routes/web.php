@@ -96,9 +96,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil/real-estate-broker', [ProfileController::class, 'realEstateBroker'])->name('profile.real-estate-broker');
     Route::post('/profil/save', [ProfileController::class, 'profileSave'])->name('profile.save');
     Route::get('/profil/overview/{account?}', [ProfileController::class, 'overview'])->name('profile.overview');
-    Route::post('/profil/resend-verify-email', [ProfileController::class, 'resendValidationEmail'])->name('profile.resend-verify-email');
-    Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])->name('profile.verify-new-email');
-    Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])->name('profile.verify-new-email');
+    Route::post('/profil/resend-verify-email', [ProfileController::class, 'resendValidationEmail'])
+        ->middleware(['throttle:1,5,profile-resend-verify-email'])
+        ->name('profile.resend-verify-email');
+
+    Route::post('/profil/verify-new-email', [ProfileController::class, 'verifyNewEmail'])
+        ->middleware(['throttle:1,5,profile-verify-new-email'])
+        ->name('profile.verify-new-email');
+
     Route::post('/profil/verify-account', [ProfileController::class, 'verifyAccount'])->name('profile.verify-account');
     Route::post('profil/hide-verify-info', [ProfileController::class, 'hideVerifyInfo'])->name('profile.hide-verify-info');
     Route::post('profil/set-account-types', [ProfileController::class, 'setAccountTypes'])->name('profile.set-account-types');
