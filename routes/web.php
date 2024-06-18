@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/nastaveni-uctu-verify', [ProfileController::class, 'editVerify'])->name('profile.edit-verify');
     Route::patch('/nastaveni-uctu', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/nastaveni-uctu', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profil/investor', [ProfileController::class, 'investor'])->name('profile.investor');

@@ -5,7 +5,12 @@
         ]"></x-app.breadcrumbs>
     </div>
 
-    <div class="w-full max-w-[1230px] mx-auto px-[15px]">
+    <div class="w-full max-w-[1230px] mx-auto px-[15px]"
+         x-data="verifyUserAccount"
+         x-init="
+        data = @js($user);
+        countries = @js(\App\Services\CountryServices::COUNTRIES);
+     ">
 
         <h1 class="mb-[25px]">Nastavení účtu</h1>
 
@@ -110,11 +115,79 @@
             </div>
         @endif
 
-        @include('profile.edit-account')
+        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
+            px-[10px] py-[25px]
+            tablet:px-[20px] tablet:py-[35px]
+            laptop:px-[30px] laptop:py-[50px] mb-[50px]
+            ">
+
+            @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
+                <div>
+                    <h2>Vaše osobní údaje</h2>
+
+                    <div
+                        class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
+                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                            Jméno a příjmení
+                        </div>
+                        <div x-text="nameAndSurnameText()"
+                             class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                            Adresa trvalého bydliště
+                        </div>
+                        <div x-text="addressText()"
+                             class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                            Státní občanství (země)
+                        </div>
+                        <div x-text="countryText()"
+                             class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                            Upřesnění záměrů
+                        </div>
+                        <div x-html="moreInfoText()"
+                             class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                    </div>
+
+                    <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?
+                    </div>
+
+                    <a href="{{ route('profile.edit-verify') }}"
+                       class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
+                    >
+                        Aktualizovat osobní údaje
+                    </a>
+                </div>
+            @else
+                <div>
+                    <h2 class="text-center tablet:text-left">Vaše osobní údaje</h2>
+
+                    <div class="text-center tablet:text-left">
+                        <a href="{{ route('profile.edit-verify') }}"
+                           class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
+                        >
+                            Zadat a ověřit účet
+                        </a>
+                    </div>
+                </div>
+            @endif
+        </div>
+
+        <div class="w-full mx-auto">
+            @include('profile.partials.update-profile-information-form')
+        </div>
+
+        <div class="w-full mx-auto">
+            @include('profile.partials.active-types-accounts')
+        </div>
+    </div>
+
+    <div class="pt-[50px] laptop:pt-[100px] bg-white">
+        @include('app.@faq')
     </div>
 
     @if(auth()->user()->banned_at)
-        <x-modal name="not-verify-email" :show="true" :hidenable="false">
+        <x-modal name="banned-account" :show="true" :hidenable="false">
             <div class="p-[40px_10px] tablet:p-[50px_40px] text-center">
 
                 <div class="text-center mb-[30px]">

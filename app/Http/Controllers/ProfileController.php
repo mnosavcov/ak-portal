@@ -36,6 +36,15 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+    /**
+     * Display the user's profile form.
+     */
+    public function editVerify(Request $request): View
+    {
+        return view('profile.edit-verify', [
+            'user' => $request->user(),
+        ]);
+    }
 
     /**
      * Update the user's profile information.
