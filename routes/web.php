@@ -144,4 +144,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::get('/keep-session', function() {
+    return response()->json(['status' => 'ok']);
+});
+
 require __DIR__ . '/auth.php';

@@ -80,6 +80,14 @@ function countdown(targetDate) {
     const interval = setInterval(updateCountdown, 1000);
 }
 
+function keepSession() {
+    fetch('/keep-session')
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+}
+
 window.tinymceInit = tinymceInit;
 window.countdown = countdown;
+window.keepSession = keepSession;
 tinymceInit();

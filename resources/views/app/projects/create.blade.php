@@ -350,4 +350,10 @@
     </div>
 
     @include('app.@faq')
+
+    <script>
+        window.onload = function() {
+            setInterval(window.keepSession, 60000);
+        }
+    </script>
 </x-app-layout>
