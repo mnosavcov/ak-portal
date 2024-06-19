@@ -67,6 +67,11 @@ Alpine.data('projectEdit', (id) => ({
         return show;
     },
     async sendProject(status = 'draft') {
+        if(status === 'draft' && this.data.title.trim().length < 2) {
+            alert('Do názvu vyplňte alespoň 2 znaky');
+            return;
+        }
+
         this.data.status = status;
         const formData = new FormData();
 

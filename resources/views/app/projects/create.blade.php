@@ -315,18 +315,18 @@
                         </div>
 
                         <button type="button"
-                                class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] mr-[15px] mb-[15px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-blue/75 rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
-                                @click="sendProject()" 0
-                        >
-                            Uložit rozpracovaný projekt
-                        </button>
-
-                        <button type="button"
-                                class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[70px]"
+                                class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[25px]"
                                 :disabled="!enableSend()"
                                 @click="sendProject('send')"
                         >
                             Odeslat projekt
+                        </button>
+                        <br>
+                        <button type="button"
+                                class="font-Spartan-SemiBold text-[15px] text-app-blue mb-[70px]"
+                                @click="sendProject()"
+                        >
+                            Uložit rozpracovaný projekt
                         </button>
 
                         <template x-if="data.id">
