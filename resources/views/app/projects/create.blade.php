@@ -326,7 +326,7 @@
                                 class="font-Spartan-SemiBold text-[15px] text-app-blue mb-[70px]"
                                 @click="sendProject()"
                         >
-                            Uložit rozpracovaný projekt
+                            Uložit jako rozpracovaný projekt
                         </button>
 
                         <template x-if="data.id">
