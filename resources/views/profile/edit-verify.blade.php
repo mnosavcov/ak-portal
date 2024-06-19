@@ -20,7 +20,5 @@
         @include('profile.edit-account')
     </div>
 
-    <div class="pt-[50px] laptop:pt-[100px] bg-white">
-        @include('app.@faq')
-    </div>
+    @include('app.@faq')
 </x-app-layout>

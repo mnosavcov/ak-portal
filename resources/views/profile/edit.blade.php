@@ -182,9 +182,7 @@
         </div>
     </div>
 
-    <div class="pt-[50px] laptop:pt-[100px] bg-white">
-        @include('app.@faq')
-    </div>
+    @include('app.@faq')
 
     @if(auth()->user()->banned_at)
         <x-modal name="banned-account" :show="true" :hidenable="false">
