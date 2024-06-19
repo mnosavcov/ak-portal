@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\RegisteredAdmin;
 use App\Events\RegisteredAdvisor;
+use App\Http\Requests\StoreMultipleRecordsRequest;
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
@@ -35,9 +37,9 @@ class AdminController extends Controller
         );
     }
 
-    public function projects()
+    public function projects(AdminService $adminService)
     {
-        $projects = (new AdminService)->getList();
+        $projects = $adminService->getProjectList();
         return view(
             'admin.projects',
             [
@@ -51,6 +53,18 @@ class AdminController extends Controller
                     'fixed-price' => 'Nabízející',
                     'offer-the-price' => 'Realitní makléř',
                 ],
+            ]
+        );
+    }
+
+    public function categories(AdminService $adminService)
+    {
+        $categories = $adminService->getProjectCategory();
+
+        return view(
+            'admin.categories.index',
+            [
+                'categories' => $categories,
             ]
         );
     }
@@ -394,11 +408,11 @@ class AdminController extends Controller
 
         $user = User::find($request->id);
 
-        if (! hash_equals((string) $user->getKey(), (string) $request->id)) {
+        if (!hash_equals((string)$user->getKey(), (string)$request->id)) {
             return redirect()->route('homepage');
         }
 
-        if (! hash_equals(sha1($user->getEmailForVerification()), (string) $request->hash)) {
+        if (!hash_equals(sha1($user->getEmailForVerification()), (string)$request->hash)) {
             return redirect()->route('homepage');
         }
 
@@ -412,5 +426,26 @@ class AdminController extends Controller
         }
 
         return redirect()->route('login');
+    }
+
+    public function saveCategories(StoreMultipleRecordsRequest $request)
+    {
+        $request->validated();
+
+        foreach ($request->post('data') as $category) {
+            foreach ($category as $subcategory) {
+                if (($subcategory['status'] ?? null) === 'DELETE') {
+                    // todo - nastavit projekty na null
+
+                    Category::find($subcategory['id'])->delete();
+                } elseif (($subcategory['status'] ?? null) === 'NEW') {
+                    Category::create($subcategory);
+                } elseif (isset($subcategory['status']) && $subcategory['status'] > 0) {
+                    Category::find($subcategory['id'])->update($subcategory);
+                }
+            }
+        }
+
+        return response()->json(['status' => 'ok']);
     }
 }

@@ -201,9 +201,6 @@ Alpine.data('adminUser', (id) => ({
             .then((data) => {
                 if (data.status === 'ok') {
                     Object.keys(data.user).forEach(key => {
-                        console.log(key);
-                        console.log(data.user[key]);
-
                         this.proxyData.users[key] = JSON.parse(JSON.stringify(data.user[key]));
                         this.proxyData.usersOrigin[key] = JSON.parse(JSON.stringify(data.user[key]));
                     });

@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\Project;
 
 class AdminService
 {
-    public function getList()
+    public function getProjectList()
     {
         $draft = Project::where('status', 'draft')->get();
         $send = Project::where('status', 'send')->get();
@@ -28,5 +29,24 @@ class AdminService
         ];
 
         return $projects;
+    }
+
+    public function getProjectCategory()
+    {
+        $default = array_keys(Category::CATEGORIES);
+        $default = array_flip($default);
+        $default = array_map(function () {
+            return [];
+        }, $default);
+
+        return Category::orderBy('order')
+                ->selectRaw('*, false as `edit`')
+                ->orderBy('id')
+                ->get()
+                ->groupBy('category')
+                ->mapWithKeys(function ($group, $key) {
+                    return [$key => $group];
+                })
+                ->toArray() + $default;
     }
 }

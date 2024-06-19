@@ -113,10 +113,15 @@ Route::middleware('auth')->group(function () {
         Route::name('admin.')->group(function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('index');
+
                 Route::get('projects', [AdminController::class, 'projects'])->name('projects');
                 Route::post('projects/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
                 Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
+
+                Route::get('categories', [AdminController::class, 'categories'])->name('categories');
+                Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');
+
                 Route::get('users', [AdminController::class, 'users'])->name('users');
                 Route::post('save-users', [AdminController::class, 'usersSave'])->name('save-users');
                 Route::view('new-advisor', 'admin.register', [
