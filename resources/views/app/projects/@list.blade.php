@@ -29,9 +29,63 @@
 
             {{--            nahled projektu--}}
             <template x-for="(projects, index) in projectLists.data" :key="index">
-                <div x-show="projectLists.selected === index" class="grid gap-y-[25px]">
-                    <template x-for="(project, index) in projects" :key="index">
-                        @include('app.projects.@list-item')
+                <div>
+                    <template x-if="
+                        (!projectLists.__send__ || projectLists.__send__ !== index)
+                        && (!projectLists.__draft__ || projectLists.__draft__ !== index)
+                    ">
+                        <div x-show="projectLists.selected === index" class="grid gap-y-[25px]">
+                            <template x-for="(project, index) in projects" :key="index">
+                                @include('app.projects.@list-item')
+                            </template>
+                        </div>
+                    </template>
+
+                    <template x-if="projectLists.__send__ && projectLists.__send__ === index">
+                        <div x-show="projectLists.selected === index" class="grid gap-y-[25px]">
+                            <div
+                                class="grid tablet:grid-cols-[2fr,3fr] laptop:grid-cols-[2fr,3fr,min-content] gap-x-[25px]
+                                bg-[#5E6468] text-white min-h-[50px] leading-[50px] font-Spartan-Bold text-[13px] rounded-[3px]
+                                ">
+                                <div class="pl-[25px]">Název projektu</div>
+                                <div class="hidden tablet:block">Aktuální stav</div>
+                                <div class="hidden laptop:block invisible pr-[25px]">Zobrazit&nbsp;detail</div>
+                            </div>
+
+                            <template x-for="(project, index) in projects" :key="index">
+                                <div
+                                    class="grid tablet:grid-cols-[2fr,3fr] laptop:grid-cols-[2fr,3fr,min-content] gap-x-[25px]
+                                     border border-[#D9E9F2] py-[20px] text-[#454141] rounded-[3px]">
+                                    <div x-text="project.title" class="pl-[25px] font-Spartan-SemiBold text-[13px] leading-[22px]"></div>
+                                    <div x-text="project.actual_state_text"
+                                         class="p-[10px] font-Spartan-Regular text-[11px] leading-[18px] bg-[#F8F8F8] text-[#31363A] inline-block w-auto justify-self-start self-start max-tablet:ml-[25px] max-tablet:mt-[15px]"></div>
+                                    <a :href="project.url_detail"
+                                       class="tablet:max-laptop:col-span-full font-Spartan-SemiBold text-[13px] leading-[22px] text-app-blue pr-[25px] max-laptop:mt-[15px] text-center">Zobrazit&nbsp;detail</a>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template x-if="projectLists.__draft__ && projectLists.__draft__ === index">
+                        <div x-show="projectLists.selected === index" class="grid gap-y-[25px]">
+                            <div
+                                class="grid tablet:grid-cols-[1fr,min-content] gap-x-[25px]
+                                bg-[#5E6468] text-white min-h-[50px] leading-[50px] font-Spartan-Bold text-[13px] rounded-[3px]
+                                ">
+                                <div class="pl-[25px]">Název projektu</div>
+                                <div class="hidden tablet:block invisible pr-[25px]">Zobrazit&nbsp;detail</div>
+                            </div>
+
+                            <template x-for="(project, index) in projects" :key="index">
+                                <div
+                                    class="grid tablet:grid-cols-[1fr,min-content] gap-x-[25px]
+                                     border border-[#D9E9F2] py-[20px] text-[#454141] rounded-[3px]">
+                                    <div x-text="project.title" class="pl-[25px] font-Spartan-SemiBold text-[13px] leading-[22px]"></div>
+                                    <a :href="project.url_detail"
+                                       class="max-tablet:col-span-full font-Spartan-SemiBold text-[13px] leading-[22px] text-app-blue pr-[25px] max-tablet:mt-[15px] text-center">Zobrazit&nbsp;detail</a>
+                                </div>
+                            </template>
+                        </div>
                     </template>
                 </div>
             </template>

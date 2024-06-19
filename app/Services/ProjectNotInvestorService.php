@@ -12,6 +12,8 @@ class ProjectNotInvestorService
         $ret = [
             'Projekty v režimu přípravy před zveřejněním' => [
                 'selected' => 'Projekty ke schválení',
+                '__send__' => 'Projekty ke schválení',
+                '__draft__' => 'Rozpracované projekty',
                 'data' => [
                     'Projekty ke schválení' => $this->prepared($userAccountType, $page),
                     'Rozpracované projekty' => $this->drafts($userAccountType, $page),

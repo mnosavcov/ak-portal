@@ -120,14 +120,5 @@
         <div class="hidden mt-[10px] tablet:block laptop:hidden order-4 col-span-2">
             @include('app.projects.@list-item-tags')
         </div>
-
-        <template x-if="project.actual_state_text">
-            <div
-                class="mt-[15px] col-span-full grid grid-cols-[min-content_1fr] bg-[#F8F8F8] p-[10px] rounded-[3px] gap-x-[15px] mb-[25px]">
-                <div class="font-Spartan-SemiBold text-[14px] text-[#31363A]">Aktuální&nbsp;stav:</div>
-                <div class="font-Spartan-Regular text-[14px] text-[#31363A]"
-                     x-html="project.actual_state_text"></div>
-            </div>
-        </template>
     </div>
 </a>

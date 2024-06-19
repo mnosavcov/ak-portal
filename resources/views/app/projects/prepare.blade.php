@@ -217,10 +217,10 @@
 
                         <div class="bg-[#F8F8F8] rounded-[3px] p-[25px] max-w-[900px] text-[13px]">
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141] mb-[15px]">
-                                {{ \App\Models\Project::PAID_TYPES[$project->type]['text'] }}
+                                {{ \App\Models\Project::PAID_TYPES[$project->type]['text'] ?? 'Chybně definováno "' . $project->type . '"' }}
                             </div>
                             <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
-                                {{ \App\Models\Project::PAID_TYPES[$project->type]['description'] }}
+                                {{ \App\Models\Project::PAID_TYPES[$project->type]['description'] ?? '' }}
                             </div>
                         </div>
                     </div>
