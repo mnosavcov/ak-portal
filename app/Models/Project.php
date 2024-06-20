@@ -23,7 +23,7 @@ class Project extends Model
         'minimum_principal_text',
         'url_part',
         'url_detail',
-        'about_strip',
+        'short_info_strip',
         'actual_state_text',
         'status_text',
         'states_prepared',
@@ -392,18 +392,12 @@ class Project extends Model
         );
     }
 
-    public function aboutStrip(): Attribute
+    public function shortInfoStrip(): Attribute
     {
-        $about = strip_tags($this->about ?? '');
-
-        if (auth()->guest()) {
-            $about = 'Jen pro přihlášené ';
-        } elseif (!$this->isVerified()) {
-            $about = 'Pro potvrzený účet';
-        }
+        $short_info = strip_tags($this->short_info ?? '');
 
         return Attribute::make(
-            get: fn(mixed $value, array $attributes) => $about
+            get: fn(mixed $value, array $attributes) => $short_info
         );
     }
 

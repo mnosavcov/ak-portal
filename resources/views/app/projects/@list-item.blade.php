@@ -38,7 +38,7 @@
                  tablet:text-[13px] tablet:leading-[21px] tablet:mb-[15px]
                  laptop:text-[15px] laptop:leading-[26px] laptop:mb-[20px]
                 "
-                x-text="project.about_strip" :title="project.about_strip">
+                x-html="project.short_info_strip" :title="project.short_info_strip">
             </div>
 
             <div class="w-full aspect-[3/2] tablet:hidden mb-[10px]">

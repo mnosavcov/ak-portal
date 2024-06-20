@@ -38,6 +38,16 @@
                         mb-[25px]
                         laptop:mb-[50px]
                         ">
+                        <h2 class="mb-[25px]">Úvod</h2>
+                        <div class="app-project-about relative">
+                            {!! $project->short_info !!}
+                        </div>
+                    </div>
+
+                    <div class="
+                        mb-[25px]
+                        laptop:mb-[50px]
+                        ">
                         <h2 class="mb-[25px]">O projektu</h2>
                         <x-app.project.part.about :project="$project"></x-app.project.part.about>
                     </div>
