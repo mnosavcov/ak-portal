@@ -27,7 +27,7 @@
                     tablet:gap-x-[30px] tablet:pt-[80px] tablet:grid-cols-2
                     laptop:gap-x-[50px] laptop:pt-[110px]
                     ">
-                <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('projects.index') : route('login') }}"
+                <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('login') : route('projects.index') }}"
                    class="font-Spartan-Regular bg-app-orange text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
@@ -35,7 +35,7 @@
                              "><span
                         class="font-Spartan-Bold">Chci investovat</span> do projektu
                 </a>
-                <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('projects.create', ['accountType' => 'advertiser']) : route('login') }}"
+                <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('login') : route('projects.create', ['accountType' => 'advertiser']) }}"
                    class="font-Spartan-Regular bg-app-blue text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
