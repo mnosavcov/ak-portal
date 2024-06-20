@@ -34,6 +34,9 @@
                 @if($project->galleries->count())
                     <div x-init="projectGalleries.data = @js($project->galleries->pluck(null, 'id'));"></div>
                 @endif
+                @if($project->images->count())
+                    <div x-init="projectImages.data = @js($project->images->pluck(null, 'id'));"></div>
+                @endif
                 @if($project->tags->count())
                     <div x-init="projectTags.data = @js($project->tags->pluck(null, 'id'));"></div>
                 @endif
@@ -66,7 +69,7 @@
                         }">
                         </div>
                         <div class="font-Spartan-SemiBold text-[15px]"
-                            x-text="exclusive ? 'Nabízející uvidí identifikaci kupujícího' : 'Nabízející neuvidí identifikaci kupujícího'">
+                             x-text="exclusive ? 'Nabízející uvidí identifikaci kupujícího' : 'Nabízející neuvidí identifikaci kupujícího'">
                         </div>
                     </div>
                 </div>

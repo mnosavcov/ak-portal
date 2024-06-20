@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
+use App\Models\ProjectImage;
 use App\Models\ProjectShow;
 use App\Models\ProjectState;
 use App\Models\ProjectTag;
@@ -260,6 +261,30 @@ class AdminController extends Controller
             }
 
             ProjectGallery::where('project_id', $project->id)->find($gallery->id)->update(['head_img' => (bool)$gallery->head_img]);
+        }
+
+        foreach ($request->file('images') ?? [] as $image) {
+            $path = $image->store($project->user_id . '/' . $project->id . '/images');
+            $projectImage = new ProjectImage([
+                'filepath' => $path,
+                'filename' => $image->getClientOriginalName(),
+                'order' => 0,
+            ]);
+
+            $project->images()->save($projectImage);
+        }
+
+        $imageData = json_decode($request->post('image_data'));
+        foreach ($imageData as $image) {
+            if (isset($image->delete)) {
+                $projectImage = ProjectImage::where('project_id', $project->id)->find($image->id);
+                if (!$projectImage) {
+                    continue;
+                }
+
+                Storage::delete($projectImage->filepath);
+                $projectImage->delete();
+            }
         }
 
         // tags

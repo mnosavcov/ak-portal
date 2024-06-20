@@ -63,6 +63,7 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-email');
 Route::get('projects/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
+Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
 Route::get('zpracovani-osobnich-udaju', function () {
     $date = Carbon::create(env('DATE_PUBLISH'));
     $currentDateTime = clone $date;

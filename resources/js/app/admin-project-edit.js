@@ -48,6 +48,10 @@ Alpine.data('adminProjectEdit', (id) => ({
         }
     },
 
+    projectImages: {
+        data: {},
+    },
+
     projectTags: {
         data: {},
         newId: 0,

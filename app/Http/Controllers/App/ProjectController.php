@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Project;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
+use App\Models\ProjectImage;
 use App\Models\ProjectShow;
 use App\Services\ProjectService;
 use Carbon\Carbon;
@@ -360,6 +361,20 @@ class ProjectController extends Controller
         }
 
         return response()->file(Storage::path($projectGallery->filepath));
+    }
+
+    public function image(Project $project, ProjectImage $projectImage, $urlHash)
+    {
+        if ($projectImage->project_id !== $project->id) {
+            return redirect()->route('homepage');
+        }
+
+        $hash = sha1(sprintf('%s-KUYsdflogkd87fff8-%s-image', $project->id, $projectImage->id));
+        if ($urlHash !== $hash) {
+            return redirect()->route('homepage');
+        }
+
+        return response()->file(Storage::path($projectImage->filepath));
     }
 
     /**

@@ -182,6 +182,11 @@ class Project extends Model
         return $this->hasMany(ProjectGallery::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProjectImage::class);
+    }
+
     public function shows()
     {
         return $this->hasMany(ProjectShow::class);

@@ -167,5 +167,7 @@
                                     type="text" required/>
             </div>
         </div>
+
+        @include('admin.projects-edit.@images')
     </div>
 </div>
