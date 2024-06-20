@@ -63,9 +63,9 @@
                     ">
 
                     <div class="text-app-blue font-Spartan-Bold leading-[30px]
-                        justify-self-center order-2 text-[13px] mb-[10px] text-center
+                        max-desktop:justify-self-center order-2 text-[13px] mb-[10px] max-desktop:text-center
                         md:text-[15px]
-                        desktop::order-1 desktop:text-[18px] desktop:col-span-2 desktop:ml-[110px] desktop:min-h-[60px] desktop:max-w-[250px]
+                        desktop::order-1 desktop:text-[18px] desktop:col-span-2 desktop:ml-[110px] desktop:min-h-[60px]
                         ">
                         {{ $item['title'] }}
                     </div>
@@ -76,7 +76,7 @@
                      "><img src="{{ $item['ico'] }}"></div>
 
                     <div class="text-[#31363A] font-Spartan-Regular leading-[26px]
-                     text-center justify-self-center order-3 text-[12px]
+                     max-desktop:text-center justify-self-center order-3 text-[12px]
                      md:text-[13px]
                      desktop:text-[15px]
                      ">
