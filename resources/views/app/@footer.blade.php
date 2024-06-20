@@ -26,19 +26,33 @@
                         Kategorie podle typu nabídky
                     </div>
                     <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
+                        <a href="{{ route('projects.index',
+                                ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]
+                            ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
                          ">
-                            Cenu navrhuje kupující
+                            {{ \App\Models\Category::CATEGORIES['offer-the-price']['title'] }}
                         </a>
                     </div>
                     <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
+                        <a href="{{ route('projects.index',
+                                ['category' => \App\Models\Category::CATEGORIES['auction']['url']]
+                            ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
                          ">
-                            Cenu navrhuje nabízející
+                            {{ \App\Models\Category::CATEGORIES['auction']['title'] }}
+                        </a>
+                    </div>
+                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
+                        <a href="{{ route('projects.index',
+                                ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]
+                            ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
+                         text-[12px] justify-self-center mb-[15px]
+                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
+                         ">
+                            {{ \App\Models\Category::CATEGORIES['fixed-price']['title'] }}
                         </a>
                     </div>
                 </div>

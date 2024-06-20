@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('user_account_type');
             $table->enum('type', ['auction', 'fixed-price', 'offer-the-price'])->nullable();
+            $table->foreignId('subcategory_id')->nullable();
             $table->string('status')->default('draft');
             $table->date('end_date')->nullable();
             $table->string('title');
@@ -38,6 +39,7 @@ return new class extends Migration
             $table->boolean('details_on_request')->default(true);
 
             $table->foreign('user_id')->references('id')->on('users')->constrained();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->constrained();
         });
     }
 

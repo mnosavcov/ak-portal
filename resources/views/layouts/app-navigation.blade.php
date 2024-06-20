@@ -1,5 +1,8 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100" :class="{'!border-transparent': open}">
-    <!-- Primary Navigation Menu -->
+    @php
+        $projectCategories = (new \App\Services\AdminService())->getProjectCategory();
+    @endphp
+        <!-- Primary Navigation Menu -->
     <div class="max-w-[1230px] mx-auto px-[15px] relative z-50 bg-white">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -42,84 +45,31 @@
                         <x-slot name="content">
                             <div
                                 class="px-[35px] pt-[15px] pb-[40px] grid grid-cols-[max-content_max-content_max-content] gap-x-[69px]">
-                                <div>
-                                    <x-dropdown-content>
-                                        {{ __('Cenu navrhuje kupující') }}
-                                    </x-dropdown-content>
 
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Pozemky k pronájmu') }}
-                                    </x-dropdown-link>
+                                @foreach([
+                                    \App\Models\Category::CATEGORIES['offer-the-price'],
+                                    \App\Models\Category::CATEGORIES['fixed-price'],
+                                    \App\Models\Category::CATEGORIES['auction']
+                                    ] as $category)
+                                    <div>
+                                        <x-dropdown-content :href="route('projects.index', [
+                                    'category' => $category['url'],
+                                    ])">
+                                            {{ \App\Models\Category::CATEGORIES[$category['url']]['title'] }}
+                                        </x-dropdown-content>
 
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Pozemky na prodej') }}
-                                    </x-dropdown-link>
+                                        @foreach($projectCategories[$category['url']] as $nav)
+                                            <x-dropdown-link :href="route('projects.index', [
+                                                'category' => $category['url'],
+                                                'subcategory' => $nav['url'],
+                                            ])">
+                                                {{ $nav['subcategory'] }}
+                                            </x-dropdown-link>
+                                        @endforeach
+                                    </div>
+                                @endforeach
 
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Kapacita v síti distributora') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Postoupení práv k projektu') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')" class="mb-[5px]">
-                                        {{ __('Výstavba FVE na klíč') }}
-                                    </x-dropdown-link>
-                                </div>
-                                <div class="relative">
-                                    <div class="absolute h-full w-[1px] top-0 bg-[#D9E9F2] left-[-35px]"></div>
-                                    <x-dropdown-content>
-                                        {{ __('Cenu navrhuje prodávající') }}
-                                    </x-dropdown-content>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Pozemky k pronájmu') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Pozemky na prodej') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Kapacita v síti distributora') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Postoupení práv k projektu') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')" class="mb-[5px]">
-                                        {{ __('Výstavba FVE na klíč') }}
-                                    </x-dropdown-link>
-                                </div>
-                                <div class="relative">
-                                    <div class="absolute h-full w-[1px] top-0 bg-[#D9E9F2] left-[-35px]"></div>
-                                    <x-dropdown-content>
-                                        {{ __('Aukce') }}
-                                    </x-dropdown-content>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Pozemky k pronájmu') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Pozemky na prodej') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Kapacita v síti distributora') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Postoupení práv k projektu') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('profile.edit')" class="mb-[5px]">
-                                        {{ __('Výstavba FVE na klíč') }}
-                                    </x-dropdown-link>
-                                </div>
-                                <div class="mt-[20px] col-span-3 text-center">
+                                <div class="mt-[40px] col-span-3 text-center">
                                     <a href="{{ route('projects.index') }}"
                                        class="font-Spartan-Bold text-[15px] text-app-blue underline hover:no-underline">Zobrazit
                                         všechny kategorie</a>
@@ -385,7 +335,7 @@
                             </x-responsive-nav-link>
                         @endif
                     </div>
-                    @else
+                @else
                     <div class="h-[25px]"></div>
                 @endif
             @endauth
@@ -408,97 +358,38 @@
 
                         <div x-show="open" x-collapse>
                             <div class="pt-[15px] pb-[20px] grid">
-                                <x-dropdown-content
-                                    class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]">
-                                    {{ __('Cenu navrhuje kupující') }}
-                                </x-dropdown-content>
+                                @foreach([
+                                    \App\Models\Category::CATEGORIES['offer-the-price'],
+                                    \App\Models\Category::CATEGORIES['fixed-price'],
+                                    \App\Models\Category::CATEGORIES['auction']
+                                    ] as $category)
+                                    <x-dropdown-content :href="route('projects.index', [
+                                    'category' => $category['url'],
+                                    ])" class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]"
+                                                        :active="
+                                                        request()->routeIs('projects.index')
+                                                        && request()->route()->parameter('category') === $category['url']
+                                                        ">
+                                        {{ \App\Models\Category::CATEGORIES[$category['url']]['title'] }}
+                                    </x-dropdown-content>
 
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]"
-                                                       :active="request()->routeIs('projects.*')">
-                                    {{ __('Pozemky k pronájmu') }}
-                                </x-responsive-nav-link>
+                                    @foreach($projectCategories[$category['url']] as $nav)
+                                        <x-responsive-nav-link :href="route('projects.index', [
+                                                'category' => $category['url'],
+                                                'subcategory' => $nav['url'],
+                                            ])" class="pb-[20px]"
+                                                               :active="
+                                                        request()->routeIs('projects.index')
+                                                        && request()->route()->parameter('category') === $category['url']
+                                                        && request()->route()->parameter('subcategory') === $nav['url']
+                                                        ">
+                                            {{ $nav['subcategory'] }}
+                                        </x-responsive-nav-link>
+                                    @endforeach
+                                @endforeach
 
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Pozemky na prodej') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Kapacita v síti distributora') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Postoupení práv k projektu') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
-                                                       class="pb-[40px]">
-                                    {{ __('Výstavba FVE na klíč') }}
-                                </x-responsive-nav-link>
-
-                                <x-dropdown-content
-                                    class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]">
-                                    {{ __('Cenu navrhuje prodávající') }}
-                                </x-dropdown-content>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Pozemky k pronájmu') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Pozemky na prodej') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Kapacita v síti distributora') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Postoupení práv k projektu') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')" class="mb-[5px]"
-                                                       class="pb-[40px]">
-                                    {{ __('Výstavba FVE na klíč') }}
-                                </x-responsive-nav-link>
-
-                                <x-dropdown-content
-                                    class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]">
-                                    {{ __('Aukce') }}
-                                </x-dropdown-content>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Pozemky k pronájmu') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Pozemky na prodej') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Kapacita v síti distributora') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')"
-                                                       class="pb-[20px]">
-                                    {{ __('Postoupení práv k projektu') }}
-                                </x-responsive-nav-link>
-
-                                <x-responsive-nav-link :href="route('profile.edit')" class="mb-[40px]">
-                                    {{ __('Výstavba FVE na klíč') }}
-                                </x-responsive-nav-link>
                                 <a href="{{ route('projects.index') }}"
-                                   class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline">Zobrazit
+                                   class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline mt-[20px]">Zobrazit
                                     všechny kategorie</a>
                             </div>
                         </div>

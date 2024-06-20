@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
@@ -19,9 +20,28 @@ use Illuminate\Support\Facades\Storage;
 class ProjectController extends Controller
 {
 
-    public function index()
+    public function index($category = null, $subcategory = null)
     {
-        $projectAll = Project::isPublicated()->forDetail()->get();
+        $projectAll = Project::isPublicated()->forDetail();
+        $description = '';
+
+        if($category) {
+            if(!isset(Category::CATEGORIES[$category])) {
+                return redirect()->route('projects.index');
+            }
+            $projectAll = $projectAll->where('type', $category);
+            $description = Category::CATEGORIES[$category]['description'];
+        }
+
+        if($subcategory) {
+            $projectAll = $projectAll->where('subcategory_id', $subcategory);
+            $description = Category::where('category', $category)->where('url', $subcategory)->first();
+            if(!$description) {
+                return redirect()->route('projects.index', ['category' => $category]);
+            }
+
+            $description = $description->description;
+        }
 
         $projects = [
             'Projekty' => [
@@ -29,12 +49,13 @@ class ProjectController extends Controller
                 'titleCenter' => true,
                 'titleHide' => true,
                 'data' => [
-                    '1' => $projectAll,
+                    '1' => $projectAll->get(),
                 ],
             ]
         ];
 
         return view('app.projects.index', [
+            'htmlDescription' => $description,
             'projects' => $projects,
         ]);
     }
