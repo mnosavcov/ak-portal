@@ -97,6 +97,7 @@ class AdminController extends Controller
     public function projectSave(Request $request, Project $project)
     {
         $update = [
+            'type' => $request->type,
             'title' => $request->title,
             'status' => $request->status,
             'end_date' => null,

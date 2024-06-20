@@ -58,22 +58,33 @@ Alpine.data('verifyUserAccount', (id) => ({
         return false
     },
     nameAndSurnameText() {
-        return String(this.data.title_before).trim() + ' ' +
-            String(this.data.name).trim() + ' ' +
-            String(this.data.surname).trim() + ' ' +
-            String(this.data.title_after).trim();
+        let titleBefore = this.data.title_before ?? '';
+        let name = this.data.name ?? '';
+        let surname = this.data.surname ?? '';
+        let title_after = this.data.title_after ?? '';
+
+        return titleBefore.trim() + ' ' +
+            name.trim() + ' ' +
+            surname.trim() + ' ' +
+            title_after.trim();
     },
     addressText() {
-        return String(this.data.street).trim() + ' ' +
-            String(this.data.street_number) + ' ' +
-            String(this.data.city) + ' ' +
-            String(this.data.psc);
+        let street = this.data.street ?? '';
+        let street_number = this.data.street_number ?? '';
+        let city = this.data.city ?? '';
+        let psc = this.data.psc ?? '';
+
+        return street.trim() + ' ' +
+            street_number.trim() + ' ' +
+            city.trim() + ' ' +
+            psc.trim();
     },
     countryText() {
         return this.countries[this.data.country]
     },
     moreInfoText() {
-        return String(String(this.data.more_info).replace(/\n/g, '<br>'));
+        let more_info = this.data.more_info ?? '';
+        return more_info.trim().replace(/\n/g, '<br>');
     },
     async sendData() {
         await fetch('/profil/verify-account', {

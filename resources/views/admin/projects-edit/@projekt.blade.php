@@ -30,19 +30,19 @@
 
         <div>
             <div class="font-bold">Zadáno jako:</div>
-            <div>{{ $project->user_account_type === 'advertiser' ? 'Nazízející' : 'Realitní makléř' }}</div>
+            <div>{{ $project->user_account_type === 'advertiser' ? 'Nabízející' : 'Realitní makléř' }}</div>
         </div>
         <div>
             <div class="font-bold">Typ:</div>
-            @if($project->type === 'fixed-price')
-                <div>Fixní nabídková cena</div>
-            @endif
-            @if($project->type === 'offer-the-price')
-                <div>Cenu nabídnete</div>
-            @endif
-            @if($project->type === 'auction')
-                <div>Aukce</div>
-            @endif
+            <select class="bg-[#D9D9D9] text-[13px]" name="type">
+                @empty(\App\Models\Category::CATEGORIES[$project->type])
+                    <option value="">!!! VYBERTE !!!</option>
+                @endempty
+                @foreach(\App\Models\Category::CATEGORIES as $category)
+                    <option
+                        value="{{ $category['url'] }}" {{ $category['url'] === $project->type ? 'selected="selected"' : '' }}>{{ $category['title'] }}</option>
+                @endforeach
+            </select>
         </div>
         <div></div>
         <div></div>
@@ -68,7 +68,7 @@
 
         <div class="col-span-4 bg-white p-[10px] divide-y divide-gray-300 rounded-[5px]">
             <div>
-                <x-input-label for="title" :value="__('Titulek')"/>
+                <x-input-label for="title" :value="__('Název projektu')"/>
                 <x-text-input id="title" name="title" class="block mt-1 w-full" type="text"
                               value="{{ $project->title }}"/>
             </div>
@@ -84,7 +84,6 @@
                     <div class="p-[5px_15px] rounded-[3px] text-white bg-app-red">Zadavatel není ověřený</div>
                 @endif
             </div>
-
 
             <div class="mt-[10px] pt-[25px]" x-data="{ indefinitelyDate: null }"
                  x-init="indefinitelyDate = {{ empty($project->end_date) ? 'true' : 'false' }}">

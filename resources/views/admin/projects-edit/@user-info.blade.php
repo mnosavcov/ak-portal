@@ -5,6 +5,7 @@
                     }}
                     after:absolute after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Zadavatel</div>
+
     <div class="w-full grid grid-cols-5 gap-x-[20px] gap-y-[10px]">
         <div>
             <div class="font-bold">titul&nbsp;před:</div>
@@ -59,7 +60,7 @@
             <div>{!! $project->user->investor ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
         </div>
         <div>
-            <div class="font-bold">Nazízející:</div>
+            <div class="font-bold">Nabízející:</div>
             <div>{!! $project->user->advertiser ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
         </div>
         <div>
