@@ -102,6 +102,7 @@ class AdminController extends Controller
             'status' => $request->status,
             'end_date' => null,
             'about' => $request->about,
+            'short_info' => $request->short_info,
             'price' => str_replace(' ', '', $request->price ?? ''),
             'minimum_principal' => str_replace(' ', '', $request->minimum_principal ?? ''),
             'country' => $request->country,

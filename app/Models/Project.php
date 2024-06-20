@@ -40,6 +40,7 @@ class Project extends Model
         'title',
         'description',
         'about',
+        'short_info',
         'actual_state',
         'user_reminder',
         'price',

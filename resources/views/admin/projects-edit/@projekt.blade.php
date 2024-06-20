@@ -111,6 +111,18 @@
             </div>
 
             <div class="mt-[10px] pt-[25px]"
+                 x-data="{ short_info: @js($project->short_info) }">
+                <x-input-label for="short_info" :value="__('Úvod')"/>
+                <div class="tinyBox-wrap">
+                    <div class="tinyBox">
+                        <x-textarea-input id="short_info" name="short_info" class="block mt-1 w-full"
+                                          type="text"
+                                          x-model="short_info"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-[10px] pt-[25px]"
                  x-data="{ description: @js($project->description), about: @js($project->about) }">
                 <div class="bg-[#d8d8d8] p-[10px] rounded-[5px] mb-[10px]">
                     <x-input-label for="description" :value="__('Podrobné informace o projektu *')"/>
