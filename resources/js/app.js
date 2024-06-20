@@ -46,7 +46,7 @@ function tinymceInit()
         //browser_spellcheck : true ,
         content_css: "/js/tinymce/style.css",
         // toolbar1: "bold italic underline | bullist numlist outdent indent | image | media | link unlink | forecolor backcolor | emoticons",
-        toolbar1: "bold italic underline | bullist numlist outdent indent | link unlink | forecolor backcolor | emoticons",
+        toolbar1: "bold italic underline | bullist numlist outdent indent | image | media | link unlink | forecolor backcolor | emoticons",
         setup: function (editor) {
             editor.on('change', function (event) {
                 let textarea = event.target.editorContainer.closest('div.tinyBox-wrap').getElementsByTagName('textarea')[0];
