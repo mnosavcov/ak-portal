@@ -1,4 +1,10 @@
 <x-app-layout>
+    @isset($htmlDescription)
+    <x-slot name="htmlDescription">
+        {{ $htmlDescription }}
+    </x-slot>
+    @endisset
+
     <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
             'Projekty' => Route('projects.index')

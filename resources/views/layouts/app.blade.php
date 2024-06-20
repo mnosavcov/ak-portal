@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @isset($htmlDescription)
+        <meta name="description" content="{{ $htmlDescription }}">
+    @endisset
+
     <title>{{ config('app.name') }}</title>
 
     <!-- Scripts -->
