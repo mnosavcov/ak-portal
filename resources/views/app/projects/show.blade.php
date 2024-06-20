@@ -5,7 +5,9 @@
          @else
              style="background-image: url('{{ Vite::asset('resources/images/bg-project-default.png') }}')"
         @endif
-    ></div>
+    >
+        <div class="bg-[rgba(0,0,0,0.45)] absolute top-0 left-0 right-0 bottom-0"></div>
+    </div>
     @if($nahled)
         <div
             class="relative font-WorkSans-SemiBold text-white bg-app-orange rounded-[3px] max-w-[1200px] mx-auto p-[25px] text-center text-[32px] leading-[44px] mb-[25px]">
