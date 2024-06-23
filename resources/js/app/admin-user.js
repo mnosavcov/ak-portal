@@ -24,13 +24,18 @@ Alpine.data('adminUser', (id) => ({
         'city',
         'psc',
         'country',
-        'more_info',
+        'more_info_investor',
+        'more_info_advertiser',
+        'more_info_real_estate_broker',
         'email',
         'phone_number',
         'investor',
         'advertiser',
         'real_estate_broker',
         'check_status',
+        'investor_status',
+        'advertiser_status',
+        'real_estate_broker_status',
         'notice',
         'investor_info',
         'ban_info',
@@ -83,7 +88,27 @@ Alpine.data('adminUser', (id) => ({
                     indexTab === 'not_verified'
                     && this.proxyData.usersOrigin[obj.id].deleted_at == null
                     && this.proxyData.usersOrigin[obj.id].banned_at == null
-                    && this.proxyData.usersOrigin[obj.id].check_status !== 'verified'
+                    && (
+                        (
+                            this.proxyData.usersOrigin[obj.id].check_status !== 'verified'
+                            && this.proxyData.usersOrigin[obj.id].check_status !== 'denied'
+                        )
+                        || (
+                            this.proxyData.usersOrigin[obj.id].investor
+                            && this.proxyData.usersOrigin[obj.id].investor_status !== 'verified'
+                            && this.proxyData.usersOrigin[obj.id].investor_status !== 'denied'
+                        )
+                        || (
+                            this.proxyData.usersOrigin[obj.id].advertiser
+                            && this.proxyData.usersOrigin[obj.id].advertiser_status !== 'verified'
+                            && this.proxyData.usersOrigin[obj.id].advertiser_status !== 'denied'
+                        )
+                        || (
+                            this.proxyData.usersOrigin[obj.id].real_estate_broker
+                            && this.proxyData.usersOrigin[obj.id].real_estate_broker_status !== 'verified'
+                            && this.proxyData.usersOrigin[obj.id].real_estate_broker_status !== 'denied'
+                        )
+                    )
                 )
             ))
         )
@@ -144,7 +169,9 @@ Alpine.data('adminUser', (id) => ({
         return change;
     },
     statusText(status) {
-        if (status === 'not_verified') {
+        if (status === 'denied') {
+            return 'ZAMÍTNUTO';
+        } else if (status === 'not_verified') {
             return 'NEOVĚŘENO';
         } else if (status === 'waiting') {
             return 'ČEKÁ NA OVĚŘENÍ';
@@ -157,7 +184,7 @@ Alpine.data('adminUser', (id) => ({
         return 'neznámý stav: "' + status + '"'
     },
     statusColor(status) {
-        if (status === 'not_verified') {
+        if (status === 'not_verified' || status === 'denied') {
             return 'bg-app-red text-white'
         } else if (status === 'waiting' || status === 're_verified') {
             return 'bg-app-orange text-white'
@@ -167,15 +194,21 @@ Alpine.data('adminUser', (id) => ({
 
         return 'bg-black text-white'
     },
-    changeStatus(id) {
-        if (this.proxyData.users[id].check_status === 'verified') {
-            if (this.proxyData.usersOrigin[id].check_status === 'verified') {
-                this.proxyData.users[id].check_status = 'not_verified';
+    changeStatus(id, stateName) {
+        if (this.proxyData.users[id][stateName] === 'verified') {
+            if (this.proxyData.usersOrigin[id][stateName] === 'verified') {
+                this.proxyData.users[id][stateName] = 'not_verified';
             } else {
-                this.proxyData.users[id].check_status = this.proxyData.usersOrigin[id].check_status;
+                this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName];
             }
+        } else if (
+            this.proxyData.users[id][stateName] !== 'denied'
+            && (this.proxyData.users[id][stateName] === 'not_verified'
+            || this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName])
+        ) {
+            this.proxyData.users[id][stateName] = 'denied';
         } else {
-            this.proxyData.users[id].check_status = 'verified';
+            this.proxyData.users[id][stateName] = 'verified';
         }
     },
     async saveUsers() {

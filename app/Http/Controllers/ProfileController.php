@@ -36,6 +36,7 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+
     /**
      * Display the user's profile form.
      */
@@ -101,7 +102,7 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-        if(!$user->deletable) {
+        if (!$user->deletable) {
             return Redirect::to(route('profile.edit'));
         }
 
@@ -189,20 +190,30 @@ class ProfileController extends Controller
     {
         $accountX = str_replace('-', '_', $account);
         if (!isset(auth()->user()->{$accountX}) || !auth()->user()->{$accountX}) {
-            if (auth()->user()->investor) {
+            if (auth()->user()->investor && !auth()->user()->isDeniedInvestor()) {
                 return redirect()->route('profile.overview', ['account' => 'investor']);
-            } elseif (auth()->user()->advertiser) {
+            } elseif (auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser()) {
                 return redirect()->route('profile.overview', ['account' => 'advertiser']);
-            } elseif (auth()->user()->real_estate_broker) {
+            } elseif (auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus()) {
                 return redirect()->route('profile.overview', ['account' => 'real-estate-broker']);
             }
         }
 
-        if ($account === 'investor') {
+        if ($account === 'investor' && !auth()->user()->isDeniedInvestor()) {
             $projects = (new ProjectInvestorService())->overview();
-        } elseif ($account === 'advertiser' || $account === 'real-estate-broker') {
+        } elseif ($account === 'advertiser' && !auth()->user()->isDeniedAdvertiser()) {
+            $projects = (new ProjectNotInvestorService())->overview($account);
+        } elseif ($account === 'real-estate-broker' && !auth()->user()->isDeniedRealEstateBrokerStatus()) {
             $projects = (new ProjectNotInvestorService())->overview($account);
         } else {
+            if (auth()->user()->investor && !auth()->user()->isDeniedInvestor()) {
+                return redirect()->route('profile.overview', ['account' => 'investor']);
+            } elseif (auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser()) {
+                return redirect()->route('profile.overview', ['account' => 'advertiser']);
+            } elseif (auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus()) {
+                return redirect()->route('profile.overview', ['account' => 'real-estate-broker']);
+            }
+
             return redirect()->route('homepage');
         }
 
@@ -282,16 +293,49 @@ class ProfileController extends Controller
             'city',
             'psc',
             'country',
-            'more_info',
+            'birthdate',
+            'more_info_investor',
+            'more_info_advertiser',
+            'more_info_real_estate_broker',
         ]);
     }
 
     public function setAccountTypes(Request $request): JsonResponse
     {
-        return (new ProfileService)->verifyAccount($request, [
-            'investor',
-            'advertiser',
-            'real_estate_broker',
+        $change = [];
+
+        if ($request->post('data')['type'] === 'investor') {
+            $change = [
+                'investor',
+                'more_info_investor'
+            ];
+        }
+
+        if ($request->post('data')['type'] === 'advertiser') {
+            $change = [
+                'advertiser',
+                'more_info_advertiser'
+            ];
+        }
+
+        if ($request->post('data')['type'] === 'real_estate_broker') {
+            $change = [
+                'real_estate_broker',
+                'more_info_real_estate_broker'
+            ];
+        }
+
+        $ret = (new ProfileService)->verifyAccount($request, $change, true);
+
+        if ($ret) {
+            return response()->json([
+                'status' => 'ok',
+                'user' => Auth::user()
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'error',
         ]);
     }
 

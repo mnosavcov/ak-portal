@@ -19,13 +19,24 @@ class ProfileService
         'city',
         'psc',
         'country',
-        'more_info',
+    ];
+
+    private const VERIFY_COLUMNS_INVESTOR = [
+        'more_info_investor',
         'investor',
+    ];
+
+    private const VERIFY_COLUMNS_ADVERTISER = [
+        'more_info_advertiser',
         'advertiser',
+    ];
+
+    private const VERIFY_COLUMNS_REAL_ESTATE_BROKER = [
+        'more_info_real_estate_broker',
         'real_estate_broker',
     ];
 
-    public function verifyAccount(Request $request, array $columns)
+    public function verifyAccount(Request $request, array $columns, $returnBool = false)
     {
         $user = Auth::user();
 
@@ -35,16 +46,33 @@ class ProfileService
         foreach ($columns as $column) {
             $update[$column] = $data[$column];
         }
-        $update['check_status'] = $this->getStatus($user, $data, $columns);
+
+        if (isset($request->post('data')['type'])) {
+            if ($request->post('data')['type'] === 'investor') {
+                $update['investor_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS_INVESTOR);
+            }
+            if ($request->post('data')['type'] === 'advertiser') {
+                $update['advertiser_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS_ADVERTISER);
+            }
+            if ($request->post('data')['type'] === 'real_estate_broker') {
+                $update['real_estate_broker_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS_REAL_ESTATE_BROKER);
+            }
+        } else {
+            $update['check_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS);
+        }
 
         $user->update($update);
+
+        if ($returnBool) {
+            return true;
+        }
 
         return response()->json([
             'status' => 'ok',
         ]);
     }
 
-    private function getStatus($user, $data, $columns)
+    private function getStatus($user, $data, $columns, $verifyColumn)
     {
         $checkStatus = $user->check_status;
         $status = $checkStatus;
@@ -52,8 +80,8 @@ class ProfileService
 
         $oldData = [];
         $existsChange = false;
-        foreach (self::VERIFY_COLUMNS as $column) {
-            if(
+        foreach ($verifyColumn as $column) {
+            if (
                 in_array($column, $columns)
                 && trim($user->{$column} ?? '') !== trim($data[$column] ?? '')
             ) {

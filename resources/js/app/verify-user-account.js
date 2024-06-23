@@ -11,8 +11,8 @@ Alpine.data('verifyUserAccount', (id) => ({
             return;
         }
 
-        if(this.data.check_status === 'verified') {
-            if(!confirm('Při změně bude potřeba znovu ověřit účet.')) {
+        if (this.data.check_status === 'verified') {
+            if (!confirm('Při změně bude potřeba znovu ověřit účet.')) {
                 return;
             }
         }
@@ -35,6 +35,8 @@ Alpine.data('verifyUserAccount', (id) => ({
         if (this.step === 1) {
             if (
                 String(this.data.name).trim().length > 1
+                && this.data.birthdate !== null
+                && String(this.data.birthdate).trim().length > 1
                 && String(this.data.surname).trim().length > 1
                 && String(this.data.street).trim().length > 1
                 && String(this.data.street_number).trim().length > 0
@@ -46,11 +48,16 @@ Alpine.data('verifyUserAccount', (id) => ({
 
             return false;
         } else if (this.step === 2) {
-            if (String(this.data.more_info).trim().length > 5) {
-                return true;
+            if (this.data.investor && String(this.data.more_info_investor).trim().length < 5) {
+                return false;
             }
-
-            return false;
+            if (this.data.advertiser && String(this.data.more_info_advertiser	).trim().length < 5) {
+                return false;
+            }
+            if (this.data.real_estate_broker && String(this.data.more_info_real_estate_broker).trim().length < 5) {
+                return false;
+            }
+            return true;
         } else if (this.step === 3) {
             return true;
         }
@@ -82,9 +89,17 @@ Alpine.data('verifyUserAccount', (id) => ({
     countryText() {
         return this.countries[this.data.country]
     },
-    moreInfoText() {
-        let more_info = this.data.more_info ?? '';
-        return more_info.trim().replace(/\n/g, '<br>');
+    moreInfoTextInvestor() {
+        let more_info_investor = this.data.more_info_investor ?? '';
+        return more_info_investor.trim().replace(/\n/g, '<br>');
+    },
+    moreInfoTextAdvertiser() {
+        let more_info_advertiser = this.data.more_info_advertiser ?? '';
+        return more_info_advertiser.trim().replace(/\n/g, '<br>');
+    },
+    moreInfoTextRealEstateBroker() {
+        let more_info_real_estate_broker = this.data.more_info_real_estate_broker ?? '';
+        return more_info_real_estate_broker.trim().replace(/\n/g, '<br>');
     },
     async sendData() {
         await fetch('/profil/verify-account', {

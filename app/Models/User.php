@@ -22,9 +22,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'investor',
+        'investor_status',
+        'show_investor_status',
         'advertiser',
+        'advertiser_status',
+        'show_advertiser_status',
         'advisor',
         'real_estate_broker',
+        'real_estate_broker_status',
+        'show_real_estate_broker_status',
         'check_status',
 
         'title_before',
@@ -36,7 +42,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'city',
         'psc',
         'country',
-        'more_info',
+        'birthdate',
+        'more_info_investor',
+        'more_info_advertiser',
+        'more_info_real_estate_broker',
         'phone_number',
         'notice',
         'investor_info',
@@ -84,6 +93,87 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return auth()->user()->check_status === 'verified' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isVerifiedInvestor()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->investor && auth()->user()->investor_status === 'verified' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isVerifiedAdvertiser()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->advertiser && auth()->user()->advertiser_status === 'verified' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isVerifiedRealEstateBrokerStatus()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->real_estate_broker && auth()->user()->real_estate_broker_status === 'verified' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isDeniedInvestor()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->investor_status === 'denied' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isDeniedAdvertiser()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->advertiser_status === 'denied' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isDeniedRealEstateBrokerStatus()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->real_estate_broker_status === 'denied' && auth()->user()->hasVerifiedEmail();
+    }
+
+    public function isInvestorVerified()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->investor_status === 'verified';
+    }
+
+    public function isAdvertiserVerified()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->advertiser_status === 'verified';
+    }
+
+    public function isRealEstateBrokerVerified()
+    {
+        if ($this->isSuperadmin()) {
+            return true;
+        }
+
+        return auth()->user()->real_estate_broker_status === 'verified';
     }
 
     public function projects()

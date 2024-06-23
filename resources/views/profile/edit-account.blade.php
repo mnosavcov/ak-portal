@@ -7,7 +7,7 @@
      class="mb-[50px]">
     <div class="max-w-[1200px] mx-auto mb-[50px] float-right">
         <a href="{{ route('profile.edit') }}"
-             class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer relative pl-[55px]
+           class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer relative pl-[55px]
                 font-Spartan-SemiBold text-[16px]
                 after:absolute after:w-[6px] after:h-[10px] after:bg-[url('/resources/images/arrow-left-black-6x10.svg')] after:bg-no-repeat
                 after:top-[23px] after:left-[20px]
@@ -67,6 +67,15 @@
                 </div>
 
                 <div class="mt-[10px]">
+                    <x-input-label for="birthdate" value="Datum narození *"/>
+                    <x-text-input id="birthdate" name="birthdate" x-model="data.birthdate"
+                                  class="block mt-1 w-full" type="date"/>
+                </div>
+                <div class="hidden laptop:block"></div>
+                <div class="hidden laptop:block"></div>
+                <div class="hidden tablet:block"></div>
+
+                <div class="mt-[10px]">
                     <x-input-label for="street" value="Ulice *"/>
                     <x-text-input id="street" name="street" x-model="data.street" class="block mt-1 w-full"
                                   type="text"
@@ -103,13 +112,50 @@
         <div x-show="step === 2" x-cloak>
             <h2>Sdělte nám více informací</h2>
 
-            <div>
-                <div class="mt-[10px] pt-[25px]">
-                    <x-input-label for="more_info" value="Za jakým účelem či účely chcete náš portál využívat?"/>
-                    <x-textarea-input id="more_info" name="more_info"
-                                      class="block mt-1 w-full !leading-[2.25]" x-model="data.more_info"></x-textarea-input>
+            @if($user->investor)
+                <div>
+                    <div class="mt-[10px] pt-[25px]">
+                        <x-input-label for="more_info_investor">
+                            Za jakým účelem či účely chcete náš portál využívat jako <span
+                                class="text-app-orange">investor</span>
+                            (jste zájemce o koupi, nebo ho zastupujete)? Upřesněte své záměry.
+                        </x-input-label>
+                        <x-textarea-input id="more_info_investor" name="more_info_investor"
+                                          class="block mt-1 w-full !leading-[2.25]"
+                                          x-model="data.more_info_investor"></x-textarea-input>
+                    </div>
                 </div>
-            </div>
+            @endif
+
+            @if($user->advertiser)
+                <div>
+                    <div class="mt-[10px] pt-[25px]">
+                        <x-input-label for="more_info_advertiser">
+                            Za jakým účelem či účely chcete náš portál využívat jako <span class="text-app-orange">nabízející</span>
+                            (jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.
+                        </x-input-label>
+                        <x-textarea-input id="more_info_advertiser" name="more_info_advertiser"
+                                          class="block mt-1 w-full !leading-[2.25]"
+                                          x-model="data.more_info_advertiser"></x-textarea-input>
+                    </div>
+                </div>
+            @endif
+
+            @if($user->real_estate_broker)
+                <div>
+                    <div class="mt-[10px] pt-[25px]">
+                        <x-input-label for="more_info_real_estate_broker">
+                            Za jakým účelem či účely chcete náš portál využívat jako <span
+                                class="text-app-orange">realitní makléř</span> (zprostředkováváte prodej projektu
+                            například
+                            na základě smlouvy o realitním zprostředkování)? Upřesněte své záměry.
+                        </x-input-label>
+                        <x-textarea-input id="more_info_real_estate_broker" name="more_info_real_estate_broker"
+                                          class="block mt-1 w-full !leading-[2.25]"
+                                          x-model="data.more_info_real_estate_broker"></x-textarea-input>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div x-show="step === 3" x-cloak>
@@ -117,20 +163,51 @@
 
             <div
                 class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Jméno a příjmení</div>
-                <div x-text="nameAndSurnameText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Adresa trvalého bydliště</div>
-                <div x-text="addressText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Státní občanství (země)</div>
-                <div x-text="countryText()" class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Upřesnění záměrů</div>
-                <div x-html="moreInfoText()" class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Jméno a
+                    příjmení
+                </div>
+                <div x-text="nameAndSurnameText()"
+                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Adresa
+                    trvalého bydliště
+                </div>
+                <div x-text="addressText()"
+                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Státní
+                    občanství (země)
+                </div>
+                <div x-text="countryText()"
+                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+
+                @if($user->investor)
+                    <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                        Upřesnění záměrů – jako investor
+                    </div>
+                    <div x-html="moreInfoTextInvestor()"
+                         class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                @endif
+
+                @if($user->advertiser)
+                    <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                        Upřesnění záměrů – jako nabízející
+                    </div>
+                    <div x-html="moreInfoTextAdvertiser()"
+                         class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                @endif
+
+                @if($user->real_estate_broker)
+                    <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                        Upřesnění záměrů – jako realitní makléř
+                    </div>
+                    <div x-html="moreInfoTextRealEstateBroker()"
+                         class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                @endif
             </div>
         </div>
     </div>
 
     <div class="grid max-tablet:justify-center grid-cols-1 gap-x-[100px]"
-        :class="{'tablet:grid-cols-[min-content_1fr]': step > 1}">
+         :class="{'tablet:grid-cols-[min-content_1fr]': step > 1}">
         <button type="button" @click="prevBtnClick()" x-cloak x-show="step > 1"
                 class="mt-[25px] tablet:mt-[50px] font-Spartan-SemiBold text-app-blue text-[15px] leading-[22px]">
             Zpět

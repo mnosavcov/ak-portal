@@ -1,5 +1,16 @@
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] leading-[24px]
-                    {{ $project->user->check_status === 'verified' ?
+                    {{
+                        $project->user->check_status === 'verified'
+                        && ((
+                            $project->user_account_type === 'advertiser'
+                            && $project->user->advertiser
+                            && $project->user->advertiser_status === 'verified'
+                        )
+                        || (
+                            $project->user_account_type === 'real-estate-broker'
+                            && $project->user->real_estate_broker
+                            && $project->user->real_estate_broker_status === 'verified'
+                        )) ?
                         'bg-[#d8d8d8] after:bg-[url("/resources/images/ico-info-orange.svg")] text-[#676464]'
                         : 'bg-app-orange after:bg-[url("/resources/images/ico-info-gray.svg")] text-[#222]'
                     }}
@@ -23,7 +34,10 @@
             <div class="font-bold">titul&nbsp;za:</div>
             <div>{{ $project->user->title_after }}</div>
         </div>
-        <div></div>
+        <div>
+            <div class="font-bold">Ověřený:</div>
+            <div>{!! $project->user->check_status === 'verified' ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
+        </div>
 
         <div>
             <div class="font-bold">Ulice:</div>
@@ -68,14 +82,36 @@
             <div>{!! $project->user->real_estate_broker ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
         </div>
 
-        <div class="col-span-4">
-            <div class="font-bold">Více informací:</div>
-            <div>{{ $project->user->more_info }}</div>
-        </div>
-
+        <div></div>
+        <div></div>
         <div>
             <div class="font-bold">Ověřený:</div>
-            <div>{!! $project->user->check_status === 'verified' ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
+            <div>{!! $project->user->investor_status === 'verified' ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
         </div>
+        <div>
+            <div class="font-bold">Ověřený:</div>
+            <div>{!! $project->user->advertiser_status === 'verified' ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
+        </div>
+        <div>
+            <div class="font-bold">Ověřený:</div>
+            <div>{!! $project->user->real_estate_broker_status === 'verified' ? '<span class="bg-app-green p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-app-red p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
+        </div>
+
+        <div class="col-span-full">
+            <div class="font-bold">Více informací (investor):</div>
+            <div>{{ $project->user->more_info_investor }}</div>
+        </div>
+
+        <div class="col-span-full">
+            <div class="font-bold">Více informací (zadavatel):</div>
+            <div>{{ $project->user->more_info_advertiser }}</div>
+        </div>
+
+        <div class="col-span-full">
+            <div class="font-bold">Více informací (makléř):</div>
+            <div>{{ $project->user->more_info_real_estate_broker }}</div>
+        </div>
+
+
     </div>
 </div>

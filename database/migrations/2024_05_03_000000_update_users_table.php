@@ -22,15 +22,28 @@ return new class extends Migration
             $table->string('city')->nullable()->after('street_number');
             $table->string('psc')->nullable()->after('city');
             $table->text('country')->nullable()->after('psc');
-            $table->string('more_info')->nullable()->after('country');
+            $table->date('birthdate')->nullable()->after('country');
+            $table->text('more_info_investor')->nullable()->after('country');
+            $table->text('more_info_advertiser')->nullable()->after('more_info_investor');
+            $table->text('more_info_real_estate_broker')->nullable()->after('more_info_advertiser');
 
             $table->string('phone_number')->nullable()->after('email');
 
-            $table->boolean('investor')->default(false);
-            $table->boolean('advertiser')->default(false);
-            $table->boolean('real_estate_broker')->default(false);
             $table->boolean('advisor')->default(false);
-            $table->enum('check_status', ['not_verified', 'waiting', 're_verified', 'verified'])->default('not_verified');
+
+            $table->boolean('investor')->default(false);
+            $table->enum('investor_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
+            $table->boolean('show_investor_status')->default(false);
+
+            $table->boolean('advertiser')->default(false);
+            $table->enum('advertiser_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
+            $table->boolean('show_advertiser_status')->default(false);
+
+            $table->boolean('real_estate_broker')->default(false);
+            $table->enum('real_estate_broker_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
+            $table->boolean('show_real_estate_broker_status')->default(false);
+
+            $table->enum('check_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
             $table->boolean('show_check_status')->default(false);
 
             $table->text('notice')->nullable();

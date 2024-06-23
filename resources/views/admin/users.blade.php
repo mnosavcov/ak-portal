@@ -88,7 +88,9 @@
                         <th class="min-w-[200px]">E-mail</th>
                         <th class="min-w-[200px]">Telefon</th>
                         <th class="min-w-[400px]">Informace o investorovi</th>
-                        <th class="min-w-[400px]">Za jakým účelem chce uživatel náš portál využívat</th>
+                        <th class="min-w-[400px]">Účel investor</th>
+                        <th class="min-w-[400px]">Účel zadavatel</th>
+                        <th class="min-w-[400px]">Účel makléř</th>
                         <th class="whitespace-nowrap"></th>
                     </tr>
 
@@ -135,7 +137,7 @@
                                     class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
                                     x-text="statusText(user.check_status)"
                                     :class="statusColor(user.check_status)"
-                                    @click="changeStatus(user.id)">
+                                    @click="changeStatus(user.id, 'check_status')">
                                 </div>
                             </td>
                             <td class="align-top">
@@ -145,6 +147,12 @@
                                     @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0"
                                     x-text="user.investor ? 'ANO' : 'NE'"
                                 >
+                                </div>
+                                <div x-show="user.investor"
+                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                    x-text="statusText(user.investor_status)"
+                                    :class="statusColor(user.investor_status)"
+                                    @click="changeStatus(user.id, 'investor_status')">
                                 </div>
                                 <x-revalidate-column column="investor" :yesNo="true"></x-revalidate-column>
                             </td>
@@ -156,6 +164,12 @@
                                     x-text="user.advertiser ? 'ANO' : 'NE'"
                                 >
                                 </div>
+                                <div x-show="user.advertiser"
+                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                    x-text="statusText(user.advertiser_status)"
+                                    :class="statusColor(user.advertiser_status)"
+                                    @click="changeStatus(user.id, 'advertiser_status')">
+                                </div>
                                 <x-revalidate-column column="advertiser" :yesNo="true"></x-revalidate-column>
                             </td>
                             <td class="align-top">
@@ -165,6 +179,12 @@
                                     @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0"
                                     x-text="user.real_estate_broker ? 'ANO' : 'NE'"
                                 >
+                                </div>
+                                <div x-show="user.real_estate_broker"
+                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                    x-text="statusText(user.real_estate_broker_status)"
+                                    :class="statusColor(user.real_estate_broker_status)"
+                                    @click="changeStatus(user.id, 'real_estate_broker_status')">
                                 </div>
                                 <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
                             </td>
@@ -238,9 +258,23 @@
                             <td class="align-top">
                                 <div
                                     class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
-                                    x-html="user.more_info === null ? '' : user.more_info.trim().replace(/\n/g, '<br>')">
+                                    x-html="user.more_info_investor === null ? '' : user.more_info_investor.trim().replace(/\n/g, '<br>')">
                                 </div>
-                                <x-revalidate-column column="more_info" :br="true"></x-revalidate-column>
+                                <x-revalidate-column column="more_info_investor" :br="true"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                    x-html="user.more_info_advertiser === null ? '' : user.more_info_advertiser.trim().replace(/\n/g, '<br>')">
+                                </div>
+                                <x-revalidate-column column="more_info_advertiser" :br="true"></x-revalidate-column>
+                            </td>
+                            <td class="align-top">
+                                <div
+                                    class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                    x-html="user.more_info_real_estate_broker === null ? '' : user.more_info_real_estate_broker.trim().replace(/\n/g, '<br>')">
+                                </div>
+                                <x-revalidate-column column="more_info_real_estate_broker" :br="true"></x-revalidate-column>
                             </td>
                             <td class="align-top">
                                 <button type="button" x-show="indexTab !== 'deleted'"

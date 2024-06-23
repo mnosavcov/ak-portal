@@ -27,13 +27,18 @@ class UsersService
             'city' => null,
             'psc' => null,
             'country' => null,
-            'more_info' => null,
+            'more_info_investor' => null,
+            'more_info_advertiser' => null,
+            'more_info_real_estate_broker' => null,
             'email' => 'smazany-' . date('Y-m-d-H-i-s-') . $id . '@pvtrusted.cz',
             'phone_number' => null,
             'password' => Hash::make(Str::random('32')),
             'investor' => 0,
+            'investor_status' => 'not_verified',
             'advertiser' => 0,
+            'advertiser_status' => 'not_verified',
             'real_estate_broker' => 0,
+            'real_estate_broker_status' => 'not_verified',
             'advisor' => 0,
             'check_status' => 'not_verified',
             'notice' => null,
@@ -42,6 +47,9 @@ class UsersService
         ]);
 
         $user->email_verified_at = null;
+        $user->show_investor_status = 0;
+        $user->show_advertiser_status = 0;
+        $user->show_real_estate_broker_status = 0;
         $user->show_check_status = 0;
         $user->remember_token = null;
         $user->last_verified_data = null;

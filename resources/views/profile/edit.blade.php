@@ -59,7 +59,8 @@
                     class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                     <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET</div>
                     <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Abyste mohli využívat všechny funkce portálu, musíte zadat osobní údaje a ověřit svůj účet.
+                        Abyste mohli využívat všechny funkce portálu u zvoleného typu účtu (či typů účtů), musíte zadat
+                        osobní údaje a sdělit nám své záměry.
                     </div>
                 </div>
             </div>
@@ -142,11 +143,30 @@
                         </div>
                         <div x-text="countryText()"
                              class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                            Upřesnění záměrů
-                        </div>
-                        <div x-html="moreInfoText()"
-                             class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+
+                        @if($user->investor)
+                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                Upřesnění záměrů – jako investor
+                            </div>
+                            <div x-html="moreInfoTextInvestor()"
+                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                        @endif
+
+                        @if($user->advertiser)
+                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                Upřesnění záměrů – jako nabízející
+                            </div>
+                            <div x-html="moreInfoTextAdvertiser()"
+                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                        @endif
+
+                        @if($user->real_estate_broker)
+                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                Upřesnění záměrů – jako realitní makléř
+                            </div>
+                            <div x-html="moreInfoTextRealEstateBroker()"
+                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                        @endif
                     </div>
 
                     <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?

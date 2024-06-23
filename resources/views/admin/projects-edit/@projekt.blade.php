@@ -80,7 +80,19 @@
                 <x-select-input id="status" name="status" class="block mt-1 w-full" type="text" :options="$statuses"
                                 x-model="statusSelected"/>
                 <div x-text="data[statusSelected].description" class="mt-[5px]"></div>
-                @if($project->user->check_status !== 'verified')
+                @if(
+                    $project->user->check_status !== 'verified'
+                    || ((
+                        $project->user_account_type === 'advertiser'
+                        && (!$project->user->advertiser
+                        || $project->user->advertiser_status !== 'verified')
+                    )
+                    || (
+                        $project->user_account_type === 'real-estate-broker'
+                        && (!$project->user->real_estate_broker
+                        || $project->user->real_estate_broker_status !== 'verified')
+                    ))
+                )
                     <div class="p-[5px_15px] rounded-[3px] text-white bg-app-red">Zadavatel není ověřený</div>
                 @endif
             </div>

@@ -565,7 +565,11 @@ class Project extends Model
             return true;
         }
 
-        return auth()->user()->isVerified();
+        if(auth()->user()->isVerifiedInvestor()) {
+            return true;
+        }
+
+        return false;
     }
 
     public function isMine(): bool
