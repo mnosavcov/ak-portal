@@ -44,6 +44,13 @@ class BeforeMiddleware
             }
         } else
 
+            if (Auth::user() && Auth::user()->deleted_at) {
+                Auth::guard('web')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect('/');
+            }
+
             if (
                 Auth::user()
                 && (Auth::user()->banned_at)
