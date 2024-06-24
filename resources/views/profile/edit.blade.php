@@ -81,12 +81,68 @@
             </div>
         @endif
 
-        @if(auth()->user()->check_status === 'verified' && auth()->user()->show_check_status)
-            <div class="mb-[20px]" x-data="{
+        @foreach([
+            'investor_status_verified' => [
+                'column' => 'investor',
+                'item' => 'investor_status',
+                'title' => 'VÁŠ ÚČET INVESTORA BYL OVĚŘEN',
+                'text' => 'Nyní můžete využívat všechny funkce portálu v roli investora – zejména podávat nabídky u projektů.',
+                'status' => 'verified',
+                'class' => 'bg-app-green',
+                'show' => 'show_investor_status',
+            ],
+            'investor_status_denied' => [
+                'column' => 'investor',
+                'item' => 'investor_status',
+                'title' => 'VÁŠ ÚČET INVESTORA NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                'text' => 'Administrátor Vám u Účtu investora na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                'status' => 'denied',
+                'class' => 'bg-app-red',
+                'show' => 'show_investor_status',
+            ],
+            'advertiser_status_verified' => [
+                'column' => 'advertiser',
+                'item' => 'advertiser_status',
+                'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO BYL OVĚŘEN',
+                'text' => 'Nyní můžete využívat všechny funkce portálu v roli nabízejícího – zejména zveřejňovat projekty k prodeji.',
+                'status' => 'verified',
+                'class' => 'bg-app-green',
+                'show' => 'show_advertiser_status',
+            ],
+            'advertiser_status_denied' => [
+                'column' => 'advertiser',
+                'item' => 'advertiser_status',
+                'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                'text' => 'Administrátor Vám u Účtu nabízejícího na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                'status' => 'denied',
+                'class' => 'bg-app-red',
+                'show' => 'show_advertiser_status',
+            ],
+            'real_estate_broker_status_verified' => [
+                'column' => 'real_estate_broker',
+                'item' => 'real_estate_broker_status',
+                'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE BYL OVĚŘEN',
+                'text' => 'Nyní můžete využívat všechny funkce portálu v roli realitního makléře – zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka.',
+                'status' => 'verified',
+                'class' => 'bg-app-green',
+                'show' => 'show_real_estate_broker_status',
+            ],
+            'real_estate_broker_status_denied' => [
+                'column' => 'real_estate_broker',
+                'item' => 'real_estate_broker_status',
+                'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                'text' => 'Administrátor Vám u Účtu realitího makléře na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                'status' => 'denied',
+                'class' => 'bg-app-red',
+                'show' => 'show_real_estate_broker_status',
+            ],
+        ] as $index => $item)
+            @if(auth()->user()->{$item['column']} && auth()->user()->{$item['item']} === $item['status'] && auth()->user()->{$item['show']})
+                <div class="mb-[20px]" x-data="{
                     openInfo: true,
                     async closeInfo() {
                         this.openInfo = false;
-                        await fetch('/profil/hide-verify-info', {
+                        await fetch('{{ route('profile.hide-verify-info', ['type' => $item['show']]) }}', {
                             method: 'POST',
                             headers: {
                                 'Content-type': 'application/json; charset=UTF-8',
@@ -99,22 +155,23 @@
                             });
                     },
                 }" x-show="openInfo" x-collapse>
-                <div
-                    class="p-[15px] bg-app-green w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] relative">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                        VÁŠ ÚČET BYL ÚSPĚŠNĚ OVĚŘEN
-                    </div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Nyní můžete náš portál využívat bez omezení.
-                    </div>
+                    <div
+                        class="{{ $item['class'] }} p-[15px] w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] relative">
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            {{ $item['title'] }}
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            {{ $item['text'] }}
+                        </div>
 
-                    <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
-                         class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
-                         @click="closeInfo()"
-                    >
+                        <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
+                             class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
+                             @click="closeInfo()"
+                        >
+                    </div>
                 </div>
-            </div>
-        @endif
+            @endif
+        @endforeach
 
         <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
             px-[10px] py-[25px]

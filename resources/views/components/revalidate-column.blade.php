@@ -1,6 +1,18 @@
 @props(['column', 'yesNo' => false, 'br' => false])
 
-<template x-if="proxyData.usersOrigin[user.id].check_status === 're_verified'">
+<template x-if="
+        proxyData.usersOrigin[user.id].check_status === 're_verified'
+        || (
+            proxyData.usersOrigin[user.id].investor
+            && proxyData.usersOrigin[user.id].investor_status === 're_verified'
+        ) || (
+            proxyData.usersOrigin[user.id].advertiser
+            && proxyData.usersOrigin[user.id].advertiser_status === 're_verified'
+        ) || (
+            proxyData.usersOrigin[user.id].real_estate_broker
+            && proxyData.usersOrigin[user.id].real_estate_broker_status === 're_verified'
+        )
+    ">
     <div
          x-data="{
                 yesNo: @js($yesNo),

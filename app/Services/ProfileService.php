@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,31 +9,34 @@ class ProfileService
 {
 
     private const VERIFY_COLUMNS = [
-        'title_before',
-        'name',
-        'surname',
-        'title_after',
-        'street',
-        'street_number',
-        'city',
-        'psc',
-        'country',
+        'title_before' => 'title_before',
+        'name' => 'name',
+        'surname' => 'surname',
+        'title_after' => 'title_after',
+        'street' => 'street',
+        'street_number' => 'street_number',
+        'city' => 'city',
+        'psc' => 'psc',
+        'country' => 'country',
+        'birthdate' => 'birthdate',
     ];
 
     private const VERIFY_COLUMNS_INVESTOR = [
-        'more_info_investor',
-        'investor',
+        'more_info_investor' => 'more_info_investor',
+        'investor' => 'investor',
     ];
 
     private const VERIFY_COLUMNS_ADVERTISER = [
-        'more_info_advertiser',
-        'advertiser',
+        'more_info_advertiser' => 'more_info_advertiser',
+        'advertiser' => 'advertiser',
     ];
 
     private const VERIFY_COLUMNS_REAL_ESTATE_BROKER = [
-        'more_info_real_estate_broker',
-        'real_estate_broker',
+        'more_info_real_estate_broker' => 'more_info_real_estate_broker',
+        'real_estate_broker' => 'real_estate_broker',
     ];
+
+    private const COLUMNS_BKP_DATA = self::VERIFY_COLUMNS + self::VERIFY_COLUMNS_INVESTOR + self::VERIFY_COLUMNS_ADVERTISER + self::VERIFY_COLUMNS_REAL_ESTATE_BROKER;
 
     public function verifyAccount(Request $request, array $columns, $returnBool = false)
     {
@@ -49,19 +51,30 @@ class ProfileService
 
         if (isset($request->post('data')['type'])) {
             if ($request->post('data')['type'] === 'investor') {
-                $update['investor_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS_INVESTOR);
+                $update['investor_status'] = $this->getStatus($user, $data, $columns, 'investor_status', 'show_investor_status');
+                if($user->investor_status === 'denied') {
+                    $update = [];
+                }
             }
             if ($request->post('data')['type'] === 'advertiser') {
-                $update['advertiser_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS_ADVERTISER);
+                $update['advertiser_status'] = $this->getStatus($user, $data, $columns, 'advertiser_status', 'show_advertiser_status');
+                if($user->advertiser_status === 'denied') {
+                    $update = [];
+                }
             }
             if ($request->post('data')['type'] === 'real_estate_broker') {
-                $update['real_estate_broker_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS_REAL_ESTATE_BROKER);
+                $update['real_estate_broker_status'] = $this->getStatus($user, $data, $columns, 'real_estate_broker_status', 'show_real_estate_broker_status');
+                if($user->real_estate_broker_status === 'denied') {
+                    $update = [];
+                }
             }
         } else {
-            $update['check_status'] = $this->getStatus($user, $data, $columns, self::VERIFY_COLUMNS);
+            $update['check_status'] = $this->getStatus($user, $data, $columns, 'check_status', 'show_check_status');
         }
 
-        $user->update($update);
+        if($update) {
+            $user->update($update);
+        }
 
         if ($returnBool) {
             return true;
@@ -72,15 +85,15 @@ class ProfileService
         ]);
     }
 
-    private function getStatus($user, $data, $columns, $verifyColumn)
+    private function getStatus($user, $data, $columns, $statusColumn, $showStatusColumn)
     {
-        $checkStatus = $user->check_status;
+        $checkStatus = $user->{$statusColumn};
         $status = $checkStatus;
         $saveOldData = false;
 
         $oldData = [];
         $existsChange = false;
-        foreach ($verifyColumn as $column) {
+        foreach (self::COLUMNS_BKP_DATA as $column) {
             if (
                 in_array($column, $columns)
                 && trim($user->{$column} ?? '') !== trim($data[$column] ?? '')
@@ -91,7 +104,7 @@ class ProfileService
         }
 
         if ($checkStatus === 'not_verified') {
-            $user->show_check_status = true;
+            $user->{$showStatusColumn} = true;
             $user->save();
             $status = 'waiting';
         } elseif ($checkStatus === 'waiting') {
@@ -99,7 +112,7 @@ class ProfileService
         } elseif ($checkStatus === 're_verified') {
             $status = 're_verified';
         } elseif ($checkStatus === 'verified' && $existsChange) {
-            $user->show_check_status = true;
+            $user->{$showStatusColumn} = true;
             $user->save();
             $status = 're_verified';
             $saveOldData = true;

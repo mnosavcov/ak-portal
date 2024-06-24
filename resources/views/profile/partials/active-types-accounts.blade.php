@@ -87,6 +87,9 @@
                     return 'Ověřený typ účtu'
                 }
             } else if(this.user[index + '_status'] === 'denied') {
+                if(item === 'bool') {
+                    return false;
+                }
                 if(item === 'color') {
                     return 'text-app-red'
                 }
@@ -107,6 +110,10 @@
                 if(item === 'text') {
                     return 'Čekáte na ověření'
                 }
+            }
+
+            if(item === 'bool') {
+                return true;
             }
         }
     }">
@@ -161,22 +168,24 @@
                         </div>
 
                         <div class="text-right w-full max-tablet:text-center">
-                            <button @click="removeType(index)"
-                                    class="inline-block font-Spartan-SemiBold text-[13px] text-app-red leading-[22px]">
-                                Zrušit&nbsp;typ&nbsp;účtu
-                            </button>
+                            <template x-if="typeStatusClass(index, 'bool')">
+                                <button @click="removeType(index)"
+                                        class="inline-block font-Spartan-SemiBold text-[13px] text-app-red leading-[22px]">
+                                    Zrušit&nbsp;typ&nbsp;účtu
+                                </button>
+                            </template>
                         </div>
                     </div>
                 </div>
             </template>
         </div>
 
-{{--        <button type="submit" x-cloak x-show="change" x-collapse--}}
-{{--                @click="setAccountTypes()"--}}
-{{--                class="mt-[30px] col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"--}}
-{{--        >--}}
-{{--            Uložit změny--}}
-{{--        </button>--}}
+        {{--        <button type="submit" x-cloak x-show="change" x-collapse--}}
+        {{--                @click="setAccountTypes()"--}}
+        {{--                class="mt-[30px] col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"--}}
+        {{--        >--}}
+        {{--            Uložit změny--}}
+        {{--        </button>--}}
     </div>
 
     <x-modal name="add-account-types">

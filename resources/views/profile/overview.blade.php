@@ -38,9 +38,9 @@
 
         @if(
             !auth()->user()->isVerified()
-            || ($account === 'investor' && !auth()->user()->isVerifiedInvestor())
-            || ($account === 'advertiser' && !auth()->user()->isVerifiedAdvertiser())
-            || ($account === 'real-estate-broker' && !auth()->user()->isVerifiedRealEstateBrokerStatus())
+            || ($account === 'investor' && auth()->user()->investor && !auth()->user()-> isVerifiedInvestor())
+            || ($account === 'advertiser' && auth()->user()->advertiser && !auth()->user()->isVerifiedAdvertiser())
+            || ($account === 'real-estate-broker' && auth()->user()->real_estate_broker && !auth()->user()->isVerifiedRealEstateBrokerStatus())
             )
             <div class="max-w-[1230px] px-[15px] mx-auto pb-[20px] mt-[-20px]">
                 <div

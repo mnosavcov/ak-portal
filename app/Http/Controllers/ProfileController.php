@@ -339,9 +339,9 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function hideVerifyInfo(Request $request)
+    public function hideVerifyInfo(Request $request, $type)
     {
-        $request->user()->show_check_status = false;
+        $request->user()->{$type} = false;
         $request->user()->save();
     }
 }

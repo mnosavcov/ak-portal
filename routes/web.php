@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function () {
         ->name('profile.verify-new-email');
 
     Route::post('/profil/verify-account', [ProfileController::class, 'verifyAccount'])->name('profile.verify-account');
-    Route::post('profil/hide-verify-info', [ProfileController::class, 'hideVerifyInfo'])->name('profile.hide-verify-info');
+    Route::post('profil/hide-verify-info/{type}', [ProfileController::class, 'hideVerifyInfo'])->name('profile.hide-verify-info');
     Route::post('profil/set-account-types', [ProfileController::class, 'setAccountTypes'])->name('profile.set-account-types');
 
     Route::middleware('user.superadmin')->group(function () {

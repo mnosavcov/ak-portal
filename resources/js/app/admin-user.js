@@ -195,20 +195,28 @@ Alpine.data('adminUser', (id) => ({
         return 'bg-black text-white'
     },
     changeStatus(id, stateName) {
-        if (this.proxyData.users[id][stateName] === 'verified') {
-            if (this.proxyData.usersOrigin[id][stateName] === 'verified') {
-                this.proxyData.users[id][stateName] = 'not_verified';
-            } else {
-                this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName];
-            }
-        } else if (
-            this.proxyData.users[id][stateName] !== 'denied'
-            && (this.proxyData.users[id][stateName] === 'not_verified'
-            || this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName])
+        if (
+            this.proxyData.usersOrigin[id][stateName] === 'verified'
+            || this.proxyData.usersOrigin[id][stateName] === 'denied'
+            || this.proxyData.usersOrigin[id][stateName] === 'not_verified'
         ) {
-            this.proxyData.users[id][stateName] = 'denied';
+            if(this.proxyData.users[id][stateName] === 'verified') {
+                this.proxyData.users[id][stateName] = 'not_verified';
+            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+                this.proxyData.users[id][stateName] = 'denied';
+            } else if(this.proxyData.users[id][stateName] === 'denied') {
+                this.proxyData.users[id][stateName] = 'verified';
+            }
         } else {
-            this.proxyData.users[id][stateName] = 'verified';
+            if(this.proxyData.users[id][stateName] === 'verified') {
+                this.proxyData.users[id][stateName] = 'not_verified';
+            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+                this.proxyData.users[id][stateName] = 'denied';
+            } else if(this.proxyData.users[id][stateName] === 'denied') {
+                this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
+            } else if(this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
+                this.proxyData.users[id][stateName] = 'verified';
+            }
         }
     },
     async saveUsers() {
