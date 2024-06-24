@@ -70,6 +70,7 @@
                             Poznámka ke kontaktu (interní informace, není vidět veřejně)
                         </th>
                         <th class="min-w-[400px] text-app-red" x-show="indexTab === 'banned'">Důvod</th>
+                        <th class="min-w-[200px]">E-mail</th>
                         <th class="whitespace-nowrap">E-mail</th>
                         <th class="whitespace-nowrap" x-show="indexTab === 'deleted'">Smazáno</th>
                         <th class="whitespace-nowrap">Ověřeno</th>
@@ -85,7 +86,6 @@
                         <th class="min-w-[200px]">Obec</th>
                         <th class="min-w-[100px]">PSČ</th>
                         <th class="min-w-[250px]">Občanství</th>
-                        <th class="min-w-[200px]">E-mail</th>
                         <th class="min-w-[200px]">Telefon</th>
                         <th class="min-w-[400px]">Informace o investorovi</th>
                         <th class="min-w-[400px]">Účel investor</th>
@@ -117,6 +117,10 @@
                                                   x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.ban_info !== null && user.ban_info.trim()}"
                                                   type="text"
                                                   x-model="user.ban_info"/>
+                            </td>
+                            <td class="align-top">
+                                <x-text-input id="email" class="block group-hover:bg-gray-200" type="text"
+                                              x-model="user.email" required/>
                             </td>
                             <td class="align-top">
                                 <div
@@ -238,10 +242,6 @@
                                                         type="text"/>
                                 </div>
                                 <x-revalidate-column column="country"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="email" class="block group-hover:bg-gray-200" type="text"
-                                              x-model="user.email" required/>
                             </td>
                             <td class="align-top">
                                 <x-text-input id="phone_number"

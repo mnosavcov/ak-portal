@@ -29,7 +29,11 @@
                     <div x-init="projectDetails.data = @js($projectDetails);"></div>
                 @endif
                 @if($project->files->count())
-                    <div x-init="projectFiles.data = @js($project->files->pluck(null, 'id'));"></div>
+                    <div x-init="
+                            projectFiles.data = @js($project->files->pluck(null, 'id'));
+                            projectFolders = @js($project->files()->whereNotNull('folder')->pluck('folder', 'folder'));
+                            console.log(projectFolders);
+                        "></div>
                 @endif
                 @if($project->galleries->count())
                     <div x-init="projectGalleries.data = @js($project->galleries->pluck(null, 'id'));"></div>

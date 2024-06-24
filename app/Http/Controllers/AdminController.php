@@ -207,9 +207,7 @@ class AdminController extends Controller
 
                 Storage::delete($projectFile->filepath);
                 $projectFile->delete();
-            }
-
-            if (isset($file->copy) && $file->public === 0) {
+            } elseif (isset($file->copy) && $file->public === 0) {
                 $projectFile = ProjectFile::where('project_id', $project->id)->where('public', false)->find($file->id);
                 if (!$projectFile) {
                     continue;
@@ -230,6 +228,11 @@ class AdminController extends Controller
                 ]);
 
                 $project->files()->save($projectFile);
+            } else {
+                ProjectFile::find($file->id)->update([
+                    'folder' => empty(trim($file->folder)) ? null : trim($file->folder),
+                    'description' => $file->description,
+                ]);
             }
         }
 

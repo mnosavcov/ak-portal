@@ -18,6 +18,8 @@ class ProjectFile extends Model
         'filename',
         'order',
         'public',
+        'folder',
+        'description',
     ];
 
     protected $appends = [

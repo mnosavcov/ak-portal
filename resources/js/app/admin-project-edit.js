@@ -39,6 +39,11 @@ Alpine.data('adminProjectEdit', (id) => ({
         data: {},
     },
 
+    projectFolders: [],
+
+    newFolderName: '',
+    newFolderFile: null,
+
     projectGalleries: {
         data: {},
         setHead() {
