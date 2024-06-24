@@ -153,26 +153,34 @@
             <template x-for="(type, index) in types" :key="index">
                 <div x-cloak x-show="user[index]" x-collapse>
                     <div
-                        class="grid tablet:grid-cols-[2fr_2fr_1fr] gap-y-[15px] gap-x-[50px] border border-[#D9E9F2] rounded-[3px] px-[25px] py-[20px]">
+                        class="grid laptop:grid-cols-[2fr_2fr_1fr] gap-y-[15px] gap-x-[50px] border border-[#D9E9F2] rounded-[3px] px-[25px] py-[20px]">
                         <div
-                            class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center"
+                            class="font-Spartan-Regular text-[13px] max-laptop:order-1 text-[#454141] leading-[22px] max-laptop:text-center"
                             x-text="type.title + ' ' + type.short"
                         >
                         </div>
 
                         <div
-                            class="font-Spartan-Regular text-[13px] max-tablet:order-1 leading-[22px] max-tablet:text-center"
+                            class="font-Spartan-Regular text-[13px] max-laptop:order-1 leading-[22px] max-laptop:text-center"
                             :class="typeStatusClass(index, 'color')"
                             x-text="typeStatusClass(index, 'text')"
                         >
                         </div>
 
-                        <div class="text-right w-full max-tablet:text-center">
+                        <div class="text-right w-full max-laptop:text-center"
+                             :class="{'order-last': !typeStatusClass(index, 'bool')}"
+                        >
                             <template x-if="typeStatusClass(index, 'bool')">
                                 <button @click="removeType(index)"
                                         class="inline-block font-Spartan-SemiBold text-[13px] text-app-red leading-[22px]">
                                     Zrušit&nbsp;typ&nbsp;účtu
                                 </button>
+                            </template>
+                            <template x-if="!typeStatusClass(index, 'bool')">
+                                <div
+                                        class="text-center laptop:text-left inline-block font-Spartan-Regular text-[13px] text-[#454141] leading-[22px]">
+                                    Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na <a href="mailto:info@pvtrusted.cz" class="text-app-blue">info@pvtrusted.cz</a>
+                                </div>
                             </template>
                         </div>
                     </div>
