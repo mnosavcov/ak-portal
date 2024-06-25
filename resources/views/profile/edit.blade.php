@@ -96,6 +96,28 @@
             </div>
         @endif
 
+        @if(
+                auth()->user()->investor_status === 're_verified'
+                || auth()->user()->investor_status === 'waiting'
+                || auth()->user()->advertiser_status === 're_verified'
+                || auth()->user()->advertiser_status === 'waiting'
+                || auth()->user()->real_estate_broker_status === 're_verified'
+                || auth()->user()->real_estate_broker_status === 'waiting'
+            )
+            <div class="mb-[20px]">
+                <div
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                        ÚDAJE U NOVĚ PŘIDANÉHO TYPU ÚČTU (ČI TYPŮ ÚČTU) ČEKAJÍ NA OVĚŘENÍ
+                    </div>
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                        Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme proces
+                        ověření účtu.
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @foreach([
             'investor_status_verified' => [
                 'column' => 'investor',
@@ -216,29 +238,29 @@
                         <div x-text="countryText()"
                              class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
 
-{{--                        @if($user->investor)--}}
-{{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-{{--                                Upřesnění záměrů – jako investor--}}
-{{--                            </div>--}}
-{{--                            <div x-html="moreInfoTextInvestor()"--}}
-{{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-{{--                        @endif--}}
+                        {{--                        @if($user->investor)--}}
+                        {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
+                        {{--                                Upřesnění záměrů – jako investor--}}
+                        {{--                            </div>--}}
+                        {{--                            <div x-html="moreInfoTextInvestor()"--}}
+                        {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
+                        {{--                        @endif--}}
 
-{{--                        @if($user->advertiser)--}}
-{{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-{{--                                Upřesnění záměrů – jako nabízející--}}
-{{--                            </div>--}}
-{{--                            <div x-html="moreInfoTextAdvertiser()"--}}
-{{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-{{--                        @endif--}}
+                        {{--                        @if($user->advertiser)--}}
+                        {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
+                        {{--                                Upřesnění záměrů – jako nabízející--}}
+                        {{--                            </div>--}}
+                        {{--                            <div x-html="moreInfoTextAdvertiser()"--}}
+                        {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
+                        {{--                        @endif--}}
 
-{{--                        @if($user->real_estate_broker)--}}
-{{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-{{--                                Upřesnění záměrů – jako realitní makléř--}}
-{{--                            </div>--}}
-{{--                            <div x-html="moreInfoTextRealEstateBroker()"--}}
-{{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-{{--                        @endif--}}
+                        {{--                        @if($user->real_estate_broker)--}}
+                        {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
+                        {{--                                Upřesnění záměrů – jako realitní makléř--}}
+                        {{--                            </div>--}}
+                        {{--                            <div x-html="moreInfoTextRealEstateBroker()"--}}
+                        {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
+                        {{--                        @endif--}}
                     </div>
 
                     <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?
