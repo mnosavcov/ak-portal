@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -73,5 +74,14 @@ class UsersService
         $user->banned_at = null;
         $user->ban_info = null;
         $user->save();
+    }
+
+    public function logout()
+    {
+        if (Auth::user()) {
+            Auth::guard('web')->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+        }
     }
 }

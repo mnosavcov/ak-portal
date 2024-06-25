@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Project;
+use App\Services\UsersService;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
@@ -45,9 +46,7 @@ class BeforeMiddleware
         } else
 
             if (Auth::user() && Auth::user()->deleted_at) {
-                Auth::guard('web')->logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
+                (new UsersService())->logout();
                 return redirect('/');
             }
 
