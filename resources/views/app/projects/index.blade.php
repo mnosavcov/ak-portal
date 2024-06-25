@@ -6,13 +6,11 @@
     @endisset
 
     <div class="w-full max-w-[1230px] mx-auto">
-        <x-app.breadcrumbs :breadcrumbs="[
-            'Projekty' => Route('projects.index')
-        ]"></x-app.breadcrumbs>
+        <x-app.breadcrumbs :breadcrumbs="$breadcrumbs"></x-app.breadcrumbs>
     </div>
 
     <div class="max-w-[1230px] mx-auto">
-        <h1 class="mx-[15px] mb-[30px] tablet:mb-[40px] laptop:mb-[50px]">Projekty</h1>
+        <h1 class="mx-[15px] mb-[30px] tablet:mb-[40px] laptop:mb-[50px]">{{ $title }}</h1>
     </div>
 
     <div class="relative min-h-[500px] mb-[100px]">

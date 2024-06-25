@@ -1,42 +1,38 @@
-@if(!$project->isVerified())
+@if(auth()->guest())
     <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
-        @if(auth()->guest())
-            <div>
-                <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky
-                    a
-                    zobrazení
-                    všech údajů se musíte přihlásit a mít ověřený účet.
-                </div>
-                <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
-                    Nemáte účet?
-                    <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">Registrujte
-                        se</a>
-                </div>
+        <div>
+            <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
+                Pro zaslání nabídky a zobrazení všech údajů se musíte přihlásit jako investor a mít ověřený
+                účet.
             </div>
-            <div class="text-center">
-                <a type="button" href="{{ route('login') }}"
-                   class="self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+            <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
+                Nemáte účet?
+                <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">Registrujte
+                    se</a>
+            </div>
+        </div>
+        <div class="text-center laptop:text-right">
+            <a type="button" href="{{ route('login') }}"
+               class="text-center self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                    Přihlásit se
-                </a>
-            </div>
-        @else
-            <div>
-                <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">Pro zaslání nabídky
-                    a
-                    zobrazení všech údajů musíte ověřit účet.
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="{{ route('profile.edit') }}"
-                   class="inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                Přihlásit se
+            </a>
+        </div>
+    </div>
+@elseif(auth()->user()->investor && !auth()->user()->isInvestorVerified())
+    <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
+        <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
+            Pro zobrazení všech údajů nebo zaslání nabídky musíte ověřit svůj účet.
+        </div>
+        <div class="text-center laptop:text-right">
+            <a href="{{ route('profile.edit') }}"
+               class="text-center inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                    Ověřit účet
-                </a>
-            </div>
-        @endif
+                Ověřit účet
+            </a>
+        </div>
     </div>
 @else
     @if(auth()->user()->investor)
@@ -86,7 +82,7 @@
                                         let offer = parseInt(String(offerPrice).replace(/\s+/g, ''))
                                         let offerFormated = offerPrice
                                         if(Number.isNaN(offer) || offer < minPrice) {
-                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!}')
+                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!} Kč')
                                             return;
                                         }
                                     $dispatch('open-modal', {name: 'send-offer', offer: offer, offerFormated: formatMoney(offerPrice)})
@@ -163,7 +159,7 @@
                             </div>
                             <div
                                 class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]"
-                                x-text="inputData.offerFormated">
+                                x-text="inputData.offerFormated + ' Kč'">
                             </div>
                         </div>
                     </div>
@@ -173,19 +169,18 @@
                                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                             <div class="text-left">
                                 <p class="mb-[10px]">
-                                    <span class="font-Spartan-SemiBold">Podáním nabídky se určuje pořadí projeveného zájmu o koupi.</span>Aby
-                                    vaše nabídka byla platná, je třeba uhradit <span
-                                        class="font-Spartan-SemiBold">jistinu</span>,
+                                    <span class="font-Spartan-SemiBold">Podáním nabídky se určuje pořadí projeveného zájmu o koupi.</span>
+                                    Aby vaše nabídka byla platná, je třeba uhradit <span class="font-Spartan-SemiBold">jistotu</span>,
                                     jejíž výše je uvedena u projektu.
                                 </p>
                                 <p class="mb-[10px]">
                                     Po potvrzení vašeho zájmu podáním nabídky vás budeme kontaktovat a
                                     zašleme
                                     vám
-                                    instrukce k úhradě jistiny.
+                                    instrukce k úhradě jistoty.
                                 </p>
                                 <p>
-                                    Jistina musí být připsána na náš účet nejpozději do dvou pracovních dní
+                                    Jistota musí být připsána na náš účet nejpozději do dvou pracovních dní
                                     od
                                     zaslání instrukcí k úhradě. V opačném případě může být vaše nabídka z
                                     pořadníku
@@ -221,15 +216,16 @@
                     ">
             <div>
                 <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-                    Pro zaslání nabídky a musíte nastavit typ účtu jako investor.
+                    Abyste mohli vidět všechny údaje o projektu, musíte v “Nastavení účtu” přidat typ účtu “Účet
+                    investora” a projít procesem ověření.
                 </div>
             </div>
-            <div class="text-center">
-                <a href="{{ route('profile.edit') }}"
-                   class="inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+            <div class="text-center laptop:text-right">
+                <a href="{{ route('profile.edit', ['add' => 'investor']) }}"
+                   class="text-center inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                    Nastavit účet
+                    Přidat typ účtu
                 </a>
             </div>
         </div>

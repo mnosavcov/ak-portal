@@ -10,7 +10,7 @@
                     Nabídku jste zvolili jako vítěznou
                 @endif
                 @if($project->type === 'fixed-price')
-                    Investor zaplatil jistinu a jeho nabídka byla akceptována
+                    Investor zaplatil jistotu a jeho nabídka byla akceptována
                 @endif
             </span>
         @elseif($offer->principal_paid && $project->isStateEvaluation())
@@ -66,7 +66,7 @@
                 Akceptovat nabídku
             </button>
             <div class="font-Spartan-Regular text-[11px] text-app-orange mt-[20px]">
-                Nabídku bude možné akceptovat, až investor složí jistinu.
+                Nabídku bude možné akceptovat, až investor složí jistotu.
             </div>
         @endif
     </div>

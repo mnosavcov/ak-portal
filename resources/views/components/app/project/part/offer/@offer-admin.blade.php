@@ -71,10 +71,10 @@
                                         return;
                                     }
 
-                                    alert('Chyba nastavení zaplacenní jistiny')
+                                    alert('Chyba nastavení zaplacenní jistoty')
                                 })
                                 .catch((error) => {
-                                    alert('Chyba nastavení zaplacenní jistiny')
+                                    alert('Chyba nastavení zaplacenní jistoty')
                                 });
                         }
                     }"
@@ -89,7 +89,7 @@
                     'bg-app-red': !principal_paid,
                 }"
                 @click="setPrincipalPaid()"
-                x-text="principal_paid ? 'Jistina je uhrazena' : 'Jistina není uhrazena'"
+                x-text="principal_paid ? 'Jistota je uhrazena' : 'Jistota není uhrazena'"
         >
         </button>
     </div>

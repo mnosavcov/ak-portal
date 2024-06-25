@@ -54,7 +54,7 @@
              md:gap-y-[60px]
              tablet:grid-cols-2 tablet:gap-x-[100px]
              desktop:gap-y-[70px] desktop:gap-x-[100px] desktop:grid-cols-3
-             ">
+             items-start">
             @foreach($procItems as $item)
                 <div class="grid grid-cols-1 gap-x-[30px] justify-center
                     max-w-[300px] mx-auto

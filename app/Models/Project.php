@@ -220,7 +220,7 @@ class Project extends Model
     {
         $date = $this->end_date;
         if ($date === null) {
-            $dateText = 'bez termínu';
+            $dateText = 'na neurčito';
         } else {
             $date = Carbon::parse($date, 'Europe/Prague');
             $utcDate = $date->setTimezone('UTC');
@@ -291,7 +291,7 @@ class Project extends Model
     public function endDateTextNormal(): Attribute
     {
         if (empty($this->end_date)) {
-            $dateText = 'bez termínu';
+            $dateText = 'na neurčito';
         } else {
             $dateText = Carbon::parse($this->end_date)->format('d.m.Y H:i:s');
         }
@@ -312,27 +312,25 @@ class Project extends Model
         $type = $this->type;
         if ($type === 'fixed-price' || $type === null) {
             if (auth()->guest()) {
-                $priceText = 'Jen pro přihlášené ';
+                $priceText = 'jen pro přihlášené';
+            } elseif (!auth()->user()->investor) {
+                $priceText = 'jen pro investory';
             } elseif (!$this->isVerified()) {
-                $priceText = 'Pro potvrzený účet';
+                $priceText = 'jen s ověřeným účtem';
             } elseif (empty($price)) {
-                $priceText = 'Cena není zadaná';
+                $priceText = 'cena není zadaná';
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
         } elseif ($type === 'offer-the-price') {
-            if (auth()->guest()) {
-                if ($offer) {
-                    $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
-                } else {
-                    $priceText = 'Jen pro přihlášené';
-                }
-            } elseif (!$this->isVerified()) {
-                $priceText = 'Pro potvrzený účet';
-            } elseif (empty($price)) {
-                $priceText = 'Není zadaná';
-            } else {
+            if ($this->isVerified()) {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+            } else {
+                if ($offer) {
+                    $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
+                } else {
+                    $priceText = 'navrhne investor';
+                }
             }
         }
 
@@ -355,7 +353,7 @@ class Project extends Model
             if (!$this->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
-                $priceText = 'Cena není zadaná';
+                $priceText = 'cena není zadaná';
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
@@ -363,7 +361,7 @@ class Project extends Model
             if (!$this->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
-                $priceText = 'Cena není zadaná';
+                $priceText = 'cena není zadaná';
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
@@ -561,11 +559,11 @@ class Project extends Model
             return false;
         }
 
-        if ($this->user_id === auth()->id()) {
+        if ($this->isMine()) {
             return true;
         }
 
-        if(auth()->user()->isVerifiedInvestor()) {
+        if (auth()->user()->isVerifiedInvestor()) {
             return true;
         }
 
@@ -574,12 +572,16 @@ class Project extends Model
 
     public function isMine(): bool
     {
-        return ($this->user_id === auth()->id());
+        if (auth()->guest()) {
+            return false;
+        }
+
+        return ($this->user_id === auth()->id() || auth()->user()->isSuperadmin());
     }
 
     public function offers()
     {
-        if (!$this->isMine() && !auth()->user()->isSuperadmin()) {
+        if (!$this->isMine()) {
             return [];
         }
 

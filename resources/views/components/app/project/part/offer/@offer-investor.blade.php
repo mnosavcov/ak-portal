@@ -8,7 +8,7 @@
             @endif
             @if($project->type === 'fixed-price')
                 <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px]">
-                    Zaplatili jste jistinu
+                    Zaplatili jste jistotu
                 </div>
                 <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">
                     Vaše nabídka je vítězná, vyčkejte na vyzvání k uzavření Kupní smlouvy
@@ -17,27 +17,27 @@
         @elseif($offer->principal_paid)
             @if($project->type === 'offer-the-price')
                 <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">
-                    Jistinu jste zaplatili
+                    Jistotu jste zaplatili
                 </span>
             @endif
             @if($project->type === 'fixed-price')
                 <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px]">
-                    Zaplatili jste jistinu
+                    Zaplatili jste jistotu
                 </div>
                 @if(\App\Models\ProjectShow::where('project_id', $project->id)->where('winner', 1)->get()->count())
                     <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-red">
-                        Vaše nabídka nebyla akceptována, jelikož jistinu zaplatil i investor, který projevil zájem před
+                        Vaše nabídka nebyla akceptována, jelikož jistotu zaplatil i investor, který projevil zájem před
                         vámi.
                     </div>
                 @else
                     <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-orange">
-                        Čeká se, zda jistinu zaplatí investor, který projevil zájem o projekt před vámi.
+                        Čeká se, zda jistotu zaplatí investor, který projevil zájem o projekt před vámi.
                     </div>
                 @endif
             @endif
         @else
             <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-orange">
-                Čeká se, až uhradíte jistinu
+                Čeká se, až uhradíte jistotu
             </span>
         @endif
     </div>

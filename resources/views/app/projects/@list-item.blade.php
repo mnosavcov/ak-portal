@@ -65,7 +65,7 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_offer.svg')] after:w-[15px] after:h-[15px]
                          text-[11px] tablet:text-[12px] laptop:text-[14px]
                          after:top-0[px] tablet:after:top-3[px]">
-                        cenu nabídnete
+                        cenu navrhuje investor
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]
@@ -83,7 +83,7 @@
                         class="font-Spartan-Regular text-[#31363A]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]">
                         <div class="font-Spartan-SemiBold">Cena:</div>
-                        <div class="font-Spartan-Regular" x-text="project.price_text"></div>
+                        <div class="font-Spartan-Regular">navrhne investor</div>
                     </div>
                 </div>
             </template>
@@ -93,7 +93,7 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_fix.svg')] after:w-[15px] after:h-[15px]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]
                         after:top-0[px] tablet:after:top-3[px]">
-                        fixní nabídková cena
+                        cenu navrhuje nabízející
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]

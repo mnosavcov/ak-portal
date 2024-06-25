@@ -165,7 +165,7 @@
 
             <div class="mt-[10px] pt-[25px]" x-data>
                 <x-input-label for="minimum_principal"
-                               :value="__('Požadovaná jistina')"/>
+                               :value="__('Požadovaná jistota')"/>
                 <x-text-input id="minimum_principal" name="minimum_principal" class="block mt-1 w-full" type="text"
                               value="{{ $project->minimum_principal }}" x-mask:dynamic="$money($input, '.', ' ', 0)"/>
             </div>

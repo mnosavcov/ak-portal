@@ -122,7 +122,7 @@
             tablet:px-[20px] tablet:py-[35px]
             laptop:px-[30px] laptop:py-[50px]
             ">
-        <header>
+        <header id="aktivni-typy-uctu">
             <h2 class="mb-[30px]">{{ __('Aktivní typy účtů') }}</h2>
         </header>
 
@@ -178,8 +178,9 @@
                             </template>
                             <template x-if="!typeStatusClass(index, 'bool')">
                                 <div
-                                        class="text-center laptop:text-left inline-block font-Spartan-Regular text-[13px] text-[#454141] leading-[22px]">
-                                    Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na <a href="mailto:info@pvtrusted.cz" class="text-app-blue">info@pvtrusted.cz</a>
+                                    class="text-center laptop:text-left inline-block font-Spartan-Regular text-[13px] text-[#454141] leading-[22px]">
+                                    Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na <a
+                                        href="mailto:info@pvtrusted.cz" class="text-app-blue">info@pvtrusted.cz</a>
                                 </div>
                             </template>
                         </div>
@@ -241,7 +242,8 @@
                                 <x-input-label for="more_info_advertiser" class="col-span-full">
                                     Za jakým účelem či účely chcete náš portál využívat jako <span
                                         class="text-app-orange">nabízející</span>
-                                    (jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.
+                                    (jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své
+                                    záměry.
                                 </x-input-label>
                                 <x-textarea-input class="col-span-full h-[7rem]"
                                                   x-model="user.more_info_advertiser"></x-textarea-input>
@@ -257,8 +259,10 @@
                                  class="contents">
                                 <x-input-label for="more_info_real_estate_broker" class="col-span-full">
                                     Za jakým účelem či účely chcete náš portál využívat jako <span
-                                        class="text-app-orange">realitní makléř</span> (zprostředkováváte prodej
-                                    projektu například na základě smlouvy o realitním zprostředkování)? Upřesněte své
+                                        class="text-app-orange">realitní makléř</span> (zprostředkováváte
+                                    prodej
+                                    projektu například na základě smlouvy o realitním zprostředkování)?
+                                    Upřesněte své
                                     záměry.
                                 </x-input-label>
                                 <x-textarea-input class="col-span-full h-[7rem]"
@@ -270,11 +274,23 @@
                                     Přidat
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 </template>
             </div>
         </div>
+        @if(session('add') === 'investor')
+            <div x-init="
+                const element = document.getElementById('aktivni-typy-uctu');
+                const offsetTop = element.offsetTop;
+
+                window.scrollTo({
+                    top: offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                $dispatch('open-modal', 'add-account-types');
+                user['open_investor'] = true;
+                "></div>
+        @endif
     </x-modal>
 </section>

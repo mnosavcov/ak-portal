@@ -12,7 +12,7 @@
                     tablet:text-[22px] tablet:leading-[26px] tablet:mb-[50px]
                 ">
                 Ještě u nás nemáte účet?
-                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline">Registrujte se</a></div>
+                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline text-app-blue">Registrujte se</a></div>
 
             <form method="POST" action="{{ route('login') }}" x-data="{loaderShow: false}" @submit="loaderShow = true">
                 @csrf

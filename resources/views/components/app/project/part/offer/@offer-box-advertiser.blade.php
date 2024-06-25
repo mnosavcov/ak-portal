@@ -6,7 +6,7 @@
 </div>
 
 @if($project->offers()->count())
-    <div x-data="{offersOpen: false}">
+    <div x-data="{offersOpen: true}">
         <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative {{ $project->offers()->count() ? 'cursor-pointer' : '' }}
                     after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat"
              @if($project->offers()->count())

@@ -26,7 +26,7 @@
     </div>
 
     <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Složena jistina:</div>
+        <div class="font-Spartan-SemiBold text-[14px]">Složena jistota:</div>
         <div class="font-Spartan-Regular text-[14px]">
             <span class="text-app-green" x-cloak x-show="principal_paid">ano</span>
             <span class="text-app-red" x-cloak x-show="!principal_paid">ne</span>

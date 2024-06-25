@@ -35,8 +35,8 @@ class Category extends Model
             'url' => 'fixed-price',
         ],
         'offer-the-price' => [
-            'title' => 'Cenu navrhuje kupující',
-            'description' => 'Cenu navrhuje kupující',
+            'title' => 'Cenu navrhuje investor',
+            'description' => 'Cenu navrhuje investor',
             'url' => 'offer-the-price',
         ],
     ];

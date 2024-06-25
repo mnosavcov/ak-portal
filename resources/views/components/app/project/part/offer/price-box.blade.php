@@ -21,9 +21,9 @@
                 @endif
                 ">
                 @if($project->type === 'fixed-price')
-                    fixní nabídková cena
+                    cenu navrhuje nabízející
                 @elseif($project->type === 'offer-the-price')
-                    cenu nabídnete
+                    cenu navrhuje investor
                 @else
                     -
                 @endif
@@ -59,7 +59,7 @@
                 @if($project->type === 'fixed-price')
                     {{ $project->price_text }}
                 @elseif($project->type === 'offer-the-price')
-                    nabídne investor
+                    navrhne investor
                 @else
                     -
                 @endif
@@ -97,7 +97,7 @@
             justify-self-start
             laptop:justify-self-end">
                     {!! $project->price_text_offer !!}
-                    @if(auth()->guest())
+                    @if(!$project->isVerified())
                         <div
                             class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left
@@ -106,7 +106,7 @@
                     @endif
                 </div>
             @endif
-            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Požadovaná jistina</div>
+            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Požadovaná jistota</div>
             <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">

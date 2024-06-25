@@ -27,7 +27,7 @@
                     tablet:gap-x-[30px] tablet:pt-[80px] tablet:grid-cols-2
                     laptop:gap-x-[50px] laptop:pt-[110px]
                     ">
-                <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('login') : route('projects.index') }}"
+                <a href="{{ route('projects.index') }}"
                    class="font-Spartan-Regular bg-app-orange text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
@@ -61,7 +61,7 @@
                  style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')"></div>
             <div class="relative mx-auto p-[60px] text-white text-center">
                 <h2 class="mb-[35px] text-white">
-                    Jak se u nás projekty nabízejí?
+                    Jak se u nás projekty prodávají?
                 </h2>
                 <div class="max-w-[720px] mx-auto
                     text-[16px] leading-[26px]
@@ -94,7 +94,7 @@
                          tablet:text-[15px]
                          laptop:text-[18px] laptop:mb-[30px]
                         ">
-                            Cenu navrhuje kupující
+                            Cenu navrhuje investor
                         </div>
 
                         <div class="text-[#31363A] font-Spartan-Regular
@@ -106,22 +106,24 @@
                             placerat enim sit amet, aliquet est.
                         </div>
 
-                        <a href="#" class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
+                        <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}" class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         underline hover:no-underline
                     ">
                             Zobrazit projekty
                         </a>
                         <div></div>
-                        <a href="#" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                        <a href="{{ auth()->guest() ? route('login') : '#' }}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         underline hover:no-underline
                          ">Nabídnout svůj projekt
                         </a>
                     </div>
@@ -152,22 +154,24 @@
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
                             placerat enim sit amet, aliquet est.
                         </div>
-                        <a href="#" class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
+                        <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]) }}" class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         underline hover:no-underline
                             ">
                             Zobrazit projekty
                         </a>
                         <div></div>
-                        <a href="#" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                        <a href="{{ auth()->guest() ? route('login') : '#' }}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         underline hover:no-underline
                             ">
                             Nabídnout svůj projekt
                         </a>

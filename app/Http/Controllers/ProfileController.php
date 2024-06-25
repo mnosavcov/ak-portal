@@ -30,8 +30,12 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
+        if($request->get('add') === 'investor') {
+            return  redirect()->route('profile.edit')->with('add', 'investor');
+        }
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);

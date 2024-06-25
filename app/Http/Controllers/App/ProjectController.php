@@ -26,12 +26,20 @@ class ProjectController extends Controller
         $projectAll = Project::isPublicated()->forDetail();
         $description = '';
 
+        $title = 'Projekty';
+        $breadcrumbs = [
+            'Projekty' => Route('projects.index')
+        ];
+
         if($category) {
             if(!isset(Category::CATEGORIES[$category])) {
                 return redirect()->route('projects.index');
             }
             $projectAll = $projectAll->where('type', $category);
             $description = Category::CATEGORIES[$category]['description'];
+
+            $title = Category::CATEGORIES[$category]['title'];
+            $breadcrumbs[$title] = route('projects.index', ['category' => $category]);
         }
 
         if($subcategory) {
@@ -40,8 +48,10 @@ class ProjectController extends Controller
             if(!$description) {
                 return redirect()->route('projects.index', ['category' => $category]);
             }
-
             $description = $description->description;
+
+            $title = Category::CATEGORIES[$category]['title'];
+            $breadcrumbs[$title] = route('projects.index', ['category' => $category]);
         }
 
         $projects = [
@@ -58,6 +68,8 @@ class ProjectController extends Controller
         return view('app.projects.index', [
             'htmlDescription' => $description,
             'projects' => $projects,
+            'title' => $title,
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
