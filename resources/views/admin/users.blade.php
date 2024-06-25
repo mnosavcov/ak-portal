@@ -73,7 +73,7 @@
                         <th class="min-w-[200px]">E-mail</th>
                         <th class="whitespace-nowrap">E-mail</th>
                         <th class="whitespace-nowrap" x-show="indexTab === 'deleted'">Smazáno</th>
-                        <th class="whitespace-nowrap">Ověřeno</th>
+                        <th class="whitespace-nowrap">Osobní údaje</th>
                         <th class="whitespace-nowrap">Investor</th>
                         <th class="whitespace-nowrap">Nabízející</th>
                         <th class="whitespace-nowrap">Makléř</th>
@@ -139,9 +139,9 @@
                             <td class="align-top">
                                 <div
                                     class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
-                                    x-text="statusText(user.check_status)"
-                                    :class="statusColor(user.check_status)"
-                                    @click="changeStatus(user.id, 'check_status')">
+                                    x-text="statusTextOsobniUdaje(user.check_status)"
+                                    :class="statusColorOsobniUdaje(user.check_status)"
+                                    @click="changeStatusOsobniUdaje(user.id, 'check_status')">
                                 </div>
                             </td>
                             <td class="align-top">

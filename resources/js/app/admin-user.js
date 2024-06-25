@@ -91,7 +91,6 @@ Alpine.data('adminUser', (id) => ({
                     && (
                         (
                             this.proxyData.usersOrigin[obj.id].check_status !== 'verified'
-                            && this.proxyData.usersOrigin[obj.id].check_status !== 'denied'
                         )
                         || (
                             this.proxyData.usersOrigin[obj.id].investor
@@ -172,7 +171,22 @@ Alpine.data('adminUser', (id) => ({
         if (status === 'denied') {
             return 'ZAMÍTNUTO';
         } else if (status === 'not_verified') {
-            return 'NEOVĚŘENO';
+            return 'ČEKÁ NA OVĚŘENÍ';
+        } else if (status === 'waiting') {
+            return 'ČEKÁ NA OVĚŘENÍ';
+        } else if (status === 'verified') {
+            return 'OVĚŘENO';
+        } else if (status === 're_verified') {
+            return 'ČEKÁ NA OPAKOVANÉ OVĚŘENÍ';
+        }
+
+        return 'neznámý stav: "' + status + '"'
+    },
+    statusTextOsobniUdaje(status) {
+        if (status === 'denied') {
+            return 'NEZADANÉ OSOBNÍ ÚDAJE';
+        } else if (status === 'not_verified') {
+            return 'NEZADANÉ OSOBNÍ ÚDAJE';
         } else if (status === 'waiting') {
             return 'ČEKÁ NA OVĚŘENÍ';
         } else if (status === 'verified') {
@@ -184,6 +198,17 @@ Alpine.data('adminUser', (id) => ({
         return 'neznámý stav: "' + status + '"'
     },
     statusColor(status) {
+        if (status === 'denied') {
+            return 'bg-app-red text-white'
+        } else if (status === 'not_verified' || status === 'waiting' || status === 're_verified') {
+            return 'bg-app-orange text-white'
+        } else if (status === 'verified') {
+            return 'bg-app-green text-white'
+        }
+
+        return 'bg-black text-white'
+    },
+    statusColorOsobniUdaje(status) {
         if (status === 'not_verified' || status === 'denied') {
             return 'bg-app-red text-white'
         } else if (status === 'waiting' || status === 're_verified') {
@@ -209,9 +234,34 @@ Alpine.data('adminUser', (id) => ({
             }
         } else {
             if(this.proxyData.users[id][stateName] === 'verified') {
+                this.proxyData.users[id][stateName] = 'denied';
+            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+                this.proxyData.users[id][stateName] = 'verified';
+            } else if(this.proxyData.users[id][stateName] === 'denied') {
+                this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
+            } else if(this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
+                this.proxyData.users[id][stateName] = 'verified';
+            }
+        }
+    },
+    changeStatusOsobniUdaje(id, stateName) {
+        if (
+            this.proxyData.usersOrigin[id][stateName] === 'verified'
+            || this.proxyData.usersOrigin[id][stateName] === 'denied'
+            || this.proxyData.usersOrigin[id][stateName] === 'not_verified'
+        ) {
+            if(this.proxyData.users[id][stateName] === 'verified') {
                 this.proxyData.users[id][stateName] = 'not_verified';
             } else if(this.proxyData.users[id][stateName] === 'not_verified') {
-                this.proxyData.users[id][stateName] = 'denied';
+                this.proxyData.users[id][stateName] = 'verified';
+            } else if(this.proxyData.users[id][stateName] === 'denied') {
+                this.proxyData.users[id][stateName] = 'verified';
+            }
+        } else {
+            if(this.proxyData.users[id][stateName] === 'verified') {
+                this.proxyData.users[id][stateName] = 'not_verified';
+            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+                this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
             } else if(this.proxyData.users[id][stateName] === 'denied') {
                 this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
             } else if(this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
