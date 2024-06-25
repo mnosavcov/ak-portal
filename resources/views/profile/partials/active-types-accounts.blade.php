@@ -212,11 +212,12 @@
                                 x-text="type.title + ' ' + type.short"
                             >
                             </div>
-                            <div class="text-right w-full max-tablet:text-center" x-data="{openMoreInfo: ''}">
+                            <div class="text-right w-full max-tablet:text-center">
                                 <button
                                     @click="user['open_' + index] = !user['open_' + index]"
-                                    class="inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px]">
-                                    Přidat&nbsp;typ&nbsp;účtu
+                                    class="inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px]"
+                                    :class="{'text-app-red': user['open_' + index]}"
+                                    x-html="user['open_' + index] ? 'Zrušit' : 'Přidat&nbsp;typ&nbsp;účtu'">
                                 </button>
                             </div>
 
@@ -230,7 +231,7 @@
                                                   x-model="user.more_info_investor"></x-textarea-input>
                                 <button
                                     @click="addType(index)"
-                                    class="col-span-full inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px] disabled:grayscale"
+                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
                                     :disabled="user.more_info_investor === null || user.more_info_investor.trim().length < 5">
                                     Přidat
                                 </button>
@@ -246,7 +247,7 @@
                                                   x-model="user.more_info_advertiser"></x-textarea-input>
                                 <button
                                     @click="addType(index)"
-                                    class="col-span-full inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px] disabled:grayscale"
+                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
                                     :disabled="user.more_info_advertiser === null || user.more_info_advertiser.trim().length < 5">
                                     Přidat
                                 </button>
@@ -264,7 +265,7 @@
                                                   x-model="user.more_info_real_estate_broker"></x-textarea-input>
                                 <button
                                     @click="addType(index)"
-                                    class="col-span-full inline-block font-Spartan-SemiBold text-[13px] text-app-green leading-[22px] disabled:grayscale"
+                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
                                     :disabled="user.more_info_real_estate_broker === null || user.more_info_real_estate_broker.trim().length < 5">
                                     Přidat
                                 </button>
