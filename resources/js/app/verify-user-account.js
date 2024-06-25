@@ -12,7 +12,7 @@ Alpine.data('verifyUserAccount', (id) => ({
         }
 
         if (this.data.check_status === 'verified') {
-            if (!confirm('Při změně bude potřeba znovu ověřit účet.')) {
+            if (!confirm('Pokud budete aktualizovat své osobní údaje, některé funkce účtu mohou být, dokud změny neověříme, omezeny.')) {
                 return;
             }
         }
