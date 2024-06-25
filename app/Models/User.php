@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'real_estate_broker_status',
         'show_real_estate_broker_status',
         'check_status',
+        'show_check_status',
 
         'title_before',
         'name',

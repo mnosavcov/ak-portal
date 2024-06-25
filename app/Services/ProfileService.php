@@ -52,24 +52,24 @@ class ProfileService
         if (isset($request->post('data')['type'])) {
             if ($request->post('data')['type'] === 'investor') {
                 $update['investor_status'] = $this->getStatus($user, $data, $columns, 'investor_status', 'show_investor_status');
-                if($user->investor_status === 'denied') {
+                if ($user->investor_status === 'denied') {
                     $update = [];
                 }
             }
             if ($request->post('data')['type'] === 'advertiser') {
                 $update['advertiser_status'] = $this->getStatus($user, $data, $columns, 'advertiser_status', 'show_advertiser_status');
-                if($user->advertiser_status === 'denied') {
+                if ($user->advertiser_status === 'denied') {
                     $update = [];
                 }
             }
             if ($request->post('data')['type'] === 'real_estate_broker') {
                 $update['real_estate_broker_status'] = $this->getStatus($user, $data, $columns, 'real_estate_broker_status', 'show_real_estate_broker_status');
-                if($user->real_estate_broker_status === 'denied') {
+                if ($user->real_estate_broker_status === 'denied') {
                     $update = [];
                 }
             }
         } else {
-            if($user->check_status !== 'not_verified') {
+            if ($user->check_status !== 'not_verified') {
                 unset(
                     $update['more_info_investor'],
                     $update['more_info_advertiser'],
@@ -79,7 +79,7 @@ class ProfileService
             $update['check_status'] = $this->getStatus($user, $data, $columns, 'check_status', 'show_check_status');
         }
 
-        if($update) {
+        if ($update) {
             $user->update($update);
         }
 
@@ -116,8 +116,10 @@ class ProfileService
             $status = 'waiting';
         } elseif ($checkStatus === 'waiting') {
             $status = 'waiting';
+            $user->{$showStatusColumn} = true;
         } elseif ($checkStatus === 're_verified') {
             $status = 're_verified';
+            $user->{$showStatusColumn} = true;
         } elseif ($checkStatus === 'verified' && $existsChange) {
             $user->{$showStatusColumn} = true;
             $user->save();

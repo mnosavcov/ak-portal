@@ -339,7 +339,29 @@ class AdminController extends Controller
             } elseif ($item['banned_at'] === 'NEW') {
                 $usersService->addBan($item['id'], $item);
             } else {
-                User::find($index)->update($item);
+                $user = User::find($index);
+
+                unset(
+                    $item['show_investor_status'],
+                    $item['show_advertiser_status'],
+                    $item['show_real_estate_broker_status'],
+                    $item['show_check_status'],
+                );
+
+                if ($user->investor_status !== $item['investor_status']) {
+                    $item['show_investor_status'] = true;
+                }
+                if ($user->advertiser_status !== $item['advertiser_status']) {
+                    $item['show_advertiser_status'] = true;
+                }
+                if ($user->real_estate_broker_status !== $item['real_estate_broker_status']) {
+                    $item['show_real_estate_broker_status'] = true;
+                }
+                if ($user->check_status !== $item['check_status']) {
+                    $item['show_check_status'] = true;
+                }
+
+                $user->update($item);
             }
             $ret[$index] = User::find($index);
         }
