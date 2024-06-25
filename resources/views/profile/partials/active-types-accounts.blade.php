@@ -21,7 +21,7 @@
         },
         addType(type) {
             if(this.confirmAdd) {
-                if(!confirm('Po přidání nového typu účtu bude potřeba znovu ověřit účet. Opravdu chcete tento účet přidat?')) {
+                if(!confirm('Po přidání nového typu účtu budeme ověřovat, zda je váš zájem o jeho využívání oprávněný. Opravdu chcete tento typ účtu přidat?')) {
                     return;
                 }
             }
