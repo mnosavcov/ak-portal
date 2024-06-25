@@ -16,23 +16,26 @@
         </a>
     </div>
 
-    <div class="flex-row max-w-[1200px] mx-auto mb-[30px] tablet:mb-[50px]">
-        <div
-            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-            :class="{ '!text-app-orange underline': step === 1 }">
-            1. Zadejte své osobní údaje
+    @if($user->check_status === 'not_verified')
+        <div class="flex-row max-w-[1200px] mx-auto mb-[30px] tablet:mb-[50px]">
+            <div
+                class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                :class="{ '!text-app-orange underline': step === 1 }">
+                1. Zadejte své osobní údaje
+            </div>
+            <div
+                class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                :class="{ '!text-app-orange underline': step === 2 }">
+                2. Upřesněte své záměry
+            </div>
+            <div
+                class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                :class="{ '!text-app-orange underline': step === 3 }">
+                3. Potvrzení a odeslání
+            </div>
         </div>
-        <div
-            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-            :class="{ '!text-app-orange underline': step === 2 }">
-            2. Upřesněte své záměry
-        </div>
-        <div
-            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-            :class="{ '!text-app-orange underline': step === 3 }">
-            3. Potvrzení a odeslání
-        </div>
-    </div>
+    @endif
+    <div class="clear-both"></div>
 
     <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
             px-[10px] py-[25px]

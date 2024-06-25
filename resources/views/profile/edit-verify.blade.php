@@ -7,7 +7,11 @@
 
     <div class="w-full max-w-[1230px] mx-auto px-[15px]">
 
-        <h1 class="mb-[25px]">Ověření účtu</h1>
+        @if($user->check_status !== 'not_verified')
+            <h1 class="mb-[25px]">Aktualizace osobních údajů</h1>
+        @else
+            <h1 class="mb-[25px]">Ověření účtu</h1>
+        @endif
 
         @if ($errors->any())
             <ul class="bg-app-red text-white p-[15px] rounded-[3px] mb-[50px]">

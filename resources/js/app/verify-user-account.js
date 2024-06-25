@@ -6,7 +6,7 @@ Alpine.data('verifyUserAccount', (id) => ({
     countries: {},
     data: {},
     nextBtnClick() {
-        if (this.step < 3) {
+        if (this.data.check_status === 'not_verified' && this.step < 3) {
             this.step++;
             return;
         }
@@ -25,6 +25,10 @@ Alpine.data('verifyUserAccount', (id) => ({
         }
     },
     nextBtnText() {
+        if (this.data.check_status !== 'not_verified') {
+            return 'Aktualizovat';
+        }
+
         if (this.step === 3) {
             return 'Potvrdit a odeslat';
         } else {

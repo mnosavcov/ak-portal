@@ -69,6 +69,13 @@ class ProfileService
                 }
             }
         } else {
+            if($user->check_status !== 'not_verified') {
+                unset(
+                    $update['more_info_investor'],
+                    $update['more_info_advertiser'],
+                    $update['more_info_real_estate_broker']
+                );
+            }
             $update['check_status'] = $this->getStatus($user, $data, $columns, 'check_status', 'show_check_status');
         }
 

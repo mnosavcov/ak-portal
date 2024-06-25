@@ -230,7 +230,7 @@
                     </div>
 
                     <a href="{{ route('profile.edit-verify') }}"
-                       class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
+                       class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
                     >
                         Aktualizovat osobní údaje
                     </a>
