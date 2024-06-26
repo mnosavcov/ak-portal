@@ -31,8 +31,9 @@
                 @if($project->files->count())
                     <div x-init="
                             projectFiles.data = @js($project->files->pluck(null, 'id'));
-                            projectFolders = @js($project->files()->whereNotNull('folder')->pluck('folder', 'folder'));
-                            console.log(projectFolders);
+                            @if($project->files()->whereNotNull('folder')->count())
+                                projectFolders = @js($project->files()->whereNotNull('folder')->pluck('folder', 'folder'))
+                            @endif
                         "></div>
                 @endif
                 @if($project->galleries->count())

@@ -1,6 +1,6 @@
 <x-app-layout>
     @php
-        $files = $project->files()->where('public', true)->orderByRaw('if(trim(ifnull(folder, "")) = "", 1, 0)')->get();
+        $files = $project->files()->where('public', true)->orderByRaw('if(trim(ifnull(folder, "")) = "", 1, 0)')->orderBy('folder')->get();
     $actualFolder = null;
     @endphp
     <div class="w-full bg-cover bg-center h-[894px] absolute"

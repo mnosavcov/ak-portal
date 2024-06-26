@@ -40,7 +40,6 @@ Alpine.data('adminCategory', (id) => ({
         } else {
             subcategory.status = 'DELETE'
         }
-        console.log(subcategory.status);
     },
     async saveCategories() {
         this.loaderShow = true;

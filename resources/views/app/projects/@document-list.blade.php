@@ -8,7 +8,7 @@
 <div class="contents" x-show="projectShow === 'dokumentace'" x-cloak>
     <div class="col-span-full" x-data="{folderOpen: []}">
         @foreach($files as $file)
-            @if(($actualFolder ?? '') !== trim($file->folder ?? ''))
+            @if($actualFolder === null || ($actualFolder ?? '') !== trim($file->folder ?? ''))
                 @if(strlen($actualFolder ?? ''))
                     </div>
                     <hr class="my-4 border-t border-gray-300">
