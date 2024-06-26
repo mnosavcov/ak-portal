@@ -11,8 +11,6 @@ class ProjectFile extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'filepath',
         'filename',
