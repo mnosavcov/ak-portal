@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-b73519d3.css",
+    "file": "assets/app-ce9b3991.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -639,6 +639,10 @@
   "resources/images/ico-fb.svg": {
     "file": "assets/ico-fb-2fdd1f62.svg",
     "src": "resources/images/ico-fb.svg"
+  },
+  "resources/images/ico-folder.svg": {
+    "file": "assets/ico-folder-b90ab9fe.svg",
+    "src": "resources/images/ico-folder.svg"
   },
   "resources/images/ico-identifikujeme-a-proverujeme-i-investory.svg": {
     "file": "assets/ico-identifikujeme-a-proverujeme-i-investory-1d808810.svg",
