@@ -93,8 +93,16 @@
                             <div class="hidden lg:block"></div>
 
                             <div>
+                                <x-input-label for="fileElem" :value="__('Nahrajte soubory')" class="mb-[10px]"/>
+                                <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
+                                    Maximální velikost jednoho souboru je
+                                    {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
+                                    Pokud máte nějaké soubory, které nelze zmenšit, kontaktujte nás na <a href="mailto:info@pvtrusted.cz" class="text-app-blue">info@pvtrusted.cz</a>
+                                    a domluvíme se na alternativním předání.
+                                </div>
+
                                 <div id="dropZone" class="bg-[#F8F8F8] p-[20px] cursor-pointer rounded-[3px]"
-                                     @click="$refs.fileElemNew.click();">
+                                     @click="document.getElementById('fileInput').click();">
                                     <div
                                         class="bg-white w-full py-[50px] text-center rounded-[3px] border border-[#D1E3EC] border-dashed"
                                         x-ref="fileElem-inner">
@@ -108,9 +116,9 @@
                                         </div>
                                     </div>
 
-                                    <input type="file" id="fileInput" name="files" multiple x-ref="fileElemNew"
+                                    <input type="file" id="fileInput" name="files" multiple
                                            style="display: none;"
-                                           @change="$(fileInput).simpleUpload(data.routeFetchFile, {
+                                           @change="$('#fileInput').simpleUpload(data.routeFetchFile, {
                                                     start: function (file) {
                                                         newFileId++;
                                                         this.newFileId = newFileId;
@@ -141,7 +149,7 @@
                                                         delete fileListProgress[this.newFileId];
                                                         var error = jqXHR.message;
                                                         if(jqXHR.xhr.status === 413) {
-                                                            error = this.upload.file.name + ' je příliš velký';
+                                                            error = this.upload.file.name + ' je příliš velký a nepodařilo se ho nahrát. Zmenšete ho, nebo nás kontaktujte na info@pvtrusted.cz a domluvíme se na alternativním předání.';
                                                         }
                                                         fileListError.push(error);
                                                     }
@@ -152,7 +160,6 @@
                                 <script type="text/javascript">
                                     document.addEventListener('DOMContentLoaded', (event) => {
                                         const dropZone = document.getElementById('dropZone');
-                                        const fileInput = document.getElementById('fileInput');
 
                                         // Prevent default drag behaviors
                                         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -186,6 +193,7 @@
                                         }
 
                                         function handleDrop(e) {
+                                            const fileInput = document.getElementById('fileInput');
                                             const dt = e.dataTransfer;
                                             const files = dt.files;
 
@@ -218,10 +226,10 @@
                                     <template x-for="(fileData, index) in fileListProgress" :key="index">
                                         <div class="relative col-span-full w-full">
                                             <div x-text="fileData.filename" :title="fileData.filename"
-                                                 class="w-full bg-[#f8f8f8] text-[#5E6468] underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]">
+                                                 class="w-full bg-[#f8f8f8] text-[#5E6468] h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]">
                                             </div>
                                             <div x-text="fileData.filename" :title="fileData.filename"
-                                                 class="whitespace-nowrap absolute top-0 left-0 bottom-0 bg-app-blue text-white underline h-[30px] leading-[30px] rounded-[3px] overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
+                                                 class="whitespace-nowrap absolute top-0 left-0 bottom-0 bg-app-blue text-white h-[30px] leading-[30px] rounded-[3px] overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
                                                  :style="{width: fileData.progress}">
                                             </div>
                                         </div>
@@ -230,14 +238,14 @@
                                     <template x-for="(fileName, index) in fileListError" :key="index">
                                         <div class="col-span-full">
                                             <div x-text="fileName" :title="fileName"
-                                                 class="bg-app-red text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
+                                                 class="bg-app-red text-white min-h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
                                         </div>
                                     </template>
 
                                     <template x-for="(fileData, index) in fileList" :key="index">
                                         <div class="contents">
                                             <div x-text="fileData.filename" :title="fileData.filename"
-                                                 class="bg-[#5E6468] text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
+                                                 class="bg-[#5E6468] text-white h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
                                             <div class="cursor-pointer flex items-center">
                                                 <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
                                                      class="inline-block w-[20px] h-[20px]"
