@@ -49,8 +49,9 @@ function tinymceInit()
         ],
         //browser_spellcheck : true ,
         content_css: "/js/tinymce/style.css",
-        // toolbar1: "bold italic underline | bullist numlist outdent indent | image | media | link unlink | forecolor backcolor | emoticons",
-        toolbar1: "bold italic underline | bullist numlist outdent indent | image | media | link unlink | forecolor backcolor | emoticons",
+        // toolbar1: "bold italic underline | bullist numlist outdent indent | image | media | link unlink | forecolor backcolor | emoticons | code",
+        toolbar1: "bold italic underline | formatselect | bullist numlist outdent indent | image | media | link unlink | forecolor backcolor | emoticons | code",
+        block_formats: 'Nadpis 1=h1; Nadpis 2=h2; Nadpis 3=h3; Nadpis 4=h4; Nadpis 5=h5; Nadpis 6=h6',
         setup: function (editor) {
             editor.on('change', function (event) {
                 let textarea = event.target.editorContainer.closest('div.tinyBox-wrap').getElementsByTagName('textarea')[0];
