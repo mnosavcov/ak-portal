@@ -141,13 +141,16 @@
                                                                     filename: data.format,
                                                                 };
                                                         } else {
-                                                            var error = data.error.message;
+                                                            var error = this.upload.file.name + ' ' + 'Chyba uploadu souboru';
+                                                            if (data.includes('POST Content-Length') && data.includes('exceeds the limit')) {
+                                                                error = this.upload.file.name + ' je příliš velký a nepodařilo se ho nahrát. Zmenšete ho, nebo nás kontaktujte na info@pvtrusted.cz a domluvíme se na alternativním předání.';
+                                                            }
                                                             fileListError.push(error);
                                                         }
                                                     },
                                                     error: function (jqXHR) {
                                                         delete fileListProgress[this.newFileId];
-                                                        var error = jqXHR.message;
+                                                        var error = this.upload.file.name + ' ' + jqXHR.message;
                                                         if(jqXHR.xhr.status === 413) {
                                                             error = this.upload.file.name + ' je příliš velký a nepodařilo se ho nahrát. Zmenšete ho, nebo nás kontaktujte na info@pvtrusted.cz a domluvíme se na alternativním předání.';
                                                         }
