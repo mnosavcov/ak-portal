@@ -101,11 +101,11 @@ class Project extends Model
             'text' => 'Cenu stanoví zájemce o projekt (investor)',
             'description' => 'Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.',
         ],
-//        'auction' => [
-//            'value' => 'auction',
-//            'text' => 'Prodej formou aukce',
-//            'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
-//        ],
+        'auction' => [
+            'value' => 'auction',
+            'text' => 'Prodej formou aukce',
+            'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
+        ],
     ];
 
     public const REPRESENTATION_OPTIONS = [
