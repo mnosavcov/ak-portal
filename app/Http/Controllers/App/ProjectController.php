@@ -9,6 +9,7 @@ use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Models\ProjectImage;
 use App\Models\ProjectShow;
+use App\Models\TempProjectFile;
 use App\Services\ProjectService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -17,6 +18,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -31,8 +33,8 @@ class ProjectController extends Controller
             'Projekty' => Route('projects.index')
         ];
 
-        if($category) {
-            if(!isset(Category::CATEGORIES[$category])) {
+        if ($category) {
+            if (!isset(Category::CATEGORIES[$category])) {
                 return redirect()->route('projects.index');
             }
             $projectAll = $projectAll->where('type', $category);
@@ -42,10 +44,10 @@ class ProjectController extends Controller
             $breadcrumbs[$title] = route('projects.index', ['category' => $category]);
         }
 
-        if($subcategory) {
+        if ($subcategory) {
             $projectAll = $projectAll->where('subcategory_id', $subcategory);
             $description = Category::where('category', $category)->where('url', $subcategory)->first();
-            if(!$description) {
+            if (!$description) {
                 return redirect()->route('projects.index', ['category' => $category]);
             }
             $description = $description->description;
@@ -79,10 +81,14 @@ class ProjectController extends Controller
      */
     public function create($accountType, ProjectService $projectService)
     {
+        $uuid = Str::uuid();
+
         $data = $projectService->getProjectData($accountType);
         $data['pageTitle'] = 'Přidání projektu';
         $data['route'] = route('projects.create', ['accountType' => $accountType]);
         $data['routeFetch'] = route('projects.store');
+        $data['routeFetchFile'] = route('projects.store-temp-file', ['uuid' => $uuid]);
+        $data['uuid'] = $uuid;
 
         $date = Carbon::create(env('DATE_PUBLISH'));
         $currentDateTime = clone $date;
@@ -139,18 +145,25 @@ class ProjectController extends Controller
 
         $project = Project::create($insert);
 
-        foreach ($request->file('files') ?? [] as $file) {
-            $path = $file->store(auth()->id() . '/' . $project->id);
+        $files = TempProjectFile::where('temp_project_id', $data->data->uuid)->whereNotIn('id', $data->data->fileListDelete ?? [])->get();
+        foreach ($files as $file) {
+            $path = $file->filepath;
+            $path = str_replace(
+                'temp/' . $data->data->uuid,
+                auth()->id() . '/' . $project->id . '/',
+                $path
+            );
+
+            Storage::copy($file->filepath, $path);
             $projectFile = new ProjectFile([
                 'filepath' => $path,
-                'filename' => $file->getClientOriginalName(),
+                'filename' => $file->filename,
                 'order' => 0,
                 'public' => false,
             ]);
 
             $project->files()->save($projectFile);
         }
-
 
         if (!$currentDateTime->isPast()) {
             session()->flash('project-added', 'Děkujeme, že jste nám zaslali nabídku svého projektu. Po jejím zpracování vás budeme kontaktovat.');
@@ -163,6 +176,29 @@ class ProjectController extends Controller
         return response()->json([
             'status' => 'success',
             'redirect' => route('profile.overview', ['account' => $project->user_account_type]),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeTempFile(Request $request, $uuid)
+    {
+        $file = $request->file('files');
+        $path = $file->store('temp/' . $uuid);
+        $tempProjectFile = TempProjectFile::create([
+            'temp_project_id' => $uuid,
+            'filepath' => $path,
+            'filename' => $file->getClientOriginalName(),
+        ]);
+
+        return response()->json([
+            'success' => 'success',
+            'id' => $tempProjectFile->id,
+            'format' => $file->getClientOriginalName(),
         ]);
     }
 
@@ -231,11 +267,15 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
+        $uuid = Str::uuid();
+
         $data = $projectService->getProjectData($project->user_account_type);
         $data['id'] = $project->id;
         $data['pageTitle'] = 'Úprava projektu';
         $data['route'] = route('projects.edit', ['project' => $project->url_part]);
         $data['routeFetch'] = route('projects.update', ['project' => $project->url_part]);
+        $data['routeFetchFile'] = route('projects.store-temp-file', ['uuid' => $uuid]);
+        $data['uuid'] = $uuid;
         $data['method'] = 'POST';
 
         $data['subjectOffer'] = $project->subject_offer;
@@ -300,11 +340,19 @@ class ProjectController extends Controller
 
         $project->update($update);
 
-        foreach ($request->file('files') ?? [] as $file) {
-            $path = $file->store(auth()->id() . '/' . $project->id);
+        $files = TempProjectFile::where('temp_project_id', $data->data->uuid)->whereNotIn('id', $data->data->fileListDelete ?? [])->get();
+        foreach ($files as $file) {
+            $path = $file->filepath;
+            $path = str_replace(
+                'temp/' . $data->data->uuid,
+                auth()->id() . '/' . $project->id . '/',
+                $path
+            );
+
+            Storage::copy($file->filepath, $path);
             $projectFile = new ProjectFile([
                 'filepath' => $path,
-                'filename' => $file->getClientOriginalName(),
+                'filename' => $file->filename,
                 'order' => 0,
                 'public' => false,
             ]);
@@ -313,7 +361,7 @@ class ProjectController extends Controller
         }
 
         foreach ($data->data->files as $file) {
-            if (!isset($file->delete)) {
+            if (!isset($file->delete) || !$file->delete) {
                 continue;
             }
 
@@ -330,11 +378,6 @@ class ProjectController extends Controller
             'status' => 'success',
             'redirect' => route('profile.overview', ['account' => $project->user_account_type]),
         ]);
-    }
-
-    public function saveOrder(Request $request)
-    {
-        //
     }
 
     /**

@@ -93,36 +93,8 @@
                             <div class="hidden lg:block"></div>
 
                             <div>
-                                <x-input-label for="fileElem" :value="__('Nahrajte soubory')" class="mb-[10px]"/>
-                                <input type="file" id="fileElem" multiple style="display:none"
-                                       x-ref="fileElem"
-                                       @change="
-                                const files = event.target.files;
-                                handleFiles(files);
-                                ">
-                                <div id="drop-area" class="bg-[#F8F8F8] p-[20px] cursor-pointer rounded-[3px]"
-                                     @click="$refs.fileElem.click()"
-                                     @dragenter.prevent.stop="
-{{--                                $el.classList.add('bg-[#F5FBFF]');--}}
-                                $refs['fileElem-inner'].classList.add('bg-[#F5FBFF]');
-                             "
-                                     @dragover.prevent.stop="
-{{--                                $el.classList.add('bg-[#F5FBFF]');--}}
-                                $refs['fileElem-inner'].classList.add('bg-[#F5FBFF]');
-                             "
-                                     @dragleave.prevent.stop="
-{{--                                $el.classList.remove('bg-[#F5FBFF]');--}}
-                                $refs['fileElem-inner'].classList.remove('bg-[#F5FBFF]');
-                             "
-                                     @drop.prevent.stop="
-{{--                                $el.classList.remove('bg-[#F5FBFF]');--}}
-                                $refs['fileElem-inner'].classList.remove('bg-[#F5FBFF]');
-
-                                const dt = event.dataTransfer;
-                                const files = dt.files;
-
-                                handleFiles(files);
-                             ">
+                                <div id="dropZone" class="bg-[#F8F8F8] p-[20px] cursor-pointer rounded-[3px]"
+                                     @click="$refs.fileElemNew.click();">
                                     <div
                                         class="bg-white w-full py-[50px] text-center rounded-[3px] border border-[#D1E3EC] border-dashed"
                                         x-ref="fileElem-inner">
@@ -135,18 +107,141 @@
                                             nebo kliknutím sem nahrajte
                                         </div>
                                     </div>
+
+                                    <input type="file" id="fileInput" name="files" multiple x-ref="fileElemNew"
+                                           style="display: none;"
+                                           @change="$(fileInput).simpleUpload(data.routeFetchFile, {
+                                                    start: function (file) {
+                                                        newFileId++;
+                                                        this.newFileId = newFileId;
+
+                                                        //upload started
+                                                        fileListProgress[this.newFileId] = {
+                                                            filename: this.upload.file.name,
+                                                            progress: '0%',
+                                                        }
+                                                    },
+                                                    progress: function (progress) {
+                                                        fileListProgress[this.newFileId].progress = progress + '%';
+                                                    },
+                                                    success: function (data) {
+                                                        delete fileListProgress[this.newFileId];
+
+                                                        if (data.success) {
+                                                            fileList[data.id] = {
+                                                                    id: data.id,
+                                                                    filename: data.format,
+                                                                };
+                                                        } else {
+                                                            var error = data.error.message;
+                                                            fileListError.push(error);
+                                                        }
+                                                    },
+                                                    error: function (jqXHR) {
+                                                        delete fileListProgress[this.newFileId];
+                                                        var error = jqXHR.message;
+                                                        if(jqXHR.xhr.status === 413) {
+                                                            error = this.upload.file.name + ' je příliš velký';
+                                                        }
+                                                        fileListError.push(error);
+                                                    }
+                                               });"
+                                    >
                                 </div>
 
+                                <script type="text/javascript">
+                                    document.addEventListener('DOMContentLoaded', (event) => {
+                                        const dropZone = document.getElementById('dropZone');
+                                        const fileInput = document.getElementById('fileInput');
+
+                                        // Prevent default drag behaviors
+                                        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                                            dropZone.addEventListener(eventName, preventDefaults, false);
+                                            document.body.addEventListener(eventName, preventDefaults, false);
+                                        });
+
+                                        // Highlight drop zone when item is dragged over it
+                                        ['dragenter', 'dragover'].forEach(eventName => {
+                                            dropZone.addEventListener(eventName, highlight, false);
+                                        });
+
+                                        ['dragleave', 'drop'].forEach(eventName => {
+                                            dropZone.addEventListener(eventName, unhighlight, false);
+                                        });
+
+                                        // Handle dropped files
+                                        dropZone.addEventListener('drop', handleDrop, false);
+
+                                        function preventDefaults(e) {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                        }
+
+                                        function highlight(e) {
+                                            dropZone.classList.add('dragover');
+                                        }
+
+                                        function unhighlight(e) {
+                                            dropZone.classList.remove('dragover');
+                                        }
+
+                                        function handleDrop(e) {
+                                            const dt = e.dataTransfer;
+                                            const files = dt.files;
+
+                                            if (files.length) {
+                                                fileInput.files = files;  // This line will update the input element with the dropped files
+                                                const event = new Event('change', {bubbles: true});
+                                                fileInput.dispatchEvent(event);
+                                            }
+                                        }
+                                    });
+
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                                <div id="uploads"></div>
+
                                 <div class="grid grid-cols-[1fr_20px] gap-[10px_20px]"
-                                     :class="{ 'mt-[20px]': Object.entries(fileList).length || Object.entries(data.files).length}">
-                                    <template x-for="(fileName, index) in fileList" :key="index">
-                                        <div class="contents">
+                                     :class="{ 'mt-[20px]':
+                                        Object.entries(fileListError).length
+                                        || Object.entries(fileListProgress).length
+                                        || Object.entries(fileList).length
+                                        || Object.entries(data.files).length}
+                                        ">
+                                    <template x-for="(fileData, index) in fileListProgress" :key="index">
+                                        <div class="relative col-span-full w-full">
+                                            <div x-text="fileData.filename" :title="fileData.filename"
+                                                 class="w-full bg-[#f8f8f8] text-[#5E6468] underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]">
+                                            </div>
+                                            <div x-text="fileData.filename" :title="fileData.filename"
+                                                 class="whitespace-nowrap absolute top-0 left-0 bottom-0 bg-app-blue text-white underline h-[30px] leading-[30px] rounded-[3px] overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"
+                                                 :style="{width: fileData.progress}">
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <template x-for="(fileName, index) in fileListError" :key="index">
+                                        <div class="col-span-full">
                                             <div x-text="fileName" :title="fileName"
+                                                 class="bg-app-red text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
+                                        </div>
+                                    </template>
+
+                                    <template x-for="(fileData, index) in fileList" :key="index">
+                                        <div class="contents">
+                                            <div x-text="fileData.filename" :title="fileData.filename"
                                                  class="bg-[#5E6468] text-white underline h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
                                             <div class="cursor-pointer flex items-center">
                                                 <img src="{{ Vite::asset('resources/images/ico-delete-file.svg') }}"
                                                      class="inline-block w-[20px] h-[20px]"
-                                                     @click="removeNewFile(index)"
+                                                     @click="removeNewFile(fileData)"
                                                 >
                                             </div>
                                         </div>
@@ -352,7 +447,7 @@
     @include('app.@faq')
 
     <script>
-        window.onload = function() {
+        window.onload = function () {
             setInterval(window.keepSession, 60000);
         }
     </script>

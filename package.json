@@ -18,6 +18,8 @@
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.10.5",
-        "@alpinejs/mask": "^3.13.10"
+        "@alpinejs/mask": "^3.13.10",
+        "jquery": "^3.7.1",
+        "jquery-simple-upload": "^1.1.0"
     }
 }

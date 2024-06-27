@@ -1,5 +1,5 @@
 <x-app-temporary-layout>
-    <div x-data="projectEdit" x-init="data = @js($data)" class="mx-[15px]">
+    <div x-data="projectEditTemp" x-init="data = @js($data)" class="mx-[15px]">
         <div class="w-full max-w-[1200px] mx-auto mt-[50px]">
             <h1 class="mb-[30px]">{{ $data['pageTitle'] }}</h1>
         </div>

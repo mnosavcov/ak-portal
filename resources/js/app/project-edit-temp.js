@@ -1,15 +1,11 @@
 import Alpine from "alpinejs";
 
-Alpine.data('projectEdit', (id) => ({
+Alpine.data('projectEditTemp', (id) => ({
     data: {
         subjectOffers: {},
         locationOffers: {},
-        fileListDelete: [],
     },
-    newFileId: 0,
-    fileList: {},
-    fileListError: [],
-    fileListProgress: {},
+    fileList: [],
     showUpresneteUmisteniVyroby() {
         return this.data.subjectOffer != null;
     },
@@ -18,21 +14,27 @@ Alpine.data('projectEdit', (id) => ({
         show &&= this.data.locationOffer != null;
         return show;
     },
-    removeNewFile(fileData) {
-        if(typeof this.data.fileListDelete === 'undefined') {
-            this.data.fileListDelete = [];
+    handleFiles(files) {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            this.fileList.push(file.name);
         }
-        this.data.fileListDelete.push(fileData.id)
-        delete this.fileList[fileData.id]
+    },
+    removeNewFile(index) {
+        const files = Array.from(this.$refs.fileElem.files);
+        files.splice(index, 1);
+        const updatedFileList = new DataTransfer();
+        files.forEach(file => {
+            updatedFileList.items.add(file);
+        });
+        this.$refs.fileElem.files = updatedFileList.files;
+        this.fileList = [];
+        this.handleFiles(this.$refs.fileElem.files);
     },
     removeFile(fileData) {
         fileData.delete = !fileData.delete;
     },
     enableSend() {
-        if(Object.keys(this.fileListProgress).length) {
-            return false;
-        }
-
         let show = this.showSdelteViceInformaci();
         show &&= !!this.data.title.trim().length;
         show &&= !!this.data.country.trim().length;
@@ -72,6 +74,11 @@ Alpine.data('projectEdit', (id) => ({
 
         this.data.status = status;
         const formData = new FormData();
+
+        const fileList = this.$refs.fileElem.files;
+        for (let i = 0; i < fileList.length; i++) {
+            formData.append('files[]', fileList[i]);
+        }
 
         formData.append('data', JSON.stringify({data: this.data}));
 

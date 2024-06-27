@@ -85,6 +85,8 @@ Route::middleware('auth')->group(function () {
     Route::post('projects/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
     Route::post('projects/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
     Route::post('projects/pick-a-winner', [ProjectController::class, 'pickAWinner'])->name('projects.pick-a-winner');
+    Route::post('projects/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
+
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
     Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
