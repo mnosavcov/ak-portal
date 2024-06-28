@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('principal_paid')->default(false);
             $table->boolean('winner')->default(false);
             $table->boolean('showed')->default(false);
+            $table->integer('details_on_request')->default(0);
 
             $table->unique(['user_id', 'project_id']);
 

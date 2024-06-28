@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Project extends Model
@@ -53,6 +54,7 @@ class Project extends Model
         'representation_indefinitely_date',
         'representation_may_be_cancelled',
         'exclusive_contract',
+        'details_on_request',
     ];
 
     public const STATUSES = [
@@ -190,6 +192,11 @@ class Project extends Model
     public function shows()
     {
         return $this->hasMany(ProjectShow::class);
+    }
+
+    public function myShow()
+    {
+        return $this->hasMany(ProjectShow::class)->where('user_id', Auth::id());
     }
 
     public function states()
@@ -553,7 +560,7 @@ class Project extends Model
         return $query->with(['tags', 'shows']);
     }
 
-    public function isVerified(): bool
+    private function isVerifiedDefault($checkPublic = true): bool
     {
         if (auth()->guest()) {
             return false;
@@ -563,8 +570,38 @@ class Project extends Model
             return true;
         }
 
-        if (auth()->user()->isVerifiedInvestor()) {
+        if (auth()->user()->isVerifiedInvestor()
+            && (!$checkPublic || $this->isPublicForInvestor())) {
             return true;
+        }
+
+        return false;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerifiedDefault();
+    }
+
+    public function isVerifiedWithoutCheckPublic(): bool
+    {
+        return $this->isVerifiedDefault(false);
+    }
+
+    public function isPublicForInvestor(): bool
+    {
+        if (auth()->guest()) {
+            return false;
+        }
+
+        if(!$this->exclusive_contract) {
+            return true;
+        }
+
+        if($this->details_on_request) {
+            return (bool)$this->myShow()
+                ->where('details_on_request', 999)
+                ->count();
         }
 
         return false;

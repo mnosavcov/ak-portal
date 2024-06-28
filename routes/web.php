@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
     Route::get('projects/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
     Route::post('projects/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
+    Route::get('projects/request-details/{project}', [ProjectController::class, 'requestDetails'])->name('projects.request-details');
     Route::post('projects/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
     Route::post('projects/pick-a-winner', [ProjectController::class, 'pickAWinner'])->name('projects.pick-a-winner');
     Route::post('projects/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');

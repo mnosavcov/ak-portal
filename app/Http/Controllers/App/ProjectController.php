@@ -522,4 +522,10 @@ class ProjectController extends Controller
             'value' => $projectShow->id,
         ]);
     }
+
+    public function requestDetails(Project $project)
+    {
+        $project->myShow()->where('details_on_request', 0)->update(['details_on_request' => 1]);
+        return redirect()->route('projects.show', $project);
+    }
 }
