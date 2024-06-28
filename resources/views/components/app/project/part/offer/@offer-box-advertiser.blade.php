@@ -46,3 +46,25 @@
         U projektu zatím nemáte žádné nabídky.
     </div>
 @endif
+
+@if($project->shows()->where('details_on_request', '!=', 0)->count())
+    <div x-data="{detailsOpen: true}">
+        <hr class="bg-[#D9E9F2] mb-[30px]">
+        <h3 @click="detailsOpen = !detailsOpen">Žádosti o zobrazení detailů projektu</h3>
+
+        <div x-show="detailsOpen" x-cloak x-collapse>
+            @foreach($project->shows()->where('details_on_request', '!=', 0)->get() as $show)
+                <div>
+                    @include(
+                        'components.app.project.part.offer.@public-request',
+                        [
+                            'title' => 'Žádost ' . $loop->iteration,
+                            'show' => $show,
+                            'user' => ($project->exclusive_contract ? \App\Models\User::find($show->user_id) : false)
+                        ]
+                    )
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif

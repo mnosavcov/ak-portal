@@ -15,6 +15,8 @@ class ProjectShow extends Model
         'offer',
         'winner',
         'principal_paid',
+        'details_on_request',
+        'details_on_request_time',
     ];
 
     protected static function boot()

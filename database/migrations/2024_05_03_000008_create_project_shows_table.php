@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('winner')->default(false);
             $table->boolean('showed')->default(false);
             $table->integer('details_on_request')->default(0);
+            $table->dateTime('details_on_request_time')->nullable();
 
             $table->unique(['user_id', 'project_id']);
 

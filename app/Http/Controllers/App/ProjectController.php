@@ -525,7 +525,38 @@ class ProjectController extends Controller
 
     public function requestDetails(Project $project)
     {
-        $project->myShow()->where('details_on_request', 0)->update(['details_on_request' => 1]);
+        $project->myShow()->where('details_on_request', 0)->update([
+            'details_on_request' => 1,
+            'details_on_request_time' => Carbon::now(),
+        ]);
         return redirect()->route('projects.show', $project);
+    }
+
+    public function setPublic(Request $request)
+    {
+        $projectShow = ProjectShow::find($request->post('showId'));
+
+        if (!$projectShow->project->isMine()) {
+            return false;
+        }
+
+        if ($request->post('access')) {
+            if ($projectShow->details_on_request === 1 || $projectShow->details_on_request === -1) {
+                $projectShow->update([
+                    'details_on_request' => 999,
+                ]);
+            }
+        } else {
+            if ($projectShow->details_on_request === 1) {
+                $projectShow->update([
+                    'details_on_request' => -1,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'show' => $projectShow,
+        ]);
     }
 }
