@@ -81,6 +81,10 @@ class ProjectController extends Controller
      */
     public function create($accountType, ProjectService $projectService)
     {
+        if(!auth()->user()->{$accountType}) {
+            return redirect()->route('profile.edit');
+        }
+
         $uuid = Str::uuid();
 
         $data = $projectService->getProjectData($accountType);
@@ -562,6 +566,14 @@ class ProjectController extends Controller
 
     public function createSelect()
     {
-        dd('x');
+        if (auth()->user()->advertiser && auth()->user()->real_estate_broker) {
+            return view('app.projects.create-select');
+        } elseif (auth()->user()->advertiser) {
+            return redirect()->route('projects.create', ['accountType' => 'advertiser']);
+        } elseif (auth()->user()->real_estate_broker) {
+            return redirect()->route('projects.create', ['accountType' => 'real-estate-broker']);
+        }
+
+        return redirect()->route('profile.edit', ['add' => 'no-investor']);
     }
 }
