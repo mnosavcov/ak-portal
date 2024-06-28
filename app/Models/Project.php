@@ -604,7 +604,7 @@ class Project extends Model
                 ->count();
         }
 
-        return false;
+        return true;
     }
 
     public function isMine(): bool

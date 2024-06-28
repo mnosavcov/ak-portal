@@ -54,7 +54,7 @@
                 @include('admin.projects-edit.@galleries')
                 @include('admin.projects-edit.@settings')
 
-                <div x-data="{ open: true }" class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                <div x-data="{ open: true, exclusive: @js($project->exclusive_contract ? 1 : 0), details_on_request: @js($project->details_on_request ? 1 : 0) }" class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                     <div class="float-right cursor-pointer text-gray-700" x-text="open ? 'skrýt' : 'zobrazit'"
                          @click="open = !open"
@@ -62,7 +62,7 @@
                     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">
                         Režim našeho smluvního vztahu s nabízejícím
                     </div>
-                    <div x-data="{exclusive: @js($project->exclusive_contract ? 1 : 0)}">
+                    <div>
                         <input type="hidden" x-model="exclusive" name="exclusive_contract">
                         <div
                             @click="exclusive = (exclusive ? 0 : 1)"
@@ -75,6 +75,22 @@
                         </div>
                         <div class="font-Spartan-SemiBold text-[15px]"
                              x-text="exclusive ? 'Nabízející uvidí identifikaci kupujícího' : 'Nabízející neuvidí identifikaci kupujícího'">
+                        </div>
+                        <div class="font-Spartan-SemiBold text-[15px] text-app-red" x-show="!exclusive">
+                            Všichni Investoři uvidí detaily projektu bez nutnosti žádat o zobrazení.
+                        </div>
+                    </div>
+
+                    <div x-show="exclusive">
+                        <input type="hidden" x-model="details_on_request" name="details_on_request">
+                        <div
+                            @click="details_on_request = (details_on_request ? 0 : 1)"
+                            class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
+                            x-text="!details_on_request ? 'Investor má přístup k detailu projektu' : 'Investor musí požádat o přístup k detailu projektu'"
+                            :class="{
+                            'bg-app-green': !details_on_request,
+                            'bg-app-red': details_on_request,
+                        }">
                         </div>
                     </div>
                 </div>

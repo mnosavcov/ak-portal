@@ -109,6 +109,7 @@ class AdminController extends Controller
             'country' => $request->country,
             'actual_state' => trim($request->actual_state),
             'exclusive_contract' => (bool)$request->exclusive_contract,
+            'details_on_request' => (bool)$request->details_on_request,
         ];
 
         if (empty($update['price'])) {
