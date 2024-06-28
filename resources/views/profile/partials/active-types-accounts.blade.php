@@ -292,5 +292,17 @@
                 user['open_investor'] = true;
                 "></div>
         @endif
+        @if(session('add') === 'no-investor')
+            <div x-init="
+                const element = document.getElementById('aktivni-typy-uctu');
+                const offsetTop = element.offsetTop;
+
+                window.scrollTo({
+                    top: offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                $dispatch('open-modal', 'add-account-types');
+                "></div>
+        @endif
     </x-modal>
 </section>

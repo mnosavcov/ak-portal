@@ -32,8 +32,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        if($request->get('add') === 'investor') {
-            return  redirect()->route('profile.edit')->with('add', 'investor');
+        if($request->get('add') === 'investor' || $request->get('add') === 'no-investor') {
+            return redirect()->route('profile.edit')->with('add', $request->get('add'));
         }
 
         return view('profile.edit', [

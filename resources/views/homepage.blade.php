@@ -26,8 +26,8 @@
                     mobile:gap-x-[10px] mobile:pt-[65px]
                     tablet:gap-x-[30px] tablet:pt-[80px] tablet:grid-cols-2
                     laptop:gap-x-[50px] laptop:pt-[110px]
-                    ">
-                <a href="{{ route('projects.index') }}"
+                    " x-data>
+                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciInvestovatUrl() !!}"
                    class="font-Spartan-Regular bg-app-orange text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
@@ -35,7 +35,7 @@
                              "><span
                         class="font-Spartan-Bold">Chci investovat</span> do projektu
                 </a>
-                <a href="{{ auth()->guest() || !auth()->user()->isVerified() ? route('login') : route('projects.create', ['accountType' => 'advertiser']) }}"
+                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
                    class="font-Spartan-Regular bg-app-blue text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
@@ -60,4 +60,21 @@
     <div class="mt-[-100px]">
         @include('app.@faq')
     </div>
+
+    <x-modal name="hp-message">
+        <div class="p-[40px_10px] tablet:p-[50px_40px] text-center">
+
+            <img src="{{ Vite::asset('resources/images/ico-close.svg') }}"
+                 @click="$dispatch('close')"
+                 class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
+
+            <div x-html="inputData.message" class="text-center mb-[30px] font-Spartan-Regular text-[18px]"></div>
+
+            <button
+                @click="show = false;"
+                class="font-Spartan-Regular text-[12px] justify-self-center text-app-blue tablet:text-[15px] laptop:justify-self-start">
+                zavřít
+            </button>
+        </div>
+    </x-modal>
 </x-app-layout>

@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
 
     Route::resource('projects', ProjectController::class)->except(['create', 'update', 'index', 'show']);
+    Route::get('projects/create/select', [ProjectController::class, 'createSelect'])->name('projects.create.select');
     Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
     Route::get('projects/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
     Route::post('projects/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
