@@ -220,8 +220,8 @@
                          x-show="confirm">
                     </div>
                 </div>
-                <div @click="confirm = !confirm">Registrací souhlasím se <span class="underline cursor-pointer">Zásadami zpracování osobních údajů</span>
-                    a <span class="underline cursor-pointer">Všeobecnými obchodními podmínkami</span></div>
+                <div @click="confirm = !confirm">Registrací souhlasím se <a href="{{ route('zasady-zpracovani-osobnich-udaju') }}" class="underline cursor-pointer">Zásadami zpracování osobních údajů</a>
+                    a <a href="{{ route('vseobecne-obchodni-podminky') }}" class="underline cursor-pointer">Všeobecnými obchodními podmínkami</a></div>
             </div>
 
             <button type="button" x-show="userType.selected" x-cloak

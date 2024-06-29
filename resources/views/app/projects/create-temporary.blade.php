@@ -171,7 +171,7 @@
                              class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"></div>
                     </div>
                     <div @click="data.confirm = !data.confirm" class="text-left md:text-center max-md:leading-[22px]">
-                        Odesláním souhlasím se <a href="{{ route('zpracovani-osobnich-udaju') }}" target="_blank"
+                        Odesláním souhlasím se <a href="{{ route('zasady-zpracovani-osobnich-udaju') }}" target="_blank"
                                                   class="underline cursor-pointer">Zásadami
                             zpracování osobních údajů</a></div>
                 </div>

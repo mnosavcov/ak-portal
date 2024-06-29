@@ -92,19 +92,19 @@
                         Další informace
                     </div>
                     <div class="mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
+                        <a href="{{ route('vseobecne-obchodni-podminky') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
                          ">
-                            Podmínky užití
+                            Všeobecné obchodní podmínky
                         </a>
                     </div>
                     <div class="mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
+                        <a href="{{ route('zasady-zpracovani-osobnich-udaju') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-center laptop:mb-[20px]
                          ">
-                            Ochrana osobních údajů
+                            Zásady zpracování osobních údajů
                         </a>
                     </div>
                     <div class="mb-[20px]">

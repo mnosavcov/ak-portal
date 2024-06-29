@@ -81,7 +81,7 @@ class ProjectController extends Controller
      */
     public function create($accountType, ProjectService $projectService)
     {
-        if(!auth()->user()->{$accountType}) {
+        if (!auth()->user()->{$accountType}) {
             return redirect()->route('profile.edit');
         }
 
@@ -226,16 +226,19 @@ class ProjectController extends Controller
         $status = $project->status;
         $nahled = !in_array($status, Project::STATUS_PUBLIC);
 
-        $redirect = false;
-        if ($nahled && !auth()->user()?->superadmin) {
-            $redirect = true;
+        $redirect = true;
+        if (
+            ($nahled && auth()->user()?->superadmin)
+            || ($nahled && $request->query('overview') && $project->isMine())
+        ) {
+            $redirect = false;
         }
 
-        if ($redirect && in_array($project->status, Project::STATUS_DRAFT) && $project->user_id === auth()->id()) {
+        if ($redirect && in_array($project->status, Project::STATUS_DRAFT) && ($project->user_id === auth()->id())) {
             return redirect()->route('projects.edit', ['project' => $project->url_part]);
         }
 
-        if ($redirect && in_array($project->status, Project::STATUS_PREPARE) && $project->user_id === auth()->id()) {
+        if ($redirect && in_array($project->status, Project::STATUS_PREPARE) && ($project->user_id === auth()->id())) {
             return redirect()->route('projects.prepare', ['project' => $project->url_part]);
         }
 
@@ -243,7 +246,7 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
-        if (!str_ends_with($request->getPathInfo(), '/' . $project->url_part)) {
+        if (!$request->query('overview') && !str_ends_with($request->getPathInfo(), '/' . $project->url_part)) {
             return redirect($project->url_detail, 301);
         }
 

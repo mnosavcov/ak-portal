@@ -157,6 +157,13 @@ h3 {
         line-height: 20px;
         color: #414141;
 
+        a {
+            @apply underline text-app-blue;
+            &hover {
+                @apply no-underline;
+            }
+        }
+
         p {
             margin-bottom: 25px;
 
@@ -224,6 +231,41 @@ h3 {
 
         .app-project-orange {
         @apply text-white bg-app-orange;
+        }
+    }
+}
+
+#vop {
+@apply w-full mx-auto text-justify font-Spartan-Regular;
+    padding-left: 15px;
+
+    p {
+        margin-bottom: 30px;
+
+        strong {
+        @apply font-Spartan-Bold;
+        }
+    }
+
+    div {
+        &.number,
+        &.title {
+           @apply text-center font-Spartan-Bold;
+            margin-bottom: 5px;
+        }
+    }
+
+    ul {
+    @apply list-decimal;
+        margin-bottom: 50px;
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        &.disc {
+            list-style-type: disc !important;
+            padding-left: 35px;
         }
     }
 }

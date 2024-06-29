@@ -27,7 +27,7 @@ class BeforeMiddleware
                     [
                         '/',
                         '/save-email',
-                        '/zpracovani-osobnich-udaju',
+                        '/zasady-zpracovani-osobnich-udaju',
                         '/projects/add',
                         '/projects/save',
                         '/login',

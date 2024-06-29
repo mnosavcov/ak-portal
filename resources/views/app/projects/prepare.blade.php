@@ -10,9 +10,13 @@
                 <h1 class="mb-[30px]">{{ $project->title }}</h1>
 
                 <div class="flex-row max-w-[1200px] mx-auto mb-[50px]">
-                    <a href="{{ route('profile.overview', ['account' => $project->user_account_type]) }}" class="relative float-right font-Spartan-SemiBold text-[16px] leading-[58px] border border-[2px] border-[#31363A] h-[58px] text-[#31363A] pl-[45px] pr-[30px]
-            after:absolute after:bg-[url('/resources/images/ico-button-arrow-left.svg')] after:w-[6px] after:h-[10px] after:left-[17px] after:top-[23px]
-            ">Zpět</a>
+{{--                    <a href="{{ route('profile.overview', ['account' => $project->user_account_type]) }}" class="relative float-right font-Spartan-SemiBold text-[16px] leading-[58px] border border-[2px] border-[#31363A] h-[58px] text-[#31363A] pl-[45px] pr-[30px]--}}
+{{--            after:absolute after:bg-[url('/resources/images/ico-button-arrow-left.svg')] after:w-[6px] after:h-[10px] after:left-[17px] after:top-[23px]--}}
+{{--            ">Zpět</a>--}}
+                    <a href="{{ route('projects.show', ['project' => $project, 'overview' => true]) }}"
+                       class="relative float-right font-Spartan-Regular text-[16px] text-app-orange">
+                        Zobrazit&nbsp;náhled
+                    </a>
 
                     <button type="button" @click="selectedProject = true"
                             class="px-[25px] inline-block h-[54px] leading-[54px]"
@@ -65,7 +69,7 @@
                             @endif
                         </h2>
 
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <div class="mb-[15px] font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Aktuální stav
                             </div>
@@ -116,42 +120,42 @@
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">O projektu</h2>
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.about :project="$project"></x-app.project.part.about>
                         </div>
                     </div>
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">Stav projektu</h2>
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.state :project="$project"></x-app.project.part.state>
                         </div>
                     </div>
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">Detaily projektu</h2>
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.details :project="$project"></x-app.project.part.details>
                         </div>
                     </div>
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">Dokumenty</h2>
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.documents :project="$project"></x-app.project.part.documents>
                         </div>
                     </div>
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">Fotografie</h2>
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.gallery :project="$project"></x-app.project.part.gallery>
                         </div>
                     </div>
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] tablet:mb-[100px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">Nastavení projektu</h2>
-                        <div class="bg-[#d8d8d8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.settings :project="$project"></x-app.project.part.settings>
                         </div>
                     </div>

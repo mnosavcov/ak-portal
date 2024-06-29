@@ -64,17 +64,20 @@ Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-
 Route::get('projects/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
-Route::get('zpracovani-osobnich-udaju', function () {
+Route::get('zasady-zpracovani-osobnich-udaju', function () {
     $date = Carbon::create(env('DATE_PUBLISH'));
     $currentDateTime = clone $date;
     $currentDateTime->subHours(+2);
 
     if (!$currentDateTime->isPast()) {
-        return view('app.zpracovani-osobnich-udaju-temp');
+        return view('app.zasady-zpracovani-osobnich-udaju-temp');
     }
 
-    return view('app.zpracovani-osobnich-udaju');
-})->name('zpracovani-osobnich-udaju');
+    return view('app.zasady-zpracovani-osobnich-udaju');
+})->name('zasady-zpracovani-osobnich-udaju');
+Route::get('vseobecne-obchodni-podminky', function () {
+    return view('app.vseobecne-obchodni-podminky');
+})->name('vseobecne-obchodni-podminky');
 
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
