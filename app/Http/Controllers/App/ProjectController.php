@@ -226,19 +226,19 @@ class ProjectController extends Controller
         $status = $project->status;
         $nahled = !in_array($status, Project::STATUS_PUBLIC);
 
-        $redirect = true;
-        if (
-            ($nahled && auth()->user()?->superadmin)
-            || ($nahled && $request->query('overview') && $project->isMine())
-        ) {
-            $redirect = false;
-        }
+        $redirect = false;
+        if ($nahled)
+            if (!auth()->user()?->superadmin) {
+                if (!$project->isMine() || !$request->query('overview')) {
+                    $redirect = true;
+                }
+            }
 
-        if ($redirect && in_array($project->status, Project::STATUS_DRAFT) && ($project->user_id === auth()->id())) {
+        if ($redirect && in_array($project->status, Project::STATUS_DRAFT) && $project->user_id === auth()->id()) {
             return redirect()->route('projects.edit', ['project' => $project->url_part]);
         }
 
-        if ($redirect && in_array($project->status, Project::STATUS_PREPARE) && ($project->user_id === auth()->id())) {
+        if ($redirect && in_array($project->status, Project::STATUS_PREPARE) && $project->user_id === auth()->id()) {
             return redirect()->route('projects.prepare', ['project' => $project->url_part]);
         }
 
@@ -246,7 +246,7 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
-        if (!$request->query('overview') && !str_ends_with($request->getPathInfo(), '/' . $project->url_part)) {
+        if (!$nahled && !str_ends_with($request->getPathInfo(), '/' . $project->url_part)) {
             return redirect($project->url_detail, 301);
         }
 
