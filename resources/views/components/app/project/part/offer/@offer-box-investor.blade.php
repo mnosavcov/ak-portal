@@ -102,7 +102,7 @@
             @endif
 
             <div class="text-left">
-                <button x-data type="button" @click.next="
+                <button x-data type="button" @click="
                                         let offer = parseInt(String(offerPrice).replace(/\s+/g, ''))
                                         let offerFormated = offerPrice
                                         if(Number.isNaN(offer) || offer < minPrice) {
