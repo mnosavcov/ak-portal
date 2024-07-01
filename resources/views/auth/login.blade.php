@@ -14,6 +14,17 @@
                 Ještě u nás nemáte účet?
                 <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline text-app-blue">Registrujte se</a></div>
 
+            @if(str_contains(session()->get('url')['intended'] ?? '', '/verify-email/'))
+                <div class="mb-[20px]">
+                    <div
+                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Abyste mohli ověřit svůj e-mail, musíte se přihlásit do svého uživatelského účtu.
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login') }}" x-data="{loaderShow: false}" @submit="loaderShow = true">
                 @csrf
                 <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[20px] tablet:mb-[50px] grid grid-cols-2 gap-x-[20px] gap-y-[25px]
