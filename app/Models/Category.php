@@ -25,19 +25,22 @@ class Category extends Model
 
     public const CATEGORIES = [
         'auction' => [
+            'id' => 'auction',
             'title' => 'Aukce',
-            'description' => 'Aukce',
-            'url' => 'auction',
+            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'url' => 'aukce',
         ],
         'fixed-price' => [
+            'id' => 'fixed-price',
             'title' => 'Cenu navrhuje prodávající',
-            'description' => 'Cenu navrhuje prodávající',
-            'url' => 'fixed-price',
+            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'url' => 'cenu-navrhuje-prodavajici',
         ],
         'offer-the-price' => [
+            'id' => 'offer-the-price',
             'title' => 'Cenu navrhuje investor',
-            'description' => 'Cenu navrhuje investor',
-            'url' => 'offer-the-price',
+            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'url' => 'cenu-navrhuje-investor',
         ],
     ];
 

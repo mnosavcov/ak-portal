@@ -22,29 +22,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('projects/add/{accountType?}', function () {
+Route::get('projekty/add/{accountType?}', function () {
     return app()->call('App\Http\Controllers\App\ProjectController@create', ['accountType' => 'advertiser']);
 })->name('projects.add');
-Route::post('projects/save', [ProjectController::class, 'store'])->name('projects.save');
+Route::post('projekty/save', [ProjectController::class, 'store'])->name('projects.save');
 
 Route::view('jak-to-funguje', 'app.jak-to-funguje')->name('jak-to-funguje');
-Route::view('o-nas', 'homepage', [
-    'projects' => [
-        'Nejnovější projekty' => [
-            'selected' => '1',
-            'titleCenter' => true,
-            'data' => [
-                '1' => Project::isPublicated()->forDetail()->get(),
-            ],
-        ]
-    ],
-])->name('o-nas');
+//Route::view('o-nas', 'homepage', [
+//    'projects' => [
+//        'Nejnovější projekty' => [
+//            'selected' => '1',
+//            'titleCenter' => true,
+//            'data' => [
+//                '1' => Project::isPublicated()->forDetail()->get(),
+//            ],
+//        ]
+//    ],
+//])->name('o-nas');
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('kontakt', [HomepageController::class, 'kontakt'])->name('kontakt');
 Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-email');
-Route::post('ajax-form', [HomepageController::class, 'ajaxForm'])->name('ajax-form');
-Route::get('projects/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('projekty/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::post('ajax-form', function (Request $request) {
     $data = json_decode($request->post('data'), true);
     $subject = 'Nová zpráva z kontaktního formuláře na PED.cz';
@@ -101,19 +100,19 @@ Route::get('vseobecne-obchodni-podminky', function () {
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
 
-    Route::resource('projects', ProjectController::class)->except(['create', 'update', 'index', 'show']);
-    Route::get('projects/create/select', [ProjectController::class, 'createSelect'])->name('projects.create.select');
-    Route::get('projects/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
-    Route::get('projects/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
-    Route::post('projects/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
-    Route::get('projects/request-details/{project}', [ProjectController::class, 'requestDetails'])->name('projects.request-details');
-    Route::post('projects/set-public', [ProjectController::class, 'setPublic'])->name('projects.set-public');
-    Route::post('projects/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
-    Route::post('projects/pick-a-winner', [ProjectController::class, 'pickAWinner'])->name('projects.pick-a-winner');
-    Route::post('projects/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
+    Route::resource('projekty', ProjectController::class)->except(['create', 'update', 'index', 'show']);
+    Route::get('projekty/create/select', [ProjectController::class, 'createSelect'])->name('projects.create.select');
+    Route::get('projekty/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
+    Route::get('projekty/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
+    Route::post('projekty/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
+    Route::get('projekty/request-details/{project}', [ProjectController::class, 'requestDetails'])->name('projects.request-details');
+    Route::post('projekty/set-public', [ProjectController::class, 'setPublic'])->name('projects.set-public');
+    Route::post('projekty/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
+    Route::post('projekty/pick-a-winner', [ProjectController::class, 'pickAWinner'])->name('projects.pick-a-winner');
+    Route::post('projekty/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
 
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
-    Route::post('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::post('projekty/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/nastaveni-uctu-verify', [ProfileController::class, 'editVerify'])->name('profile.edit-verify');
@@ -141,10 +140,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('index');
 
-                Route::get('projects', [AdminController::class, 'projects'])->name('projects');
-                Route::post('projects/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
-                Route::get('projects/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
-                Route::post('projects/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
+                Route::get('projekty', [AdminController::class, 'projects'])->name('projects');
+                Route::post('projekty/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
+                Route::get('projekty/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
+                Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
                 Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');
@@ -176,7 +175,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('projects/{category?}/{subcategory?}', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('projekty/{category?}/{subcategory?}', [ProjectController::class, 'index'])->name('projects.index');
 
 Route::get('/keep-session', function () {
     return response()->json(['status' => 'ok']);

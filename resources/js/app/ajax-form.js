@@ -52,8 +52,11 @@ Alpine.data('ajaxForm', (id) => ({
             },
         }).then((response) => response.json())
             .then((data) => {
-                if (data.status === 'ok') {
-                    window.location = data.location
+                if (data.status === 'success') {
+                    alert('Zpráva byla úspěšně odeslána.')
+                    this.loaderShow = false;
+                    this.$dispatch('close-modal', 'contact-form')
+                    this.setDefault();
                     return;
                 }
                 this.loaderShow = false;

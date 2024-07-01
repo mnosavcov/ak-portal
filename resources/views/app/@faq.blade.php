@@ -9,11 +9,13 @@
             </h2>
 
             <div class="w-full px-[15px] tablet:w-auto tablet:px-0 inline-grid mb-[50px]"
-                 :style="'grid-template-columns: repeat(' + data.proKohoCount + ', 1fr)'">
+                 :style="'grid-template-columns: repeat(' + data.proKohoCount + ', auto)'">
                 <template x-for="(proKoho, index) in data.proKoho" :key="index">
                     <div class="relative">
                         <div class="absolute h-full w-[1px] top-0 bg-[#aaa] left-0" x-show="index > 0"></div>
-                        <button x-text="proKoho"
+                        <button x-text="
+                            (proKoho === 'Pro investory' ? 'Investor' : (proKoho === 'Pro nabízející' ? 'Nabízející' : (proKoho === 'Pro realitní makléře' ? 'Realitní makléř' : proKoho)))
+                            "
                                 class="bg-[#f8f8f8] font-Spartan-SemiBold text-[13px]
                             h-[50px] leading-[50px] w-full
                             tablet:h-[54px] tablet:leading-[54px] tablet:w-[200px]

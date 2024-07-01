@@ -40,7 +40,7 @@
                 @endempty
                 @foreach(\App\Models\Category::CATEGORIES as $category)
                     <option
-                        value="{{ $category['url'] }}" {{ $category['url'] === $project->type ? 'selected="selected"' : '' }}>{{ $category['title'] }}</option>
+                        value="{{ $category['id'] }}" {{ $category['id'] === $project->type ? 'selected="selected"' : '' }}>{{ $category['title'] }}</option>
                 @endforeach
             </select>
         </div>

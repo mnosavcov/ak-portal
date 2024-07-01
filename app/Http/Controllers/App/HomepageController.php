@@ -71,9 +71,4 @@ class HomepageController extends Controller
     {
         return view('app.kontakt');
     }
-
-    public function ajaxForm(Request $request)
-    {
-        sleep(2);
-    }
 }

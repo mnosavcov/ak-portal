@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+@props(['htmlTitle', 'htmlDescription'])<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
         <meta name="description" content="{{ $htmlDescription }}">
     @endisset
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{ config('app.name') . (($htmlTitle ?? null) ? (' - ' . $htmlTitle) : '') }}</title>
 
     <!-- Scripts -->
     @vite(['resources/css/app.less', 'resources/js/app.js'])

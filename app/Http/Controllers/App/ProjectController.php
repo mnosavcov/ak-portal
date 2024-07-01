@@ -34,26 +34,33 @@ class ProjectController extends Controller
         ];
 
         if ($category) {
-            if (!isset(Category::CATEGORIES[$category])) {
+            if(Category::CATEGORIES['auction']['url'] === $category) {
+                $category = 'auction';
+            } elseif(Category::CATEGORIES['fixed-price']['url'] === $category) {
+                $category = 'fixed-price';
+            } elseif(Category::CATEGORIES['offer-the-price']['url'] === $category) {
+                $category = 'offer-the-price';
+            } else {
                 return redirect()->route('projects.index');
             }
+
             $projectAll = $projectAll->where('type', $category);
             $description = Category::CATEGORIES[$category]['description'];
 
             $title = Category::CATEGORIES[$category]['title'];
-            $breadcrumbs[$title] = route('projects.index', ['category' => $category]);
+            $breadcrumbs[$title] = route('projects.index', ['category' => Category::CATEGORIES[$category]['url']]);
         }
 
         if ($subcategory) {
-            $projectAll = $projectAll->where('subcategory_id', $subcategory);
             $description = Category::where('category', $category)->where('url', $subcategory)->first();
+            $projectAll = $projectAll->where('subcategory_id', $description->id);
             if (!$description) {
-                return redirect()->route('projects.index', ['category' => $category]);
+                return redirect()->route('projects.index', ['category' => Category::CATEGORIES[$category]['url']]);
             }
-            $description = $description->description;
 
-            $title = Category::CATEGORIES[$category]['title'];
-            $breadcrumbs[$title] = route('projects.index', ['category' => $category]);
+            $title = $description->subcategory;
+            $description = $description->description;
+            $breadcrumbs[$title] = route('projects.index', ['category' => Category::CATEGORIES[$category]['url'], 'subcategory' => $subcategory]);
         }
 
         $projects = [

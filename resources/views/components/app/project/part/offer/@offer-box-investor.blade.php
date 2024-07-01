@@ -13,7 +13,7 @@
         </div>
         <div class="text-center laptop:text-right">
             <a type="button" href="{{ route('login') }}"
-               class="text-center self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+               class="text-center inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
                 Přihlásit se

@@ -55,10 +55,10 @@
                                         <x-dropdown-content :href="route('projects.index', [
                                     'category' => $category['url'],
                                     ])">
-                                            {{ \App\Models\Category::CATEGORIES[$category['url']]['title'] }}
+                                            {{ \App\Models\Category::CATEGORIES[$category['id']]['title'] }}
                                         </x-dropdown-content>
 
-                                        @foreach($projectCategories[$category['url']] as $nav)
+                                        @foreach($projectCategories[$category['id']] as $nav)
                                             <x-dropdown-link :href="route('projects.index', [
                                                 'category' => $category['url'],
                                                 'subcategory' => $nav['url'],
@@ -374,10 +374,10 @@
                                                         request()->routeIs('projects.index')
                                                         && request()->route()->parameter('category') === $category['url']
                                                         ">
-                                        {{ \App\Models\Category::CATEGORIES[$category['url']]['title'] }}
+                                        {{ \App\Models\Category::CATEGORIES[$category['id']]['title'] }}
                                     </x-dropdown-content>
 
-                                    @foreach($projectCategories[$category['url']] as $nav)
+                                    @foreach($projectCategories[$category['id']] as $nav)
                                         <x-responsive-nav-link :href="route('projects.index', [
                                                 'category' => $category['url'],
                                                 'subcategory' => $nav['url'],
