@@ -189,10 +189,10 @@
 
                 <p class="!mb-[10px]"><strong>Smlouva o poskytování služeb</strong></p>
                 <p>
-                    Smlouva uzavřená mezi Provozovatelem a Realitním makléřem, jejímž předmětem je zejména poskytování
+                    Smlouva uzavřená mezi Provozovatelem a Realitním makléřem či vlastníkem, jejímž předmětem je zejména poskytování
                     inzertních služeb. Smlouva se uzavírá v&nbsp;případě, kdy Realitní makléř u Projektu nedisponuje&nbsp;výhradní
                     smlouvou o realitním zprostředkování v&nbsp;souladu se zákonem č. 39/2020 Sb., o realitním
-                    zprostředkování a o změně souvisejících zákonů.
+                    zprostředkování a o změně souvisejících zákonů či si Vlastník vyhradil právo nepřistoupit k podpisu Rezervační smlouvy.
                 </p>
 
                 <p class="!mb-[10px]"><strong>Nabídka</strong></p>
@@ -292,7 +292,8 @@
 
                 <p class="!mb-[10px]"><strong>Inzertní poplatek</strong></p>
                 <p>
-                    Poplatek sjednaný ve Smlouvě o poskytování služeb mezi Provozovatelem a Realitním makléřem.
+                    Poplatek sjednaný ve Smlouvě o poskytování služeb mezi Provozovatelem na straně jedné a
+                    Realitním makléřem či Vlastníkem na straně druhé.
                 </p>
 
                 <p class="!mb-[10px]"><strong>Rezervační poplatek</strong></p>
@@ -318,12 +319,21 @@
                     Zveřejním projektu.
                 </p>
 
+                <p class="!mb-[10px]"><strong>Akceptace Nabídky</strong></p>
+                <p>
+                    Znamená (i) situaci, kdy byla podána platná Nabídka v případě typu prodeje „Cenu navrhuje
+                    Nabízejí“, (ii) situaci, byla v&nbsp;rámci ukončení Aukce nabídnuta Minimální Nabídková cena,
+                    nebo (iii) situaci, kdy Nabízející akceptoval na Portálu Nabídku Investora v případě typu
+                    prodeje „Cenu navrhuje Investor“.
+                </p>
+
                 <p class="!mb-[10px]"><strong>Zrušení projektu</strong></p>
                 <p>
-                    Označení Projektu Provozovatelem jako „Zrušený projekt“. K&nbsp;tomu dochází za situace, kdy k&nbsp;Projektu
-                    nebyla podána žádná platná Nabídka, nebo nebyla Vlastníkem žádná Nabídka důvodně akceptována. Ke
-                    Zrušení projektu může dojít i z&nbsp;důvodu hrubého porušení Podmínek či zákona ze strany Vlastníka
-                    nebo Nabízejícího.
+                    Označení Projektu Provozovatelem jako „Zrušený projekt“. K&nbsp;tomu dochází za situace, kdy
+                    k&nbsp;Projektu nebyla podána žádná platná Nabídka (v případě typu prodeje „Cenu navrhuje
+                    Nabízejí“ a „Aukce“), nebo nebyla Vlastníkem žádná Nabídka důvodně akceptována (v
+                    případě typu prodeje „Cenu navrhuje Investor“). Ke Zrušení projektu může dojít i z&nbsp;důvodu
+                    hrubého porušení Podmínek či zákona ze strany Vlastníka nebo Nabízejícího.
                 </p>
 
                 <p class="!mb-[10px]"><strong>Ukončení projektu</strong></p>
@@ -355,9 +365,11 @@
                     </li>
                     <li>Povinnosti uhradit Vlastníkem Provizi, jejíž výše je stanovena ve Smlouvě o zprostředkování.
                     </li>
-                    <li>Povinnosti uhradit Realitním makléřem Inzertní poplatek, jehož výše je stanovena ve Smlouvě o
-                        poskytování služeb v&nbsp;případě, že je Projekt nabízen realitním makléřem, který nedisponuje
-                        výhradní smlouvou o realitním zprostředkování.
+                    <li>povinnosti uhradit Realitním makléřem či Vlastníkem Inzertní poplatek, jehož výše
+                        je stanovena ve Smlouvě o poskytování služeb v&nbsp;případě, že je Projekt nabízen
+                        Rrealitním makléřem, který nedisponuje výhradní smlouvou o realitním
+                        zprostředkování či Vlastníkem, který si vyhradil právo nepřistoupit k podpisu
+                        Rezervační smlouvy.
                     </li>
                     <li>Způsobu platby, způsobu a času plnění, který je vždy specifikován u příslušného Projektu a v&nbsp;Převodní
                         smlouvě.
@@ -449,8 +461,12 @@
                     <li>Provozovatel neodpovídá za úspěch či neúspěch při konečné realizaci Projektu Zájemcem, čímž je
                         myšleno zejména úspěšná výstavba výrobny a její připojení do sítě distributora.
                     </li>
-                    <li>S&nbsp;Vlastníkem uzavírá Provozovatel Smlouvu o zprostředkování a zavazuje se mu zprostředkovat
-                        uzavření Rezervační smlouvy, Kupní smlouvy nebo Smlouvy o budoucí smlouvě kupní se Zájemcem.
+                    <li>S&nbsp;Vlastníkem uzavírá Provozovatel Smlouvu o zprostředkování a zavazuje se mu
+                        zprostředkovat uzavření Rezervační smlouvy, Kupní smlouvy nebo Smlouvy o budoucí
+                        smlouvě kupní se Zájemcem. V&nbsp;případě, že si Vlastník vyhradil právo nepřistoupit k
+                        podpisu Rezervační smlouvy, musí být s&nbsp;Provozovatelem ještě uzavřena Smlouva o
+                        poskytování služeb. Před Zveřejněním projektu musí Vlastník Provozovateli dále uhradit
+                        Inzertní poplatek sjednaný ve Smlouvě o poskytování služeb.
                     </li>
                     <li>Pokud dojde k obstarání Nabízejícímu příležitosti k&nbsp;uzavření Kupní smlouvy nebo Smlouvy o
                         smlouvě budoucí kupní, tj. na základě uzavření Rezervační smlouvy, vzniká Provozovateli nárok na
@@ -516,6 +532,10 @@
                     </li>
                     <li>Vlastník je povinen uzavřít Smlouvu o zprostředkování s Provozovatelem, aby mohl být Zveřejněn
                         projekt, ke kterému má vlastnická či jiná užívací práva.
+                    </li>
+                    <li>V&nbsp;případě, že si chce Vlastník vyhradit právo nepřistoupit k podpisu Rezervační smlouvy,
+                        musí být s&nbsp;Provozovatelem ještě uzavřena Smlouva o poskytování služeb a před
+                        Zveřejněním projektu uhrazen Inzertní poplatek.
                     </li>
                     <li>Vlastník je povinen uhradit Provozovateli Provizi, jejíž výše a splatnost je mezi Provozovatelem
                         a Vlastníkem sjednána ve Smlouvě o zprostředkování. Provozovatel je oprávněn požadovat složení
@@ -587,10 +607,11 @@
                         platná. V&nbsp;případě Aukce je zájemce povinen zaplatit Jistotu s&nbsp;dostatečným předstihem
                         předem, jinak nemá oprávnění pro podání Nabídky.
                     </li>
-                    <li>Zájemcem uhrazená Jistota mu bude vrácena bez zbytečného odkladu na bankovní účet, ze kterého
-                        byla připsána, pokud nebude jeho Nabídka akceptována.
+                    <li>Zájemcem uhrazená Jistota mu bude vrácena bez zbytečného odkladu na bankovní účet,
+                        ze kterého byla připsána, pokud nebude jeho Nabídka akceptována (v případě typu
+                        prodeje „Cenu navrhuje Investor“) či nezvítězil v&nbsp;rámci typu prodeje „Aukce“.
                     </li>
-                    <li>V&nbsp;případě akceptování Nabídky Zájemcem je složená Jistota vypořádána v&nbsp;rámci úhrady
+                    <li>V&nbsp;případě Akceptování Nabídky Zájemcem je složená Jistota vypořádána v&nbsp;rámci úhrady
                         Kupní ceny.
                     </li>
                     <li>Případné úroky připsané Provozovateli po dobu uložení Jistoty náleží Provozovateli jako odměna
@@ -605,7 +626,7 @@
                         znění.
                     </li>
                     <li>Zájemce je oprávněn, aniž by mu vznikala povinnost uhradit vzniklou škodu, nerealizovat nárok na
-                        uzavření Kupní smlouvy nebo Smlouvy o smlouvě budoucí kupní dle akceptované Nabídky v&nbsp;případě,
+                        uzavření Kupní smlouvy nebo Smlouvy o smlouvě budoucí kupní dle Akceptované Nabídky v&nbsp;případě,
                         že zjistí vážný nesoulad mezi informacemi v&nbsp;Plném znění projektu a faktickým stavem.
                     </li>
                     <li>Zájemce je povinen v&nbsp;souvislosti se zprostředkováním obchodu poskytnout Provozovateli,
@@ -626,7 +647,7 @@
                         Projektu stanovené lhůtě. V&nbsp;případě Aukce je povinen Zájemce zaplatit Jistotu s&nbsp;dostatečným
                         předstihem předem, jinak nemá oprávnění pro podání Nabídky.
                     </li>
-                    <li>V případě, že bude akceptována Nabídka Investora, zavazuje se Investor poskytnout součinnost a
+                    <li>V případě, že bude Akceptována Nabídka Investora, zavazuje se Investor poskytnout součinnost a
                         zajistit součinnost Zájemce. Poskytnutím součinnosti se rozumí zejména závazek konat bez
                         zbytečných
                         odkladů při obdržení návrhu na podpis Kupní smlouvy nebo Smlouvy o smlouvě budoucí kupní a
@@ -952,9 +973,10 @@
                         <ul class="disc !mb-0">
                             <li>Vlastníka k&nbsp;uzavření Smlouvy o zprostředkování, nebo</li>
                             <li>Realitního makléře k&nbsp;uzavření Mandátní smlouvy, a dále</li>
-                            <li class="!mb-0">Realitního makléře, v případě nevýhradního zastoupení Vlastníka, k&nbsp;uzavření
-                                Smlouvy
-                                o poskytování služeb,
+                            <li class="!mb-0">Realitního makléře, v případě nevýhradního zastoupení Vlastníka, či Vlastníka
+                                v&nbsp;případě, že si Vlastník/Nabízející vyhrazuje právo nepřistoupit k podpisu
+                                Rezervační smlouvy (jen u typu prodeje „Cenu navrhuje Investor“) k&nbsp;uzavření
+                                Smlouvy o poskytování služeb,
                             </li>
                         </ul>
                         bez jejíž uzavření není možné ze strany Provozovatele Zveřejnit projekt.
@@ -1071,8 +1093,10 @@
                 <div class="title">Uzavření Smlouvy o poskytování služeb</div>
 
                 <ul>
-                    <li>Realitní makléř, pokud zastupuje Vlastníka nevýhradně, má jako další podmínku pro Zveřejnění
-                        projektu uzavření s&nbsp;Provozovatelem Smlouvy o poskytování služeb,.
+                    <li>Realitní makléř, pokud zastupuje Vlastníka nevýhradně, či Vlastník v&nbsp;případě, že si
+                        Vlastník/Nabízející vyhrazuje právo nepřistoupit k podpisu Rezervační smlouvy (jen u
+                        typu prodeje „Cenu navrhuje Investor“) má jako další podmínku pro Zveřejnění projektu
+                        uzavření s&nbsp;Provozovatelem Smlouvy o poskytování služeb.
                     </li>
                     <li>V&nbsp;této smlouvě je definováno zejména:
                         <ul class="disc">
@@ -1085,7 +1109,8 @@
                             <li>Podmínky Prodeje projektu – Typ prodeje projektu, cenové podmínky, doba platnosti
                                 závazku a další.
                             </li>
-                            <li>Výhradnost/nevýhradnost zastupování Vlastníka Projektu Realitním makléřem.</li>
+                            <li>Výhradnost/nevýhradnost zastupování Vlastníka Projektu Realitním makléřem /
+                                výhrada práva Vlastníka nepřistoupit k podpisu Rezervační smlouvy.</li>
                         </ul>
                     </li>
                 </ul>
@@ -1111,15 +1136,23 @@
                     <li>Nabízející nebo Realitní makléř Typ prodeje projektu předběžně volí již při Přidání projektu.
                         Tato volba však není závazná a lze ji do Zveřejnění projektu změnit.
                     </li>
-                    <li>Typ prodeje projektu „Cenu navrhuje Investor“ je založen na tom, že Nabízející nebo Realitní
-                        makléř stanoví pouze Minimální nabídkovou cenu. Po Zveřejnění projektu mohou Investoři podávat
-                        své
-                        Nabídky vyjádřené Nabídkovou cenou, která nesmí být nižší než Minimální nabídková cena.
-                        Nabízející
-                        po skončení fáze sběru Nabídek vybere vítěznou Nabídku. Zpravidla se jí stane ta s&nbsp;nejvyšší
-                        Nabídkovou cenou, avšak není to podmínkou a Nabízející může zvolit kteroukoliv z&nbsp;Nabídek i
-                        dle
-                        jiných parametrů. Nabídka je platná, pokud byla Investorem včas složena Jistota.
+                    <li>Typ prodeje projektu „Cenu navrhuje Investor“ je založen na tom, že Nabízející nebo
+                        Realitní makléř stanoví pouze Minimální nabídkovou cenu. V&nbsp;rámci tohoto typu prodeje
+                        může Nabízející zveřejnit Nabídku s&nbsp;upozorněním, že má Vlastník/Nabízející právo
+                        nepřistoupit k podpisu Rezervační smlouvy. Po Zveřejnění projektu mohou Investoři
+                        podávat své Nabídky vyjádřené Nabídkovou cenou, která nesmí být nižší než Minimální
+                        nabídková cena. Nabízející po skončení fáze sběru Nabídek vybere vítěznou Nabídku, a
+                        to ve lhůtě stanovené Nabízejícím v&nbsp;rámci Zveřejněného Projektu; nebyla-li lhůta ve
+                        Zveřejněném projektu stanovena, je povinen Nabízející vybrat vítěznou Nabídku ve lhůtě
+                        14 dní ode dne skončení termínu pro podání Nabídek. Zpravidla se jí stane ta s&nbsp;nejvyšší
+                        Nabídkovou cenou, avšak není to podmínkou a Nabízející může zvolit kteroukoliv
+                        z&nbsp;Nabídek i dle jiných parametrů. Nabídka je platná, pokud byla Investorem včas složena
+                        Jistota, a to do doby uplynutí lhůty pro Akceptaci Nabídky. V&nbsp;případě, že Nabízející ve
+                        stanovené lhůtě pro výběr Investora neprovede Akceptaci Nabídky (nebyla-li Nabídka
+                        zveřejněna s&nbsp;upozorněním, že má Vlastník/Nabízející právo nepřistoupit k podpisu
+                        Rezervační smlouvy), je povinen uhradit Provozovateli náhradu škody stanovenou
+                        paušální částkou ve výši Jistoty, a to ve lhůtě 14 dní ode dne marného uplynutí lhůty pro
+                        Akceptaci Nabídky.
                     </li>
                     <li>Typ prodeje projektu „Cenu navrhuje Nabízející“ je založen na tom, že Nabízející nebo Realitní
                         makléř stanoví fixní Minimální nabídkovou cenu. Vítěznou Nabídkou se stane ta, která je
@@ -1250,8 +1283,8 @@
                 <div class="title">Uzavření Rezervační smlouvy</div>
 
                 <ul>
-                    <li>Jakmile dojde k&nbsp;akceptaci Nabídky, jsou Vlastník, Zájemce a Provozovatel (jakožto vedlejší
-                        smluvní strana) povinni ve lhůtě 10 pracovních dnů ode dne k&nbsp;akceptace Nabídky uzavřít
+                    <li>Jakmile dojde k&nbsp;Akceptaci Nabídky, jsou Vlastník, Zájemce a Provozovatel (jakožto vedlejší
+                        smluvní strana) povinni ve lhůtě 10 pracovních dnů ode dne Akceptace Nabídky uzavřít
                         Rezervační smlouvu a Smlouvu o Advokátní či notářské úschově. Rezervační smlouvu vyhotoví
                         Provozovatel a obsahuje zejména:
                         <ul class="letter">
@@ -1297,12 +1330,12 @@
                         </ul>
 
                     </li>
-                    <li>V&nbsp;případě, že nedojde k&nbsp;uzavření Rezervační smlouvy a složení Rezervačního poplatku do
-                        Advokátní či notářské úschovy ani po uplynutí dodatečné lhůty k&nbsp;uzavření z&nbsp;důvodu na
-                        straně Zájemce, nárok na převod Projektu zaniká a Provozovatel má nárok na úhradu paušální výše
-                        nákladů spojených s&nbsp;činností v&nbsp;souvislosti s&nbsp;nabízením Projektu, kdy je oprávněn
-                        na
-                        úhradu takovýchto nákladů provést zápočet vůči povinnosti vrátit složenou Jistotu.
+                    <li>V&nbsp;případě, že nedojde k&nbsp;uzavření Rezervační smlouvy a složení Rezervačního
+                        poplatku do Advokátní či notářské úschovy ani po uplynutí dodatečné lhůty
+                        k&nbsp;uzavření z&nbsp;důvodu na straně Zájemce, nárok na převod Projektu zaniká a
+                        Provozovatel má nárok na úhradu paušální výše nákladů spojených s&nbsp;činností
+                        v&nbsp;souvislosti s&nbsp;nabízením Projektu ve výši složené Jistoty, kdy je oprávněn na úhradu
+                        takovýchto nákladů provést zápočet vůči povinnosti vrátit složenou Jistotu.
                     </li>
                     <li>Spolu s&nbsp;uzavřením Rezervační smlouvy musí být uzavřena též smlouva o Advokátní či notářské
                         úschově za účelem složení Rezervačního poplatku do Advokátní či notářské úschovy.
@@ -1341,7 +1374,7 @@
                         notářské
                         úschovy složena též zbývající část Kupní ceny.
                     </li>
-                    <li>Smlouva o Advokátní či notářské úschově je uzavírání spolu s Rezervační smlouvou.
+                    <li>Smlouva o Advokátní či notářské úschově je uzavírána spolu s Rezervační smlouvou.
                     </li>
                     <li>Provozovatel má dále právo před Zveřejněním projektu stanovit Nabízejícímu nebo Realitnímu
                         makléři požadavek, aby byla do Advokátní či notářské úschovy složena záloha na Provizi.
@@ -1390,11 +1423,12 @@
                         s&nbsp;nabízením Projektu a zajištěním následných služeb.
                     </li>
                     <li>V&nbsp;případě, že nedojde k&nbsp;Ukončení projektu, z&nbsp;důvodu na straně Vlastníka, bude
-                        Jistota vrácena zpět Zájemci s&nbsp;tím, že Vlastník je povinen Provozovateli uhradit náhradu
-                        nákladů spojenou s dosavadní&nbsp;činností v&nbsp;souvislosti s&nbsp;nabízením Projektu a
-                        zajištěním
-                        následných služeb stanovenou paušálně ve výši Jistoty a dále v&nbsp;případě, že nedojde k&nbsp;dalšímu
-                        Zveřejnění projektu též nárok na ušlý zisk.
+                        Jistota vrácena zpět Zájemci s&nbsp;tím, že Vlastník je povinen (vyjma případu neuzavření
+                        Rezervační smlouvy u Projektu, kde byla Nabídka zveřejněna s&nbsp;upozorněním, že má
+                        Vlastník/Nabízející právo nepřistoupit k podpisu Rezervační smlouvy) Provozovateli
+                        uhradit náhradu nákladů spojenou s dosavadní&nbsp;činností v&nbsp;souvislosti s&nbsp;nabízením
+                        Projektu a zajištěním následných služeb stanovenou paušálně ve výši Jistoty a dále
+                        v&nbsp;případě, že nedojde k&nbsp;dalšímu Zveřejnění projektu též nárok na ušlý zisk.
                     </li>
                 </ul>
 
@@ -1446,8 +1480,7 @@
                     Provozovatele příslušným Uživatelům zrušen přístup do Portálu.
                     Tyto Podmínky jsou platné od 21.6.2024.</p>
 
-
-                <p>Tyto podmínky nabývají účinnosti dnem 21.06.2024.</p>
+                <p>Tyto podmínky nabývají účinnosti dnem 01.07.2024.</p>
             </div>
         </div>
     </div>
