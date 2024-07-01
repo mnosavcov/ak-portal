@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\CustomVerifyEmail;
 use App\Services\ProfileService;
 use App\Services\UsersService;
 use Illuminate\Support\Facades\Hash;
@@ -13,9 +14,7 @@ use App\Services\InvestorService;
 use App\Services\ProjectNotInvestorService;
 use App\Services\ProjectInvestorService;
 use App\Services\RealEstateBrokerService;
-use Carbon\Carbon;
 use Exception;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -85,7 +84,7 @@ class ProfileController extends Controller
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
-            $request->user()->notify(new VerifyEmail);
+            $request->user()->notify(new CustomVerifyEmail);
         }
 
         $request->user()->save();
@@ -241,7 +240,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        $user->notify(new VerifyEmail);
+        $user->notify(new CustomVerifyEmail);
 
         return response()->json([
             'status' => 'ok',
@@ -277,7 +276,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        $user->notify(new VerifyEmail);
+        $user->notify(new CustomVerifyEmail);
 
         return response()->json([
             'status' => 'ok',

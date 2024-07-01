@@ -67,8 +67,6 @@ class VerifyEmailAdmin extends Notification
             ->line(Lang::get('na portálu www.pvtrusted.cz jste byli přidání do role administrátora. Prosím, potvrďte vlastnictví e-mailu a nastavte si nové heslo přes následující odkaz:'))
             ->action(Lang::get('Vytvořit heslo'), $url)
             ->line(Lang::get('Odkaz bude aktivní 7 dní.'))
-            ->line(Lang::get('S pozdravem,'))
-            ->line(Lang::get('Tým PVtrusted.cz'))
             ->markdown('vendor.email');
     }
 

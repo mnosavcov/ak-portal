@@ -1,1 +1,2 @@
-{{ $slot }}
+S pozdravem,
+Tým PVtrusted.cz

@@ -67,8 +67,6 @@ class VerifyEmailAdvisor extends Notification
             ->line(Lang::get('na portálu http://www.pvtrusted.cz jsme Vám vytvořili nový účet. Prosím, potvrďte vlastnictví e-mailu a nastavte si nové heslo přes následující odkaz:'))
             ->action(Lang::get('Vytvořit heslo'), $url)
             ->line(Lang::get('Odkaz bude aktivní 7 dní.'))
-            ->line(Lang::get('S pozdravem,'))
-            ->line(Lang::get('Tým PVtrusted.cz'))
             ->markdown('vendor.email');
     }
 
