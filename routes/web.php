@@ -25,17 +25,7 @@ Route::get('projects/add/{accountType?}', function () {
 })->name('projects.add');
 Route::post('projects/save', [ProjectController::class, 'store'])->name('projects.save');
 
-Route::view('jak-to-funguje', 'homepage', [
-    'projects' => [
-        'Nejnovější projekty' => [
-            'selected' => '1',
-            'titleCenter' => true,
-            'data' => [
-                '1' => Project::isPublicated()->forDetail()->get(),
-            ],
-        ]
-    ],
-])->name('jak-to-funguje');
+Route::view('jak-to-funguje', 'app.jak-to-funguje')->name('jak-to-funguje');
 Route::view('o-nas', 'homepage', [
     'projects' => [
         'Nejnovější projekty' => [

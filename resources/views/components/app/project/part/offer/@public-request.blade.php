@@ -59,7 +59,7 @@
                             if(access && !confirm('Opravdu si přejete povolit přístup? Povolení již nelze vzít zpět.')) {
                                 return;
                             }
-                            if(!access && !confirm('Opravdu si přejete zamítnout přístup? Přístup budete moct povolit později.')) {
+                            if(!access && !confirm('Opravdu si přejete investorovi zamítnout plný přístup ke všem informacím o projektu? Po zamítnutí můžete své stanovisko změnit a přístup dodatečně povolit.')) {
                                 return;
                             }
 
