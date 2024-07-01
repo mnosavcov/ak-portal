@@ -17,8 +17,6 @@ Alpine.data('ajaxForm', (id) => ({
     loaderShow: false,
 
     validate() {
-        this.data.confirm = true;
-        return true;
         let validate = this.souhlas;
         validate &&= (this.data.kontaktJmeno ? (this.data.kontaktJmeno.trim().length > 0) : false);
         validate &&= this.data.kontaktPrijmeni ? (this.data.kontaktPrijmeni.trim().length > 0) : false;

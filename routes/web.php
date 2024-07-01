@@ -4,9 +4,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Models\FormContact;
 use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +45,42 @@ Route::get('kontakt', [HomepageController::class, 'kontakt'])->name('kontakt');
 Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-email');
 Route::post('ajax-form', [HomepageController::class, 'ajaxForm'])->name('ajax-form');
 Route::get('projects/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
+Route::post('ajax-form', function (Request $request) {
+    $data = json_decode($request->post('data'), true);
+    $subject = 'Nová zpráva z kontaktního formuláře na PED.cz';
+    $polozky = [
+        'pozadavek' => 'Dotaz',
+        'kontaktJmeno' => 'Jméno',
+        'kontaktPrijmeni' => 'Příjmení',
+        'kontaktFirma' => 'Firma',
+        'kontaktEmail' => 'E-mail',
+        'kontaktTelefon' => 'Telefonní číslo',
+    ];
+    $form = new FormContact(['input_data' => serialize($data)]);
+
+    $form->save();
+
+    $contentMy = '';
+    foreach ($polozky as $key => $item) {
+        $value = ($data[$key] ?? null);
+        if (empty($value)) {
+            continue;
+        }
+
+        $contentMy .= '<strong>' . $item . ':</strong> ' . $value . "\n";
+    }
+
+    Mail::send([], [], function ($message) use ($subject, $contentMy, $data) {
+        $message->to([env('MAIL_TO_INFO'), env('MAIL_TO_INFO2')])
+            ->subject($subject)
+            ->html(
+                nl2br($contentMy),
+                'text/html'
+            );
+    });
+
+    return response()->json(['status' => 'success']);
+})->name('ajax-form');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
 Route::get('zasady-zpracovani-osobnich-udaju', function () {
@@ -140,7 +178,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('projects/{category?}/{subcategory?}', [ProjectController::class, 'index'])->name('projects.index');
 
-Route::get('/keep-session', function() {
+Route::get('/keep-session', function () {
     return response()->json(['status' => 'ok']);
 });
 
