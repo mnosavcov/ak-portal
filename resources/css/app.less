@@ -239,6 +239,13 @@ h3 {
 @apply w-full mx-auto text-justify font-Spartan-Regular;
     padding-left: 15px;
 
+    a {
+    @apply underline text-app-blue;
+        &hover {
+        @apply no-underline;
+        }
+    }
+
     p {
         margin-bottom: 30px;
 
@@ -265,6 +272,16 @@ h3 {
 
         &.disc {
             list-style-type: disc !important;
+            padding-left: 35px;
+        }
+
+        &.letter {
+            list-style-type: lower-alpha !important;
+            padding-left: 35px;
+        }
+
+        &.circle {
+            list-style-type: circle !important;
             padding-left: 35px;
         }
     }
