@@ -103,6 +103,10 @@
                     </a>
                 </div>
             @endisset
+
+            <template x-if="count === 0">
+                <h3>Projekty v této kategorii pro vás již připravujeme.</h3>
+            </template>
         </div>
     </template>
 </div>
