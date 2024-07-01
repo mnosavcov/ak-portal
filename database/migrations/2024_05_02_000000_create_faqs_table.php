@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('pro_koho');
             $table->string('otazka');
-            $table->string('odpoved');
+            $table->text('odpoved');
         });
     }
 
