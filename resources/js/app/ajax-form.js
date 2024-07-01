@@ -6,8 +6,6 @@ Alpine.data('ajaxForm', (id) => ({
     open: false,
     souhlas: false,
     data: {
-        id: null,
-        pozice: null,
         pozadavek: null,
         kontaktJmeno: null,
         kontaktPrijmeni: null,
@@ -16,8 +14,11 @@ Alpine.data('ajaxForm', (id) => ({
         kontaktTelefon: null,
         confirm: null,
     },
+    loaderShow: false,
 
     validate() {
+        this.data.confirm = true;
+        return true;
         let validate = this.souhlas;
         validate &&= (this.data.kontaktJmeno ? (this.data.kontaktJmeno.trim().length > 0) : false);
         validate &&= this.data.kontaktPrijmeni ? (this.data.kontaktPrijmeni.trim().length > 0) : false;
@@ -31,7 +32,7 @@ Alpine.data('ajaxForm', (id) => ({
             alert('Vyplňte všechna povinná pole');
             return;
         }
-        loaderStart();
+        this.loaderShow = true;
 
         let inputFiles = document.querySelectorAll('.file-input')
         let data = new FormData()
@@ -57,18 +58,17 @@ Alpine.data('ajaxForm', (id) => ({
                     window.location = data.location
                     return;
                 }
-                loaderStop();
+                this.loaderShow = false;
                 alert('Chyba odeslání formuláře')
             })
             .catch((error) => {
-                loaderStop();
+                this.loaderShow = false;
                 alert('Chyba odeslání formuláře')
             });
     },
 
     setDefault() {
         this.souhlas = false;
-        this.data.pozice = null;
         this.data.pozadavek = null;
         this.data.kontaktJmeno = null;
         this.data.kontaktPrijmeni = null;

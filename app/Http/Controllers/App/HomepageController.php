@@ -21,6 +21,10 @@ class HomepageController extends Controller
             return $this->temporary();
         }
 
+        if (!empty(env('DATE_PUBLISH_PAST'))) {
+            return view('homepage-temporary-x');
+        }
+
         //
 
         $projectAll = Project::isPublicated()->forDetail()->get();
@@ -61,5 +65,15 @@ class HomepageController extends Controller
     {
         DB::table('emails')->insert(['email' => $request->email]);
         return response()->json(['status' => 'ok']);
+    }
+
+    public function kontakt()
+    {
+        return view('app.kontakt');
+    }
+
+    public function ajaxForm(Request $request)
+    {
+        sleep(2);
     }
 }

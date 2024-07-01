@@ -43,37 +43,41 @@ class BeforeMiddleware
             ) {
                 return redirect()->route('homepage');
             }
-        } else
+        }
 
-            if (Auth::user() && Auth::user()->deleted_at) {
-                (new UsersService())->logout();
-                return redirect('/');
-            }
+        if (!empty(env('DATE_PUBLISH_PAST')) && $request->getRequestUri() !== '/') {
+            return redirect()->route('homepage');
+        }
 
-            if (
-                Auth::user()
-                && (Auth::user()->banned_at)
-                && !(
-                    $request->getUri() === route('profile.edit')
-                    || $request->getUri() === route('logout')
-                )
-            ) {
-                return redirect()->route('profile.edit');
-            }
+        if (Auth::user() && Auth::user()->deleted_at) {
+            (new UsersService())->logout();
+            return redirect('/');
+        }
 
-            if (
-                Auth::user()
-                && (!Auth::user()->hasVerifiedEmail())
-                && !(
-                    $request->getUri() === route('profile.edit')
-                    || $request->getUri() === route('profile.resend-verify-email')
-                    || $request->getUri() === route('logout')
-                    || $request->getUri() === route('profile.verify-new-email')
-                    || str_starts_with($request->getUri(), route('verification.notice'))
-                )
-            ) {
-                return redirect()->route('profile.edit');
-            }
+        if (
+            Auth::user()
+            && (Auth::user()->banned_at)
+            && !(
+                $request->getUri() === route('profile.edit')
+                || $request->getUri() === route('logout')
+            )
+        ) {
+            return redirect()->route('profile.edit');
+        }
+
+        if (
+            Auth::user()
+            && (!Auth::user()->hasVerifiedEmail())
+            && !(
+                $request->getUri() === route('profile.edit')
+                || $request->getUri() === route('profile.resend-verify-email')
+                || $request->getUri() === route('logout')
+                || $request->getUri() === route('profile.verify-new-email')
+                || str_starts_with($request->getUri(), route('verification.notice'))
+            )
+        ) {
+            return redirect()->route('profile.edit');
+        }
 
         Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'evaluation']);
         return $next($request);
