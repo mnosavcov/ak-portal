@@ -4,6 +4,6 @@
 </div>
 
 <div class="w-full max-w-[1230px] px-[15px] mx-auto text-center relative">
-    <h1 class="pt-[50px] tablet:pt-[65px] laptop:pt-[80px] pb-[20px] tablet:pb-[35px] laptop:pb-[55px] text-white">{{ $header }}</h1>
+    <h1 class="pt-[50px] tablet:pt-[65px] laptop:pt-[80px] pb-[20px] tablet:pb-[35px] laptop:pb-[55px] text-white">{!! $header !!}</h1>
     {{ $slot }}
 </div>

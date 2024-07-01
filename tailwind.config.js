@@ -50,12 +50,14 @@ export default {
                     },
                     blue: {
                         DEFAULT: '#0376c8',
+                        80: '#348FD0',
                     },
                     red: {
                         DEFAULT: '#f54848',
                     },
                     orange: {
                         DEFAULT: '#f2940d',
+                        80: '#F5A93D',
                     }
                 }
             },

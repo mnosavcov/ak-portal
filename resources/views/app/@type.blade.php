@@ -1,6 +1,8 @@
 <div class="bg-white pb-[50px] laptop:pb-[0px]">
     <div class="w-full bg-cover bg-center h-full relative">
-        <div class="absolute top-0 left-0 right-0 bottom-[230px] bg-center bg-cover"
+        <div class="absolute top-0 left-0 right-0 bottom-[230px] bg-center bg-cover
+            after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 after:bg-[rgba(0,0,0,0.4)]
+        "
              style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')">
         </div>
 
@@ -13,9 +15,9 @@
                     tablet:text-[18px] tablet:leading-[28px]
                     laptop:text-[20px] laptop:leading-[30px]
                     ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus, placerat enim
-                sit amet, aliquet est. Suspendisse ultricies nisi nec ipsum posuere ullamcorper id eu
-                neque. Vivamus ultrices elit sed scelerisque vulputate.
+                Jako nabízející projektu si můžete vybrat ze třech typů prodeje. Před zveřejněním
+                projektu budete provozovatelem detailně seznámeni s&nbsp;výhodami, a i limity každého
+                z&nbsp;nich.
             </div>
         </div>
 
@@ -32,7 +34,7 @@
                 <img src="{{ Vite::asset('resources/images/btn-slider-right.svg') }}" class="w-full h-full">
             </div>
 
-            <div class="swiper w-full">
+            <div class="swiper w-full" x-data>
                 <div class="swiper-wrapper">
 
                     <div class="swiper-slide w-full mb-[100px]">
@@ -60,8 +62,8 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
-                                    placerat enim sit amet, aliquet est.
+                                    Nastavíte minimální nabídkovou cenu a&nbsp;investoři vám neveřejně zasílají nabídky s
+                                    částkou dle svých možností.
                                 </div>
 
                                 <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}"
@@ -75,7 +77,7 @@
                                     Zobrazit projekty
                                 </a>
                                 <div></div>
-                                <a href="{{ auth()->guest() ? route('login') : '#' }}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
@@ -113,8 +115,8 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
-                                    placerat enim sit amet, aliquet est.
+                                    Nastavíte minimální nabídkovou cenu a&nbsp;minimální příhoz. Vítězná bude poslední
+                                    nabídka s&nbsp;nejvyšší částkou.
                                 </div>
 
                                 <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['auction']['url']]) }}"
@@ -128,7 +130,7 @@
                                     Zobrazit projekty
                                 </a>
                                 <div></div>
-                                <a href="{{ auth()->guest() ? route('login') : '#' }}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
@@ -164,8 +166,8 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac sem finibus,
-                                    placerat enim sit amet, aliquet est.
+                                    Nastavíte fixní nabídkovou cenu. Na ni musí investor, pokud má o&nbsp;projekt zájem,
+                                    přistoupit. První platná nabídka vyhrává.
                                 </div>
                                 <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
@@ -179,7 +181,7 @@
                                     Zobrazit projekty
                                 </a>
                                 <div></div>
-                                <a href="{{ auth()->guest() ? route('login') : '#' }}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]

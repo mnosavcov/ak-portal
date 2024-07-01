@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-app.top-content
         imgSrc="{{ Vite::asset('resources/images/top-img-homepage.png') }}"
-        header="On-line tržiště solárních projektů"
+        header="On-line tržiště projektů z&nbsp;oblasti obnovitelných zdrojů energie"
     >
 
         <div class="max-w-[900px] mx-auto">
@@ -10,14 +10,15 @@
                     tablet:text-[19px] tablet:leading-[22px] tablet:order-2
                     laptop:text-[22px] laptop:leading-[25px] laptop:order-1
                     ">
-                    Prodej a nákup projektů na výstavbu fotovoltaiky – od rané fáze až po příležitosti s platným
-                    stavebním povolením a rezervovaným výkonem v distribuční soustavě.
+                    Prodej a nákup projektů na výstavbu fotovoltaických nebo větrných elektráren
+                    – od rané fáze připravenosti až po příležitosti s&nbsp;platným stavebním povolením a
+                    rezervovaným výkonem v&nbsp;distribuční soustavě.
                 </div>
                 <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px] order-1
                     tablet:text-[19px] tablet:leading-[22px] tablet:order-1
                     laptop:text-[22px] laptop:leading-[25px] laptop:order-2
                     ">
-                    Prodej a nákup existujících FVE.
+                    Prodej a nákup výroben v&nbsp;provozu.
                 </div>
             </div>
 
@@ -31,7 +32,7 @@
                    class="font-Spartan-Regular bg-app-orange text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
-                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
+                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] hover:bg-app-orange-80
                              "><span
                         class="font-Spartan-Bold">Chci investovat</span> do projektu
                 </a>
@@ -39,7 +40,7 @@
                    class="font-Spartan-Regular bg-app-blue text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
-                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px]
+                             laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] hover:bg-app-blue-80
                              "><span
                         class="font-Spartan-Bold">Chci nabídnout</span> projekt
                 </a>

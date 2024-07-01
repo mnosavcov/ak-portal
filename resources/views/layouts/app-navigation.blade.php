@@ -85,11 +85,11 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">
-                    <x-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')">
-                        {{ __('O nás') }}
-                    </x-nav-link>
-                </div>
+{{--                <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">--}}
+{{--                    <x-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')">--}}
+{{--                        {{ __('O nás') }}--}}
+{{--                    </x-nav-link>--}}
+{{--                </div>--}}
 
                 <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">
                     <x-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')">
@@ -408,13 +408,13 @@
                         {{ __('Jak to funguje') }}
                     </x-responsive-nav-link>
                 </div>
-                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>
-                <div>
-                    <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"
-                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                        {{ __('O nás') }}
-                    </x-responsive-nav-link>
-                </div>
+{{--                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>--}}
+{{--                <div>--}}
+{{--                    <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"--}}
+{{--                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">--}}
+{{--                        {{ __('O nás') }}--}}
+{{--                    </x-responsive-nav-link>--}}
+{{--                </div>--}}
                 <div class="pt-[5px] border-b border-[#D9E9F2]"></div>
                 <div class="pb-[25px]">
                     <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"

@@ -13,11 +13,11 @@
                         Kontaktujte nás
                     </a>
                 </div>
-                <div class="grid grid-cols-3 gap-x-[20px] justify-self-end">
-                    <img src="{{ Vite::asset('resources/images/ico-fb.svg') }}" class="h-[60px]">
-                    <img src="{{ Vite::asset('resources/images/ico-in.svg') }}" class="h-[60px]">
-                    <img src="{{ Vite::asset('resources/images/ico-x.svg') }}" class="h-[60px]">
-                </div>
+{{--                <div class="grid grid-cols-3 gap-x-[20px] justify-self-end">--}}
+{{--                    <img src="{{ Vite::asset('resources/images/ico-fb.svg') }}" class="h-[60px]">--}}
+{{--                    <img src="{{ Vite::asset('resources/images/ico-in.svg') }}" class="h-[60px]">--}}
+{{--                    <img src="{{ Vite::asset('resources/images/ico-x.svg') }}" class="h-[60px]">--}}
+{{--                </div>--}}
             </div>
 
             <div class="grid laptop:grid-cols-3 text-center laptop:text-left">
@@ -58,33 +58,33 @@
                 </div>
 
                 <div class="max-laptop:mb-[20px]">
-                    <div class="font-Spartan-Bold text-[13px] tablet:text-[18px] mb-[25px] laptop:mb-[40px]">
-                        Podle předmětu nabídky
-                    </div>
-                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
-                         text-[12px] justify-self-center mb-[15px]
-                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
-                         ">
-                            Pozemek na výstavbu FVE
-                        </a>
-                    </div>
-                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
-                         text-[12px] justify-self-center mb-[15px]
-                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
-                         ">
-                            Kapacita v síti distributora
-                        </a>
-                    </div>
-                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
-                         text-[12px] justify-self-center mb-[15px]
-                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
-                         ">
-                            Existující výrobna
-                        </a>
-                    </div>
+{{--                    <div class="font-Spartan-Bold text-[13px] tablet:text-[18px] mb-[25px] laptop:mb-[40px]">--}}
+{{--                        Podle předmětu nabídky--}}
+{{--                    </div>--}}
+{{--                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">--}}
+{{--                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline--}}
+{{--                         text-[12px] justify-self-center mb-[15px]--}}
+{{--                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]--}}
+{{--                         ">--}}
+{{--                            Pozemek na výstavbu FVE--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">--}}
+{{--                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline--}}
+{{--                         text-[12px] justify-self-center mb-[15px]--}}
+{{--                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]--}}
+{{--                         ">--}}
+{{--                            Kapacita v síti distributora--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">--}}
+{{--                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline--}}
+{{--                         text-[12px] justify-self-center mb-[15px]--}}
+{{--                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]--}}
+{{--                         ">--}}
+{{--                            Existující výrobna--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
                 </div>
 
                 <div class="max-laptop:mb-[20px]">
@@ -105,14 +105,6 @@
                          tablet:text-[15px] laptop:justify-self-center laptop:mb-[20px]
                          ">
                             Zásady zpracování osobních údajů
-                        </a>
-                    </div>
-                    <div class="mb-[20px]">
-                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
-                         text-[12px] justify-self-center mb-[15px]
-                         tablet:text-[15px] laptop:justify-self-end laptop:mb-[20px]
-                         ">
-                            Oblast copyrightu
                         </a>
                     </div>
                     <div class="mb-[20px]">
