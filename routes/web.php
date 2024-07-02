@@ -5,7 +5,6 @@ use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Models\FormContact;
-use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -41,6 +40,7 @@ Route::view('jak-to-funguje', 'app.jak-to-funguje')->name('jak-to-funguje');
 //])->name('o-nas');
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::get('sitemap.xml', [HomepageController::class, 'sitemap'])->name('sitemap');
 Route::get('kontakt', [HomepageController::class, 'kontakt'])->name('kontakt');
 Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-email');
 Route::get('projekty/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');

@@ -107,14 +107,14 @@
                             Zásady zpracování osobních údajů
                         </a>
                     </div>
-{{--                    <div class="mb-[20px]">--}}
-{{--                        <a href="#" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline--}}
-{{--                         text-[12px] justify-self-center mb-[15px]--}}
-{{--                         tablet:text-[15px] laptop:justify-self-end laptop:mb-[20px]--}}
-{{--                         ">--}}
-{{--                            Mapa webu--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+                    <div class="mb-[20px]">
+                        <a href="{{ route('sitemap') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
+                         text-[12px] justify-self-center mb-[15px]
+                         tablet:text-[15px] laptop:justify-self-end laptop:mb-[20px]
+                         ">
+                            Mapa webu
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
