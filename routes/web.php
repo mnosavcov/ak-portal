@@ -100,7 +100,15 @@ Route::get('vseobecne-obchodni-podminky', function () {
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
 
-    Route::resource('projekty', ProjectController::class)->except(['create', 'update', 'index', 'show']);
+    Route::resource('projekty', ProjectController::class)->except(['create', 'update', 'index', 'show'])->names([
+        'index' => 'projects.index',
+        'create' => 'projects.create',
+        'store' => 'projects.store',
+        'show' => 'projects.show',
+        'edit' => 'projects.edit',
+        'update' => 'projects.update',
+        'destroy' => 'projects.destroy',
+    ]);
     Route::get('projekty/create/select', [ProjectController::class, 'createSelect'])->name('projects.create.select');
     Route::get('projekty/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
     Route::get('projekty/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');

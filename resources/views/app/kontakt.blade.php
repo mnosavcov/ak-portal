@@ -42,7 +42,7 @@
                         tablet:text-[16px]
                         laptop:text-[18px]
                        ">
-                        Volat může na <a href="tel:+420724330597" class="text-app-blue font-Spartan-Bold underline hover:no-underline">+420 724 330 597</a>
+                        Volat můžete na <a href="tel:+420724330597" class="text-app-blue font-Spartan-Bold underline hover:no-underline">+420 724 330 597</a>
                     </div>
 
                 </div>

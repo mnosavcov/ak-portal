@@ -448,7 +448,6 @@
                     <li>Provozovatel není smluvní stranou Kupních smluv, nebo Smluv o budoucích smlouvách kupních.
                         Provozovatel nepodává žádné Nabídky na uzavření Kupní smlouvy, nebo Smlouvy o budoucí smlouvě
                         kupní.
-                        Provozovatel ani není vlastníkem žádného Projektu prodávaného na Portálu.
                     </li>
                     <li>Provozovatel neodpovídá za pravdivost Informací uvedených u Projektů vyjma odpovědnosti
                         stanovené
