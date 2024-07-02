@@ -151,18 +151,18 @@ h3 {
 }
 
 .app-project {
-    a {
-    @apply underline text-app-blue;
-        &hover {
-        @apply no-underline;
-        }
-    }
-
     .app-project-about {
     @apply font-Spartan-Regular;
         font-size: 11px;
         line-height: 20px;
         color: #414141;
+
+        a {
+            @apply underline text-app-blue;
+            &hover {
+                @apply no-underline;
+            }
+        }
 
         p {
             margin-bottom: 25px;
@@ -184,6 +184,13 @@ h3 {
     }
 
     .app-project-state {
+        a {
+        @apply underline text-app-blue;
+            &hover {
+            @apply no-underline;
+            }
+        }
+
         p {
             margin-bottom: 20px;
 
