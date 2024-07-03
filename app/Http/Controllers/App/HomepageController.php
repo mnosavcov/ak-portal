@@ -68,10 +68,10 @@ class HomepageController extends Controller
         };
 
         foreach (Category::CATEGORIES as $category) {
-            $urls[] = ['loc' => route('projects.index', ['category' => $category['url']])];
+            $urls[] = ['loc' => route('projects.index.category', ['category' => $category['url']])];
             $subcategories = Category::where('category', $category['id'])->get();
             foreach ($subcategories as $subcategory) {
-                $urls[] = ['loc' => route('projects.index', ['category' => $category['url'], 'subcategory' => $subcategory['url'],])];
+                $urls[] = ['loc' => route('projects.index.category', ['category' => $category['url'], 'subcategory' => $subcategory['url'],])];
             }
 
             $projects = Project::where('type', $category['id'])->isPublicated()->get();

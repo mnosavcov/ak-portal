@@ -66,7 +66,7 @@
                                     částkou dle svých možností.
                                 </div>
 
-                                <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
@@ -119,7 +119,7 @@
                                     nabídka s&nbsp;nejvyšší částkou.
                                 </div>
 
-                                <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['auction']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['auction']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
@@ -169,7 +169,7 @@
                                     Nastavíte fixní nabídkovou cenu. Na ni musí investor, pokud má o&nbsp;projekt zájem,
                                     přistoupit. První platná nabídka vyhrává.
                                 </div>
-                                <a href="{{ route('projects.index', ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat

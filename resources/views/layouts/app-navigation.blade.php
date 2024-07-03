@@ -52,14 +52,14 @@
                                     \App\Models\Category::CATEGORIES['auction']
                                     ] as $category)
                                     <div>
-                                        <x-dropdown-content :href="route('projects.index', [
+                                        <x-dropdown-content :href="route('projects.index.category', [
                                     'category' => $category['url'],
                                     ])">
                                             {{ \App\Models\Category::CATEGORIES[$category['id']]['title'] }}
                                         </x-dropdown-content>
 
                                         @foreach($projectCategories[$category['id']] as $nav)
-                                            <x-dropdown-link :href="route('projects.index', [
+                                            <x-dropdown-link :href="route('projects.index.category', [
                                                 'category' => $category['url'],
                                                 'subcategory' => $nav['url'],
                                             ])">
@@ -367,23 +367,23 @@
                                     \App\Models\Category::CATEGORIES['fixed-price'],
                                     \App\Models\Category::CATEGORIES['auction']
                                     ] as $category)
-                                    <x-dropdown-content :href="route('projects.index', [
+                                    <x-dropdown-content :href="route('projects.index.category', [
                                     'category' => $category['url'],
                                     ])" class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]"
                                                         :active="
-                                                        request()->routeIs('projects.index')
+                                                        (request()->routeIs('projects.index') || request()->routeIs('projects.index.category'))
                                                         && request()->route()->parameter('category') === $category['url']
                                                         ">
                                         {{ \App\Models\Category::CATEGORIES[$category['id']]['title'] }}
                                     </x-dropdown-content>
 
                                     @foreach($projectCategories[$category['id']] as $nav)
-                                        <x-responsive-nav-link :href="route('projects.index', [
+                                        <x-responsive-nav-link :href="route('projects.index.category', [
                                                 'category' => $category['url'],
                                                 'subcategory' => $nav['url'],
                                             ])" class="pb-[20px]"
                                                                :active="
-                                                        request()->routeIs('projects.index')
+                                                        (request()->routeIs('projects.index') || request()->routeIs('projects.index.category'))
                                                         && request()->route()->parameter('category') === $category['url']
                                                         && request()->route()->parameter('subcategory') === $nav['url']
                                                         ">

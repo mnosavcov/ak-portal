@@ -26,7 +26,7 @@
                         Kategorie podle typu nabídky
                     </div>
                     <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="{{ route('projects.index',
+                        <a href="{{ route('projects.index.category',
                                 ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
@@ -36,7 +36,7 @@
                         </a>
                     </div>
                     <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="{{ route('projects.index',
+                        <a href="{{ route('projects.index.category',
                                 ['category' => \App\Models\Category::CATEGORIES['auction']['url']]
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
@@ -46,7 +46,7 @@
                         </a>
                     </div>
                     <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="{{ route('projects.index',
+                        <a href="{{ route('projects.index.category',
                                 ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]

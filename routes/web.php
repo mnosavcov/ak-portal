@@ -4,8 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Category;
 use App\Models\FormContact;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +43,6 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('sitemap.xml', [HomepageController::class, 'sitemap'])->name('sitemap');
 Route::get('kontakt', [HomepageController::class, 'kontakt'])->name('kontakt');
 Route::post('save-email', [HomepageController::class, 'saveEmail'])->name('save-email');
-Route::get('projekty/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::post('ajax-form', function (Request $request) {
     $data = json_decode($request->post('data'), true);
     $subject = 'Nová zpráva z kontaktního formuláře na PED.cz';
@@ -94,14 +93,14 @@ Route::middleware('auth')->group(function () {
         ->except(['create', 'update', 'index', 'show'])
         ->parameters(['projekty' => 'project'])
         ->names([
-        'index' => 'projects.index',
-        'create' => 'projects.create',
-        'store' => 'projects.store',
-        'show' => 'projects.show',
-        'edit' => 'projects.edit',
-        'update' => 'projects.update',
-        'destroy' => 'projects.destroy',
-    ]);
+            'index' => 'projects.index',
+            'create' => 'projects.create',
+            'store' => 'projects.store',
+            'show' => 'projects.show',
+            'edit' => 'projects.edit',
+            'update' => 'projects.update',
+            'destroy' => 'projects.destroy',
+        ]);
     Route::get('projekty/create/select', [ProjectController::class, 'createSelect'])->name('projects.create.select');
     Route::get('projekty/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
     Route::get('projekty/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
@@ -176,7 +175,15 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('projekty/{category?}/{subcategory?}', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('{category?}/{subcategory?}', [ProjectController::class, 'index'])
+    ->where(
+        'category',
+        implode('|', array_column(Category::CATEGORIES, 'url'))
+    )->name('projects.index.category');
+Route::get('projekty', [ProjectController::class, 'index'])
+    ->name('projects.index');
+
+Route::get('projekty/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
 
 Route::get('/keep-session', function () {
     return response()->json(['status' => 'ok']);
