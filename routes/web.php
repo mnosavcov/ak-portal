@@ -90,7 +90,10 @@ Route::get('vseobecne-obchodni-podminky', function () {
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
 
-    Route::resource('projekty', ProjectController::class)->except(['create', 'update', 'index', 'show'])->names([
+    Route::resource('projekty', ProjectController::class)
+        ->except(['create', 'update', 'index', 'show'])
+        ->parameters(['projekty' => 'project'])
+        ->names([
         'index' => 'projects.index',
         'create' => 'projects.create',
         'store' => 'projects.store',

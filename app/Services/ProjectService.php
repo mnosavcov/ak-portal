@@ -69,11 +69,16 @@ class ProjectService
             Storage::delete($gallery->filepath);
         }
 
+        foreach($project->images as $image) {
+            Storage::delete($image->filepath);
+        }
+
         $user_account_type = $project->user_account_type;
 
         $project->details()->delete();
         $project->files()->delete();
         $project->galleries()->delete();
+        $project->images()->delete();
         $project->shows()->delete();
         $project->states()->delete();
         $project->tags()->delete();
