@@ -225,6 +225,7 @@ class ProfileController extends Controller
             [
                 'account' => $account,
                 'projects' => $projects,
+                'projectEmptyMessage' => 'Zde nemáte zadané projekty'
             ]
         );
     }

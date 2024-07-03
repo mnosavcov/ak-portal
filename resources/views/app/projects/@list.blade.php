@@ -92,7 +92,7 @@
 
                     <template x-if="Object.keys(projectLists.data[index]).length === 0">
                         <div x-show="projectLists.selected === index" class="mt-[15px]">
-                            <h3>Projekty v této kategorii pro vás již připravujeme.</h3>
+                            <h3>{{ $projectEmptyMessage ?? 'Projekty v této kategorii pro vás již připravujeme.' }}</h3>
                         </div>
                     </template>
                 </div>
