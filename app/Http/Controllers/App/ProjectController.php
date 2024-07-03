@@ -514,7 +514,7 @@ class ProjectController extends Controller
             'details_on_request' => 1,
             'details_on_request_time' => Carbon::now(),
         ]);
-        return redirect()->route('projects.show', $project);
+        return redirect()->to($project->url_detail);
     }
 
     public function setPublic(Request $request)

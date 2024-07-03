@@ -2,7 +2,7 @@
     <div x-data="{ selectedProject: true }">
         <div class="w-full max-w-[1230px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
-            $project->title => route('projects.show', ['project' => $project->url_part])]"></x-app.breadcrumbs>
+            $project->title => $project->url_detail]"></x-app.breadcrumbs>
         </div>
 
         <div class="w-full max-w-[1230px] mx-auto">
@@ -13,7 +13,7 @@
 {{--                    <a href="{{ route('profile.overview', ['account' => $project->user_account_type]) }}" class="relative float-right font-Spartan-SemiBold text-[16px] leading-[58px] border border-[2px] border-[#31363A] h-[58px] text-[#31363A] pl-[45px] pr-[30px]--}}
 {{--            after:absolute after:bg-[url('/resources/images/ico-button-arrow-left.svg')] after:w-[6px] after:h-[10px] after:left-[17px] after:top-[23px]--}}
 {{--            ">Zpět</a>--}}
-                    <a href="{{ route('projects.show', ['project' => $project, 'overview' => true]) }}"
+                    <a href="{{ route('projects.show', ['project' => $project->url_part, 'overview' => true]) }}"
                        class="relative float-right font-Spartan-Regular text-[16px] text-app-orange">
                         Zobrazit&nbsp;náhled
                     </a>

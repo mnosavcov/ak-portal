@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :htmlTitle="$project->page_title" :htmlDescription="$project->page_description">
     @php
         $files = $project->files()->where('public', true)->orderByRaw('if(trim(ifnull(folder, "")) = "", 1, 0)')->orderBy('folder')->get();
     $actualFolder = null;
@@ -24,7 +24,7 @@
         <div class="w-full max-w-[1230px] mx-auto text-white">
             <x-app.breadcrumbs :breadcrumbs="[
             'Projekty' => route('projects.index'),
-            $project->title => $project->url_detail,
+            $project->title => route('projects.show', ['project' => $project->url_part] + (request()->query('overview') ? ['overview' => true] : [])),
         ]" :color="'text-white'" :mark="'breadcrumbs-mark-white'"></x-app.breadcrumbs>
 
             <h1 class="mb-[50px] px-[15px]">{{ $project->title }}</h1>

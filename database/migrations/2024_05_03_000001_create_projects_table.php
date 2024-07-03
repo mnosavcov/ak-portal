@@ -31,6 +31,9 @@ return new class extends Migration
             $table->string('subject_offer');
             $table->string('location_offer');
             $table->string('country');
+            $table->text('page_url')->nullable();
+            $table->text('page_title')->nullable();
+            $table->text('page_description')->nullable();
             $table->string('representation_type')->nullable();
             $table->date('representation_end_date')->nullable();
             $table->boolean('representation_indefinitely_date')->nullable();
@@ -38,6 +41,8 @@ return new class extends Migration
             $table->boolean('representation_may_be_cancelled')->nullable();
             $table->boolean('exclusive_contract')->default(false);
             $table->boolean('details_on_request')->default(true);
+
+            $table->unique('page_url');
 
             $table->foreign('user_id')->references('id')->on('users')->constrained();
             $table->foreign('subcategory_id')->references('id')->on('subcategories')->constrained();

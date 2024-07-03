@@ -46,6 +46,24 @@
         </div>
         <div></div>
         <div></div>
+        <div class="col-span-full">
+            <x-input-label for="page_url" :value="__('URL')"/>
+            <x-text-input id="page_url" name="page_url" type="text" value="{{ $project->page_url }}"
+                          class="mb-[10px] relative block mt-1 w-full"
+            />
+        </div>
+        <div class="col-span-full">
+            <x-input-label for="page_title" :value="__('Title')"/>
+            <x-text-input id="page_title" name="page_title" type="text" value="{{ $project->page_title }}"
+                          class="mb-[10px] relative block mt-1 w-full"
+            />
+        </div>
+        <div class="col-span-full">
+            <x-input-label for="page_description" :value="__('Description')"/>
+            <x-textarea-input id="page_description" name="page_description"
+                          class="mb-[10px] relative block mt-1 w-full h-[5rem]"
+            >{{ $project->page_description }}</x-textarea-input>
+        </div>
 
         @if($project->user_account_type === 'real-estate-broker')
             <div>

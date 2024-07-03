@@ -110,6 +110,9 @@ class AdminController extends Controller
             'actual_state' => trim($request->actual_state),
             'exclusive_contract' => (bool)$request->exclusive_contract,
             'details_on_request' => (bool)$request->details_on_request,
+            'page_url' => Str::slug($request->page_url),
+            'page_title' => $request->page_title,
+            'page_description' => $request->page_description,
         ];
 
         if (empty($update['price'])) {
@@ -126,6 +129,10 @@ class AdminController extends Controller
             && (!isset($request->indefinitely_date) || !$request->indefinitely_date)
         ) {
             $update['end_date'] = $request->end_date;
+        }
+
+        if (Project::where('page_url', $update['page_url'])->where('id', '!=', $project->id)->count()) {
+            $update['page_url'] = $project->id . '-' . $update['page_url'];
         }
 
         $project->update($update);

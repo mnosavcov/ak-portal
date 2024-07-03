@@ -183,7 +183,8 @@ Route::get('{category?}/{subcategory?}', [ProjectController::class, 'index'])
 Route::get('projekty', [ProjectController::class, 'index'])
     ->name('projects.index');
 
-Route::get('projekty/detail/{project}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('{project}', [ProjectController::class, 'show'])
+    ->name('projects.show');
 
 Route::get('/keep-session', function () {
     return response()->json(['status' => 'ok']);

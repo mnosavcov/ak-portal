@@ -55,6 +55,9 @@ class Project extends Model
         'representation_may_be_cancelled',
         'exclusive_contract',
         'details_on_request',
+        'page_url',
+        'page_title',
+        'page_description',
     ];
 
     public const STATUSES = [
@@ -160,6 +163,11 @@ class Project extends Model
         static::creating(function ($model) {
             $model->user_id = auth()->id();
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'page_url'; // Název sloupce, podle kterého se má načítat model
     }
 
     public function details()
@@ -374,9 +382,11 @@ class Project extends Model
 
     public function urlPart(): Attribute
     {
-        $slugTitle = Str::slug($this->title);
-        $id = $this->id;
-        $url = sprintf('%d-%s', $id, $slugTitle);
+//        $slugTitle = Str::slug($this->title);
+//        $id = $this->id;
+//        $url = sprintf('%d-%s', $id, $slugTitle);
+
+        $url = $this->page_url;
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $url
@@ -385,10 +395,7 @@ class Project extends Model
 
     public function urlDetail(): Attribute
     {
-        $slugTitle = Str::slug($this->title);
-        $id = $this->id;
-        $project = sprintf('%d-%s', $id, $slugTitle);
-        $url = route('projects.show', ['project' => $project]);
+        $url = route('projects.show', ['project' => $this->url_part]);
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $url
