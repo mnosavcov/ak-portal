@@ -6,6 +6,7 @@ use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\FormContact;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -183,11 +184,12 @@ Route::get('{category?}/{subcategory?}', [ProjectController::class, 'index'])
 Route::get('projekty', [ProjectController::class, 'index'])
     ->name('projects.index');
 
-Route::get('{project}', [ProjectController::class, 'show'])
-    ->name('projects.show');
-
 Route::get('/keep-session', function () {
     return response()->json(['status' => 'ok']);
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('{project}', [ProjectController::class, 'show'])
+    ->where('project', Project::pluck('page_url')->implode('|'))
+    ->name('projects.show');
