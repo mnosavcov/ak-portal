@@ -135,6 +135,14 @@ class ProjectController extends Controller
 
         $project = Project::create($insert);
 
+        $page_url = Str::slug($data->data->title);
+
+        if (Project::where('page_url', $page_url)->where('id', '!=', $project->id)->count()) {
+            $page_url = $project->id . '-' . $page_url;
+        }
+        $project->page_url = $page_url;
+        $project->save();
+
         $files = TempProjectFile::where('temp_project_id', $data->data->uuid)->whereNotIn('id', $data->data->fileListDelete ?? [])->get();
         foreach ($files as $file) {
             $path = $file->filepath;

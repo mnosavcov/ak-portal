@@ -165,10 +165,10 @@ class Project extends Model
         });
     }
 
-    public function getRouteKeyName()
-    {
-        return 'page_url'; // Název sloupce, podle kterého se má načítat model
-    }
+//    public function getRouteKeyName()
+//    {
+//        return 'page_url'; // Název sloupce, podle kterého se má načítat model
+//    }
 
     public function details()
     {

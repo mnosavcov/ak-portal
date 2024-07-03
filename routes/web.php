@@ -91,20 +91,21 @@ Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
 
     Route::resource('projekty', ProjectController::class)
-        ->except(['create', 'update', 'index', 'show'])
+        ->except(['create', 'update', 'index', 'show', 'edit'])
         ->parameters(['projekty' => 'project'])
         ->names([
-            'index' => 'projects.index',
-            'create' => 'projects.create',
+//            'index' => 'projects.index',
+//            'create' => 'projects.create',
             'store' => 'projects.store',
-            'show' => 'projects.show',
-            'edit' => 'projects.edit',
-            'update' => 'projects.update',
+//            'show' => 'projects.show',
+//            'edit' => 'projects.edit',
+//            'update' => 'projects.update',
             'destroy' => 'projects.destroy',
         ]);
+    Route::get('projekty/{project:page_url}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
     Route::get('projekty/create/select', [ProjectController::class, 'createSelect'])->name('projects.create.select');
     Route::get('projekty/create/{accountType}', [ProjectController::class, 'create'])->name('projects.create');
-    Route::get('projekty/prepare/{project}', [ProjectController::class, 'prepare'])->name('projects.prepare');
+    Route::get('projekty/prepare/{project:page_url}', [ProjectController::class, 'prepare'])->name('projects.prepare');
     Route::post('projekty/confirm/{project}', [ProjectController::class, 'confirm'])->name('projects.confirm');
     Route::get('projekty/request-details/{project}', [ProjectController::class, 'requestDetails'])->name('projects.request-details');
     Route::post('projekty/set-public', [ProjectController::class, 'setPublic'])->name('projects.set-public');
@@ -113,7 +114,7 @@ Route::middleware('auth')->group(function () {
     Route::post('projekty/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
 
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
-    Route::post('projekty/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::post('projekty/{project:page_url}', [ProjectController::class, 'update'])->name('projects.update');
 
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/nastaveni-uctu-verify', [ProfileController::class, 'editVerify'])->name('profile.edit-verify');
@@ -143,8 +144,8 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('projekty', [AdminController::class, 'projects'])->name('projects');
                 Route::post('projekty/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
-                Route::get('projekty/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
-                Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
+                Route::get('projekty/{project:page_url}', [AdminController::class, 'projectEdit'])->name('projects.edit');
+                Route::post('projekty/{project:page_url}', [AdminController::class, 'projectSave'])->name('projects.edit');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
                 Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');
@@ -190,6 +191,6 @@ Route::get('/keep-session', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('{project}', [ProjectController::class, 'show'])
+Route::get('{project:page_url}', [ProjectController::class, 'show'])
     ->where('project', Project::pluck('page_url')->implode('|'))
     ->name('projects.show');
