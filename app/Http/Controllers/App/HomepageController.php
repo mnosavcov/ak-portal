@@ -14,20 +14,6 @@ class HomepageController extends Controller
 
     public function index(Request $request)
     {
-        $date = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = clone $date;
-        $currentDateTime->subHours(+2);
-
-        if (!$currentDateTime->isPast()) {
-            return $this->temporary();
-        }
-
-        if (!empty(env('DATE_PUBLISH_PAST'))) {
-            return view('homepage-temporary-x');
-        }
-
-        //
-
         $projectAll = Project::isPublicated()->forDetail()->get();
 
         $projects = [
@@ -43,22 +29,6 @@ class HomepageController extends Controller
         return view('homepage', [
             'projects' => $projects,
             'projectsListButtonAll' => ['title' => 'Zobrazit vše', 'url' => Route('projects.index')]
-        ]);
-    }
-
-    public function temporary()
-    {
-        $targetDateTime = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = Carbon::now()->subHours(-2);
-
-        $diff = $targetDateTime->diff($currentDateTime);
-
-        return view('homepage-temporary', [
-            'date' => $targetDateTime,
-            'days' => $diff->format('%d'),
-            'hours' => $diff->format('%h'),
-            'minutes' => $diff->format('%i'),
-            'seconds' => $diff->format('%s'),
         ]);
     }
 

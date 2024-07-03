@@ -19,36 +19,6 @@ class BeforeMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!empty(env('DATE_PUBLISH'))) {
-            $date = Carbon::create(env('DATE_PUBLISH'));
-            $date->subHours(+2);
-
-            if (!in_array($request->getRequestUri(),
-                    [
-                        '/',
-                        '/save-email',
-                        '/zasady-zpracovani-osobnich-udaju',
-                        '/projects/add',
-                        '/projects/save',
-                        '/login',
-                        '/logout',
-                        '/admin',
-                        '/admin/projects',
-                    ]
-                ) && !$date->isPast()
-                && !str_starts_with($request->getRequestUri(), '/admin/projects')
-                && !str_starts_with($request->getRequestUri(), '/projects/')
-                && !str_starts_with($request->getRequestUri(), '/gallery/')
-                && !str_starts_with($request->getRequestUri(), '/file/')
-            ) {
-                return redirect()->route('homepage');
-            }
-        }
-
-        if (!empty(env('DATE_PUBLISH_PAST')) && $request->getRequestUri() !== '/') {
-            return redirect()->route('homepage');
-        }
-
         if (Auth::user() && Auth::user()->deleted_at) {
             (new UsersService())->logout();
             return redirect('/');

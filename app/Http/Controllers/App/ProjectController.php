@@ -101,19 +101,6 @@ class ProjectController extends Controller
         $data['routeFetchFile'] = route('projects.store-temp-file', ['uuid' => $uuid]);
         $data['uuid'] = $uuid;
 
-        $date = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = clone $date;
-        $currentDateTime->subHours(+2);
-
-        if (!$currentDateTime->isPast()) {
-            $data['confirm'] = false;
-            $data['email'] = '';
-            $data['phone'] = '';
-            $data['pageTitle'] = 'Nabídka FVE projektu';
-            $data['routeFetch'] = route('projects.save');
-            return view('app.projects.create-temporary', ['data' => $data]);
-        }
-
         return view('app.projects.create', ['data' => $data]);
     }
 
@@ -125,10 +112,6 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $date = Carbon::create(env('DATE_PUBLISH'));
-        $currentDateTime = clone $date;
-        $currentDateTime->subHours(+2);
-
         $data = json_decode($request->post('data'));
         $insert = [
             'user_account_type' => $data->data->accountType,
@@ -148,10 +131,6 @@ class ProjectController extends Controller
             }
             $insert['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
             $insert['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
-        }
-
-        if (!$currentDateTime->isPast()) {
-            $insert['user_account_type'] = $data->data->email . '|' . $data->data->phone;
         }
 
         $project = Project::create($insert);
@@ -174,14 +153,6 @@ class ProjectController extends Controller
             ]);
 
             $project->files()->save($projectFile);
-        }
-
-        if (!$currentDateTime->isPast()) {
-            session()->flash('project-added', 'Děkujeme, že jste nám zaslali nabídku svého projektu. Po jejím zpracování vás budeme kontaktovat.');
-            return response()->json([
-                'status' => 'success',
-                'redirect' => route('homepage'),
-            ]);
         }
 
         return response()->json([

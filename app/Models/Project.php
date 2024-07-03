@@ -158,14 +158,7 @@ class Project extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $date = Carbon::parse(env('DATE_PUBLISH'), 'Europe/Prague');
-            $utcDate = $date->setTimezone('UTC');
-
-            if (!$utcDate->isPast()) {
-                $model->user_id = User::first()->id;
-            } else {
-                $model->user_id = auth()->id();
-            }
+            $model->user_id = auth()->id();
         });
     }
 
@@ -594,11 +587,11 @@ class Project extends Model
             return false;
         }
 
-        if(!$this->exclusive_contract) {
+        if (!$this->exclusive_contract) {
             return true;
         }
 
-        if($this->details_on_request) {
+        if ($this->details_on_request) {
             return (bool)$this->myShow()
                 ->where('details_on_request', 999)
                 ->count();

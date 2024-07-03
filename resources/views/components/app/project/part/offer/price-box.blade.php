@@ -92,7 +92,7 @@
             laptop:justify-self-end
             ">{{ $project->end_date_text_normal }}</div>
             @if($project->type === 'offer-the-price')
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální výše nabídky</div>
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální nabídková cena</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">

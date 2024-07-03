@@ -18,7 +18,6 @@ import './app/faq.js';
 import './app/register.js';
 import './app/profile.js';
 import './app/project-edit.js';
-import './app/project-edit-temp.js';
 import './app/project-list.js';
 import './app/admin-project-edit.js';
 import './app/admin-category.js';

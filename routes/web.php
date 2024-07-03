@@ -82,17 +82,7 @@ Route::post('ajax-form', function (Request $request) {
 })->name('ajax-form');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
-Route::get('zasady-zpracovani-osobnich-udaju', function () {
-    $date = Carbon::create(env('DATE_PUBLISH'));
-    $currentDateTime = clone $date;
-    $currentDateTime->subHours(+2);
-
-    if (!$currentDateTime->isPast()) {
-        return view('app.zasady-zpracovani-osobnich-udaju-temp');
-    }
-
-    return view('app.zasady-zpracovani-osobnich-udaju');
-})->name('zasady-zpracovani-osobnich-udaju');
+Route::view('zasady-zpracovani-osobnich-udaju', 'app.zasady-zpracovani-osobnich-udaju')->name('zasady-zpracovani-osobnich-udaju');
 Route::get('vseobecne-obchodni-podminky', function () {
     return view('app.vseobecne-obchodni-podminky');
 })->name('vseobecne-obchodni-podminky');
