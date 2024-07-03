@@ -1,4 +1,4 @@
-<a :href="project.url_detail" class="block hover:bg-[#D1E3EC]" x-init="count++">
+<a :href="project.url_detail" class="block hover:bg-[#D1E3EC]">
     <div class="border border-[#D9E9F2] p-[30px] grid gap-x-[30px] rounded-[3px]
     grid-cols-1
     tablet:grid-cols-2

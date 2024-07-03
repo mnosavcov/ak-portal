@@ -130,7 +130,7 @@
                             projectId: @js($project->id),
                             async addOffer(offer) {
                                 this.loaderShow = true;
-                                await fetch('/projects/add-offer', {
+                                await fetch('/projekty/add-offer', {
                                     method: 'POST',
                                     body: JSON.stringify({
                                         offer: offer,

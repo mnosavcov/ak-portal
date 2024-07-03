@@ -24,7 +24,7 @@
                                 return;
                             }
 
-                            await fetch('/projects/pick-a-winner', {
+                            await fetch('/projekty/pick-a-winner', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     offerId: @js($offer->id)

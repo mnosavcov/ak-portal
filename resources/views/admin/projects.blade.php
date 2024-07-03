@@ -33,7 +33,6 @@
                             <div class="pl-[10px]">{{ $project->end_date_text }}</div>
                             <div class="pl-[10px]">{{ $project->price_text }}</div>
                         </div>
-                        <div class="mb-[5px]">{!! $project->description !!}</div>
                         @if($project->status === 'reminder')
                             <div class="bg-app-red text-white p-[10px] rounded-[3px] mb-[5px]">
                                 {{ $project->user_reminder }}

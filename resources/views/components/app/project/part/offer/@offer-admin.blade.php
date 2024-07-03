@@ -17,7 +17,7 @@
                             return;
                         }
 
-                        await fetch('/projects/pick-a-winner', {
+                        await fetch('/projekty/pick-a-winner', {
                             method: 'POST',
                             body: JSON.stringify({
                                 offerId: @js($offer->id)
@@ -55,7 +55,7 @@
         <button
                 x-data="{
                         async setPrincipalPaid() {
-                            await fetch('/admin/projects/{{ $offer->id }}/set-principal-paid', {
+                            await fetch('/admin/projekty/{{ $offer->id }}/set-principal-paid', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     offerId: @js($offer->id)

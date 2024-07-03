@@ -71,7 +71,7 @@ Alpine.data('adminProjectEdit', (id) => ({
             return;
         }
 
-        await fetch('/projects/' + id, {
+        await fetch('/projekty/' + id, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')

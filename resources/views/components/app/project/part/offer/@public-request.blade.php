@@ -63,7 +63,7 @@
                                 return;
                             }
 
-                            await fetch('/projects/set-public', {
+                            await fetch('/projekty/set-public', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     showId: @js($show->id),
