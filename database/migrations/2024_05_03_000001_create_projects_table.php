@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,10 +14,23 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id');
-            $table->string('user_account_type');
+            $table->enum('user_account_type', [
+                    'advertiser',
+                    'real-estate-broker',
+                ]
+            );
             $table->enum('type', ['auction', 'fixed-price', 'offer-the-price'])->nullable();
             $table->foreignId('subcategory_id')->nullable();
-            $table->string('status')->default('draft');
+            $table->enum('status', [
+                'draft',
+                'send',
+                'prepared',
+                'confirm',
+                'reminder',
+                'publicated',
+                'evaluation',
+                'finished',
+            ])->default('draft');
             $table->date('end_date')->nullable();
             $table->string('title');
             $table->text('description');
@@ -38,14 +50,13 @@ return new class extends Migration
             $table->date('representation_end_date')->nullable();
             $table->boolean('representation_indefinitely_date')->nullable();
             $table->boolean('representation_may_be_cancelled')->nullable();
-            $table->boolean('representation_may_be_cancelled')->nullable();
             $table->boolean('exclusive_contract')->default(false);
             $table->boolean('details_on_request')->default(true);
 
             $table->unique('page_url');
 
             $table->foreign('user_id')->references('id')->on('users')->constrained();
-            $table->foreign('subcategory_id')->references('id')->on('subcategories')->constrained();
+            $table->foreign('subcategory_id')->references('id')->on('categories')->constrained();
         });
     }
 

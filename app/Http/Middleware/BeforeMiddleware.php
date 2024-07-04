@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use App\Models\Project;
 use App\Services\UsersService;
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Symfony\Component\HttpFoundation\Response;
 
 class BeforeMiddleware
@@ -49,7 +49,9 @@ class BeforeMiddleware
             return redirect()->route('profile.edit');
         }
 
-        Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'evaluation']);
+        if (Schema::hasTable('projects')) {
+            Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'evaluation']);
+        }
         return $next($request);
     }
 }

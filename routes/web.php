@@ -10,6 +10,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('projekty/add/{accountType?}', function () {
     return app()->call('App\Http\Controllers\App\ProjectController@create', ['accountType' => 'advertiser']);
 })->name('projects.add');
-Route::post('projekty/save', [ProjectController::class, 'store'])->name('projects.save');
 
 Route::view('jak-to-funguje', 'app.jak-to-funguje')->name('jak-to-funguje');
 //Route::view('o-nas', 'homepage', [
@@ -114,7 +114,7 @@ Route::middleware('auth')->group(function () {
     Route::post('projekty/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
 
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
-    Route::post('projekty/{project:page_url}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::post('projekty/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/nastaveni-uctu-verify', [ProfileController::class, 'editVerify'])->name('profile.edit-verify');
@@ -191,6 +191,8 @@ Route::get('/keep-session', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('{project:page_url}', [ProjectController::class, 'show'])
-    ->where('project', Project::pluck('page_url')->implode('|'))
-    ->name('projects.show');
+if (Schema::hasTable('projects') && Project::count()) {
+    Route::get('{project:page_url}', [ProjectController::class, 'show'])
+        ->where('project', Project::pluck('page_url')->implode('|'))
+        ->name('projects.show');
+}

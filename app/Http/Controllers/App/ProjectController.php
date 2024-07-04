@@ -15,8 +15,10 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -34,11 +36,11 @@ class ProjectController extends Controller
         ];
 
         if ($category) {
-            if(Category::CATEGORIES['auction']['url'] === $category) {
+            if (Category::CATEGORIES['auction']['url'] === $category) {
                 $category = 'auction';
-            } elseif(Category::CATEGORIES['fixed-price']['url'] === $category) {
+            } elseif (Category::CATEGORIES['fixed-price']['url'] === $category) {
                 $category = 'fixed-price';
-            } elseif(Category::CATEGORIES['offer-the-price']['url'] === $category) {
+            } elseif (Category::CATEGORIES['offer-the-price']['url'] === $category) {
                 $category = 'offer-the-price';
             } else {
                 return redirect()->route('projects.index');
@@ -63,13 +65,18 @@ class ProjectController extends Controller
             $breadcrumbs[$title] = route('projects.index.category', ['category' => Category::CATEGORIES[$category]['url'], 'subcategory' => $subcategory]);
         }
 
+        $data = [];
+        if (Schema::hasTable('projects')) {
+            $data = $projectAll->get();
+        }
+
         $projects = [
             'Projekty' => [
                 'selected' => '1',
                 'titleCenter' => true,
                 'titleHide' => true,
                 'data' => [
-                    '1' => $projectAll->get(),
+                    '1' => $data,
                 ],
             ]
         ];
@@ -107,12 +114,27 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $data = json_decode($request->post('data'));
+
+        if ($data->data->accountType === 'real-estate-broker') {
+            $accountType = 'real_estate_broker';
+        } else {
+            $accountType = $data->data->accountType;
+        }
+
+        if (!auth()->user()->{$accountType}) {
+            return redirect()->route('homepage');
+        }
+
+        if(!in_array($data->data->status, ['draft', 'send'])) {
+            return redirect()->route('homepage');
+        }
+
         $insert = [
             'user_account_type' => $data->data->accountType,
             'type' => $data->data->type,
@@ -173,7 +195,7 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function storeTempFile(Request $request, $uuid)
     {
@@ -266,7 +288,7 @@ class ProjectController extends Controller
         $data['id'] = $project->id;
         $data['pageTitle'] = 'Úprava projektu';
         $data['route'] = route('projects.edit', ['project' => $project->url_part]);
-        $data['routeFetch'] = route('projects.update', ['project' => $project->url_part]);
+        $data['routeFetch'] = route('projects.update', ['project' => $project->id]);
         $data['routeFetchFile'] = route('projects.store-temp-file', ['uuid' => $uuid]);
         $data['uuid'] = $uuid;
         $data['method'] = 'POST';
@@ -293,7 +315,7 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request, Project $project)
     {
@@ -322,7 +344,7 @@ class ProjectController extends Controller
             'country' => $data->data->country
         ];
 
-        if ($data->data->accountType === 'real-estate-broker') {
+        if ($project->user_account_type === 'real-estate-broker') {
             $update['representation_type'] = $data->data->representation->selected;
             if (!$data->data->representation->indefinitelyDate) {
                 $update['representation_end_date'] = $data->data->representation->endDate;
@@ -376,7 +398,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy(Project $project)
     {

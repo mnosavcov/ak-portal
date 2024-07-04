@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Project;
+use Illuminate\Support\Facades\Schema;
 
 class AdminService
 {
@@ -39,14 +40,18 @@ class AdminService
             return [];
         }, $default);
 
-        return Category::orderBy('order')
-                ->selectRaw('*, false as `edit`')
-                ->orderBy('id')
-                ->get()
-                ->groupBy('category')
-                ->mapWithKeys(function ($group, $key) {
-                    return [$key => $group];
-                })
-                ->toArray() + $default;
+        if (Schema::hasTable('projects')) {
+            return Category::orderBy('order')
+                    ->selectRaw('*, false as `edit`')
+                    ->orderBy('id')
+                    ->get()
+                    ->groupBy('category')
+                    ->mapWithKeys(function ($group, $key) {
+                        return [$key => $group];
+                    })
+                    ->toArray() + $default;
+        }
+
+        return $default;
     }
 }

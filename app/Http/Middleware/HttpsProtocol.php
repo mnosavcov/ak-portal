@@ -1,14 +1,21 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\App;
 
-class HttpsProtocol {
+class HttpsProtocol
+{
 
     public function handle($request, Closure $next)
     {
-        if (!App::environment('local') && !$request->secure()) {
+        if (
+            !App::environment('local')
+            && !App::environment('testing')
+            && !$request->secure()
+        ) {
+
             return redirect()->secure($request->getRequestUri());
         }
 

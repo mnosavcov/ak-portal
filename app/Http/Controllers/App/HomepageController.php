@@ -5,16 +5,20 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Project;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class HomepageController extends Controller
 {
 
     public function index(Request $request)
     {
-        $projectAll = Project::isPublicated()->forDetail()->get();
+        $projectAll = new Collection();
+        if(Schema::hasTable('projects')) {
+            $projectAll = Project::isPublicated()->forDetail()->get();
+        }
 
         $projects = [
             'Nejnovější projekty' => [
