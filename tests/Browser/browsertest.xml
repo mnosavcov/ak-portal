@@ -12,9 +12,8 @@
 <!--            <directory>tests/Feature</directory>-->
 <!--        </testsuite>-->
         <testsuite name="ComplexApp">
-            <file>../../tests/App/Test001Pages.php</file>
-            <file>../../tests/App/Test002CreateUsers.php</file>
-            <file>../../tests/App/Test003CreateProjects.php</file>
+            <file>../../tests/Browser/Test000Begin.php</file>
+            <file>../../tests/Browser/Test001Register.php</file>
         </testsuite>
     </testsuites>
     <source>

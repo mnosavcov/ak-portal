@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
+use Tests\DataSets\DataUsers;
 use Tests\TestCase;
 
 class Test002CreateUsers extends TestCase
@@ -20,7 +21,7 @@ class Test002CreateUsers extends TestCase
     }
 
     /**
-     * @dataProvider \Tests\App\DataUsers::users()
+     * @dataProvider \Tests\DataSets\DataUsers::users()
      */
     public function test_new_users_can_register($input, $expected): void
     {
@@ -47,7 +48,7 @@ class Test002CreateUsers extends TestCase
     }
 
     /**
-     * @dataProvider \Tests\App\DataUsers::users()
+     * @dataProvider \Tests\DataSets\DataUsers::users()
      */
     public function test_verification_and_logout_screen_can_be_rendered($input): void
     {

@@ -5,14 +5,13 @@ namespace Tests\App;
 use App\Models\Project;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class Test003CreateProjects extends TestCase
 {
     /**
-     * @dataProvider \Tests\App\DataProjects::projectDefault()
+     * @dataProvider \Tests\DataSets\DataProjects::projectDefault()
      */
     public function test_new_project_no_logged($input): void
     {
@@ -24,7 +23,7 @@ class Test003CreateProjects extends TestCase
     }
 
     /**
-     * @dataProvider \Tests\App\DataProjects::projectUsersMatrix()
+     * @dataProvider \Tests\DataSets\DataProjects::projectUsersMatrix()
      */
     public function test_create_project_all_users($input): void
     {
@@ -102,7 +101,7 @@ class Test003CreateProjects extends TestCase
     }
 
     /**
-     * @dataProvider \Tests\App\DataUsers::users()
+     * @dataProvider \Tests\DataSets\DataUsers::users()
      */
     public function test_data_projects_update($input): void
     {

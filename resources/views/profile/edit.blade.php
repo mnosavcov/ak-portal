@@ -429,7 +429,7 @@
                 }">
 
                 <div class="text-center mb-[30px]">
-                    <h1>Ověření e-mailu</h1>
+                    <h1 dusk="overeni-emailu-modal">Ověření e-mailu</h1>
                 </div>
 
                 <div x-cloak x-show="successMessage !== null">

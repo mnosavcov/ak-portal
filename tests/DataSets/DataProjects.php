@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\App;
+namespace Tests\DataSets;
 
 use App\Models\Category;
 use App\Models\Project;
