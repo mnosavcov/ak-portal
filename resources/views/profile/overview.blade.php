@@ -2,15 +2,18 @@
     <div>
         <div class="w-full max-w-[1230px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
-            'Přehled účtu' => route('profile.overview', ['account' => $account])
+            $accountTitle => route('profile.overview', ['account' => $account])
             ]"></x-app.breadcrumbs>
             <div class="mx-[15px]">
-                <h1 class="mb-[30px] tablet:mb-[40px] laptop:mb-[50px]">Přehled účtu</h1>
+                <h1 class="mb-[30px] tablet:mb-[40px] laptop:mb-[50px]">{{ $accountTitle }}</h1>
 
                 @if(
-                        (auth()->user()->investor && !auth()->user()->isDeniedInvestor())
-                        || (auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser())
-                        || (auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus())
+                        !$accountSingle &&
+                        (
+                            (auth()->user()->investor && !auth()->user()->isDeniedInvestor())
+                            || (auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser())
+                            || (auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus())
+                        )
                     )
                     <div class="flex-row max-w-[1200px] mx-auto mb-[50px]">
                         @if(auth()->user()->investor && !auth()->user()->isDeniedInvestor())
@@ -44,7 +47,7 @@
             )
             <div class="max-w-[1230px] px-[15px] mx-auto pb-[20px] mt-[-20px]">
                 <div
-                    class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px]
+                        class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px]
                         text-center tablet:text-left
                         gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                     <div>

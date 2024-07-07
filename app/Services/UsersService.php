@@ -84,4 +84,54 @@ class UsersService
             request()->session()->regenerateToken();
         }
     }
+
+    public function isInvestorOnly()
+    {
+        if (auth()->user()->advertiser) {
+            return false;
+        }
+        if (auth()->user()->real_estate_broker) {
+            return false;
+        }
+
+        return (bool)auth()->user()->investor;
+    }
+
+    public function isAdvertiserOnly()
+    {
+        if (auth()->user()->investor) {
+            return false;
+        }
+        if (auth()->user()->real_estate_broker) {
+            return false;
+        }
+
+        return (bool)auth()->user()->advertiser;
+    }
+
+    public function isRealEstateBrokerOnly()
+    {
+        if (auth()->user()->advertiser) {
+            return false;
+        }
+        if (auth()->user()->investor) {
+            return false;
+        }
+
+        return (bool)auth()->user()->real_estate_broker;
+    }
+
+    public function isAdvertiserAndRealEstateBrokerOnly()
+    {
+        if (auth()->user()->investor) {
+            return false;
+        }
+
+        return auth()->user()->advertiser && auth()->user()->real_estate_broker;
+    }
+
+    public function isAll()
+    {
+        return auth()->user()->investor && auth()->user()->advertiser && auth()->user()->real_estate_broker;
+    }
 }

@@ -6,19 +6,25 @@ class HomepageButtonsService
 {
     public function getChciInvestovatUrl()
     {
+        $usersService = new UsersService();
+
         if (auth()->guest()) {
             return route('projects.index');
         }
 
-        if ($this->isInvestorOnly()) {
+        if ($usersService->isInvestorOnly()) {
             return route('projects.index');
         }
 
-        if ($this->isAdvertiserOnly() || $this->isRealEstateBrokerOnly() || $this->isAdvertiserAndRealEstateBrokerOnly()) {
+        if ($usersService->isAdvertiserOnly() || $usersService->isRealEstateBrokerOnly() || $usersService->isAdvertiserAndRealEstateBrokerOnly()) {
             // defaultni akce
         }
 
-        if ($this->isAll()) {
+        if ($usersService->isAll()) {
+            return route('projects.index');
+        }
+
+        if (auth()->user()->investor) {
             return route('projects.index');
         }
 
@@ -28,77 +34,42 @@ class HomepageButtonsService
 
     public function getChciNabidnoutUrl()
     {
+        $usersService = new UsersService();
+
         if (auth()->guest()) {
             return route('login');
         }
 
-        if ($this->isInvestorOnly()) {
+        if ($usersService->isInvestorOnly()) {
             // defaultni akce
         }
 
-        if ($this->isAdvertiserOnly()) {
+        if ($usersService->isAdvertiserOnly()) {
             return route('projects.create', ['accountType' => 'advertiser']);
         }
 
-        if ($this->isRealEstateBrokerOnly()) {
+        if ($usersService->isRealEstateBrokerOnly()) {
             return route('projects.create', ['accountType' => 'real-estate-broker']);
         }
 
-        if ($this->isAdvertiserAndRealEstateBrokerOnly() || $this->isAll()) {
+        if ($usersService->isAdvertiserAndRealEstateBrokerOnly() || $usersService->isAll()) {
             return route('projects.create.select');
         }
 
+        if (auth()->user()->advertiser && auth()->user()->real_estate_broker) {
+            return route('projects.index');
+        }
+
+        if (auth()->user()->advertiser) {
+            return route('projects.create', ['accountType' => 'advertiser']);
+        }
+
+        if (auth()->user()->real_estate_broker) {
+            return route('projects.create', ['accountType' => 'real-estate-broker']);
+        }
+
+
         return 'javascript:void(0);" @click.prevent="$dispatch(\'open-modal\', {name: \'hp-message\', message: `Nevystupujete v roli nabízejícího a ani realitního makléře. V <a href=\'' .
             route('profile.edit', ['add' => 'no-investor']) . '\' class=\'text-app-blue underline hover:no-underline\'>nastavení účtu</a> přidejte nový typ účtu`})';
-    }
-
-    private function isInvestorOnly()
-    {
-        if (auth()->user()->advertiser) {
-            return false;
-        }
-        if (auth()->user()->real_estate_broker) {
-            return false;
-        }
-
-        return (bool)auth()->user()->investor;
-    }
-
-    private function isAdvertiserOnly()
-    {
-        if (auth()->user()->investor) {
-            return false;
-        }
-        if (auth()->user()->real_estate_broker) {
-            return false;
-        }
-
-        return (bool)auth()->user()->advertiser;
-    }
-
-    private function isRealEstateBrokerOnly()
-    {
-        if (auth()->user()->advertiser) {
-            return false;
-        }
-        if (auth()->user()->investor) {
-            return false;
-        }
-
-        return (bool)auth()->user()->real_estate_broker;
-    }
-
-    private function isAdvertiserAndRealEstateBrokerOnly()
-    {
-        if (auth()->user()->investor) {
-            return false;
-        }
-
-        return auth()->user()->advertiser && auth()->user()->real_estate_broker;
-    }
-
-    private function isAll()
-    {
-        return auth()->user()->investor && auth()->user()->advertiser && auth()->user()->real_estate_broker;
     }
 }

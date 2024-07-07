@@ -95,7 +95,13 @@ class ProjectController extends Controller
      */
     public function create($accountType, ProjectService $projectService)
     {
-        if (!auth()->user()->{$accountType}) {
+        if ($accountType === 'real-estate-broker') {
+            $accountTypeSnake = 'real_estate_broker';
+        } else {
+            $accountTypeSnake = $accountType;
+        }
+
+        if (!auth()->user()->{$accountTypeSnake}) {
             return redirect()->route('profile.edit');
         }
 
@@ -131,7 +137,7 @@ class ProjectController extends Controller
             return redirect()->route('homepage');
         }
 
-        if(!in_array($data->data->status, ['draft', 'send'])) {
+        if (!in_array($data->data->status, ['draft', 'send'])) {
             return redirect()->route('homepage');
         }
 

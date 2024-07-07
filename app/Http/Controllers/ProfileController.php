@@ -220,10 +220,26 @@ class ProfileController extends Controller
             return redirect()->route('homepage');
         }
 
+        $accountTitle = 'Přehled účtu';
+        $accountSingle = false;
+        $usersService = new UsersService();
+        if ($usersService->isInvestorOnly()) {
+            $accountTitle = 'Přehled investora';
+            $accountSingle = true;
+        } elseif ($usersService->isAdvertiserOnly()) {
+            $accountTitle = 'Přehled nabízejícího';
+            $accountSingle = true;
+        } elseif ($usersService->isRealEstateBrokerOnly()) {
+            $accountTitle = 'Přehled realitního makléře';
+            $accountSingle = true;
+        }
+
         return view(
             'profile.overview',
             [
                 'account' => $account,
+                'accountTitle' => $accountTitle,
+                'accountSingle' => $accountSingle,
                 'projects' => $projects,
                 'projectEmptyMessage' => 'Zde nemáte zadané projekty'
             ]
