@@ -1,8 +1,18 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100" :class="{'!border-transparent': open}">
     @php
         $projectCategories = (new \App\Services\AdminService())->getProjectCategory();
+
+        $overviewTitle = 'Přehled účtu';
+        $usersService = new \App\Services\UsersService();
+        if ($usersService->isInvestorOnly()) {
+            $overviewTitle = 'Přehled investora';
+        } elseif ($usersService->isAdvertiserOnly()) {
+            $overviewTitle = 'Přehled nabízejícího';
+        } elseif ($usersService->isRealEstateBrokerOnly()) {
+            $overviewTitle = 'Přehled realitního makléře';
+        }
     @endphp
-            <!-- Primary Navigation Menu -->
+        <!-- Primary Navigation Menu -->
     <div class="max-w-[1230px] mx-auto px-[15px] relative z-50 bg-white">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -28,7 +38,7 @@
                     <x-dropdown align="left-170" width="">
                         <x-slot name="trigger">
                             <button
-                                    class="{{ $classes }}">
+                                class="{{ $classes }}">
                                 <div>Projekty</div>
 
                                 <div class="ml-1">
@@ -44,7 +54,7 @@
 
                         <x-slot name="content">
                             <div
-                                    class="px-[35px] pt-[15px] pb-[40px] grid grid-cols-[max-content_max-content_max-content] gap-x-[69px]">
+                                class="px-[35px] pt-[15px] pb-[40px] grid grid-cols-[max-content_max-content_max-content] gap-x-[69px]">
 
                                 @foreach([
                                     \App\Models\Category::CATEGORIES['offer-the-price'],
@@ -85,11 +95,11 @@
                     </x-nav-link>
                 </div>
 
-{{--                <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">--}}
-{{--                    <x-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')">--}}
-{{--                        {{ __('O nás') }}--}}
-{{--                    </x-nav-link>--}}
-{{--                </div>--}}
+                {{--                <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">--}}
+                {{--                    <x-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')">--}}
+                {{--                        {{ __('O nás') }}--}}
+                {{--                    </x-nav-link>--}}
+                {{--                </div>--}}
 
                 <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">
                     <x-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')">
@@ -114,7 +124,7 @@
                     <x-dropdown align="right" width="56" :contentClasses="'py-[10px] bg-white'">
                         <x-slot name="trigger">
                             <button
-                                    class="{{ $classes }}">
+                                class="{{ $classes }}">
                                 <div class="grid grid-cols-[30px_1fr] gap-x-[15px]">
                                     <div class="self-center">
                                         <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
@@ -148,7 +158,7 @@
                                 )
                                     <x-dropdown-link :href="route('profile.overview')" class="px-[30px]"
                                                      :active="request()->routeIs('profile.overview')">
-                                        {{ __('Přehled účtu') }}
+                                        {{ $overviewTitle }}
                                     </x-dropdown-link>
                                 @endif
 
@@ -308,7 +318,7 @@
                             @if(auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
                                 <x-responsive-nav-link :href="route('profile.overview')"
                                                        :active="request()->routeIs('profile.overview')">
-                                    {{ __('Přehled účtu') }}
+                                    {{ $overviewTitle }}
                                 </x-responsive-nav-link>
                             @endif
 
@@ -408,13 +418,13 @@
                         {{ __('Jak to funguje') }}
                     </x-responsive-nav-link>
                 </div>
-{{--                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>--}}
-{{--                <div>--}}
-{{--                    <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"--}}
-{{--                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">--}}
-{{--                        {{ __('O nás') }}--}}
-{{--                    </x-responsive-nav-link>--}}
-{{--                </div>--}}
+                {{--                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>--}}
+                {{--                <div>--}}
+                {{--                    <x-responsive-nav-link :href="route('o-nas')" :active="request()->routeIs('o-nas')"--}}
+                {{--                                           class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">--}}
+                {{--                        {{ __('O nás') }}--}}
+                {{--                    </x-responsive-nav-link>--}}
+                {{--                </div>--}}
                 <div class="pt-[5px] border-b border-[#D9E9F2]"></div>
                 <div class="pb-[25px]">
                     <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"

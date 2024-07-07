@@ -87,6 +87,10 @@ class UsersService
 
     public function isInvestorOnly()
     {
+        if(auth()->guest()) {
+            return false;
+        }
+
         if (auth()->user()->advertiser) {
             return false;
         }
@@ -99,6 +103,10 @@ class UsersService
 
     public function isAdvertiserOnly()
     {
+        if(auth()->guest()) {
+            return false;
+        }
+
         if (auth()->user()->investor) {
             return false;
         }
@@ -111,6 +119,10 @@ class UsersService
 
     public function isRealEstateBrokerOnly()
     {
+        if(auth()->guest()) {
+            return false;
+        }
+
         if (auth()->user()->advertiser) {
             return false;
         }
@@ -123,6 +135,10 @@ class UsersService
 
     public function isAdvertiserAndRealEstateBrokerOnly()
     {
+        if(auth()->guest()) {
+            return false;
+        }
+
         if (auth()->user()->investor) {
             return false;
         }
@@ -132,6 +148,10 @@ class UsersService
 
     public function isAll()
     {
+        if(auth()->guest()) {
+            return false;
+        }
+
         return auth()->user()->investor && auth()->user()->advertiser && auth()->user()->real_estate_broker;
     }
 }
