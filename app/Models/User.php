@@ -185,7 +185,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function deletable(): Attribute
     {
-        $deletable = ($this->id !== auth()->user()->id);
+        $deletable = auth()->user() && ($this->id !== auth()->user()->id);
 
         if($deletable) {
             $deletable = !$this->projects()->whereIn('status', Project::STATUS_NOT_DELETE_USER)->count();

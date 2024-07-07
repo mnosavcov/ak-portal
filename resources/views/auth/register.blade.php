@@ -81,7 +81,7 @@
                                     {{ \App\Services\AccountTypes::TYPES['advertiser']['short'] }}
                                 </div>
                             </div>
-                            <div dusk="register-realEstateBroker"
+                            <div dusk="register-real-estate-broker"
                                  class="text-[#414141] font-Spartan-Regular text-[11px] leading-[16px] my-[20px] grid grid-cols-[20px_1fr] gap-x-[15px] w-full"
                                  @click="userType.realEstateBroker = !userType.realEstateBroker"
                             >

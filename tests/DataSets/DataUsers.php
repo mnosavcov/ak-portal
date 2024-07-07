@@ -35,90 +35,6 @@ class DataUsers
     public static function users()
     {
         return [
-            'superadmin' => [
-                [
-                    'kontakt' => [
-                        'email' => 'superadmin@example.com',
-                        'phone_number' => '123456789',
-                        'password' => 'password',
-                        'password_confirmation' => 'password',
-                    ],
-                    'userType' => [
-                        'investor' => false,
-                        'advertiser' => false,
-                        'realEstateBroker' => false,
-                    ]
-                ],
-                [
-                    'id' => '1',
-                    'email' => 'superadmin@example.com',
-                    'phone_number' => '123456789',
-                    'superadmin' => 1,
-                    'owner' => 1,
-                    'advisor' => 0,
-                    'investor' => 0,
-                    'advertiser' => 0,
-                    'real_estate_broker' => 0,
-                ]
-            ],
-            'admin' => [
-                [
-                    'kontakt' => [
-                        'email' => 'admin@example.com',
-                        'phone_number' => '123456789',
-                        'password' => 'password',
-                        'password_confirmation' => 'password',
-                    ],
-                    'userType' => [
-                        'investor' => false,
-                        'advertiser' => false,
-                        'realEstateBroker' => false,
-                    ],
-                    'advanced' => [
-                        'superadmin' => 1
-                    ],
-                ],
-                [
-                    'id' => '2',
-                    'email' => 'admin@example.com',
-                    'phone_number' => '123456789',
-                    'superadmin' => 1,
-                    'owner' => 0,
-                    'advisor' => 0,
-                    'investor' => 0,
-                    'advertiser' => 0,
-                    'real_estate_broker' => 0,
-                ]
-            ],
-            'advisor' => [
-                [
-                    'kontakt' => [
-                        'email' => 'advisor@example.com',
-                        'phone_number' => '123456789',
-                        'password' => 'password',
-                        'password_confirmation' => 'password',
-                    ],
-                    'userType' => [
-                        'investor' => false,
-                        'advertiser' => false,
-                        'realEstateBroker' => false,
-                    ],
-                    'advanced' => [
-                        'advisor' => 1
-                    ],
-                ],
-                [
-                    'id' => '3',
-                    'email' => 'advisor@example.com',
-                    'phone_number' => '123456789',
-                    'superadmin' => 0,
-                    'owner' => 0,
-                    'advisor' => 1,
-                    'investor' => 0,
-                    'advertiser' => 0,
-                    'real_estate_broker' => 0,
-                ]
-            ],
             'investor' => [
                 [
                     'kontakt' => [
@@ -134,7 +50,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '4',
+                    'id' => '2',
                     'email' => 'investor@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -160,7 +76,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '5',
+                    'id' => '3',
                     'email' => 'advertiser@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -186,7 +102,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '6',
+                    'id' => '4',
                     'email' => 'real_estate_broker@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -212,7 +128,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '7',
+                    'id' => '5',
                     'email' => 'investor-advertiser@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -238,7 +154,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '8',
+                    'id' => '6',
                     'email' => 'investor-real_estate_broker@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -264,7 +180,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '9',
+                    'id' => '7',
                     'email' => 'advertiser-real_estate_broker@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -290,7 +206,7 @@ class DataUsers
                     ],
                 ],
                 [
-                    'id' => '10',
+                    'id' => '8',
                     'email' => 'investor-advertiser-real_estate_broker@example.com',
                     'phone_number' => '123456789',
                     'superadmin' => 0,
@@ -301,32 +217,6 @@ class DataUsers
                     'real_estate_broker' => 1,
                 ]
             ],
-            'nobody' => [
-                [
-                    'kontakt' => [
-                        'email' => 'nobody@example.com',
-                        'phone_number' => '123456789',
-                        'password' => 'password',
-                        'password_confirmation' => 'password',
-                    ],
-                    'userType' => [
-                        'investor' => false,
-                        'advertiser' => false,
-                        'realEstateBroker' => false,
-                    ],
-                ],
-                [
-                    'id' => '11',
-                    'email' => 'nobody@example.com',
-                    'phone_number' => '123456789',
-                    'superadmin' => 0,
-                    'owner' => 0,
-                    'advisor' => 0,
-                    'investor' => 0,
-                    'advertiser' => 0,
-                    'real_estate_broker' => 0,
-                ]
-            ]
         ];
     }
 }

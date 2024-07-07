@@ -23,23 +23,31 @@ class Test001Register extends DuskTestCase
             $browser->scrollIntoView('@register-chci-zalozit')
                 ->click('@register-chci-zalozit');
 
-            $browser->scrollIntoView('@register-investor')
-                ->click('@register-investor');
-            $browser->scrollIntoView('@register-advertiser')
-                ->click('@register-advertiser');
-            $browser->scrollIntoView('@register-realEstateBroker')
-                ->click('@register-realEstateBroker');
+            if($input['userType']['investor']) {
+                $browser->scrollIntoView('@register-investor')
+                    ->click('@register-investor');
+            }
+            if($input['userType']['advertiser']) {
+                $browser->scrollIntoView('@register-advertiser')
+                    ->click('@register-advertiser');
+            }
+            if($input['userType']['realEstateBroker']) {
+                $browser->scrollIntoView('@register-real-estate-broker')
+                    ->click('@register-real-estate-broker');
+            }
 
             $browser->scrollIntoView('@register-potvrdit-vyber')
+                ->pause(100)
                 ->click('@register-potvrdit-vyber');
 
             $browser->scrollIntoView('@register-confirm');
+
+            $browser->waitForText('Zvolte své přihlašovací a kontaktní údaje', 30);
 
             $browser->type('email', $input['kontakt']['email'])
                 ->type('phone_number', $input['kontakt']['phone_number'])
                 ->type('password', 'password')
                 ->type('password_confirmation', 'password');
-
 
             $browser->click('@register-confirm');
 

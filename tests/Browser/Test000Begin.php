@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Tests\DuskTestCase;
 
 class Test000Begin extends DuskTestCase
