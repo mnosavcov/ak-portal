@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('project_files', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->foreignId('project_id');
             $table->text('filepath');
             $table->string('filename');

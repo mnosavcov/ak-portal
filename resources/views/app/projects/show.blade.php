@@ -1,6 +1,6 @@
 <x-app-layout :htmlTitle="$project->page_title" :htmlDescription="$project->page_description">
     @php
-        $files = $project->files()->where('public', true)->orderByRaw('if(trim(ifnull(folder, "")) = "", 1, 0)')->orderBy('folder')->get();
+        $files = $project->files()->where('public', true)->orderByRaw('if(trim(ifnull(folder, "")) = "", 1, 0)')->orderByRaw('trim(ifnull(folder, ""))')->orderBy('filename')->get();
     $actualFolder = null;
     @endphp
     <div class="w-full bg-cover bg-center h-[894px] absolute"

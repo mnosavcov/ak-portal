@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Madnest\Madzipper\Madzipper;
 
 class ProjectController extends Controller
 {
@@ -451,6 +452,38 @@ class ProjectController extends Controller
         }
 
         return response()->file(Storage::path($projectImage->filepath));
+    }
+
+    public function zip(Project $project, $urlHash, $filename)
+    {
+        if(!$project->isVerified()) {
+            return redirect()->route('homepage');
+        }
+
+        $hash = sha1(sprintf('%s-sadfas##&f58gdfjh-zip', $project->id));
+        if ($urlHash !== $hash) {
+            return redirect()->route('homepage');
+        }
+
+        $zipFileName = Str::uuid() . '.zip';
+
+        $zipper = new Madzipper;
+        $zipper->make(storage_path($zipFileName));
+
+        foreach ($project->files()->where('public', 1)->get() as $file) {
+            $zipper->folder($file->folder)->add(Storage::path($file->filepath), $file->filename);
+        }
+
+        $zipper->close();
+
+        $zipContent = file_get_contents(storage_path($zipFileName));
+
+        $zipper->make(storage_path($zipFileName));
+        $zipper->delete();
+
+        return response($zipContent)
+            ->header('Content-Type', 'application/octet-stream')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
     }
 
     /**

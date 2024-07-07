@@ -21,7 +21,7 @@
 
             @include('admin.projects-edit.@user-info')
 
-            <form method="post" action="" x-data="adminProjectEdit" enctype="multipart/form-data">
+            <form method="post" action="{{ route('admin.projects.edit', ['project' => $project]) }}" x-data="adminProjectEdit" enctype="multipart/form-data">
                 @if($project->states->count())
                     <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
                 @endif

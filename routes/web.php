@@ -82,6 +82,7 @@ Route::post('ajax-form', function (Request $request) {
 })->name('ajax-form');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
+Route::get('zip/{project}/{hash}/{filename}', [ProjectController::class, 'zip'])->name('zip');
 Route::view('zasady-zpracovani-osobnich-udaju', 'app.zasady-zpracovani-osobnich-udaju')->name('zasady-zpracovani-osobnich-udaju');
 Route::get('vseobecne-obchodni-podminky', function () {
     return view('app.vseobecne-obchodni-podminky');
@@ -145,7 +146,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('projekty', [AdminController::class, 'projects'])->name('projects');
                 Route::post('projekty/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
                 Route::get('projekty/{project:page_url}', [AdminController::class, 'projectEdit'])->name('projects.edit');
-                Route::post('projekty/{project:page_url}', [AdminController::class, 'projectSave'])->name('projects.edit');
+                Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
                 Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');

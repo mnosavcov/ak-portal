@@ -31,6 +31,7 @@ class Project extends Model
         'details_prepared',
         'about_prepared',
         'use_countdown_date_text_long',
+        'zip_url',
     ];
 
     protected $fillable = [
@@ -645,5 +646,25 @@ class Project extends Model
         }
 
         return false;
+    }
+
+    public function zipUrl(): Attribute
+    {
+        if (!$this->isVerified()) {
+            return Attribute::make(
+                get: fn(mixed $value, array $attributes) => route('homepage')
+            );
+        }
+
+        $projectId = $this->id;
+        $hash = sha1(sprintf('%s-sadfas##&f58gdfjh-zip', $projectId));
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => route('zip', [
+                'project' => $projectId,
+                'hash' => $hash,
+                'filename' => sprintf('%s.zip', Str::slug(Str::substr($this->title, 0, 32))),
+            ])
+        );
     }
 }
