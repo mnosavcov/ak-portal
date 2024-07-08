@@ -627,6 +627,11 @@ class Project extends Model
         return $this->shows()->where('offer', 1)->get();
     }
 
+    public function offersCountAll()
+    {
+        return $this->shows()->where('offer', 1)->count();
+    }
+
     public function myOffer()
     {
         return ProjectShow::where('user_id', auth()->id())->where('project_id', $this->id)->where('offer', 1)->first();
