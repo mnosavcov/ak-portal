@@ -99,6 +99,7 @@ class AdminController extends Controller
     {
         $update = [
             'type' => $request->type,
+            'subcategory_id' => null,
             'title' => $request->title,
             'status' => $request->status,
             'end_date' => null,
@@ -114,6 +115,13 @@ class AdminController extends Controller
             'page_title' => $request->page_title,
             'page_description' => $request->page_description,
         ];
+
+        if (
+            $request->subcategory_id
+            && Category::where('id', $request->subcategory_id)->where('category', $update['type'])->count()
+        ) {
+            $update['subcategory_id'] = $request->subcategory_id;
+        }
 
         if (empty($update['price'])) {
             $update['price'] = null;

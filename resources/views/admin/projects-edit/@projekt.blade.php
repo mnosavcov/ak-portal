@@ -16,7 +16,10 @@
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Projekt</div>
-    <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]">
+    <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]"
+         x-data="{
+            selectedCategory: null,
+         }" x-init="selectedCategory = @js($project->type)">
         <div>
             <div class="font-bold">Předmět nabídky:</div>
             <div>{{ $subject_offer[$project->subject_offer] ?? $project->subject_offer }}</div>
@@ -33,8 +36,8 @@
             <div>{{ $project->user_account_type === 'advertiser' ? 'Nabízející' : 'Realitní makléř' }}</div>
         </div>
         <div>
-            <div class="font-bold">Typ:</div>
-            <select class="bg-[#D9D9D9] text-[13px]" name="type">
+            <div class="font-bold">Kategorie:</div>
+            <select class="bg-[#D9D9D9] text-[13px]" name="type" x-model="selectedCategory">
                 @empty(\App\Models\Category::CATEGORIES[$project->type])
                     <option value="">!!! VYBERTE !!!</option>
                 @endempty
@@ -44,7 +47,25 @@
                 @endforeach
             </select>
         </div>
-        <div></div>
+        <div>
+            <template x-if="selectedCategory !== null">
+                <div>
+                    <div class="font-bold">Subkategorie:</div>
+                    @foreach(\App\Models\Category::CATEGORIES as $category)
+                        <template x-if="selectedCategory === @js($category['id'])">
+                            <select class="bg-[#D9D9D9] text-[13px]" name="subcategory_id">
+                                <option value="">!!! BEZ SUBKATEGORIE !!!</option>
+                                @foreach(\App\Models\Category::where('category', $category['id'])->get() as $subcategory)
+                                    <option
+                                        value="{{ $subcategory->id }}" {{ $subcategory->id === $project->subcategory_id ? 'selected="selected"' : '' }}>{{ $subcategory->subcategory }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </template>
+                    @endforeach
+                </div>
+            </template>
+        </div>
         <div></div>
         <div class="col-span-full">
             <x-input-label for="page_url" :value="__('URL')"/>
@@ -61,7 +82,7 @@
         <div class="col-span-full">
             <x-input-label for="page_description" :value="__('Description')"/>
             <x-textarea-input id="page_description" name="page_description"
-                          class="mb-[10px] relative block mt-1 w-full h-[5rem]"
+                              class="mb-[10px] relative block mt-1 w-full h-[5rem]"
             >{{ $project->page_description }}</x-textarea-input>
         </div>
 

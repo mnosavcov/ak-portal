@@ -37,6 +37,7 @@ class Project extends Model
     protected $fillable = [
         'user_account_type',
         'type',
+        'subcategory_id',
         'status',
         'end_date',
         'title',
