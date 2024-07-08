@@ -21,7 +21,15 @@
 
             @include('admin.projects-edit.@user-info')
 
-            <form method="post" action="{{ route('admin.projects.edit', ['project' => $project]) }}" x-data="adminProjectEdit" enctype="multipart/form-data">
+            <form method="post" action="{{ route('admin.projects.edit', ['project' => $project]) }}" x-data="adminProjectEdit" enctype="multipart/form-data"
+                @submit="
+                    if(selectedCategory !== 'fixed-price') {
+                        if(!document.getElementById('end_date').value) {
+                            alert('Musíte vyplnit `Ukončení sběru nabídek`');
+                            $event.preventDefault();
+                        }
+                    }
+                ">
                 @if($project->states->count())
                     <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
                 @endif

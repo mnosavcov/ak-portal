@@ -134,7 +134,16 @@ class AdminController extends Controller
         if (
             isset($request->end_date)
             && $request->end_date
-            && (!isset($request->indefinitely_date) || !$request->indefinitely_date)
+            && (
+                !isset($request->indefinitely_date)
+                || !$request->indefinitely_date
+            )
+        ) {
+            $update['end_date'] = $request->end_date;
+        } elseif (
+            isset($request->end_date)
+            && $request->end_date
+            && $request->type !== 'fixed-price'
         ) {
             $update['end_date'] = $request->end_date;
         }

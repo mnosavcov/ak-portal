@@ -31,7 +31,7 @@ return new class extends Migration {
                 'evaluation',
                 'finished',
             ])->default('draft');
-            $table->date('end_date')->nullable();
+            $table->datetime('end_date')->nullable();
             $table->string('title');
             $table->text('description');
             $table->text('about')->nullable();

@@ -17,9 +17,7 @@
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Projekt</div>
     <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]"
-         x-data="{
-            selectedCategory: null,
-         }" x-init="selectedCategory = @js($project->type)">
+         x-init="selectedCategory = @js($project->type)">
         <div>
             <div class="font-bold">Předmět nabídky:</div>
             <div>{{ $subject_offer[$project->subject_offer] ?? $project->subject_offer }}</div>
@@ -139,26 +137,29 @@
             <div class="mt-[10px] pt-[25px]" x-data="{ indefinitelyDate: null }"
                  x-init="indefinitelyDate = {{ empty($project->end_date) ? 'true' : 'false' }}">
                 <x-input-label for="end_date" :value="__('Ukončení sběru nabídek *')"/>
-                <x-text-input id="end_date" name="end_date" type="date" value="{{ $project->end_date }}"
-                              x-bind:disabled="indefinitelyDate"
+
+                <x-text-input id="end_date" name="end_date" type="datetime-local" value="{{ $project->end_date }}"
+                              x-bind:disabled="indefinitelyDate && selectedCategory === 'fixed-price'"
                               class="mb-[10px] relative block mt-1 w-[350px] pl-[60px]
                                           bg-[url('/resources/images/ico-calendar.svg')] bg-no-repeat bg-[20px_12px]"
                 />
 
                 <input type="hidden" :value="indefinitelyDate ? 1 : 0" name="indefinitely_date">
 
-                <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
-                    <div
-                        class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
-                        :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
-                        @click="indefinitelyDate = !indefinitelyDate"
-                    >
+                <template x-if="selectedCategory === 'fixed-price'">
+                    <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
+                        <div
+                            class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                            :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
+                            @click="indefinitelyDate = !indefinitelyDate"
+                        >
+                        </div>
+                        <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
+                             @click="indefinitelyDate = !indefinitelyDate">
+                            Projekt je vystavený na neurčito
+                        </div>
                     </div>
-                    <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
-                         @click="indefinitelyDate = !indefinitelyDate">
-                        Projekt je vystavený na neurčito
-                    </div>
-                </div>
+                </template>
             </div>
 
             <div class="mt-[10px] pt-[25px]"

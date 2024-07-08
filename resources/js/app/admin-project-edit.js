@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 
 Alpine.data('adminProjectEdit', (id) => ({
+    selectedCategory: null,
     init() {
         this.projectStates.that = this;
     },
