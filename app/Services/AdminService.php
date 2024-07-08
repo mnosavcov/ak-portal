@@ -42,12 +42,19 @@ class AdminService
 
         if (Schema::hasTable('projects')) {
             return Category::orderBy('order')
-                    ->selectRaw('*, false as `edit`')
+                    ->selectRaw('*, false as `edit`, false as `delete_exists`')
                     ->orderBy('id')
                     ->get()
                     ->groupBy('category')
                     ->mapWithKeys(function ($group, $key) {
                         return [$key => $group];
+                    })
+                    ->map(function ($group) {
+                        // Přidání počtu projektů do každé kategorie
+                        return $group->map(function ($category) {
+                            $category['project_count'] = $category->projects()->count();
+                            return $category;
+                        });
                     })
                     ->toArray() + $default;
         }

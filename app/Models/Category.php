@@ -55,4 +55,9 @@ class Category extends Model
             }
         );
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'subcategory_id');
+    }
 }

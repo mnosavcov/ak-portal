@@ -21,7 +21,8 @@ Alpine.data('adminCategory', (id) => ({
             description: '',
             url: '',
             edit: true,
-            status: 'NEW'
+            status: 'NEW',
+            delete_exists: false,
         })
     },
     cancel(index, id, category, subcategory) {
@@ -34,10 +35,18 @@ Alpine.data('adminCategory', (id) => ({
 
         subcategory.edit = false;
     },
-    deleteCategory(subcategory) {
+    deleteCategory(subcategory, existsProject) {
         if (subcategory.status === 'DELETE') {
+            subcategory.delete_exists = false;
             subcategory.status = 'EDIT'
         } else {
+            if (existsProject > 0) {
+                if (confirm('Subkategorie je přiřazena k projektu nebo projektům. Opravdu si přejete kategorii smazat? Projektům bude nastaveno jako by byly bez podkategorie.')) {
+                    subcategory.delete_exists = true;
+                } else {
+                    return;
+                }
+            }
             subcategory.status = 'DELETE'
         }
     },
@@ -54,7 +63,7 @@ Alpine.data('adminCategory', (id) => ({
             },
         }).then((response) => response.json())
             .then((data) => {
-                if(data.errors) {
+                if (data.errors) {
                     this.errors = data.errors;
                     alert('Chyba uložení kategorií')
                     this.loaderShow = false;
@@ -62,6 +71,9 @@ Alpine.data('adminCategory', (id) => ({
                 }
 
                 if (data.status === 'ok') {
+                    if (data.message) {
+                        alert(data.message);
+                    }
                     window.location.reload()
                     return;
                 }

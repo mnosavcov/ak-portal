@@ -44,7 +44,7 @@ class StoreMultipleRecordsRequest extends FormRequest
 
             foreach ($data['data'] as $category => $records) {
                 foreach ($records as $index => $record) {
-                    $slug = $record['url'];
+                    $slug = Str::slug($record['url']);
 
                     // Check for uniqueness in combination of category and slug
                     if (isset($uniqueCheck[$category][$slug])) {

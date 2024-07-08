@@ -509,12 +509,20 @@ class AdminController extends Controller
     {
         $request->validated();
 
+        $message = [];
+
         foreach ($request->post('data') as $category) {
             foreach ($category as $subcategory) {
                 if (($subcategory['status'] ?? null) === 'DELETE') {
-                    // todo - nastavit projekty na null
+                    if($subcategory['delete_exists']) {
+                        Project::where('subcategory_id', $subcategory['id'])->update(['subcategory_id' => null]);
+                    }
 
-                    Category::find($subcategory['id'])->delete();
+                    if(!Project::where('subcategory_id', $subcategory['id'])->count()) {
+                        Category::find($subcategory['id'])->delete();
+                    } else {
+                        $message[] = 'Subkategorie "' . Category::find($subcategory['id'])->first()->subcategory . '" je přiřazená k projektu';
+                    }
                 } elseif (($subcategory['status'] ?? null) === 'NEW') {
                     Category::create($subcategory);
                 } elseif (isset($subcategory['status']) && $subcategory['status'] > 0) {
@@ -523,6 +531,9 @@ class AdminController extends Controller
             }
         }
 
-        return response()->json(['status' => 'ok']);
+        return response()->json([
+            'status' => 'ok',
+            'message' => implode("\n", $message),
+        ]);
     }
 }
