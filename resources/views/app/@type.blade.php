@@ -6,7 +6,7 @@
              style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')">
         </div>
 
-        <div class="relative mx-auto p-[60px] text-white text-center">
+        <div class="relative mx-auto p-[60px] pb-0 text-white text-center">
             <h2 class="mb-[35px] text-white">
                 Jak se u nás projekty prodávají?
             </h2>
@@ -21,24 +21,24 @@
             </div>
         </div>
 
-        <div class="mx-auto max-w-[400px] min-[1100px]:max-w-[980px] min-[1600px]:max-w-[1520px]  relative">
+        <div class="mx-auto max-w-[500px] min-[1100px]:max-w-[1080px] min-[1600px]:max-w-[1620px] relative">
             <div
-                class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px)] z-50
-                     left-0
-                     min-[1100px]:left-[-10px]">
+                class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
+                     left-[45px]
+                     min-[1100px]:left-[40px]">
                 <img src="{{ Vite::asset('resources/images/btn-slider-left.svg') }}" class="w-full h-full">
             </div>
-            <div class="swiper-button-next-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px)] z-50
-                    right-0
-                    min-[1100px]:right-[-10px]">
+            <div class="swiper-button-next-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
+                    right-[45px]
+                    min-[1100px]:right-[40px]">
                 <img src="{{ Vite::asset('resources/images/btn-slider-right.svg') }}" class="w-full h-full">
             </div>
 
             <div class="swiper w-full" x-data>
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper pt-[60px]">
 
                     <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[330px] tablet:max-w-[440px] px-[15px] justify-self-center mx-auto">
+                        <div class="w-full max-w-[450px] tablet:max-w-[530px] px-[60px] justify-self-center mx-auto">
                             <div
                                 class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
                         ">
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[330px] tablet:max-w-[440px] px-[15px] justify-self-center mx-auto">
+                        <div class="w-full max-w-[450px] tablet:max-w-[530px] px-[60px] justify-self-center mx-auto">
                             <div
                                 class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
                         ">
@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[330px] tablet:max-w-[440px] px-[15px] justify-self-center mx-auto">
+                        <div class="w-full max-w-[450px] tablet:max-w-[530px] px-[60px] justify-self-center mx-auto">
                             <div
                                 class="relative bg-white w-full px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
                         ">
@@ -215,11 +215,11 @@
         breakpoints: {
             1100: {
                 slidesPerView: 2,
-                spaceBetween: 100,
+                spaceBetween: 0,
             },
             1600: {
                 slidesPerView: 3,
-                spaceBetween: 100,
+                spaceBetween: 0,
             },
         },
 
