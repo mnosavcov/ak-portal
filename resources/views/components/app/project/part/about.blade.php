@@ -5,7 +5,7 @@
     @if(!$project->isVerified())
         <div
             class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
-                     left-[20px] bg-center">
+                     bg-[50%_75px]">
         </div>
     @endif
 </div>
