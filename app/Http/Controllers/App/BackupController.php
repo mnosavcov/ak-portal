@@ -3,29 +3,42 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller
 {
     public function __invoke(Request $request)
     {
-        echo "dělám zálohu";
+        $client = new Client();
+        $response = $client->request('GET', 'https://www.sportingsun.cz/pvtrusted/check.php');
+        $responseContent = $response->getBody()->getContents();
+        if ($responseContent !== 'success') {
+            $errorText = 'Chyba backup pvtrusted.cz: ' . $responseContent;
+            Mail::raw(
+                $errorText,
+                function ($mail) use ($errorText) {
+                    $mail->to(env('MAIL_TO_INFO2'))
+                        ->subject($errorText);
+                });
+        }
 
         $tables = DB::select('SHOW TABLES');
 
         $sql = '';
         foreach ($tables as $table) {
-            $tableName = array_values((array) $table)[0];
+            $tableName = array_values((array)$table)[0];
             $insertData = DB::table($tableName)->get();
 
             foreach ($insertData as $row) {
                 $values = array_map(function ($value, $index) {
                     $val = is_null($value) ? 'NULL' : DB::getPdo()->quote($value);
                     return $index === 'password' ? DB::getPdo()->quote('*****') : $val;
-                }, (array) $row, array_keys((array)$row));
+                }, (array)$row, array_keys((array)$row));
 
                 $sql .= "INSERT INTO $tableName VALUES (" . implode(', ', $values) . ");\n";
             }
@@ -35,68 +48,49 @@ class BackupController extends Controller
 
         $sql = Crypt::encryptString($sql);
 
-        $ftpService = new FTPService();
-        dd($ftpService);
-        dump(Crypt::decryptString($sql));
+        $filename = sprintf('backup-%s.sql', date('Ymd-His'));
+
+        Storage::put($filename, $sql);
+//        dump(Crypt::decryptString($sql));
+
+        $fileTransferService = new FileTransferService();
+        $responseContent = $fileTransferService->sendFile($filename, 'https://www.sportingsun.cz/pvtrusted/backup.php');
+
+        if ($responseContent !== 'success') {
+            $errorText = 'Chyba backup pvtrusted.cz: ' . $responseContent;
+            Mail::raw(
+                $errorText,
+                function ($mail) use ($errorText) {
+                    $mail->to(env('MAIL_TO_INFO2'))
+                        ->subject($errorText);
+                });
+        } else {
+            $errorText = 'Backup pvtrusted.cz: ' . $responseContent;
+            Mail::raw(
+                $errorText,
+                function ($mail) use ($errorText) {
+                    $mail->to(env('MAIL_TO_INFO2'))
+                        ->subject($errorText);
+                });
+        }
     }
 }
 
-class FTPService
+class FileTransferService
 {
-    protected $connection;
-
-    public function __construct()
+    public function sendFile($filePath, $targetUrl)
     {
-        $this->connect();
-    }
+        $client = new Client();
+        $response = $client->request('POST', $targetUrl, [
+            'multipart' => [
+                [
+                    'name' => 'file',
+                    'contents' => Storage::get($filePath),
+                    'filename' => basename($filePath)
+                ],
+            ],
+        ]);
 
-    public function connect()
-    {
-        // Připojení k FTP serveru
-        $this->connection = ftp_connect(env('FTP_HOST'), env('FTP_PORT', 21));
-
-        if (!$this->connection) {
-            throw new \Exception('Could not connect to FTP server');
-        }
-
-        // Přihlášení k FTP serveru
-        $login = ftp_login($this->connection, env('FTP_USERNAME'), env('FTP_PASSWORD'));
-
-        if (!$login) {
-            throw new \Exception('Could not login to FTP server');
-        }
-
-        // Nastavení pasivního režimu
-        if (env('FTP_PASSIVE', true)) {
-            ftp_pasv($this->connection, true);
-        }
-    }
-
-    public function upload($localFile, $remoteFile)
-    {
-        $remoteFile = env('FTP_ROOT', '') . '/' . $remoteFile;
-
-        // Nahrání souboru na FTP server
-        if (!ftp_put($this->connection, $remoteFile, $localFile, FTP_BINARY)) {
-            throw new \Exception("Could not upload file to FTP server");
-        }
-    }
-
-    public function download($remoteFile, $localFile)
-    {
-        $remoteFile = env('FTP_ROOT', '') . '/' . $remoteFile;
-
-        // Stažení souboru z FTP serveru
-        if (!ftp_get($this->connection, $localFile, $remoteFile, FTP_BINARY)) {
-            throw new \Exception("Could not download file from FTP server");
-        }
-    }
-
-    public function __destruct()
-    {
-        // Zavření připojení k FTP serveru
-        if ($this->connection) {
-            ftp_close($this->connection);
-        }
+        return $response->getBody()->getContents();
     }
 }
