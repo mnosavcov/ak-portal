@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\App\BackupController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\ProfileController;
@@ -197,3 +198,5 @@ if (Schema::hasTable('projects') && Project::count()) {
         ->where('project', Project::pluck('page_url')->implode('|'))
         ->name('projects.show');
 }
+
+Route::get('backup/dujslP5khfi3mmgGtigEiyTaqVqCyfsA', BackupController::class)->name('backup');
