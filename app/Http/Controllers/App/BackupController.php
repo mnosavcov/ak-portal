@@ -64,7 +64,7 @@ class BackupController extends Controller
                     $mail->to(env('MAIL_TO_INFO2'))
                         ->subject($errorText);
                 });
-        } else {
+        } elseif(date('H') === '12') {
             $errorText = 'Backup pvtrusted.cz: ' . $responseContent;
             Mail::raw(
                 $errorText,
