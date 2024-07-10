@@ -22,7 +22,7 @@
 
                         <div class="bg-[#f8f8f8] rouded-[3px] pt-[25px] px-[15px] tablet:pt-[30px] tablet:px-[25px]">
                             <template x-for="(notify, index) in list.items">
-                                <x-app.slider x-bind:notify="notify" x-bind:index="index"></x-app.slider>
+                                <x-app.profile-slider x-bind:notify="notify" x-bind:index="index"></x-app.profile-slider>
                             </template>
                         </div>
                     </div>
