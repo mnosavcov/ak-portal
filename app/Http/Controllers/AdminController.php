@@ -211,7 +211,7 @@ class AdminController extends Controller
 
         // files
         foreach ($request->file('files') ?? [] as $file) {
-            $path = $file->store($project->user_id . '/' . $project->id);
+            $path = $file->store('projects/' . $project->user_id . '/' . $project->id);
             $projectFile = new ProjectFile([
                 'filepath' => $path,
                 'filename' => $file->getClientOriginalName(),
@@ -239,7 +239,7 @@ class AdminController extends Controller
                 }
 
                 $ext = pathinfo($projectFile->filepath, PATHINFO_EXTENSION);
-                $filename = $project->user_id . '/' . $project->id . '/' . Str::random(40) . '.' . $ext;
+                $filename = 'projects/' . $project->user_id . '/' . $project->id . '/' . Str::random(40) . '.' . $ext;
 
                 Storage::put(
                     $filename,
@@ -263,7 +263,7 @@ class AdminController extends Controller
 
         // galleries
         foreach ($request->file('galleries') ?? [] as $gallery) {
-            $path = $gallery->store($project->user_id . '/' . $project->id . '/galleries');
+            $path = $gallery->store('projects/' . $project->user_id . '/' . $project->id . '/galleries');
             $projectGallery = new ProjectGallery([
                 'filepath' => $path,
                 'filename' => $gallery->getClientOriginalName(),
@@ -292,7 +292,7 @@ class AdminController extends Controller
         }
 
         foreach ($request->file('images') ?? [] as $image) {
-            $path = $image->store($project->user_id . '/' . $project->id . '/images');
+            $path = $image->store('projects/' . $project->user_id . '/' . $project->id . '/images');
             $projectImage = new ProjectImage([
                 'filepath' => $path,
                 'filename' => $image->getClientOriginalName(),

@@ -177,7 +177,7 @@ class ProjectController extends Controller
             $path = $file->filepath;
             $path = str_replace(
                 'temp/' . $data->data->uuid,
-                auth()->id() . '/' . $project->id . '/',
+                'projects/' . auth()->id() . '/' . $project->id,
                 $path
             );
 
@@ -367,7 +367,7 @@ class ProjectController extends Controller
             $path = $file->filepath;
             $path = str_replace(
                 'temp/' . $data->data->uuid,
-                auth()->id() . '/' . $project->id . '/',
+                'projects/' . auth()->id() . '/' . $project->id,
                 $path
             );
 
