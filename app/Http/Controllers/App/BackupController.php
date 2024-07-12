@@ -48,7 +48,7 @@ class BackupController extends Controller
 
         $sql = Crypt::encryptString($sql);
 
-        $filename = sprintf('backup-%s.sql', date('Ymd-His'));
+        $filename = sprintf('temp/backup/backup-%s.sql', date('Ymd-His'));
 
         Storage::put($filename, $sql);
 //        dump(Crypt::decryptString($sql));

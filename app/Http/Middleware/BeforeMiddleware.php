@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Project;
+use App\Services\TempProjectFileService;
 use App\Services\UsersService;
 use Closure;
 use Illuminate\Http\Request;
@@ -52,6 +53,9 @@ class BeforeMiddleware
         if (Schema::hasTable('projects')) {
             Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'evaluation']);
         }
+
+        (new TempProjectFileService())->clear();
+
         return $next($request);
     }
 }
