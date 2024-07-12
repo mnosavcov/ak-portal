@@ -5,10 +5,14 @@ namespace App\Http\Middleware;
 use App\Models\Project;
 use App\Services\TempProjectFileService;
 use App\Services\UsersService;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class BeforeMiddleware
@@ -55,6 +59,26 @@ class BeforeMiddleware
         }
 
         (new TempProjectFileService())->clear();
+
+        // promazani starych zaloh SQL - begin
+        $cacheKey = 'QueryLogServiceProvider_register';
+        $cacheDuration = 60 * 60 * 24;
+
+        if (!Cache::has($cacheKey)) {
+            Cache::put($cacheKey, true, $cacheDuration);
+
+            $eightDaysAgo = Carbon::now()->subDays(8);
+            $files = Storage::files('logs');
+            foreach ($files as $file) {
+                $filePath = storage_path('app/' . $file);
+                $lastModified = File::lastModified($filePath);
+
+                if (Carbon::createFromTimestamp($lastModified)->lessThan($eightDaysAgo)) {
+                    Storage::delete($file);
+                }
+            }
+        }
+        // promazani starych zaloh SQL - end
 
         return $next($request);
     }
