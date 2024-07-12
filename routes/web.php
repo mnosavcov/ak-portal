@@ -146,8 +146,8 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('projekty', [AdminController::class, 'projects'])->name('projects');
                 Route::post('projekty/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
-                Route::get('projekty/{project:page_url}', [AdminController::class, 'projectEdit'])->name('projects.edit');
-                Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.edit');
+                Route::get('projekty/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
+                Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.save');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
                 Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');

@@ -41,7 +41,7 @@
                         <div>
                             <a href="{{ $project->url_detail }}"
                                class="text-app-orange underline hover:no-underline">Náhled projektu</a>
-                            <a href="{{ route('admin.projects.edit', ['project' => $project->url_part]) }}"
+                            <a href="{{ route('admin.projects.edit', ['project' => $project]) }}"
                                class="text-app-orange underline hover:no-underline">Editace projektu</a>
                         </div>
                     </div>

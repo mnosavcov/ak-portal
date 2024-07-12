@@ -339,7 +339,7 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('admin.projects.edit', ['project' => $project->url_part]);
+        return redirect()->route('admin.projects.edit', ['project' => $project]);
     }
 
     public function users()

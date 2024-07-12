@@ -21,7 +21,7 @@
 
             @include('admin.projects-edit.@user-info')
 
-            <form method="post" action="{{ route('admin.projects.edit', ['project' => $project]) }}" x-data="adminProjectEdit" enctype="multipart/form-data"
+            <form method="post" action="{{ route('admin.projects.save', ['project' => $project]) }}" x-data="adminProjectEdit" enctype="multipart/form-data"
                 @submit="
                     if(selectedCategory !== 'fixed-price') {
                         if(!document.getElementById('end_date').value) {
