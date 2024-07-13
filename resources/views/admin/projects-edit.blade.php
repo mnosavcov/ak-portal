@@ -31,6 +31,9 @@
                     }
                 ">
                 <input type="hidden" name="fileUUID" value="{{ $filesData['uuid'] }}">
+                <input type="hidden" name="fileUUID" value="{{ $imagesData['uuid'] }}">
+                <input type="hidden" name="fileUUID" value="{{ $galleriesData['uuid'] }}">
+                <input type="hidden" name="fileIds" :value="Object.keys(tempFiles.fileList)">
                 @if($project->states->count())
                     <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
                 @endif
@@ -125,4 +128,14 @@
 
         </section>
     </main>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+    </script>
 </x-admin-layout>

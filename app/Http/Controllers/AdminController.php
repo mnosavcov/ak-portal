@@ -84,7 +84,9 @@ class AdminController extends Controller
             ];
         });
 
-        $uuid = Str::uuid();
+        $filesUuid = Str::uuid();
+        $imagesUuid = Str::uuid();
+        $galleriesUuid = Str::uuid();
 
         return view(
             'admin.projects-edit',
@@ -95,8 +97,16 @@ class AdminController extends Controller
                 'location_offer' => ProjectService::LOCATION_OFFERS,
                 'projectDetails' => $projectDetails,
                 'filesData' => [
-                    'uuid' => $uuid,
-                    'routeFetchFile' => route('admin.projects.store-temp-file', ['uuid' => $uuid]),
+                    'uuid' => $filesUuid,
+                    'routeFetchFile' => route('admin.projects.store-temp-file', ['uuid' => $filesUuid]),
+                ],
+                'imagesData' => [
+                    'uuid' => $imagesUuid,
+                    'routeFetchFile' => route('admin.projects.store-temp-file', ['uuid' => $imagesUuid]),
+                ],
+                'galleriesData' => [
+                    'uuid' => $galleriesUuid,
+                    'routeFetchFile' => route('admin.projects.store-temp-file', ['uuid' => $galleriesUuid]),
                 ],
             ]
         );

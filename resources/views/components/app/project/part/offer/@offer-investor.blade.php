@@ -11,7 +11,7 @@
                     Zaplatili jste jistotu
                 </div>
                 <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green">
-                    Vaše nabídka je vítězná, vyčkejte na vyzvání k uzavření Kupní smlouvy
+                    Vaše nabídka je vítězná, vyčkejte na vyzvání k uzavření Rezervační smlouvy
                 </div>
             @endif
         @elseif($offer->principal_paid)

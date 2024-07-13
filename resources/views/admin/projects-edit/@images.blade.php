@@ -28,8 +28,7 @@
         </div>
 
         <div class="mt-[25px]">
-            <x-text-input id="images" name="images[]" class="block mt-1 w-full" type="file" accept="image/*"
-                          multiple/>
+            @include('admin.projects-edit.files.@input', ['uuid' => $imagesData['uuid'], 'url' => $imagesData['routeFetchFile']])
         </div>
     </div>
 </div>

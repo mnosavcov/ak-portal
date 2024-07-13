@@ -54,8 +54,7 @@
             </div>
 
             <div class="mt-[25px]">
-                <x-text-input id="galleries" name="galleries[]" class="block mt-1 w-full" type="file" accept="image/*"
-                              multiple/>
+                @include('admin.projects-edit.files.@input', ['uuid' => $galleriesData['uuid'], 'url' => $galleriesData['routeFetchFile']])
             </div>
         </div>
     </div>

@@ -2,6 +2,15 @@ import Alpine from "alpinejs";
 
 Alpine.data('adminProjectEdit', (id) => ({
     selectedCategory: null,
+    tempFiles: {
+        newFileId: 0,
+        fileList: {},
+        fileListError: {},
+        fileListProgress: {},
+        removeNewFile(uuid, fileData) {
+            delete this.fileList[uuid][fileData.id]
+        },
+    },
     init() {
         this.projectStates.that = this;
     },
