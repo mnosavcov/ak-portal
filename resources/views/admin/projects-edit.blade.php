@@ -30,6 +30,7 @@
                         }
                     }
                 ">
+                <input type="hidden" name="fileUUID" value="{{ $filesData['uuid'] }}">
                 @if($project->states->count())
                     <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
                 @endif

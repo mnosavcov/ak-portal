@@ -14,6 +14,7 @@ use App\Models\ProjectImage;
 use App\Models\ProjectShow;
 use App\Models\ProjectState;
 use App\Models\ProjectTag;
+use App\Models\TempProjectFile;
 use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ProjectService;
@@ -83,6 +84,8 @@ class AdminController extends Controller
             ];
         });
 
+        $uuid = Str::uuid();
+
         return view(
             'admin.projects-edit',
             [
@@ -91,6 +94,10 @@ class AdminController extends Controller
                 'subject_offer' => ProjectService::SUBJECT_OFFERS,
                 'location_offer' => ProjectService::LOCATION_OFFERS,
                 'projectDetails' => $projectDetails,
+                'filesData' => [
+                    'uuid' => $uuid,
+                    'routeFetchFile' => route('admin.projects.store-temp-file', ['uuid' => $uuid]),
+                ],
             ]
         );
     }
@@ -514,11 +521,11 @@ class AdminController extends Controller
         foreach ($request->post('data') as $category) {
             foreach ($category as $subcategory) {
                 if (($subcategory['status'] ?? null) === 'DELETE') {
-                    if($subcategory['delete_exists']) {
+                    if ($subcategory['delete_exists']) {
                         Project::where('subcategory_id', $subcategory['id'])->update(['subcategory_id' => null]);
                     }
 
-                    if(!Project::where('subcategory_id', $subcategory['id'])->count()) {
+                    if (!Project::where('subcategory_id', $subcategory['id'])->count()) {
                         Category::find($subcategory['id'])->delete();
                     } else {
                         $message[] = 'Subkategorie "' . Category::find($subcategory['id'])->first()->subcategory . '" je přiřazená k projektu';
@@ -534,6 +541,23 @@ class AdminController extends Controller
         return response()->json([
             'status' => 'ok',
             'message' => implode("\n", $message),
+        ]);
+    }
+
+    public function storeTempFile(Request $request, $uuid)
+    {
+        $file = $request->file('files');
+        $path = $file->store('temp/' . $uuid);
+        $tempProjectFile = TempProjectFile::create([
+            'temp_project_id' => $uuid,
+            'filepath' => $path,
+            'filename' => $file->getClientOriginalName(),
+        ]);
+
+        return response()->json([
+            'success' => 'success',
+            'id' => $tempProjectFile->id,
+            'format' => $file->getClientOriginalName(),
         ]);
     }
 }
