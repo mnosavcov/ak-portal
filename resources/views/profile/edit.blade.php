@@ -493,8 +493,13 @@
                 </div>
 
                 <button
-                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
+                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px]"
                     @click="
+                        if(!((!newEmailOpen) || (newEmailOpen && valid))) {
+                            alert('Zadejte e-mail ve správném formátu.');
+                            return;
+                        }
+
                         if(newEmailOpen) {
                             newEmailSend();
                             newEmailOpen = false;
@@ -503,9 +508,6 @@
                             window.location.reload()
                         }
                         "
-                    :disabled="
-                        !((!newEmailOpen) || (newEmailOpen && valid))
-                    "
                     x-text="newEmailOpen ? 'Odeslat' : 'Hotovo'">
                     >Hotovo
                 </button>

@@ -286,14 +286,14 @@
                                 </button>
                                 <button type="button"
                                         x-show="(indexTab !== 'deleted' && indexTab !== 'banned') || (indexTab === 'banned' && user.banned_at === 'NEW')"
-                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
+                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px]"
                                         @click="$dispatch('open-modal', {name: 'set-ban', user: user})"
                                 >
                                     BAN
                                 </button>
                                 <button type="button"
                                         x-show="(indexTab === 'banned' || (indexTab !== 'banned' && user.banned_at === 'NEW'))"
-                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
+                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px]"
                                         @click="user.banned_at = 'REMOVE'; user.ban_info = '';"
                                 >
                                     ZRUŠIT BAN

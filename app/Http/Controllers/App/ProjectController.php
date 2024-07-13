@@ -154,12 +154,20 @@ class ProjectController extends Controller
         ];
 
         if ($data->data->accountType === 'real-estate-broker') {
-            $insert['representation_type'] = $data->data->representation->selected;
-            if (!$data->data->representation->indefinitelyDate) {
-                $insert['representation_end_date'] = $data->data->representation->endDate;
+            if($data->data->representation->selected !== null) {
+                $insert['representation_type'] = $data->data->representation->selected;
             }
             $insert['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
-            $insert['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
+
+            if($data->data->representation->mayBeCancelled !== null) {
+                $insert['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
+            }
+            if (!$data->data->representation->indefinitelyDate) {
+                $insert['representation_end_date'] = $data->data->representation->endDate;
+                if($insert['representation_end_date'] === '') {
+                    $insert['representation_end_date'] = null;
+                }
+            }
         }
 
         $project = Project::create($insert);

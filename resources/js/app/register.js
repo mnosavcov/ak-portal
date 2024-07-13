@@ -25,19 +25,50 @@ Alpine.data('register', (id) => ({
     },
     errors: {},
     enableSend() {
-        let enabled = this.userType.enabled();
-        enabled &&= this.kontakt.email.length >= 6;
-        enabled &&= this.kontakt.email.includes('@');
-        enabled &&= this.kontakt.email.includes('.');
-        enabled &&= this.kontakt.phone_number.length >= 9;
-        enabled &&= this.kontakt.password.length >= 0;
-        enabled &&= this.kontakt.password_confirmation.length >= 0;
-        enabled &&= this.confirm;
+        if (!this.userType.enabled()) {
+            alert('Zvolte typ svého účtu.')
+            return false;
+        }
 
-        return enabled;
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!re.test(this.kontakt.email.toLowerCase())) {
+            alert('Zadejte e-mail ve správném formátu.')
+            return false;
+        }
+
+        if (this.kontakt.phone_number.length < 9) {
+            alert('Zadejte do pole telefonní číslo alespoň 9 znaků.')
+            return false;
+        }
+
+        if (!this.kontakt.password.length) {
+            alert('Zadejte heslo.')
+            return false;
+        }
+
+        if (!this.kontakt.password_confirmation.length) {
+            alert('Zadejte kontrolní heslo.')
+            return false;
+        }
+
+        if (this.kontakt.password !== this.kontakt.password_confirmation) {
+            alert('Hesla se neshodují.')
+            return false;
+        }
+
+        if (!this.confirm) {
+            alert('Potvrďte souhlas s registrací.')
+            return false;
+        }
+
+        return true;
     },
 
     async sendRegister() {
+        if (!this.enableSend()) {
+            return false;
+        }
+
         this.loaderShow = true;
         await fetch('/register', {
             method: 'POST',
@@ -51,7 +82,7 @@ Alpine.data('register', (id) => ({
             },
         }).then((response) => response.json())
             .then((data) => {
-                if(data.status === 'ok') {
+                if (data.status === 'ok') {
                     window.location.href = '/';
                 }
 

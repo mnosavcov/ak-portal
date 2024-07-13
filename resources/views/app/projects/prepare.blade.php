@@ -86,10 +86,13 @@
                                     <div x-show="reminder" x-collapse>
                                         <x-textarea-input name="user_reminder" x-model="reminder_text" class="w-full"/>
                                         <button type="submit" name="type" value="reminder"
-                                                class="font-Spartan-SemiBold text-[13px] leading-[24px] text-app-red mb-[20px] disabled:grayscale"
-                                                :disabled="reminder_text.trim().length < minLength"
-                                                x-text="reminder_text.trim().length < minLength ? 'Vyplňte text připomínky' : 'Odeslat s připomínkou'"
-                                        ></button>
+                                                @click="
+                                                    if(reminder_text.trim().length < minLength) {
+                                                        alert('Zadejte minimálně ' + minLength + ' znaky.');
+                                                        $event.preventDefault();
+                                                    }"
+                                                class="font-Spartan-SemiBold text-[13px] leading-[24px] text-app-red mb-[20px]"
+                                        >Odeslat s připomínkou</button>
                                     </div>
 
                                     <button type="submit" name="type" value="confirm"

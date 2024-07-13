@@ -6,6 +6,11 @@ Alpine.data('verifyUserAccount', (id) => ({
     countries: {},
     data: {},
     nextBtnClick() {
+        if(!this.nextBtnEnable()) {
+            return false;
+        }
+
+
         if (this.data.check_status === 'not_verified' && this.step < 3) {
             this.step++;
             return;
@@ -37,28 +42,61 @@ Alpine.data('verifyUserAccount', (id) => ({
     },
     nextBtnEnable() {
         if (this.step === 1) {
-            if (
-                String(this.data.name).trim().length > 1
-                && this.data.birthdate !== null
-                && String(this.data.birthdate).trim().length > 1
-                && String(this.data.surname).trim().length > 1
-                && String(this.data.street).trim().length > 1
-                && String(this.data.street_number).trim().length > 0
-                && String(this.data.city).trim().length > 0
-                && String(this.data.psc).trim().length > 4
-            ) {
-                return true;
+            if(!String(this.data.name).trim().length) {
+                alert('Zadejte jméno.');
+                return false;
             }
 
-            return false;
+            if(this.data.surname === null || !String(this.data.surname).trim().length) {
+                alert('Zadejte příjmení.');
+                return false;
+            }
+
+            if(
+                this.data.birthdate === null
+                || !String(this.data.birthdate).trim().length
+            ) {
+                alert('Zadejte datum narození.');
+                return false;
+            }
+
+            if(this.data.street === null || !String(this.data.street).trim().length) {
+                alert('Zadejte ulici.');
+                return false;
+            }
+
+            if(this.data.street_number === null || !String(this.data.street_number).trim().length) {
+                alert('Zadejte číslo domu.');
+                return false;
+            }
+
+            if(this.data.city === null || !String(this.data.city).trim().length) {
+                alert('Zadejte Obec.');
+                return false;
+            }
+
+            if(this.data.psc === null || (String(this.data.psc).trim().length < 5)) {
+                alert('Zadejte PSČ.');
+                return false;
+            }
+
+            if(this.data.country === null) {
+                alert('Zadejte státní občanství.');
+                return false;
+            }
+
+            return true;
         } else if (this.step === 2) {
             if (this.data.investor && String(this.data.more_info_investor).trim().length < 5) {
+                alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.');
                 return false;
             }
             if (this.data.advertiser && String(this.data.more_info_advertiser	).trim().length < 5) {
+                alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.');
                 return false;
             }
             if (this.data.real_estate_broker && String(this.data.more_info_real_estate_broker).trim().length < 5) {
+                alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.');
                 return false;
             }
             return true;

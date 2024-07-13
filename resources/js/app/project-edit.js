@@ -19,7 +19,7 @@ Alpine.data('projectEdit', (id) => ({
         return show;
     },
     removeNewFile(fileData) {
-        if(typeof this.data.fileListDelete === 'undefined') {
+        if (typeof this.data.fileListDelete === 'undefined') {
             this.data.fileListDelete = [];
         }
         this.data.fileListDelete.push(fileData.id)
@@ -29,22 +29,54 @@ Alpine.data('projectEdit', (id) => ({
         fileData.delete = !fileData.delete;
     },
     enableSend() {
-        if(Object.keys(this.fileListProgress).length) {
+        if (Object.keys(this.fileListProgress).length) {
+            alert('Před odesláním projektu vyčkejte na dokončení uploadu souborů.')
             return false;
         }
 
-        let show = this.showSdelteViceInformaci();
-        show &&= !!this.data.title.trim().length;
-        show &&= !!this.data.country.trim().length;
-        show &&= !!this.data.description.trim().length;
-        show &&= this.data.type !== null;
+        if (!this.showSdelteViceInformaci()) {
+            alert('Vyberte předmět nabídky a umístění výrobny.')
+            return false;
+        }
+
+        if(!this.data.title.trim().length) {
+            alert('Vyplňte název projektu.')
+            return false;
+        }
+
+        if(!this.data.country.trim().length) {
+            alert('Vyplňte zemi umístění projektu.')
+            return false;
+        }
+
+        if(!this.data.description.trim().length) {
+            alert('Vyplňte podrobné informace o projektu.')
+            return false;
+        }
+
+        if(this.data.type === null) {
+            alert('Zvolte preferovaný způsob prodeje projektu.')
+            return false;
+        }
+
+        let show = true;
 
         if (this.data.accountType === 'real-estate-broker') {
-            show &&= this.data.representation.selected !== null
-            show &&= this.data.representation.mayBeCancelled !== null
+            if(this.data.representation.selected === null) {
+                alert('Zvolte formu zastoupení klienta.')
+                return false;
+            }
 
             if (this.data.representation.indefinitelyDate === false) {
-                show &&= !!this.data.representation.endDate.trim().length;
+                if(!this.data.representation.endDate.trim().length) {
+                    alert('Vyplňte platnost smlouvy.')
+                    return false;
+                }
+            }
+
+            if(this.data.representation.mayBeCancelled === null) {
+                alert('Zvolte jestli je smlouva podepsaná s možností zrušení a výpovědní lhůtou.')
+                return false;
             }
         }
 
@@ -65,8 +97,17 @@ Alpine.data('projectEdit', (id) => ({
         return show;
     },
     async sendProject(status = 'draft') {
-        if(status === 'draft' && !this.data.title.trim().length) {
-            alert('Abyste mohli projekt uložit jako rozpracovaný, vyplňte alespoň název projektu.');
+        if (status === 'draft') {
+            if (Object.keys(this.fileListProgress).length) {
+                alert('Před uložením projektu jako rozpracovaný vyčkejte na dokončení uploadu souborů.')
+                return;
+            }
+
+            if (!this.data.title.trim().length) {
+                alert('Abyste mohli projekt uložit jako rozpracovaný, vyplňte alespoň název projektu.');
+                return;
+            }
+        } else if (!this.enableSend()) {
             return;
         }
 

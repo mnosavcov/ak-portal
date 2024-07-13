@@ -103,16 +103,20 @@
 
             <div class="text-left">
                 <button x-data type="button" @click="
+                                        if(Number.isNaN(parseInt(String(offerPrice).replace(/\s+/g, ''))) || parseInt(String(offerPrice).replace(/\s+/g, '')) < minPrice) {
+                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!}')
+                                            return;
+                                        }
+
                                         let offer = parseInt(String(offerPrice).replace(/\s+/g, ''))
                                         let offerFormated = offerPrice
                                         if(Number.isNaN(offer) || offer < minPrice) {
-                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!} Kč')
+                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!}')
                                             return;
                                         }
                                     $dispatch('open-modal', {name: 'send-offer', offer: offer, offerFormated: formatMoney(offerPrice)})
                                 "
-                        class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px] disabled:grayscale"
-                        :disabled="(Number.isNaN(parseInt(String(offerPrice).replace(/\s+/g, ''))) || parseInt(String(offerPrice).replace(/\s+/g, '')) < minPrice)">
+                        class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
                     @if($project->type === 'fixed-price')
                         Koupit hned
                     @elseif($project->type === 'offer-the-price')
@@ -215,7 +219,7 @@
                 </div>
 
                 <button
-                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
+                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px]"
                     @click="addOffer(inputData.offer)"
                 >
                     @if($project->type === 'fixed-price')

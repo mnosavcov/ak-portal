@@ -231,9 +231,13 @@
                                 <x-textarea-input class="col-span-full h-[7rem]"
                                                   x-model="user.more_info_investor"></x-textarea-input>
                                 <button
-                                    @click="addType(index)"
-                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
-                                    :disabled="user.more_info_investor === null || user.more_info_investor.trim().length < 5">
+                                    @click="
+                                    if(user.more_info_investor === null || user.more_info_investor.trim().length < 5) {
+                                        alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako &quot;investor&quot; alespoň 5 znaků.');
+                                    } else {
+                                        addType(index)
+                                    }"
+                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
                                     Přidat
                                 </button>
                             </div>
@@ -248,9 +252,13 @@
                                 <x-textarea-input class="col-span-full h-[7rem]"
                                                   x-model="user.more_info_advertiser"></x-textarea-input>
                                 <button
-                                    @click="addType(index)"
-                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
-                                    :disabled="user.more_info_advertiser === null || user.more_info_advertiser.trim().length < 5">
+                                    @click="
+                                    if(user.more_info_advertiser === null || user.more_info_advertiser.trim().length < 5) {
+                                        alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako &quot;nabízejí&quot; alespoň 5 znaků.');
+                                    } else {
+                                        addType(index)
+                                    }"
+                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
                                     Přidat
                                 </button>
                             </div>
@@ -268,9 +276,13 @@
                                 <x-textarea-input class="col-span-full h-[7rem]"
                                                   x-model="user.more_info_real_estate_broker"></x-textarea-input>
                                 <button
-                                    @click="addType(index)"
-                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
-                                    :disabled="user.more_info_real_estate_broker === null || user.more_info_real_estate_broker.trim().length < 5">
+                                    @click="
+                                    if(user.more_info_real_estate_broker === null || user.more_info_real_estate_broker.trim().length < 5) {
+                                        alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako &quot;realitní makléř&quot; alespoň 5 znaků.');
+                                    } else {
+                                        addType(index)
+                                    }"
+                                    class="justify-self-center px-[35px] col-span-full mt-[15px] text-center leading-[50px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
                                     Přidat
                                 </button>
                             </div>
