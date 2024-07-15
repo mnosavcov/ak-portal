@@ -6,7 +6,7 @@
              style="background-image: url('{{ Vite::asset('resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png') }}')">
         </div>
 
-        <div class="relative mx-auto p-[60px] pb-0 text-white text-center">
+        <div class="relative mx-auto pt-[60px] p-[15px] pb-0 text-white text-center">
             <h2 class="mb-[35px] text-white">
                 Jak se u nás projekty prodávají?
             </h2>
@@ -16,7 +16,7 @@
                     laptop:text-[20px] laptop:leading-[30px]
                     ">
                 Jako nabízející projektu si můžete vybrat ze třech typů prodeje. Před zveřejněním
-                projektu budete provozovatelem detailně seznámeni s&nbsp;výhodami, a i limity každého
+                projektu budete provozovatelem detailně seznámeni s&nbsp;výhodami, a&nbsp;i&nbsp;limity každého
                 z&nbsp;nich.
             </div>
         </div>
@@ -24,12 +24,12 @@
         <div class="mx-auto max-w-[500px] min-[1100px]:max-w-[1080px] min-[1600px]:max-w-[1620px] relative">
             <div
                 class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
-                     left-[45px]
+                     left-[0px]
                      min-[1100px]:left-[40px]">
                 <img src="{{ Vite::asset('resources/images/btn-slider-left.svg') }}" class="w-full h-full">
             </div>
             <div class="swiper-button-next-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
-                    right-[45px]
+                    right-[0px]
                     min-[1100px]:right-[40px]">
                 <img src="{{ Vite::asset('resources/images/btn-slider-right.svg') }}" class="w-full h-full">
             </div>
@@ -38,9 +38,9 @@
                 <div class="swiper-wrapper pt-[60px]">
 
                     <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[450px] tablet:max-w-[530px] px-[60px] justify-self-center mx-auto">
+                        <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
+                                class="bg-white w-full mx-auto max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-kupujici.svg') }}"
                                      class="h-[100px] mx-auto
@@ -91,9 +91,9 @@
                     </div>
 
                     <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[450px] tablet:max-w-[530px] px-[60px] justify-self-center mx-auto">
+                        <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
+                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-aukce.svg') }}"
                                      class="h-[100px] mx-auto
@@ -144,9 +144,9 @@
                     </div>
 
                     <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[450px] tablet:max-w-[530px] px-[60px] justify-self-center mx-auto">
+                        <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="relative bg-white w-full px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px]
+                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-nabizejici.svg') }}"
                                      class="h-[100px] mx-auto
