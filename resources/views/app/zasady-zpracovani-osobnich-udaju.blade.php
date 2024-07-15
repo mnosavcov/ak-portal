@@ -1,6 +1,12 @@
 <x-app-layout>
+    <div class="w-full max-w-[1230px] mx-auto">
+        <x-app.breadcrumbs :breadcrumbs="[
+            'Zásady zpracování osobních údajů' => route('zasady-zpracovani-osobnich-udaju'),
+        ]"></x-app.breadcrumbs>
+    </div>
+
     <div id="vop" class="max-w-[1230px] px-[15px]">
-        <div class="bg-white mb-[100px] mt-[50px] p-[50px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+        <div class="bg-white mb-[100px] p-[50px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
             <div class="ml-[20px]">
 
                 <p class="text-center text-[22px]">
