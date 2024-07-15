@@ -29,7 +29,12 @@
                 </div>
             </div>
 
-            <div class="mt-[10px] pt-[25px]">
+            <div class="mt-[10px] pt-[15px]">
+                <x-input-label :value="'Dokumenty'"/>
+                <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
+                    Maximální velikost jednoho souboru je
+                    {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
+                </div>
                 @include('admin.projects-edit.files.@input', ['uuid' => $filesData['uuid'], 'url' => $filesData['routeFetchFile']])
 
                 <div class="border-b border-black mt-[10px]"></div>

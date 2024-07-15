@@ -1,7 +1,11 @@
 <div
     class="col-span-full w-full bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]">
 
-    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Obrázky</div>
+    <div class="font-WorkSans-Bold text-[18px]">Obrázky</div>
+    <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
+        Maximální velikost jednoho souboru je
+        {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
+    </div>
 
     <div class="bg-white p-[10px] rounded-[5px]">
         <input type="hidden" name="image_data" :value="JSON.stringify(projectImages.data)">

@@ -227,11 +227,20 @@ class AdminController extends Controller
         }
 
         // files
-        foreach ($request->file('files') ?? [] as $file) {
-            $path = $file->store('projects/' . $project->user_id . '/' . $project->id);
+        $files = TempProjectFile::where('temp_project_id', $request->post('fileUUID'))
+            ->whereIn('id', explode(',', $request->post('fileIds')))->get();
+        foreach ($files as $file) {
+            $path = $file->filepath;
+            $path = str_replace(
+                'temp/' . $request->post('fileUUID'),
+                'projects/' . auth()->id() . '/' . $project->id,
+                $path
+            );
+
+            Storage::copy($file->filepath, $path);
             $projectFile = new ProjectFile([
                 'filepath' => $path,
-                'filename' => $file->getClientOriginalName(),
+                'filename' => $file->filename,
                 'order' => 0,
                 'public' => true,
             ]);
@@ -279,11 +288,20 @@ class AdminController extends Controller
         }
 
         // galleries
-        foreach ($request->file('galleries') ?? [] as $gallery) {
-            $path = $gallery->store('projects/' . $project->user_id . '/' . $project->id . '/galleries');
+        $galleries = TempProjectFile::where('temp_project_id', $request->post('galleryUUID'))
+            ->whereIn('id', explode(',', $request->post('galleryIds')))->get();
+        foreach ($galleries as $gallery) {
+            $path = $gallery->filepath;
+            $path = str_replace(
+                'temp/' . $request->post('galleryUUID'),
+                'projects/' . auth()->id() . '/' . $project->id . '/galleries',
+                $path
+            );
+
+            Storage::copy($gallery->filepath, $path);
             $projectGallery = new ProjectGallery([
                 'filepath' => $path,
-                'filename' => $gallery->getClientOriginalName(),
+                'filename' => $gallery->filename,
                 'order' => 0,
                 'public' => true,
                 'head_img' => 0,
@@ -308,11 +326,21 @@ class AdminController extends Controller
             ProjectGallery::where('project_id', $project->id)->find($gallery->id)->update(['head_img' => (bool)$gallery->head_img]);
         }
 
-        foreach ($request->file('images') ?? [] as $image) {
-            $path = $image->store('projects/' . $project->user_id . '/' . $project->id . '/images');
+        // images
+        $images = TempProjectFile::where('temp_project_id', $request->post('imageUUID'))
+            ->whereIn('id', explode(',', $request->post('imageIds')))->get();
+        foreach ($images as $image) {
+            $path = $image->filepath;
+            $path = str_replace(
+                'temp/' . $request->post('imageUUID'),
+                'projects/' . auth()->id() . '/' . $project->id . '/images',
+                $path
+            );
+
+            Storage::copy($image->filepath, $path);
             $projectImage = new ProjectImage([
                 'filepath' => $path,
-                'filename' => $image->getClientOriginalName(),
+                'filename' => $image->filename,
                 'order' => 0,
             ]);
 

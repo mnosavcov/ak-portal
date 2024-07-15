@@ -31,9 +31,11 @@
                     }
                 ">
                 <input type="hidden" name="fileUUID" value="{{ $filesData['uuid'] }}">
-                <input type="hidden" name="fileUUID" value="{{ $imagesData['uuid'] }}">
-                <input type="hidden" name="fileUUID" value="{{ $galleriesData['uuid'] }}">
-                <input type="hidden" name="fileIds" :value="Object.keys(tempFiles.fileList)">
+                <input type="hidden" name="imageUUID" value="{{ $imagesData['uuid'] }}">
+                <input type="hidden" name="galleryUUID" value="{{ $galleriesData['uuid'] }}">
+                <input type="hidden" name="fileIds" :value="Object.keys(tempFiles.fileList['{{ $filesData['uuid'] }}'] ?? {})">
+                <input type="hidden" name="imageIds" :value="Object.keys(tempFiles.fileList['{{ $imagesData['uuid'] }}'] ?? {})">
+                <input type="hidden" name="galleryIds" :value="Object.keys(tempFiles.fileList['{{ $galleriesData['uuid'] }}'] ?? {})">
                 @if($project->states->count())
                     <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
                 @endif

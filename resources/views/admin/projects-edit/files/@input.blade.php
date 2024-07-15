@@ -3,12 +3,6 @@
         tempFiles.fileListError['{{$uuid}}'] = [];
         tempFiles.fileListProgress['{{$uuid}}'] = {};
     ">
-    <x-input-label for="fileElem" :value="__('Dokumenty')" class="mb-[10px]"/>
-    <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
-        Maximální velikost jednoho souboru je
-        {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
-    </div>
-
     <div class="bg-[#F8F8F8] p-[20px] cursor-pointer rounded-[3px]"
          @dragenter.prevent.stop="
                                 $el.classList.add('dragover')
@@ -34,8 +28,7 @@
                             "
          @click="document.getElementById('fileInput-{{$uuid}}').click();">
         <div
-            class="bg-white w-full py-[50px] text-center rounded-[3px] border border-[#D1E3EC] border-dashed"
-            x-ref="fileElem-inner">
+            class="bg-white w-full py-[50px] text-center rounded-[3px] border border-[#D1E3EC] border-dashed">
             <img src="{{ Vite::asset('resources/images/ico-upload.svg') }}"
                  class="inline-block mb-[20px]">
             <div class="font-Spartan-Bold text-[#31363A] text-[15px] leading-[21px]">

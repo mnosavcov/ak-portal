@@ -3,6 +3,11 @@
     <div class="float-right cursor-pointer text-gray-700" x-text="open ? 'skrýt' : 'zobrazit'" @click="open = !open"
          x-show="Object.entries(projectStates.data).length"></div>
     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Galerie</div>
+    <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
+        Maximální velikost jednoho souboru je
+        {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
+    </div>
+
     <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]" x-show="open" x-collapse>
 
         <div class="col-span-4 bg-white p-[10px] rounded-[5px]" x-data="{ headImgExists: false }">
