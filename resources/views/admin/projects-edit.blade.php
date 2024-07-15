@@ -110,7 +110,8 @@
                 </div>
 
                 <button type="submit"
-                        class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white">
+                        class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white disabled:grayscale"
+                    :disabled="uploadActive()">
                     Uložit změny
                 </button>
 

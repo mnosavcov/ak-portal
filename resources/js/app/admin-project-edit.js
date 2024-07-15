@@ -14,6 +14,11 @@ Alpine.data('adminProjectEdit', (id) => ({
     init() {
         this.projectStates.that = this;
     },
+    uploadActive() {
+        return Object.values(this.tempFiles.fileListProgress).some(
+            progressObject => Object.keys(progressObject).length > 0
+        );
+    },
     projectStates: {
         that: null,
         data: {},

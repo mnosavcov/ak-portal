@@ -2,7 +2,7 @@
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
     <div class="float-right cursor-pointer text-gray-700" x-text="open ? 'skrýt' : 'zobrazit'" @click="open = !open"
          x-show="Object.entries(projectStates.data).length"></div>
-    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Galerie</div>
+    <div class="font-WorkSans-Bold text-[18px]">Galerie</div>
     <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
         Maximální velikost jednoho souboru je
         {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
