@@ -104,6 +104,8 @@
 
     <title>{{ config('app.name') . (($htmlTitle ?? null) ? (' - ' . $htmlTitle) : '') }}</title>
 
+    @include('layouts.@fb')
+
     <!-- Scripts -->
     @vite(['resources/css/app.less', 'resources/js/app.js'])
 
