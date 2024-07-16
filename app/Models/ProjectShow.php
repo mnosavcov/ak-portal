@@ -15,6 +15,7 @@ class ProjectShow extends Model
         'offer',
         'winner',
         'principal_paid',
+        'principal_sum',
         'details_on_request',
         'details_on_request_time',
     ];

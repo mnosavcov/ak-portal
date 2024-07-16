@@ -150,6 +150,30 @@ h3 {
     }
 }
 
+.inline-loader {
+    display: inline-block;
+    .loader {
+    @apply justify-self-center;
+        width: 100%;
+        height: 100%;
+        border: 3px solid #888;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
 .app-project {
     .app-project-about {
     @apply font-Spartan-Regular;

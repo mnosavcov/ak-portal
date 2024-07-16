@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\FormContact;
 use App\Models\Project;
+use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -114,6 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::post('projekty/add-offer', [ProjectController::class, 'addOffer'])->name('projects.add-offer');
     Route::post('projekty/pick-a-winner', [ProjectController::class, 'pickAWinner'])->name('projects.pick-a-winner');
     Route::post('projekty/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
+    Route::post('projekty/get-vs/{project:page_url}', [ProjectController::class, 'paymentData'])->name('projects.get-vs');
 
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
     Route::post('projekty/{project}', [ProjectController::class, 'update'])->name('projects.update');
@@ -195,9 +197,12 @@ Route::get('/keep-session', function () {
 require __DIR__ . '/auth.php';
 
 if (Schema::hasTable('projects') && Project::count()) {
-    Route::get('{project:page_url}', [ProjectController::class, 'show'])
+    Route::match(['get', 'post'],'{project:page_url}', [ProjectController::class, 'show'])
         ->where('project', Project::pluck('page_url')->implode('|'))
         ->name('projects.show');
 }
 
 Route::get('backup/dujslP5khfi3mmgGtigEiyTaqVqCyfsA', BackupController::class)->name('backup');
+Route::get('payment/fio-check/tsGkskqWZcmVsZIYJAn7qUQb0Xowe7pF', function () {
+    (new PaymentService)->checkPrincipal();
+})->name('payment.fio-check');

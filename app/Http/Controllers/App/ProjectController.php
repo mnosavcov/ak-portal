@@ -10,6 +10,7 @@ use App\Models\ProjectGallery;
 use App\Models\ProjectImage;
 use App\Models\ProjectShow;
 use App\Models\TempProjectFile;
+use App\Services\PaymentService;
 use App\Services\ProjectService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -154,17 +155,17 @@ class ProjectController extends Controller
         ];
 
         if ($data->data->accountType === 'real-estate-broker') {
-            if($data->data->representation->selected !== null) {
+            if ($data->data->representation->selected !== null) {
                 $insert['representation_type'] = $data->data->representation->selected;
             }
             $insert['representation_indefinitely_date'] = (bool)$data->data->representation->indefinitelyDate;
 
-            if($data->data->representation->mayBeCancelled !== null) {
+            if ($data->data->representation->mayBeCancelled !== null) {
                 $insert['representation_may_be_cancelled'] = ($data->data->representation->mayBeCancelled === 'yes');
             }
             if (!$data->data->representation->indefinitelyDate) {
                 $insert['representation_end_date'] = $data->data->representation->endDate;
-                if($insert['representation_end_date'] === '') {
+                if ($insert['representation_end_date'] === '') {
                     $insert['representation_end_date'] = null;
                 }
             }
@@ -233,7 +234,11 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      */
-    public function show(Request $request, Project $project): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
+    public function show(
+        Request        $request,
+        Project        $project,
+        PaymentService $paymentService
+    ): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         if (auth()->id()) {
             $projectCount = ProjectShow::where('user_id', auth()->id())->where('project_id', $project->id)->count();
@@ -273,6 +278,13 @@ class ProjectController extends Controller
             return redirect($project->url_detail, 301);
         }
 
+        if ($request->post('check-payment', false)) {
+            $after = $paymentService->checkPrincipal($request->post('vs', false));
+            return redirect()->route('projects.show', ['project' => $project->url_part])->with('after', $after);
+        }
+
+        $after = $paymentService->nextTryInSeconds(true);
+        $request->session()->flash('after', $after);
         return view(
             'app.projects.show',
             [
@@ -464,7 +476,7 @@ class ProjectController extends Controller
 
     public function zip(Project $project, $urlHash, $filename)
     {
-        if(!$project->isVerified()) {
+        if (!$project->isVerified()) {
             return redirect()->route('homepage');
         }
 
@@ -633,5 +645,30 @@ class ProjectController extends Controller
         }
 
         return redirect()->route('profile.edit', ['add' => 'no-investor']);
+    }
+
+    public function paymentData(Project $project, ProjectService $projectService)
+    {
+        $qr = null;
+
+        $myShow = $project->myShow->first();
+        if ($myShow->project_shows === null) {
+            $vs = sprintf(
+                '%s%s',
+                Carbon::now()->year,
+                str_pad($myShow->id, 6, '0', STR_PAD_LEFT)
+            );
+            $myShow->variable_symbol = $vs;
+            $myShow->save();
+        }
+
+        $qr = $projectService->createQR($project, $myShow);
+
+        return
+            [
+                'status' => 'success',
+                'vs' => $myShow->variable_symbol,
+                'qr' => $qr,
+            ];
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Models\Project;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectService
@@ -54,22 +57,22 @@ class ProjectService
 
     public function destroy(Project $project)
     {
-        if($project->user_id !== auth()->id() && !auth()->user()->isSuperadmin()) {
+        if ($project->user_id !== auth()->id() && !auth()->user()->isSuperadmin()) {
             return response()->json([
                 'status' => 'error',
                 'redirect' => route('homepage'),
             ]);
         }
 
-        foreach($project->files as $file) {
+        foreach ($project->files as $file) {
             Storage::delete($file->filepath);
         }
 
-        foreach($project->galleries as $gallery) {
+        foreach ($project->galleries as $gallery) {
             Storage::delete($gallery->filepath);
         }
 
-        foreach($project->images as $image) {
+        foreach ($project->images as $image) {
             Storage::delete($image->filepath);
         }
 
@@ -85,7 +88,7 @@ class ProjectService
         $project->delete();
 
         $redirect = route('profile.overview', ['account' => $user_account_type]);
-        if(auth()->user()->isSuperadmin()) {
+        if (auth()->user()->isSuperadmin()) {
             $redirect = route('admin.projects');
         }
 
@@ -93,5 +96,27 @@ class ProjectService
             'status' => 'success',
             'redirect' => $redirect,
         ]);
+    }
+
+    public function createQR($project, $myShow)
+    {
+        $bankIban = env('BANK_IBAN'); // kód banky
+        $amount = $project->minimum_principal; // částka k platbě
+        $currency = 'CZK'; // měna
+        $variableSymbol = $myShow->variable_symbol; // variabilní symbol
+        $message = 'Platba za projekt PVTrusted.cz: ' . $project->title; // zpráva pro příjemce
+
+        $paymentData = "SPD*1.0*ACC:$bankIban*AM:$amount*CC:$currency*X-VS:$variableSymbol*MSG:$message";
+
+        $qrCode = Builder::create()
+            ->writer(new PngWriter())
+            ->writerOptions([])
+            ->data($paymentData)
+            ->encoding(new Encoding('UTF-8'))
+            ->size(300)
+            ->margin(10)
+            ->build();
+
+        return $qrCode->getDataUri();
     }
 }

@@ -371,9 +371,9 @@
                     </li>
                     <li>Povinnosti uhradit Vlastníkem Provizi, jejíž výše je stanovena ve Smlouvě o zprostředkování.
                     </li>
-                    <li>povinnosti uhradit Realitním makléřem či Vlastníkem Inzertní poplatek, jehož výše
+                    <li>Povinnosti uhradit Realitním makléřem či Vlastníkem Inzertní poplatek, jehož výše
                         je stanovena ve Smlouvě o poskytování služeb v&nbsp;případě, že je Projekt nabízen
-                        Rrealitním makléřem, který nedisponuje výhradní smlouvou o realitním
+                        Realitním makléřem, který nedisponuje výhradní smlouvou o realitním
                         zprostředkování či Vlastníkem, který si vyhradil právo nepřistoupit k podpisu
                         Rezervační smlouvy.
                     </li>

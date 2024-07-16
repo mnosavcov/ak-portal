@@ -259,7 +259,7 @@
     </div>
 @endif
 
-@if($project->type === 'offer-the-price' || $project->type === 'auction')
+@if($project->offersCountAll() > 0 && ($project->type === 'offer-the-price' || $project->type === 'auction'))
     <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-[#414141] relative {{ $project->offersCountAll() ? 'cursor-pointer' : '' }}
                     after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat"
     >

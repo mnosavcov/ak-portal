@@ -21,12 +21,15 @@ return new class extends Migration
             $table->boolean('offer')->default(false);
             $table->dateTime('offer_time')->nullable();
             $table->boolean('principal_paid')->default(false);
+            $table->integer('principal_sum')->nullable();
             $table->boolean('winner')->default(false);
             $table->boolean('showed')->default(false);
             $table->integer('details_on_request')->default(0);
             $table->dateTime('details_on_request_time')->nullable();
+            $table->string(10, 'variable_symbol')->nullable();
 
             $table->unique(['user_id', 'project_id']);
+            $table->unique(['variable_symbol']);
 
             $table->foreign('user_id')->references('id')->on('users')->constrained();
             $table->foreign('project_id')->references('id')->on('projects')->constrained();

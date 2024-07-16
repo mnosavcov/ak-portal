@@ -363,7 +363,7 @@ class Project extends Model
             if (!$this->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
-                $priceText = 'cena není zadaná';
+                $priceText = 'výše není zadaná';
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
@@ -371,7 +371,7 @@ class Project extends Model
             if (!$this->isVerified()) {
                 $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
             } elseif (empty($price)) {
-                $priceText = 'cena není zadaná';
+                $priceText = 'výše není zadaná';
             } else {
                 $priceText = number_format($price, 0, '.', ' ') . ' Kč';
             }
