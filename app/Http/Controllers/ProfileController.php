@@ -241,7 +241,7 @@ class ProfileController extends Controller
                 'accountTitle' => $accountTitle,
                 'accountSingle' => $accountSingle,
                 'projects' => $projects,
-                'projectEmptyMessage' => 'Zde nemáte zadané projekty'
+                'projectEmptyMessage' => 'Nejsou žádné nové projekty k zobrazení'
             ]
         );
     }
