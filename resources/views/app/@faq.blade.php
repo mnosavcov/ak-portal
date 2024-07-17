@@ -3,7 +3,7 @@
 @endphp
 <div class="pt-[50px] laptop:pt-[100px] bg-white">
     <div class="w-full bg-white" x-data="faq" x-init="data = @js($faqs);">
-        <div class="w-full max-w-[1200px] mx-auto text-center">
+        <div class="w-full max-w-[1230px] px-[15px] mx-auto text-center">
             <h2 class="text-[#414141] mb-[50px] text-center">
                 Nejčastější otázky a odpovědi
             </h2>
@@ -28,7 +28,7 @@
                 </template>
             </div>
 
-            <div class="max-w-[1130px] px-[15px]">
+            <div class="w-full">
                 <div class="border border-[#d9e9f2] w-full rounded-[10px] text-left
                  py-[15px] px-[10px]
                  tablet:py-[20px] tablet:px-[15px]
