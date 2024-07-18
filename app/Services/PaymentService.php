@@ -99,7 +99,7 @@ class PaymentService
             if ($waitForPayment) {
                 foreach ($transactions as $transaction) {
                     if (
-                        $transaction->column5->value === $waitForPayment
+                        ($transaction->column5?->value ?? null) === $waitForPayment
                         && Payment::where('pohyb_id', $transaction->column22->value)->count() === 0
                     ) {
                         $tryingCount = 0;
@@ -186,9 +186,18 @@ class PaymentService
             }
 
             foreach ($data as $column => $item) {
-                if (!isset($transaction->{$item['column']})) {
+                if (!property_exists($transaction, $item['column'])) {
                     $this->sendErrorEmail(3, $item['column'] . "\n\n" . serialize($transaction));
                     return;
+                }
+
+                $insert[$column] = null;
+                if($column === 'vs') {
+                    $insert[$column] = '-----';
+                }
+
+                if ($transaction->{$item['column']} === null) {
+                    continue;
                 }
 
                 if ($transaction->{$item['column']}->name !== $item['name']) {

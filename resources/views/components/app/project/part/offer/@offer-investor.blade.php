@@ -52,7 +52,7 @@
                             "
                     @click="$dispatch('open-modal', 'pay-principal')"
             >
-                Zaplatit jitotu
+                Zaplatit jistotu
             </button>
 
             @if($project->myShow()->first()->variable_symbol !== null && $project->myShow()->first()->principal_sum === null)
