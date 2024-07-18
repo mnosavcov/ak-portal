@@ -104,7 +104,7 @@ class ProjectService
         $amount = $project->minimum_principal; // částka k platbě
         $currency = 'CZK'; // měna
         $variableSymbol = $myShow->variable_symbol; // variabilní symbol
-        $message = 'Platba za projekt PVTrusted.cz: ' . $project->title; // zpráva pro příjemce
+        $message = 'Platba jistoty PVtrusted.cz: ' . $project->title; // zpráva pro příjemce
 
         $paymentData = "SPD*1.0*ACC:$bankIban*AM:$amount*CC:$currency*X-VS:$variableSymbol*MSG:$message";
 

@@ -68,7 +68,7 @@ class PaymentService
             if ($after > 0) {
                 return $after;
             }
-            $tryingCount = 6;
+            $tryingCount = 3;
         }
 
         $dateFrom = Carbon::yesterday()->format('Y-m-d');
@@ -108,7 +108,7 @@ class PaymentService
                 }
             }
             if ($tryingCount > 0) {
-                sleep(3);
+                sleep(5);
             }
             $tryingCount--;
         } while ($tryingCount > 0);
@@ -192,7 +192,7 @@ class PaymentService
                 }
 
                 $insert[$column] = null;
-                if($column === 'vs') {
+                if ($column === 'vs') {
                     $insert[$column] = '-----';
                 }
 

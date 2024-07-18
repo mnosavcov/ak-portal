@@ -214,6 +214,16 @@
 
                 <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
                     <div class="font-Spartan-Bold text-[16px] tablet:text-[14px] leading-[30px]">
+                        IBAN:
+                    </div>
+                    <div
+                        class="font-Spartan-Regular text-[16px] tablet:text-[14px] leading-[30px]">
+                        {{ env('BANK_IBAN') }}
+                    </div>
+                </div>
+
+                <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
+                    <div class="font-Spartan-Bold text-[16px] tablet:text-[14px] leading-[30px]">
                         Variabilní symbol:
                     </div>
                     <div>
