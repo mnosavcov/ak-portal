@@ -48,7 +48,7 @@
     @elseif(!$project->isPublicForInvestor())
         <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
             <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-                U tohoto projektu se detaily projektu zobrazí jen zájemcům, kterým přístup umožní prodávající.
+                U tohoto projektu vyžaduje nabízející vyšší stupeň ověření investorů. O zobrazení detailů o projektu musíte nabízejícího požádat.
             </div>
 
             @if($project->myShow()->first()->details_on_request === 0)
