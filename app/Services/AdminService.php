@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\Payment;
 use App\Models\Project;
 use Illuminate\Support\Facades\Schema;
 
@@ -60,5 +61,14 @@ class AdminService
         }
 
         return $default;
+    }
+
+    public function getProjectPayments()
+    {
+        $projectIds = Payment::whereNotNull('project_id')->get()->unique('project_id')->pluck('project_id');
+        return [
+            'projectsList' => Project::whereIn('id', $projectIds)->orderBy('id', 'desc')->get(),
+            'empty' => Payment::whereNull('project_id')->get(),
+        ];
     }
 }

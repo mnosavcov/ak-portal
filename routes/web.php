@@ -177,6 +177,12 @@ Route::middleware('auth')->group(function () {
 
                 Route::post('user-new-advisor', [AdminController::class, 'addAdvisor'])->name('user.new-advisor');
                 Route::post('user-new-admin', [AdminController::class, 'addAdmin'])->name('user.new-admin');
+
+                Route::get('payments', [AdminController::class, 'paymentsShow'])->name('payments.show');
+                Route::get('payment/fio-check', function () {
+                    (new PaymentService)->checkPrincipal();
+                    return redirect()->route('admin.payments.show');
+                })->name('payments.fio-check');
             });
         });
     });

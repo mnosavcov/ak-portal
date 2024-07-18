@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('pohyb_id');
             $table->string('pokyn_id');
             $table->date('datum');
-            $table->integer('castka');
+            $table->decimal('castka', 12, 2);
             $table->string('mena');
             $table->string('protiucet');
             $table->string('protiucet_kodbanky');

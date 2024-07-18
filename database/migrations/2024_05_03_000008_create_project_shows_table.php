@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('offer')->default(false);
             $table->dateTime('offer_time')->nullable();
             $table->boolean('principal_paid')->default(false);
-            $table->integer('principal_sum')->nullable();
+            $table->decimal('principal_sum', 12, 2)->nullable();
             $table->boolean('winner')->default(false);
             $table->boolean('showed')->default(false);
             $table->integer('details_on_request')->default(0);

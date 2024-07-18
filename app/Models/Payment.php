@@ -25,4 +25,14 @@ class Payment extends Model
         'vs',
         'zprava_pro_prijemce',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

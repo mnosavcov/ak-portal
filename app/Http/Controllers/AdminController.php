@@ -598,4 +598,16 @@ class AdminController extends Controller
             'format' => $file->getClientOriginalName(),
         ]);
     }
+
+    public function paymentsShow(AdminService $adminService)
+    {
+        $payments = $adminService->getProjectPayments();
+
+        return view(
+            'admin.payments.index',
+            [
+                'payments' => $payments,
+            ]
+        );
+    }
 }

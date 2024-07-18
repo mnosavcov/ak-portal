@@ -181,9 +181,13 @@ class PaymentService
             $insert['user_id'] = null;
             $insert['project_id'] = null;
 
+            if ($transaction->column1->value < 0) {
+                continue;
+            }
+
             foreach ($data as $column => $item) {
                 if (!isset($transaction->{$item['column']})) {
-                    $this->sendErrorEmail(3, $item['column']);
+                    $this->sendErrorEmail(3, $item['column'] . "\n\n" . serialize($transaction));
                     return;
                 }
 
