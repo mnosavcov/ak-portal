@@ -1,5 +1,5 @@
 <div class="space-y-[25px] mt-[25px]">
-    @if($payments['empty'])
+    @if(count($payments['empty']))
         <div class="rounded-[7px] bg-white shadow-[0_3px_6px_rgba(0,0,0,0.16)] p-[20px]">
             <div>
                 <h2 class="text-app-red">Bez přiřazení k projektu</h2>
