@@ -131,6 +131,9 @@ class AdminController extends Controller
             'page_url' => Str::slug($request->page_url),
             'page_title' => $request->page_title,
             'page_description' => $request->page_description,
+            'map_lat_lng' => $request->map_lat_lng,
+            'map_zoom' => $request->map_zoom,
+            'map_title' => $request->map_title,
         ];
 
         if (

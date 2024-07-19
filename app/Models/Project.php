@@ -60,6 +60,10 @@ class Project extends Model
         'page_url',
         'page_title',
         'page_description',
+        'map_lat_lng',
+        'map_zoom',
+        'map_title',
+        'map_type',
     ];
 
     public const STATUSES = [

@@ -47,6 +47,14 @@
                             @click="projectShow = 'projekt'">
                             Projekt
                         </div>
+                        @if(!empty(trim($project->map_lat_lng)))
+                        <div
+                            class="cursor-pointer"
+                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'lokace'}"
+                            @click="projectShow = 'lokace'">
+                            Lokace
+                        </div>
+                        @endif
                         <div
                             class="cursor-pointer"
                             :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'dokumentace'}"
@@ -117,6 +125,7 @@
                     </div>
 
                     @include('app.projects.@document-list')
+                    @include('app.projects.@lokace')
                 </div>
             </div>
         </div>

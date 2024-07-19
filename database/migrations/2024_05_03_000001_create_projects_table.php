@@ -52,6 +52,10 @@ return new class extends Migration {
             $table->boolean('representation_may_be_cancelled')->nullable();
             $table->boolean('exclusive_contract')->default(false);
             $table->boolean('details_on_request')->default(true);
+            $table->string('map_lat_lng')->nullable();
+            $table->integer('map_zoom')->default(18);
+            $table->string('map_title')->nullable();
+            $table->string('map_type')->default('terrain');
 
             $table->unique('page_url');
 

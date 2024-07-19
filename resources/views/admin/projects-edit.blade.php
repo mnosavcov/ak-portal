@@ -67,6 +67,7 @@
                 @include('admin.projects-edit.@files')
                 @include('admin.projects-edit.@galleries')
                 @include('admin.projects-edit.@settings')
+                @include('admin.projects-edit.@maps')
 
                 <div x-data="{ open: true, exclusive: @js($project->exclusive_contract ? 1 : 0), details_on_request: @js($project->details_on_request ? 1 : 0) }" class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
