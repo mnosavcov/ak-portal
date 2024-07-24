@@ -21,7 +21,7 @@
             async function initMap() {
                 var myLatLng = {
                     lat: {{ trim(explode(',', $project->map_lat_lng)[0]) }},
-                    lng: {{ trim(explode(',', $project->map_lat_lng)[1]) }}
+                    lng: {{ trim(explode(',', $project->map_lat_lng)[1] ?? '0') }}
                 };
 
                 map = new google.maps.Map(document.getElementById('map'), {
