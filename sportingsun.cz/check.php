@@ -1,7 +1,7 @@
 <?php
 
 // Umístění, kam se uloží přijatý soubor
-$uploadDir = dirname(dirname(__DIR__)) . '/backups-pvtrusted-cz/*';
+$uploadDir = dirname(dirname(dirname(__DIR__))) . '/backups-pvtrusted-cz/*';
 
 // Datum před 12 hodinami
 $timestamp = time() - (12 * 60 * 60);

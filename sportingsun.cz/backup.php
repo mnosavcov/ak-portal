@@ -1,7 +1,7 @@
 <?php
 
 // Umístění, kam se uloží přijatý soubor
-$uploadDir = dirname(dirname(__DIR__)) . '/backups-pvtrusted-cz/';
+$uploadDir = dirname(dirname(dirname(__DIR__))) . '/backups-pvtrusted-cz/';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     $file = $_FILES['file'];
