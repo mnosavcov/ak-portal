@@ -130,7 +130,7 @@
 
                     async function initMap() {
                         var myLatLng = {
-                            lat: {{ trim(explode(',', (int)$project->map_lat_lng)[0]) }},
+                            lat: {{ trim(explode(',', $project->map_lat_lng)[0]) === '' ? '0' : trim(explode(',', $project->map_lat_lng)[0]) }},
                             lng: {{ trim(explode(',', $project->map_lat_lng)[1] ?? '0') }}
                         };
 
