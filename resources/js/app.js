@@ -64,6 +64,7 @@ function tinymceInit()
 }
 
 function countdown(targetDate) {
+    targetDate = targetDate.replace('UTC', 'T') + 'Z';
     const target = new Date(targetDate).getTime();
 
     function updateCountdown() {
