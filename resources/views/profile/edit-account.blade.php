@@ -1,6 +1,6 @@
 <div x-data="verifyUserAccount"
      x-init="
-        data = @js($user);
+        data = @js($user->toArray());
         countries = @js(\App\Services\CountryServices::COUNTRIES);
         verified = {{ auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified' ? 'true' : 'false' }}
      "

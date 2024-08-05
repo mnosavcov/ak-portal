@@ -8,7 +8,7 @@
     <div class="w-full max-w-[1230px] mx-auto px-[15px]"
          x-data="verifyUserAccount"
          x-init="
-        data = @js($user);
+        data = @js($user->toArray());
         countries = @js(\App\Services\CountryServices::COUNTRIES);
      ">
 
