@@ -78,6 +78,17 @@
                     </svg>
                     <span>Platby</span>
                 </a>
+
+                @if(auth()->user()->isSuperadmin() || auth()->user()->isOwner())
+                    <a href="{{ route('admin.error.index') }}"
+                       class="block py-2.5 px-4 flex items-center space-x-2 bg-gray-800 text-white hover:bg-gray-800 hover:text-white rounded">
+                        <div class="w-6 h-6">
+                        <i class="fa-solid fa-bug"></i>
+                        </div>
+                        <span>Errors</span>
+                    </a>
+                @endif
+
                 <!-- DROPDOWN LINK -->
                 {{--                <div class="block" x-data="{open: false}">--}}
                 {{--                    <div @click="open = !open"--}}

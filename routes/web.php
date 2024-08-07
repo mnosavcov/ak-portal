@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ErrorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\BackupController;
 use App\Http\Controllers\App\HomepageController;
@@ -183,6 +184,10 @@ Route::middleware('auth')->group(function () {
                     (new PaymentService)->checkPrincipal();
                     return redirect()->route('admin.payments.show');
                 })->name('payments.fio-check');
+
+                Route::get('/error', [ErrorController::class, 'index'])->name('error.index');
+                Route::get('/error/load/{filename}', [ErrorController::class, 'load'])->name('error.load');
+                Route::delete('/error/archive', [ErrorController::class, 'archive'])->name('error.archive');
             });
         });
     });
