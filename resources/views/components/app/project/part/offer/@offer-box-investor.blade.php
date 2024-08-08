@@ -35,7 +35,7 @@
         </div>
     </div>
 @elseif(auth()->user()->investor)
-    @if($project->myOffer())
+    @if($project->type !== 'auction' && $project->myOffer())
         @include(
             'components.app.project.part.offer.@offer',
             [
@@ -46,18 +46,19 @@
             ]
         )
     @elseif(!$project->isPublicForInvestor())
-        <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
+        <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-[1fr_200px]">
             <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-                U tohoto projektu vyžaduje nabízející vyšší stupeň ověření investorů. O zobrazení detailů o projektu musíte nabízejícího požádat.
+                U tohoto projektu vyžaduje nabízející vyšší stupeň ověření investorů. O zobrazení detailů o projektu
+                musíte nabízejícího požádat.
             </div>
 
             @if($project->myShow()->first()->details_on_request === 0)
                 <div class="text-center laptop:text-right">
                     <a href="{{ route('projects.request-details', $project) }}"
-                       class="text-center inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                       class="text-center inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[14px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                         mt-[15px]
                      laptop:mt-0">
-                        Chci zobrazit detaily
+                        Chci&nbsp;zobrazit&nbsp;detaily
                     </a>
                 </div>
             @elseif($project->myShow()->first()->details_on_request === 1)
@@ -70,8 +71,33 @@
                 </div>
             @endif
         </div>
+    @elseif($project->type === 'auction' && $project->myShow()->first()->principal_paid !== 1)
+        <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
+            <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
+                Abyste mohli učinit příhoz, musíte uhradit jistotu na bankovní účet provozovatele.
+            </div>
+            <div class="text-center laptop:text-right">
+                <button type="button"
+                        class="text-center inline-block self-center font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[200px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
+                        mt-[15px]
+                     laptop:mt-0
+                            "
+                        @click="$dispatch('open-modal', 'pay-principal')"
+                >
+                    Zaplatit jistotu
+                </button>
+            </div>
+
+            <div class="col-span-full text-center">
+                @include('components.app.project.part.offer.@@pay-principal-check')
+            </div>
+        </div>
+
+        @include('components.app.project.part.offer.@@pay-principal-modal')
     @else
-        <div class="grid grid-cols-1" x-data="{minPrice: @js($project->price), offerPrice: '',
+        <template x-if="$store.app.projectPublicated">
+            <div x-init="actualValues.minPrice = @js($project->price)">
+                <div class="grid grid-cols-1" x-data="{offerPrice: '',
                         formatMoney(value, decimalSeparator = '.', thousandSeparator = ' ', decimalPlaces = 0) {
                         let [integer, decimal] = parseFloat(parseInt(String(value).replace(/\s+/g, ''))).toFixed(decimalPlaces).split('.');
                         integer = integer.replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
@@ -80,56 +106,108 @@
                         }
                         return decimalPlaces ? `${integer}${decimalSeparator}${decimal}` : integer;
                         }}">
-            @if($project->type === 'offer-the-price')
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
-                    Zadejte částku své nabídky
-                </div>
-                <div>
-                    <div class="relative inline-block">
-                        <x-text-input id="nabidka" x-model="offerPrice"
-                                      class="mb-[25px] relative block mt-1 w-[250px] pr-[60px]"
-                                      x-mask:dynamic="$money($input, '.', ' ', 0)"
-                                      type="text"/>
-                        <div
-                            class="absolute text-[#A7A4A4] right-[40px] text-[13px] top-0 leading-[52px] font-Spartan-Regular">
-                            Kč
+                    @if($project->type === 'offer-the-price')
+                        <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
+                            Zadejte částku své nabídky
                         </div>
-                    </div>
-                </div>
-            @endif
-            @if($project->type === 'fixed-price')
-                <div x-init="offerPrice = @js($project->price)"></div>
-            @endif
+                        <div>
+                            <div class="relative inline-block">
+                                <x-text-input id="nabidka" x-model="offerPrice"
+                                              class="mb-[25px] relative block mt-1 w-[250px] pr-[60px]"
+                                              x-mask:dynamic="$money($input, '.', ' ', 0)"
+                                              type="text"/>
+                                <div
+                                    class="absolute text-[#A7A4A4] right-[40px] text-[13px] top-0 leading-[52px] font-Spartan-Regular">
+                                    Kč
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if($project->type === 'fixed-price')
+                        <div x-init="offerPrice = @js($project->price)"></div>
+                    @endif
+                    @if($project->type === 'auction')
+                        <div x-init="priceBox.auction = true"></div>
+                        <div
+                            x-init="priceBox.highest = @js($project->offers()->first()?->user_id === auth()->user()->id)"></div>
+                        <div
+                            x-init="priceBox.bidExists = @js($project->offers()->where('user_id', auth()->user()->id)->count())"></div>
+                        <div x-init="actualValues.minPrice = @js($project->actual_min_bid_amount)">
 
-            <div class="text-left">
-                <button x-data type="button" @click="
-                                        if(Number.isNaN(parseInt(String(offerPrice).replace(/\s+/g, ''))) || parseInt(String(offerPrice).replace(/\s+/g, '')) < minPrice) {
-                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!}')
+                        <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px]"
+                             x-show="priceBox.bidExists && priceBox.highest" x-cloak>
+                            Váš příhoz je aktuálně nejvyšší
+                        </div>
+                        <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-orange mb-[15px]"
+                             x-show="priceBox.bidExists && !priceBox.highest" x-cloak>
+                            Váš příhoz už není nejvyšší
+                        </div>
+                        <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px]"
+                             x-show="!priceBox.bidExists" x-cloaK>
+                            Jistotu jste zaplatili, můžete učinit příhoz
+                        </div>
+
+                        <div x-show="!priceBox.highest" x-cloak>
+                            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
+                                Zadejte částku příhozu
+                            </div>
+                            <div>
+                                <div class="relative inline-block">
+                                    <x-text-input id="nabidka" x-model="offerPrice"
+                                                  class="mb-[25px] relative block mt-1 w-[250px] pr-[60px]"
+                                                  x-mask:dynamic="$money($input, '.', ' ', 0)"
+                                                  type="text"/>
+                                    <div
+                                        class="absolute text-[#A7A4A4] right-[40px] text-[13px] top-0 leading-[52px] font-Spartan-Regular">
+                                        Kč
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div x-show="
+                                !priceBox.auction
+                                || (priceBox.auction && !priceBox.highest)
+                            " x-cloak>
+                        <div class="text-left">
+                            <button x-data type="button"
+                                    @if($project->type === 'auction')
+                                        x-init="actualValues.actual_min_bid_amount_text2 = @js($project->actual_min_bid_amount_text)"
+                                    @else
+                                        x-init="actualValues.actual_min_bid_amount_text2 = @js($project->price_text_offer)"
+                                    @endif
+                                    @click="
+                                        if(Number.isNaN(parseInt(String(offerPrice).replace(/\s+/g, ''))) || parseInt(String(offerPrice).replace(/\s+/g, '')) < actualValues.minPrice) {
+                                            alert('Nabídněte cenu minimálně ' + actualValues.actual_min_bid_amount_text2)
                                             return;
                                         }
 
                                         let offer = parseInt(String(offerPrice).replace(/\s+/g, ''))
                                         let offerFormated = offerPrice
-                                        if(Number.isNaN(offer) || offer < minPrice) {
-                                            alert('Nabídněte cenu minimálně {!! $project->price_text_offer !!}')
+                                        if(Number.isNaN(offer) || offer < actualValues.minPrice) {
+                                            alert('Nabídněte cenu minimálně ' + actualValues.actual_min_bid_amount_text2)
                                             return;
                                         }
                                     $dispatch('open-modal', {name: 'send-offer', offer: offer, offerFormated: formatMoney(offerPrice)})
                                 "
-                        class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
-                    @if($project->type === 'fixed-price')
-                        Koupit hned
-                    @elseif($project->type === 'offer-the-price')
-                        Nabídnout
-                    @else
-                        -
-                    @endif
-                </button>
-            </div>
-        </div>
+                                    class="font-Spartan-SemiBold bg-app-green text-white text-[18px] h-[60px] leading-[60px] w-[350px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]">
+                                @if($project->type === 'fixed-price')
+                                    Koupit hned
+                                @elseif($project->type === 'offer-the-price')
+                                    Nabídnout
+                                @elseif($project->type === 'auction')
+                                    Přihodit
+                                @else
+                                    -
+                                @endif
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <x-modal name="send-offer">
-            <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{
+                <x-modal name="send-offer">
+                    <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{
                             loaderShow: false,
                             projectId: @js($project->id),
                             async addOffer(offer) {
@@ -161,81 +239,106 @@
                             }
                             }">
 
-                <img src="{{ Vite::asset('resources/images/ico-close.svg') }}"
-                     @click="$dispatch('close')"
-                     class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
+                        <img src="{{ Vite::asset('resources/images/ico-close.svg') }}"
+                             @click="$dispatch('close')"
+                             class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
-                <div class="text-center mb-[30px]">
-                    <h1>Podání nabídky</h1>
-                </div>
-
-                <div
-                    class="p-[25px] rounded-[7px] bg-[#F4FAFE] text-[#414141] text-center tablet:text-left mb-[20px] space-y-[15px]">
-                    <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
-                        <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
-                            Projekt:
+                        <div class="text-center mb-[30px]">
+                            @if($project->type === 'auction')
+                                <h1>Potvrzení příhozu</h1>
+                            @else
+                                <h1>Podání nabídky</h1>
+                            @endif
                         </div>
+
                         <div
-                            class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]">
-                            {{ $project->title }}
-                        </div>
-                    </div>
+                            class="p-[25px] rounded-[7px] bg-[#F4FAFE] text-[#414141] text-center tablet:text-left mb-[20px] space-y-[15px]">
+                            <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
+                                <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
+                                    Projekt:
+                                </div>
+                                <div
+                                    class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]">
+                                    {{ $project->title }}
+                                </div>
+                            </div>
 
-                    <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
-                        <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
-                            Nabídková cena:
+                            <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
+                                <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
+                                    Nabídková cena:
+                                </div>
+                                <div
+                                    class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]"
+                                    x-text="inputData.offerFormated + ' Kč'">
+                                </div>
+                            </div>
                         </div>
-                        <div
-                            class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]"
-                            x-text="inputData.offerFormated + ' Kč'">
-                        </div>
-                    </div>
-                </div>
 
-                <div class="max-w-[1200px] mx-auto">
-                    <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px] bg-[#F8F8F8]
+                        @if($project->type === 'auction')
+                            <div class="max-w-[1200px] mx-auto">
+                                <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px] bg-[#F8F8F8]
                                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                        <div class="text-left">
-                            <p class="mb-[10px]">
-                                <span class="font-Spartan-SemiBold">Podáním nabídky se určuje pořadí projeveného zájmu o koupi.</span>
-                                Aby vaše nabídka byla platná, je třeba uhradit <span class="font-Spartan-SemiBold">jistotu</span>,
-                                jejíž výše je uvedena u projektu.
-                            </p>
-                            <p class="mb-[10px]">
-                                Po potvrzení vašeho zájmu podáním nabídky vás budeme kontaktovat a
-                                zašleme
-                                vám
-                                instrukce k úhradě jistoty.
-                            </p>
-                            <p>
-                                Jistota musí být připsána na náš účet nejpozději do dvou pracovních dní
-                                od
-                                zaslání instrukcí k úhradě. V opačném případě může být vaše nabídka z
-                                pořadníku
-                                vyloučena.
-                            </p>
+                                    <div class="text-left">
+                                        <p class="mb-[10px]">
+                                            <span class="font-Spartan-SemiBold">Potvrzením příhozu závazně projevujete zájem o koupi projektu.</span>
+                                            V případě, že od záměru ustoupíte z důvodů na své straně, dojde k propadnutí
+                                            vámi
+                                            zaplacené jistoty ve prospěch provozovatele.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="max-w-[1200px] mx-auto">
+                                <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px] bg-[#F8F8F8]
+                                    after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+                                    <div class="text-left">
+                                        <p class="mb-[10px]">
+                                            <span class="font-Spartan-SemiBold">Podáním nabídky se určuje pořadí projeveného zájmu o koupi.</span>
+                                            Aby vaše nabídka byla platná, je třeba uhradit <span
+                                                class="font-Spartan-SemiBold">jistotu</span>,
+                                            jejíž výše je uvedena u projektu.
+                                        </p>
+                                        <p class="mb-[10px]">
+                                            Po potvrzení vašeho zájmu podáním nabídky vás budeme kontaktovat a
+                                            zašleme
+                                            vám
+                                            instrukce k úhradě jistoty.
+                                        </p>
+                                        <p>
+                                            Jistota musí být připsána na náš účet nejpozději do dvou pracovních dní
+                                            od
+                                            zaslání instrukcí k úhradě. V opačném případě může být vaše nabídka z
+                                            pořadníku
+                                            vyloučena.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <button
+                            class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px]"
+                            @click="addOffer(inputData.offer)"
+                        >
+                            @if($project->type === 'fixed-price')
+                                Koupit hned
+                            @elseif($project->type === 'offer-the-price')
+                                Podat nabídku
+                            @elseif($project->type === 'auction')
+                                Potvrdit příhoz
+                            @else
+                                -
+                            @endif
+                        </button>
+
+                        <div id="loader" x-show="loaderShow" x-cloak>
+                            <span class="loader"></span>
                         </div>
                     </div>
-                </div>
-
-                <button
-                    class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px]"
-                    @click="addOffer(inputData.offer)"
-                >
-                    @if($project->type === 'fixed-price')
-                        Koupit hned
-                    @elseif($project->type === 'offer-the-price')
-                        Podat nabídku
-                    @else
-                        -
-                    @endif
-                </button>
-
-                <div id="loader" x-show="loaderShow" x-cloak>
-                    <span class="loader"></span>
-                </div>
+                </x-modal>
             </div>
-        </x-modal>
+        </template>
     @endif
 @else
     <div class="grid gap-x-[20px] mb-[25px]
@@ -259,24 +362,6 @@
     </div>
 @endif
 
-@if($project->offersCountAll() > 0 && ($project->type === 'offer-the-price' || $project->type === 'auction'))
-    <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-[#414141] relative {{ $project->offersCountAll() ? 'cursor-pointer' : '' }}
-                    after:absolute after:bg-[url('/resources/images/ico-user.svg')] after:top-[6px] after:left-0 after:w-[15px] after:h-[15px] after:bg-no-repeat"
-    >
-        {{ $project->offersCountAll() }}
-
-        @if($project->type === 'auction')
-            @if($project->offersCountAll() > 0 && $project->offersCountAll() < 5)
-                přihazující
-            @else
-                přihazujících
-            @endif
-        @else
-            @if($project->offersCountAll() > 0 && $project->offersCountAll() < 5)
-                nabízející
-            @else
-                nabízejících
-            @endif
-        @endif
-    </div>
-@endif
+<div id="price-box-bid-list">
+    @include('components.app.project.part.offer.list.@offer-list', ['userType' => 'investor'])
+</div>

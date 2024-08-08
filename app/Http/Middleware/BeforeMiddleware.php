@@ -10,6 +10,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
@@ -55,7 +56,13 @@ class BeforeMiddleware
         }
 
         if (Schema::hasTable('projects')) {
-            Project::IsPublicated()->where('status', '!=', 'finished')->isNotActive()->update(['status' => 'evaluation']);
+            Project::IsPublicated()
+                ->where('status', '!=', 'finished')
+                ->where('status', '!=', 'evaluation')
+                ->isNotActive()
+                ->update(['status' => DB::raw(
+                    'if(`type` = \'auction\', \'finished\', \'evaluation\')'
+                )]);
         }
 
         (new TempProjectFileService())->clear();

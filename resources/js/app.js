@@ -14,6 +14,8 @@ window.Alpine = Alpine;
 Alpine.plugin(collapse)
 Alpine.plugin(mask)
 
+import './app/app.js';
+import './app/auction.js';
 import './app/faq.js';
 import './app/register.js';
 import './app/profile.js';
@@ -64,16 +66,17 @@ function tinymceInit()
 }
 
 function countdown(targetDate) {
-    targetDate = targetDate.replace('UTC', 'T') + 'Z';
-    const target = new Date(targetDate).getTime();
+    Alpine.store('app').targetDate = new Date(targetDate).getTime();
 
     function updateCountdown() {
         let now = new Date();
-        const distance = target - now;
+        const distance = Alpine.store('app').targetDate - now;
 
         if (distance < 0) {
             clearInterval(interval);
-            document.getElementById('projectEndDate').textContent = '0 d 0 h 0 m 0 s';
+            Alpine.store('app').projectPublicated = false;
+            document.getElementById('projectEndDate').textContent = 'dokončeno';
+            window.setTimeout(function() {window.location.reload();}, 2000)
             return;
         }
 
@@ -82,6 +85,7 @@ function countdown(targetDate) {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+        Alpine.store('app').projectPublicated = true;
         document.getElementById('projectEndDate').textContent = days + ' d ' + hours + ' h ' + minutes + ' m ' + seconds + ' s';
     }
     const interval = setInterval(updateCountdown, 1000);

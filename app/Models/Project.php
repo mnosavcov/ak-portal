@@ -21,6 +21,9 @@ class Project extends Model
         'end_date_text_long',
         'price_text',
         'price_text_offer',
+        'price_text_auction',
+        'actual_min_bid_amount',
+        'actual_min_bid_amount_text',
         'minimum_principal_text',
         'url_part',
         'url_detail',
@@ -32,6 +35,7 @@ class Project extends Model
         'about_prepared',
         'use_countdown_date_text_long',
         'zip_url',
+        'min_bid_amount_text',
     ];
 
     protected $fillable = [
@@ -48,6 +52,7 @@ class Project extends Model
         'user_reminder',
         'price',
         'minimum_principal',
+        'min_bid_amount',
         'subject_offer',
         'location_offer',
         'country',
@@ -221,6 +226,11 @@ class Project extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function projectauctionoffers()
+    {
+        return $this->hasMany(ProjectAuctionOffer::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -295,7 +305,7 @@ class Project extends Model
         } else {
             $ret = Carbon::parse($this->end_date, 'Europe/Prague');
             $utcDate = $ret->setTimezone('UTC');
-            $ret = $utcDate->format('Y-m-d\U\T\CH:i:s');
+            $ret = $utcDate->format('Y-m-d\TH:i:s\Z');
         }
 
         if ($this->status !== 'publicated') {
@@ -324,7 +334,7 @@ class Project extends Model
         );
     }
 
-    public function priceText($offer = false): Attribute
+    public function priceText($offer = false, $auctionoffer = false): Attribute
     {
         $priceText = '';
         $price = $this->price;
@@ -332,7 +342,22 @@ class Project extends Model
         if ($type === 'fixed-price' || $type === null) {
             if (auth()->guest()) {
                 $priceText = 'jen pro přihlášené';
-            } elseif (!auth()->user()->investor) {
+            } elseif (!$this->isMine() && !auth()->user()->investor) {
+                $priceText = 'jen pro investory';
+            } elseif (!$this->isVerified()) {
+                $priceText = 'jen s ověřeným účtem';
+            } elseif (empty($price)) {
+                $priceText = 'cena není zadaná';
+            } else {
+                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+            }
+        } elseif ($type === 'auction' || $type === null) {
+            if ($auctionoffer) {
+                $price = $this->getActualAuctionPrice();
+            }
+            if (auth()->guest()) {
+                $priceText = 'jen pro přihlášené';
+            } elseif (!$this->isMine() && !auth()->user()->investor) {
                 $priceText = 'jen pro investory';
             } elseif (!$this->isVerified()) {
                 $priceText = 'jen s ověřeným účtem';
@@ -358,32 +383,90 @@ class Project extends Model
         );
     }
 
+    public function minBidAmountText(): Attribute
+    {
+        $minBidAmount = $this->min_bid_amount;
+        if (auth()->guest()) {
+            $minBidAmountText = 'jen pro přihlášené';
+        } elseif (!$this->isMine() && !auth()->user()->investor) {
+            $minBidAmountText = 'jen pro investory';
+        } elseif (!$this->isVerified()) {
+            $minBidAmountText = 'jen s ověřeným účtem';
+        } elseif (empty($minBidAmount)) {
+            $minBidAmountText = 'výše není zadaná';
+        } else {
+            $minBidAmountText = number_format($minBidAmount, 0, '.', ' ') . ' Kč';
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $minBidAmountText
+        );
+    }
+
     public function priceTextOffer(): Attribute
     {
         return $this->priceText(true);
     }
 
+    public function priceTextAuction(): Attribute
+    {
+        return $this->priceText(false, true);
+    }
+
+    public function actualMinBidAmountText(): Attribute
+    {
+        $minBidAmount = $this->getActualMinBidAmount();
+        if (auth()->guest()) {
+            $minBidAmountText = 'jen pro přihlášené';
+        } elseif (!$this->isMine() && !auth()->user()->investor) {
+            $minBidAmountText = 'jen pro investory';
+        } elseif (!$this->isVerified()) {
+            $minBidAmountText = 'jen s ověřeným účtem';
+        } elseif (empty($minBidAmount)) {
+            $minBidAmountText = 'výše není zadaná';
+        } else {
+            $minBidAmountText = number_format($minBidAmount, 0, '.', ' ') . ' Kč';
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $minBidAmountText
+        );
+    }
+
+    public function actualMinBidAmount(): Attribute
+    {
+        $price = $this->getActualMinBidAmount();
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $price
+        );
+    }
+
+    private function getActualMinBidAmount()
+    {
+        $price = $this->getActualAuctionPrice();
+
+        if ($this->projectauctionoffers()->count()) {
+            $price += $this->min_bid_amount ?? 0;
+        }
+
+        return $price;
+    }
+
+    private function getActualAuctionPrice()
+    {
+        return $this->projectauctionoffers()->max('offer_amount') ?? $this->price;
+    }
+
     public function minimumPrincipalText(): Attribute
     {
-        $priceText = '';
         $price = $this->minimum_principal;
-        $type = $this->type;
-        if ($type === 'fixed-price' || $type === null) {
-            if (!$this->isVerified()) {
-                $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
-            } elseif (empty($price)) {
-                $priceText = 'výše není zadaná';
-            } else {
-                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
-            }
-        } elseif ($type === 'offer-the-price') {
-            if (!$this->isVerified()) {
-                $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
-            } elseif (empty($price)) {
-                $priceText = 'výše není zadaná';
-            } else {
-                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
-            }
+
+        if (!$this->isVerified()) {
+            $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
+        } elseif (empty($price)) {
+            $priceText = 'výše není zadaná';
+        } else {
+            $priceText = number_format($price, 0, '.', ' ') . ' Kč';
         }
 
         return Attribute::make(
@@ -561,7 +644,7 @@ class Project extends Model
     {
         return $query->WhereRaw('
             ((end_date is not null
-            and end_date < CURRENT_DATE)
+            and end_date < NOW())
             or status = ?)
             ', 'finished');
     }
@@ -629,6 +712,10 @@ class Project extends Model
 
     public function offers()
     {
+        if($this->type === 'auction') {
+            return $this->projectauctionoffers()->orderBy('offer_amount', 'desc')->orderBy('offer_time', 'desc')->orderBy('id')->get();
+        }
+
         if (!$this->isMine()) {
             return [];
         }
@@ -638,6 +725,10 @@ class Project extends Model
 
     public function offersCountAll()
     {
+        if($this->type === 'auction') {
+            return $this->projectauctionoffers->count();
+        }
+
         return $this->shows()->where('offer', 1)->count();
     }
 

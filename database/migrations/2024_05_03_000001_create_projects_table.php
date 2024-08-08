@@ -40,6 +40,7 @@ return new class extends Migration {
             $table->text('user_reminder')->nullable();
             $table->integer('price')->nullable();
             $table->integer('minimum_principal')->nullable();
+            $table->integer('min_bid_amount')->nullable();
             $table->string('subject_offer');
             $table->string('location_offer');
             $table->string('country');

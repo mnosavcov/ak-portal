@@ -1,4 +1,6 @@
-<div>
+<div x-data="auction"
+     x-init="$store.app.projectPublicated = @js($project->status === \App\Models\Project::STATUS_PUBLIC[0])"
+>
     <div class="w-full border-[3px] border-[#2872B5] rounded-[3px]
     mt-[20px] p-[20px_10px]
     laptop:p-[50px_30px] laptop:mt-[50px]
@@ -18,12 +20,16 @@
                     after:bg-[url('/resources/images/ico-price_fix.svg')]
                 @elseif($project->type === 'offer-the-price')
                     after:bg-[url('/resources/images/ico-price_offer.svg')]
+                @elseif($project->type === 'auction')
+                    after:bg-[url('/resources/images/ico-price_auction.svg')]
                 @endif
                 ">
                 @if($project->type === 'fixed-price')
                     cenu navrhuje nabízející
                 @elseif($project->type === 'offer-the-price')
                     cenu navrhuje investor
+                @elseif($project->type === 'auction')
+                    aukce
                 @else
                     -
                 @endif
@@ -47,6 +53,8 @@
                     Cena
                 @elseif($project->type === 'offer-the-price')
                     Aktuální cena
+                @elseif($project->type === 'auction')
+                    Aktuální cena
                 @else
                     -
                 @endif
@@ -55,14 +63,15 @@
             order-3 tablet:order-2
             ">Zbývá
             </div>
-            <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-orange order-2 tablet:order-3">
-                @if($project->type === 'fixed-price')
-                    {{ $project->price_text }}
-                @elseif($project->type === 'offer-the-price')
-                    navrhne investor
-                @else
-                    -
-                @endif
+            <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-orange order-2 tablet:order-3"
+                 @if($project->type === 'fixed-price')
+                     x-init="actualValues.price_text_auction = @js($project->price_text)"
+                 @elseif($project->type === 'offer-the-price')
+                     x-init="actualValues.price_text_auction = 'navrhne investor'"
+                 @elseif($project->type === 'auction')
+                     x-init="actualValues.price_text_auction = @js($project->price_text_auction)"
+                 @endif
+                 x-text="actualValues.price_text_auction">
             </div>
             <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green
             order-4
@@ -72,7 +81,16 @@
 
         <div class="h-[1px] bg-[#D9E9F2] w-full mb-[20px] tablet:mb-[30px]"></div>
 
-        <div x-data="{winner: null}">
+        <div x-data="{winner: null, winnerAuction: {}, nowinnerAuction: {}, nowinnerAuctionRed: {}}">
+            @if($project->type === 'auction' && auth()->user() && $project->status === \App\Models\Project::STATUS_PUBLIC[0])
+                <div x-init="
+                        auctionMaxBidId = @js($project->offers()->first()->id ?? 0);
+                        projectId = @js($project->id);
+                        startCheckNewAuction();
+                    "
+                ></div>
+            @endif
+
             @if(auth()->user() && auth()->user()->isSuperadmin())
                 @include('components.app.project.part.offer.@offer-box-admin')
             @elseif($project->isMine())
@@ -85,12 +103,21 @@
         <div class="h-[1px] bg-[#D9E9F2] w-full mb-[30px]"></div>
 
         <div class="grid tablet:grid-cols-2">
-            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Konec příjmu nabídek</div>
+            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
+                @if($project->type === 'auction')
+                    Konec aukce
+                @else
+                    Konec příjmu nabídek
+                @endif
+            </div>
             <div
                 class="font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
              justify-self-start
             laptop:justify-self-end
-            ">{{ $project->end_date_text_normal }}</div>
+            "
+                x-init="actualValues.end_date_text_normal = @js($project->end_date_text_normal)"
+                x-text="actualValues.end_date_text_normal"></div>
+
             @if($project->type === 'offer-the-price')
                 <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální nabídková cena</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
@@ -106,6 +133,30 @@
                     @endif
                 </div>
             @endif
+
+            @if($project->type === 'auction')
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální výše příhozu</div>
+                <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
+            justify-self-start
+            laptop:justify-self-end" x-init="actualValues.actual_min_bid_amount_text = @js($project->actual_min_bid_amount_text)"
+                x-text="actualValues.actual_min_bid_amount_text">
+                </div>
+
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Vyvolávací cena</div>
+                <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
+            justify-self-start
+            laptop:justify-self-end">
+                    {!! $project->price_text_offer !!}
+                </div>
+
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální výše příhozu</div>
+                <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
+            justify-self-start
+            laptop:justify-self-end">
+                    {!! $project->min_bid_amount_text !!}
+                </div>
+            @endif
+
             <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Požadovaná jistota</div>
             <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start

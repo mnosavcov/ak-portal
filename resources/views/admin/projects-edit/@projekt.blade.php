@@ -203,6 +203,15 @@
                               value="{{ $project->price }}" x-mask:dynamic="$money($input, '.', ' ', 0)"/>
             </div>
 
+            <template x-if="selectedCategory === 'auction'">
+                <div class="mt-[10px] pt-[25px]" x-data>
+                    <x-input-label for="min_bid_amount"
+                                   value="Minimální výše příhozu"/>
+                    <x-text-input id="min_bid_amount" name="min_bid_amount" class="block mt-1 w-full" type="text"
+                                  value="{{ $project->min_bid_amount }}" x-mask:dynamic="$money($input, '.', ' ', 0)"/>
+                </div>
+            </template>
+
             <div class="mt-[10px] pt-[25px]" x-data>
                 <x-input-label for="minimum_principal"
                                :value="__('Požadovaná jistota')"/>

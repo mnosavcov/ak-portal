@@ -121,6 +121,9 @@ Route::middleware('auth')->group(function () {
     // projects.update umoznuje pouze metodu PUT/PATCH ale nefunguje odesilani dat pres fetch()
     Route::post('projekty/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
+    Route::get('/projekty/auction/check/max-bid-id/{project}', [ProjectController::class, 'mexBidId']);
+    Route::get('/projekty/auction/read-actual-data/{project}', [ProjectController::class, 'readActualData']);
+
     Route::get('/nastaveni-uctu', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/nastaveni-uctu-verify', [ProfileController::class, 'editVerify'])->name('profile.edit-verify');
     Route::patch('/nastaveni-uctu', [ProfileController::class, 'update'])->name('profile.update');

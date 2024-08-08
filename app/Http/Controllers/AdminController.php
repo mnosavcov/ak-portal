@@ -124,6 +124,7 @@ class AdminController extends Controller
             'short_info' => $request->short_info,
             'price' => str_replace(' ', '', $request->price ?? ''),
             'minimum_principal' => str_replace(' ', '', $request->minimum_principal ?? ''),
+            'min_bid_amount' => str_replace(' ', '', $request->min_bid_amount ?? ''),
             'country' => $request->country,
             'actual_state' => trim($request->actual_state),
             'exclusive_contract' => (bool)$request->exclusive_contract,
@@ -145,6 +146,10 @@ class AdminController extends Controller
 
         if (empty($update['price'])) {
             $update['price'] = null;
+        }
+
+        if (empty($update['min_bid_amount'])) {
+            $update['min_bid_amount'] = null;
         }
 
         if (empty($update['minimum_principal'])) {

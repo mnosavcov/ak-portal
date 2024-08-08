@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-2b9a2524.css",
+    "file": "assets/app-31eac1da.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -672,6 +672,10 @@
     "file": "assets/ico-odbornost-a-zkusenosti-z-oboru-315f71f7.svg",
     "src": "resources/images/ico-odbornost-a-zkusenosti-z-oboru.svg"
   },
+  "resources/images/ico-price_auction.svg": {
+    "file": "assets/ico-price_auction-d0b73d5c.svg",
+    "src": "resources/images/ico-price_auction.svg"
+  },
   "resources/images/ico-price_fix.svg": {
     "file": "assets/ico-price_fix-0d744253.svg",
     "src": "resources/images/ico-price_fix.svg"
@@ -769,7 +773,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-6335e93c.js",
+    "file": "assets/app-9861aa49.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

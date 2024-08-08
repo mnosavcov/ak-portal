@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectAuctionOffer;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Models\ProjectImage;
@@ -553,13 +554,57 @@ class ProjectController extends Controller
 
     public function addOffer(Request $request)
     {
+        // kontrola jestli projekt neni ukonceny
+        $project = Project::find($request->post('projectId'));
+        if ($project->status !== 'publicated') {
+            return response()->json([
+                'status' => 'ok'
+            ]);
+        }
+
+        // kontrola jestli nezadavam nizsi nez nejnizsi moznou cenu
+        $minPrice = $project->price;
+        if ($project->type === 'auction') {
+            $minPrice = $project->actual_min_bid_amount;
+        }
+        if ($minPrice > $request->post('offer')) {
+            return response()->json([
+                'status' => 'ok'
+            ]);
+        }
+
+        // nechci prehazovat sam sebe
+        if ($project->type === 'auction' && $project->offers()->first()?->user_id === auth()->user()->id) {
+            return response()->json([
+                'status' => 'ok'
+            ]);
+        }
+
         $projectShow = ProjectShow::where('user_id', auth()->id())->where('project_id', $request->post('projectId'))->first();
         $projectShow->price = $request->post('offer');
         $projectShow->offer = true;
         $currentDate = Carbon::now('Europe/Prague');
-        $utcCurrentDate = $currentDate->setTimezone('UTC');
-        $projectShow->offer_time = $utcCurrentDate;
+        $projectShow->offer_time = $currentDate;
         $projectShow->save();
+
+        if ($project->type === 'auction') {
+            $projectAuctionOffer = new ProjectAuctionOffer([
+                'offer_amount' => $projectShow->price,
+            ]);
+        }
+        $projectShow->project->projectauctionoffers()->save($projectAuctionOffer);
+
+        // pro aukci prodlouzit cas ukonceni na minimalne 10 minut
+        if ($project->type === 'auction') {
+            $currentDate = Carbon::now('Europe/Prague');
+            $currentDate->addMinutes(10);
+
+            $projectEndTime = Carbon::create($project->end_date, 'Europe/Prague');
+            if ($currentDate->format('Y-m-d H:i:s') > $projectEndTime->format('Y-m-d H:i:s')) {
+                $project->end_date = $currentDate;
+                $project->save();
+            }
+        }
 
         return response()->json([
             'status' => 'ok'
@@ -670,5 +715,30 @@ class ProjectController extends Controller
                 'vs' => $myShow->variable_symbol,
                 'qr' => $qr,
             ];
+    }
+
+    public function mexBidId(Project $project)
+    {
+        return [
+            'status' => 'success',
+            'project_status' => $project->status,
+            'maxId' => $project->offers()->first()->id ?? 0
+        ];
+    }
+
+    public function readActualData(Project $project)
+    {
+        return [
+            'status' => 'success',
+            'price_text_auction' => $project->price_text_auction,
+            'actual_min_bid_amount_text' => $project->actual_min_bid_amount_text,
+            'end_date_text_normal' => $project->end_date_text_normal,
+            'actual_min_bid_amount' => $project->actual_min_bid_amount,
+            'use_countdown_date_text_long' => $project->use_countdown_date_text_long,
+            'bid_list' => view('components.app.project.part.offer.@price-box-offer-boxes', ['project' => $project])->render(),
+            'highest' => $project->offers()->first()?->user_id === auth()->user()->id,
+            'bidExists' => $project->offers()->where('user_id', auth()->user()->id)->count(),
+            'maxId' => $project->offers()->first()->id ?? 0
+        ];
     }
 }
