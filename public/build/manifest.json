@@ -748,6 +748,10 @@
     "file": "assets/logo-pwc-537fa381.png",
     "src": "resources/images/logo-pwc.png"
   },
+  "resources/images/logo-solarni_asociace.svg": {
+    "file": "assets/logo-solarni_asociace-8592c874.svg",
+    "src": "resources/images/logo-solarni_asociace.svg"
+  },
   "resources/images/no-img.svg": {
     "file": "assets/no-img-6ebd3a45.svg",
     "src": "resources/images/no-img.svg"
@@ -773,7 +777,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-b95a5ed6.js",
+    "file": "assets/app-3315e502.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

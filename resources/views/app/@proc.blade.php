@@ -262,41 +262,38 @@
         </div>
     </div>
 
-    {{--    <div class="bg-[#f8f8f8] rounded-[3px] max-w-[1200px] mx-auto p-[50px] max-w-1200px w-full text-center">--}}
-    {{--        <div class="text-app-blue font-Spartan-Bold leading-[30px]--}}
-    {{--                text-[13px]  mb-[20px]--}}
-    {{--               md:text-[15px] md:mb-[25px]--}}
-    {{--               desktop::order-1 desktop:text-[18px]--}}
-    {{--                ">--}}
-    {{--            Hodnocení nezávislými odborníky--}}
-    {{--        </div>--}}
+    <div class="bg-[#f8f8f8] rounded-[3px] max-w-[1200px] mx-auto p-[50px] max-w-1200px w-full text-center">
+        <div class="text-app-blue font-Spartan-Bold leading-[30px]
+                    text-[13px]  mb-[20px]
+                   md:text-[15px] md:mb-[25px]
+                   desktop::order-1 desktop:text-[18px]
+                    ">
+            Naši partneři
+        </div>
 
-    {{--        <div class="text-[#31363A] font-Spartan-Regular leading-[26px] max-w-[600px] mx-auto mb-[80px]--}}
-    {{--                     text-[12px]--}}
-    {{--                     md:text-[13px]--}}
-    {{--                     desktop:text-[15px]">--}}
-    {{--            <div class="--}}
-    {{--                    mb-[10px]--}}
-    {{--                    desktop:mb-[20px]--}}
-    {{--                    ">Prodávající i kupující si mohou k projektu vyžádat detailní due diligence od--}}
-    {{--                předních poradenských společností. A to jak v oblasti finanční, tak legislativní, nebo technické.--}}
-    {{--            </div>--}}
-    {{--            <a href="#" class="underline hover:no-underline pr-[20px] relative--}}
-    {{--                 after:absolute after:bg-[url('/resources/images/arrow-right-black-6x10.svg')]--}}
-    {{--                 after:w-[6px] after:h-[10px] after:right-[0px] after:top-[2px] desktop:after:top-[3px] after:bg-no-repeat">--}}
-    {{--                Jak se projekty hodnotí--}}
-    {{--            </a>--}}
-    {{--        </div>--}}
+        <div class="text-[#31363A] font-Spartan-Regular leading-[26px] max-w-[600px] mx-auto mb-[80px]
+                         text-[12px]
+                         md:text-[13px]
+                         desktop:text-[15px]">
+            <div class="
+                        mb-[10px]
+                        desktop:mb-[20px]
+                        ">S naší platformou aktivně spolupracují významné oborové autority. Nabízející a investoři tak
+                mohou v průběhu procesu zobchodování čerpat poradenské služby v oblasti technické, metodické, finanční nebo
+                legislativní.
+            </div>
+{{--            <a href="#" class="underline hover:no-underline pr-[20px] relative--}}
+{{--                     after:absolute after:bg-[url('/resources/images/arrow-right-black-6x10.svg')]--}}
+{{--                     after:w-[6px] after:h-[10px] after:right-[0px] after:top-[2px] desktop:after:top-[3px] after:bg-no-repeat">--}}
+{{--                O našich partnerech--}}
+{{--            </a>--}}
+        </div>
 
-    {{--        <div class="grid gap-y-[50px] justify-center md:inline-flex md:flex-row gap-x-[100px] ml-[-15px]">--}}
-    {{--            <img src="{{ Vite::asset('resources/images/logo-kpmg.png') }}"--}}
-    {{--                 class="h-[80px] self-center justify-self-center">--}}
-    {{--            <img src="{{ Vite::asset('resources/images/logo-pwc.png') }}"--}}
-    {{--                 class="h-[80px] self-center justify-self-center">--}}
-    {{--            <img src="{{ Vite::asset('resources/images/logo-deloitte.png') }}"--}}
-    {{--                 class="h-[50px] self-center justify-self-center">--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
+        <div class="grid gap-y-[50px] justify-center md:inline-flex md:flex-row gap-x-[100px] ml-[-15px]">
+            <img src="{{ Vite::asset('resources/images/logo-solarni_asociace.svg') }}"
+                 class="h-[80px] self-center justify-self-center">
+        </div>
+    </div>
 </div>
 
 <x-modal name="why-message">
