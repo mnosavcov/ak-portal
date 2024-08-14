@@ -10,13 +10,7 @@
                 {{ $project->offers()->count() }}
 
                 @if($project->type === 'auction')
-                    @if($project->offers()->count() >= 5)
-                        příhozů
-                    @elseif($project->offers()->count() > 1)
-                        příhozy
-                    @else
-                        příhoz
-                    @endif
+                    podání
                 @else
                     @if($project->offers()->count() > 0 && $project->offers()->count() < 5)
                         nabízející
@@ -34,7 +28,7 @@
                                 'components.app.project.part.offer.auction.@offer',
                                 [
                                     'myFirstBid' => false,
-                                    'title' => 'Příhoz ' . ($loop->remaining + 1),
+                                    'title' => 'Podání ' . ($loop->remaining + 1),
                                     'type' => $userType,
                                     'offer' => $offer,
                                     'iteration' => $loop->iteration,
@@ -76,7 +70,7 @@
                 laptop:text-[15px] laptop:leading-[26px] laptop:mb-[30px] laptop:p-[20px]
             ">
             @if($project->type === 'auction')
-                U projektu zatím nemáte žádné příhozy.
+                U projektu zatím nemáte žádné podání.
             @else
                 U projektu zatím nemáte žádné nabídky.
             @endif
@@ -94,7 +88,7 @@
                 text-[15px] leading-[20px] mb-[15px]
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
                 laptop:text-[20px] laptop:leading-[30px]">
-            Příhozy
+            Podání
         </div>
 
         <div x-data="{offersOpen: true}">
@@ -107,13 +101,7 @@
                 {{ $project->offersCountAll() }}
 
                 @if($project->type === 'auction')
-                    @if($project->offersCountAll() >= 5)
-                        příhozů
-                    @elseif($project->offersCountAll() > 1)
-                        příhozy
-                    @else
-                        příhoz
-                    @endif
+                    podání
             </div>
 
             <div x-show="offersOpen" x-cloak x-collapse>
@@ -129,8 +117,8 @@
                                 'myFirstBid' => ($offer->user_id === auth()->user()?->id && $myOffersCountX === $myOffersCount),
                                 'title' => (
                                     $offer->user_id === auth()->user()?->id ?
-                                    'Váš příhoz ' . ($myOffersCount--) :
-                                    'Příhoz ' . ($loop->remaining + 1)
+                                    'Váše podání ' . ($myOffersCount--) :
+                                    'Podání ' . ($loop->remaining + 1)
                                 ),
                                 'type' => $userType,
                                 'offer' => $offer,

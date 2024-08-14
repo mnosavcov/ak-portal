@@ -19,8 +19,8 @@ Alpine.data('auction', (id) => ({
     startCheckNewAuction() {
         this.interval = setInterval(() => this.checkNewAuction(), 10000);
     },
-    checkNewAuction() {
-        fetch('projekty/auction/check/max-bid-id/' + this.projectId)
+    async checkNewAuction() {
+        await fetch('projekty/auction/check/max-bid-id/' + this.projectId)
             .then((response) => response.json())
             .then((data) => {
                 if (data.status === 'success') {
@@ -41,8 +41,8 @@ Alpine.data('auction', (id) => ({
                 alert('Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.');
             });
     },
-    readActualData() {
-        fetch('projekty/auction/read-actual-data/' + this.projectId)
+    async readActualData() {
+        await fetch('projekty/auction/read-actual-data/' + this.projectId)
             .then((response) => response.json())
             .then((data) => {
                 if (data.status === 'success') {

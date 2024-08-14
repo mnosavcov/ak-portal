@@ -75,7 +75,9 @@ function countdown(targetDate) {
         if (distance < 0) {
             clearInterval(interval);
             Alpine.store('app').projectPublicated = false;
-            document.getElementById('projectEndDate').textContent = 'dokončeno';
+            document.getElementById('projectEndDate').innerHTML = '<div class="inline-loader h-[100px]">\n' +
+                '<div class="loader !w-6 !h-6"></div>\n' +
+                '</div>';
             window.setTimeout(function() {window.location.reload();}, 2000)
             return;
         }

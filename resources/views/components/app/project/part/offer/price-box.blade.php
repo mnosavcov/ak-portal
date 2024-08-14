@@ -135,13 +135,6 @@
             @endif
 
             @if($project->type === 'auction')
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální výše příhozu</div>
-                <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
-            justify-self-start
-            laptop:justify-self-end" x-init="actualValues.actual_min_bid_amount_text = @js($project->actual_min_bid_amount_text)"
-                x-text="actualValues.actual_min_bid_amount_text">
-                </div>
-
                 <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Vyvolávací cena</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start

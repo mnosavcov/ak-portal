@@ -74,7 +74,7 @@
     @elseif($project->type === 'auction' && $project->myShow()->first()->principal_paid !== 1)
         <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
             <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-                Abyste mohli učinit příhoz, musíte uhradit jistotu na bankovní účet provozovatele.
+                Abyste mohli učinit podání, musíte uhradit jistotu na bankovní účet provozovatele.
             </div>
             <div class="text-center laptop:text-right">
                 <button type="button"
@@ -136,20 +136,20 @@
 
                         <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px]"
                              x-show="priceBox.bidExists && priceBox.highest" x-cloak>
-                            Váš příhoz je aktuálně nejvyšší
+                            Vaše podání je aktuálně nejvyšší
                         </div>
                         <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-orange mb-[15px]"
                              x-show="priceBox.bidExists && !priceBox.highest" x-cloak>
-                            Váš příhoz už není nejvyšší
+                            Vaše podání už není nejvyšší
                         </div>
                         <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px]"
                              x-show="!priceBox.bidExists" x-cloaK>
-                            Jistotu jste zaplatili, můžete učinit příhoz
+                            Jistotu jste zaplatili, můžete učinit podání
                         </div>
 
                         <div x-show="!priceBox.highest" x-cloak>
                             <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
-                                Zadejte částku příhozu
+                                Zadejte částku podání
                             </div>
                             <div>
                                 <div class="relative inline-block">
@@ -245,7 +245,7 @@
 
                         <div class="text-center mb-[30px]">
                             @if($project->type === 'auction')
-                                <h1>Potvrzení příhozu</h1>
+                                <h1>Potvrzení podání</h1>
                             @else
                                 <h1>Podání nabídky</h1>
                             @endif
@@ -280,7 +280,7 @@
                                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                                     <div class="text-left">
                                         <p class="mb-[10px]">
-                                            <span class="font-Spartan-SemiBold">Potvrzením příhozu závazně projevujete zájem o koupi projektu.</span>
+                                            <span class="font-Spartan-SemiBold">Potvrzením podání závazně projevujete zájem o koupi projektu.</span>
                                             V případě, že od záměru ustoupíte z důvodů na své straně, dojde k propadnutí
                                             vámi
                                             zaplacené jistoty ve prospěch provozovatele.
@@ -326,7 +326,7 @@
                             @elseif($project->type === 'offer-the-price')
                                 Podat nabídku
                             @elseif($project->type === 'auction')
-                                Potvrdit příhoz
+                                Potvrdit podání
                             @else
                                 -
                             @endif

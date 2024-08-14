@@ -3,7 +3,7 @@
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
                 laptop:text-[20px] laptop:leading-[30px]">
     @if($project->type === 'auction')
-        Příhozy
+        Podání
     @else
         Obdržené nabídky
     @endif

@@ -1172,7 +1172,7 @@
                         musí
                         mít Nabídkovou cenu minimálně ve výši vyvolávací Minimální nabídkové ceny. Další Nabídka musí
                         být
-                        vyšší minimálně o Minimální příhoz. Pokud dojde k&nbsp;příhozu méně jak 10 minut před koncem
+                        vyšší minimálně o Minimální příhoz. Pokud dojde k&nbsp;podání méně jak 10 minut před koncem
                         Aukce,
                         automaticky se obnoví odpočet na hodnotu 10 minut, aby měli ostatní Investoři prostor na Nabídku
                         reagovat. Vítěznou Nabídkou se stává ta, která byla učiněna jako poslední, na kterou již nikdo z&nbsp;Investorů

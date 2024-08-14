@@ -35,13 +35,13 @@
     </div>
 
     <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Čas přidání nabídky:</div>
+        <div class="font-Spartan-SemiBold text-[14px]">Čas uskutečnění podání:</div>
         <div
             class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($offer->offer_time)->format('d.m.Y H:i:s') }}</div>
     </div>
 
     <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Výše nabídky:</div>
+        <div class="font-Spartan-SemiBold text-[14px]">Výše podání:</div>
         <div
             class="font-Spartan-Regular text-[14px]">{{ $offer->offer_amount_text }}
         </div>
@@ -121,20 +121,20 @@
         @if($userType === 'advertiser' || $userType === 'superadmin')
             @if($iteration === 1)
                 <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] text-center">
-                    Vítězný příhoz
+                    Vítězné podání
                 </div>
             @endif
         @elseif($iteration === 1 && $user)
             <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] text-center">
-                Váš příhoz je vítězný, vyčkejte na výzvu k uzavření Rezervační smlouvy
+                Vaše podání je vítězné, vyčkejte na výzvu k uzavření Rezervační smlouvy
             </div>
         @elseif($iteration === 1 && !$user)
             <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] text-center">
-                Vítězný příhoz
+                Vítězné podání
             </div>
         @elseif($user && $myFirstBid)
             <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-red mb-[15px] text-center">
-                Váš příhoz není vítězný
+                Vaše podání není vítězné
             </div>
         @endif
     @endif
