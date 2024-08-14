@@ -31,6 +31,7 @@
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
+                         underline hover:no-underline
                          ">
                             {{ \App\Models\Category::CATEGORIES['offer-the-price']['title'] }}
                         </a>
@@ -41,6 +42,7 @@
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
+                         underline hover:no-underline
                          ">
                             {{ \App\Models\Category::CATEGORIES['auction']['title'] }}
                         </a>
@@ -51,6 +53,7 @@
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
+                         underline hover:no-underline
                          ">
                             {{ \App\Models\Category::CATEGORIES['fixed-price']['title'] }}
                         </a>
@@ -95,6 +98,7 @@
                         <a href="{{ route('vseobecne-obchodni-podminky') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
+                         underline hover:no-underline
                          ">
                             Všeobecné obchodní podmínky
                         </a>
@@ -103,6 +107,7 @@
                         <a href="{{ route('zasady-zpracovani-osobnich-udaju') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-center laptop:mb-[20px]
+                         underline hover:no-underline
                          ">
                             Zásady zpracování osobních údajů
                         </a>
@@ -111,6 +116,7 @@
                         <a href="{{ route('sitemap') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-end laptop:mb-[20px]
+                         underline hover:no-underline
                          ">
                             Mapa webu
                         </a>
