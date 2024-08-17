@@ -5,13 +5,19 @@ Alpine.data('verifyUserAccount', (id) => ({
     verified: false,
     countries: {},
     data: {},
+    scrollToAnchor() {
+        const scrollDiv = document.getElementById('anchor-overeni-uctu');
+        if(scrollDiv) {
+            scrollDiv.scrollIntoView({behavior: 'smooth'});
+        }
+    },
     nextBtnClick() {
         if(!this.nextBtnEnable()) {
             return false;
         }
 
-
         if (this.data.check_status === 'not_verified' && this.step < 3) {
+            this.scrollToAnchor();
             this.step++;
             return;
         }
@@ -26,6 +32,7 @@ Alpine.data('verifyUserAccount', (id) => ({
     },
     prevBtnClick() {
         if (this.step > 1) {
+            this.scrollToAnchor();
             this.step--;
         }
     },

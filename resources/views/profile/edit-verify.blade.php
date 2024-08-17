@@ -10,7 +10,7 @@
         @if($user->check_status !== 'not_verified')
             <h1 class="mb-[25px]">Aktualizace osobních údajů</h1>
         @else
-            <h1 class="mb-[25px]">Ověření účtu</h1>
+            <h1 class="mb-[25px]" id="anchor-overeni-uctu">Ověření účtu</h1>
         @endif
 
         @if ($errors->any())
