@@ -17,6 +17,7 @@ use App\Models\ProjectTag;
 use App\Models\TempProjectFile;
 use App\Models\User;
 use App\Services\AdminService;
+use App\Services\EmailService;
 use App\Services\ProjectService;
 use App\Services\UsersService;
 use Illuminate\Auth\Events\Verified;
@@ -405,7 +406,7 @@ class AdminController extends Controller
         );
     }
 
-    public function usersSave(Request $request, UsersService $usersService)
+    public function usersSave(Request $request, UsersService $usersService, EmailService $emailService)
     {
         $ret = [];
 
@@ -428,18 +429,23 @@ class AdminController extends Controller
 
                 if ($user->investor_status !== $item['investor_status']) {
                     $item['show_investor_status'] = true;
+                    $item['investor_status_email_notification'] = $item['investor_status'];
                 }
                 if ($user->advertiser_status !== $item['advertiser_status']) {
-                    $item['show_advertiser_status'] = true;
+                   $item['show_advertiser_status'] = true;
+                   $item['advertiser_status_email_notification'] = $item['advertiser_status'];
                 }
                 if ($user->real_estate_broker_status !== $item['real_estate_broker_status']) {
                     $item['show_real_estate_broker_status'] = true;
+                    $item['real_estate_broker_status_email_notification'] = $item['real_estate_broker_status'];
                 }
                 if ($user->check_status !== $item['check_status']) {
                     $item['show_check_status'] = true;
                 }
 
                 $user->update($item);
+
+                $emailService->userChangeTypeStatuses($user);
             }
             $ret[$index] = User::find($index);
         }

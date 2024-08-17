@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\BackupController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\FormContact;
@@ -217,6 +218,7 @@ if (Schema::hasTable('projects') && Project::count()) {
 }
 
 Route::get('backup/dujslP5khfi3mmgGtigEiyTaqVqCyfsA', BackupController::class)->name('backup');
+Route::get('send-mail/SpACoO3DPrLH0a3vs20t1o7zqbHyYTPw', [EmailController::class, 'sendFromQueue'])->name('send-mail-queue');
 Route::get('payment/fio-check/tsGkskqWZcmVsZIYJAn7qUQb0Xowe7pF', function () {
     (new PaymentService)->checkPrincipal();
 })->name('payment.fio-check');

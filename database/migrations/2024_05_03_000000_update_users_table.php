@@ -34,14 +34,17 @@ return new class extends Migration
             $table->boolean('investor')->default(false);
             $table->enum('investor_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
             $table->boolean('show_investor_status')->default(false);
+            $table->string('investor_status_email_notification')->nullable()->after('show_investor_status');
 
             $table->boolean('advertiser')->default(false);
             $table->enum('advertiser_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
             $table->boolean('show_advertiser_status')->default(false);
+            $table->string('advertiser_status_email_notification')->nullable()->after('show_advertiser_status');
 
             $table->boolean('real_estate_broker')->default(false);
             $table->enum('real_estate_broker_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
             $table->boolean('show_real_estate_broker_status')->default(false);
+            $table->string('real_estate_broker_status_email_notification')->nullable()->after('show_real_estate_broker_status');
 
             $table->enum('check_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');
             $table->boolean('show_check_status')->default(false);
