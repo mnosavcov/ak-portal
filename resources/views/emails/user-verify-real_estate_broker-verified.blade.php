@@ -4,9 +4,9 @@
     úspěšně jste prošli procesem ověření účtu realitního makléře. To znamená, že jste:<br>
     <ul>
         <li>doložili, že máte uzavřenou alespoň jednu smlouvu o zprostředkování prodeje projektu v souladu s právními
-            předpisy a nemáte zveřejnění projektu na portálu smluvně zakázáno, nebo jste,
+            předpisy a nemáte zveřejnění projektu na portálu smluvně zakázáno, nebo,
         </li>
-        <li>v minulosti jste prokazatelně alespoň jednou zprostředkovali prodej projektu z oblasti obnovitelných zdrojů
+        <li>jste v minulosti prokazatelně alespoň jednou zprostředkovali prodej projektu z oblasti obnovitelných zdrojů
             energie.
         </li>
     </ul>
@@ -36,7 +36,7 @@
             to mohlo poškodit potenciální investory, nebo dobré jméno portálu,
         </li>
         <li>vyhodnotíme podmínky projektu jako nerealistické, nebo pokud budeme některé požadavky považovat za
-            neodpovídající tržní realitě (například požadovaná prodejní cena vysoko nad tržní cenou).
+            neodpovídající tržní realitě (například požadovaná prodejní cena bude objektivně příliš vysoko nad tržní cenou).
         </li>
     </ul>
     <br>

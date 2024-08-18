@@ -5,8 +5,8 @@
     <br>
     To znamená, že jste:<br>
     <ul>
-    <li>nedoložili, že máte uzavřenou alespoň jednu smlouvu o zprostředkování prodeje projektu v souladu s právními předpisy</li>
-    a nemáte zveřejnění projektu na portálu smluvně zakázáno, nebo jste,
+    <li>nedoložili, že máte uzavřenou alespoň jednu smlouvu o zprostředkování prodeje projektu v souladu s právními předpisy,
+    nebo máte zveřejnění projektu na portálu smluvně zakázáno, nebo jste,</li>
         <li>v minulosti nezprostředkovali žádný prodej projektu z oblasti obnovitelných zdrojů energie.</li>
     </ul>
     <br>
@@ -20,8 +20,8 @@
     <br>
     Vůči tomuto rozhodnutí se můžete kdykoliv, pokud to považujete za důvodné, na kterémkoliv z našich <a
         href="{{ route('kontakt') }}">kontaktů</a> odvolat. Samozřejmě se může stát, že mylně vyhodnotíme oprávněnost
-    Vašeho zájmu na ověření účtu realitního makléře. Můžete nás kontaktovat i v případech, kdy se situace změní a budete
-    schopni již doložit, že splňujete podmínky pro ověření účtu realitního makléře.<br>
+    Vašeho zájmu o ověření účtu realitního makléře. Můžete nás kontaktovat i v případech, kdy se situace změní a budete
+    již schopni doložit, že splňujete podmínky pro ověření účtu realitního makléře.<br>
     <br>
     S pozdravem,<br>
     Tým PVtrusted.cz

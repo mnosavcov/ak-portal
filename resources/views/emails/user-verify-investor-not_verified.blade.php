@@ -1,7 +1,7 @@
 <x-email-layout>
     Dobrý den,<br>
     <br>
-    Váš zájem na zobrazení plného znění projektů na našem portálu jsme vyhodnotili jako neoprávněný. To znamená, že
+    Váš zájem o zobrazení plného znění projektů na našem portálu jsme vyhodnotili jako neoprávněný. To znamená, že
     nemůžete portál využívat z pozice investora – tedy podávat nabídku jako zájemce o projekt, nebo osoba zmocněná k
     jednání za zájemce.<br>
     <br>
@@ -12,8 +12,8 @@
     <br>
     Vůči tomuto rozhodnutí se můžete kdykoliv, pokud to považujete za důvodné, na kterémkoliv z našich <a
         href="{{ route('kontakt') }}">kontaktů</a> odvolat. Samozřejmě se může stát, že mylně vyhodnotíme oprávněnost
-    Vašeho zájmu na zobrazení plného znění projektů. Můžete nás kontaktovat i v případech, kdy se situace změní a budete
-    schopni již doložit, že máte profil skutečného investora, nebo takový subjekt prokazatelně zastupujete.<br>
+    Vašeho zájmu o zobrazení plného znění projektů. Můžete nás kontaktovat i v případech, kdy se situace změní a budete
+    již schopni doložit, že máte profil skutečného investora, nebo takový subjekt prokazatelně zastupujete.<br>
     <br>
     S pozdravem,<br>
     Tým PVtrusted.cz

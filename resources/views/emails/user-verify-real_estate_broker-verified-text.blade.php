@@ -1,8 +1,8 @@
 Dobrý den,
 
 úspěšně jste prošli procesem ověření účtu realitního makléře. To znamená, že jste:
- - doložili, že máte uzavřenou alespoň jednu smlouvu o zprostředkování prodeje projektu v souladu s právními předpisy a nemáte zveřejnění projektu na portálu smluvně zakázáno, nebo jste,
- - v minulosti jste prokazatelně alespoň jednou zprostředkovali prodej projektu z oblasti obnovitelných zdrojů energie.
+ - doložili, že máte uzavřenou alespoň jednu smlouvu o zprostředkování prodeje projektu v souladu s právními předpisy a nemáte zveřejnění projektu na portálu smluvně zakázáno, nebo,
+ - jste v minulosti prokazatelně alespoň jednou zprostředkovali prodej projektu z oblasti obnovitelných zdrojů energie.
 
 Zároveň jste doložili, že jste způsobilí k výkonu realitní činnosti (pro případ že by součástí prodeje byla nemovitost) – musíte mít zejména živnostenské oprávnění k předmětu podnikání “realitní zprostředkování” včetně pojištění dle § 7 Zákona č. 39/2020 Sb. Zákon o realitním zprostředkování a o změně souvisejících zákonů (zákon o realitním zprostředkování).
 
@@ -15,7 +15,7 @@ Zveřejnění však není nárokové. Pokud jste ověřený realitní makléř, 
 V průběhu přípravy mandátní smlouvy, nebo přípravy projektu ke zveřejnění můžeme zveřejnění odmítnout. Nejčastěji se tak stane pokud:
  - neobdržíme po opakovaných výzvách důležité informace o projektu,
  - informace vyhodnotíme jako nepravdivé, neaktuální, nebo zkreslené – a to do takové míry, že by to mohlo poškodit potenciální investory, nebo dobré jméno portálu,
- - vyhodnotíme podmínky projektu jako nerealistické, nebo pokud budeme některé požadavky považovat za neodpovídající tržní realitě (například požadovaná prodejní cena vysoko nad tržní cenou).
+ - vyhodnotíme podmínky projektu jako nerealistické, nebo pokud budeme některé požadavky považovat za neodpovídající tržní realitě (například požadovaná prodejní cena bude objektivně příliš vysoko nad tržní cenou).
 
 Jako realitní makléř můžete u projektu zvolit vyšší stupeň ověření investorů a nastavit vlastní podmínky pro zpřístupnění všech informací – například podpis NDA. Tuto možnost lze zvolit jen u projektu, jehož prodej zprostředkováváte v režimu výhradního zastoupení.
 

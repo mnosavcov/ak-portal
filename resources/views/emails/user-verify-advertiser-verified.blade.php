@@ -1,8 +1,8 @@
 <x-email-layout>
     Dobrý den,<br>
     <br>
-    úspěšně jste prošli procesem ověření účtu nabízejícího. To znamená, že jste doložili vlastnictví projektu, nebo že
-    máte profil skutečného nabízejícího – lze se důvodně domnívat, že můžete v budoucnu projektem disponovat, nebo že
+    úspěšně jste prošli procesem ověření účtu nabízejícího. To znamená, že jste doložili vlastnictví projektu, nebo
+    máte profil skutečného nabízejícího – lze se důvodně domnívat, že můžete v budoucnu projektem disponovat, nebo
     máte zmocnění jednat od osoby, která tyto předpoklady naplňuje. Tím jste splnili jednu z podstatných podmínek pro
     zveřejnění projektu.
     <br>
@@ -28,12 +28,12 @@
             mohlo poškodit potenciální investory, nebo dobré jméno portálu,
         </li>
         <li>vyhodnotíme podmínky projektu jako nerealistické, nebo pokud budeme některé požadavky považovat za
-            neodpovídající tržní realitě (například požadovaná prodejní cena vysoko nad tržní cenou).
+            neodpovídající tržní realitě (například požadovaná prodejní cena bude objektivně příliš vysoko nad tržní cenou).
         </li>
     </ul>
     <br>
     Jako nabízející můžete u svého projektu zvolit vyšší stupeň ověření investorů a nastavit vlastní podmínky pro
-    zpřístupnění všech informací – například podpis NDA. Tuto možnost lze zvolit jen v případě, že s portálem uzavřete
+    zpřístupnění všech informací – například podpis NDA. Tuto možnost lze zvolit jen v případě, že s provozovatelem portálu uzavřete
     výhradní smlouvu o zprostředkování prodeje.
     <br>
     <br>
