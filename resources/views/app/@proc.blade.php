@@ -289,9 +289,13 @@
 {{--            </a>--}}
         </div>
 
-        <div class="grid gap-y-[50px] justify-center md:inline-flex md:flex-row gap-x-[100px] ml-[-15px]">
+        <div class="grid gap-y-[50px] justify-center min-[880px]:inline-flex min-[880px]:flex-row gap-x-[100px] ml-[-15px]">
             <img src="{{ Vite::asset('resources/images/logo-solarni_asociace.svg') }}"
-                 class="h-[80px] self-center justify-self-center">
+                 class="h-full max-h-[80px] self-center justify-self-center">
+            <img src="{{ Vite::asset('resources/images/logo-doucha-sikola.svg') }}"
+                 class="h-full max-h-[80px] self-center justify-self-center">
+            <img src="{{ Vite::asset('resources/images/logo-enaco-energy-consulting.png') }}"
+                 class="h-full max-h-[80px] self-center justify-self-center">
         </div>
     </div>
 </div>
