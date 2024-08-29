@@ -37,27 +37,27 @@ class ProjectNotInvestorService
         return $ret;
     }
 
-    public function drafts($userAccountType, $page)
+    private function drafts($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isDrafted()->forDetail()->get();
-        return $projects;
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isDrafted()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 
-    public function prepared($userAccountType, $page)
+    private function prepared($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPrepared()->forDetail()->get();
-        return $projects;
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPrepared()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 
-    public function myProjectsActived($userAccountType, $page)
+    private function myProjectsActived($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isActive()->forDetail()->get();
-        return $projects;
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isActive()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 
-    public function myProjectsNotActived($userAccountType, $page)
+    private function myProjectsNotActived($userAccountType, $page)
     {
-        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isNotActive()->forDetail()->get();
-        return $projects;
+        $projects = Project::where('user_id', auth()->id())->where('user_account_type', $userAccountType)->isPublicated()->isNotActive()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 }

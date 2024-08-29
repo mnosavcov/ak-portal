@@ -28,9 +28,9 @@ use Madnest\Madzipper\Madzipper;
 class ProjectController extends Controller
 {
 
-    public function index($category = null, $subcategory = null)
+    public function index(ProjectService $projectService, $category = null, $subcategory = null)
     {
-        $projectAll = Project::isPublicated()->forDetail();
+        $projectAll = Project::isPublicated()->forList();
         $description = '';
 
         $title = 'Projekty';
@@ -70,7 +70,7 @@ class ProjectController extends Controller
 
         $data = [];
         if (Schema::hasTable('projects')) {
-            $data = $projectAll->get();
+            $data = $projectService->prepareForList($projectAll->get());
         }
 
         $projects = [
@@ -591,11 +591,8 @@ class ProjectController extends Controller
             $projectAuctionOffer = new ProjectAuctionOffer([
                 'offer_amount' => $projectShow->price,
             ]);
-        }
-        $projectShow->project->projectauctionoffers()->save($projectAuctionOffer);
+            $projectShow->project->projectauctionoffers()->save($projectAuctionOffer);
 
-        // pro aukci prodlouzit cas ukonceni na minimalne 10 minut
-        if ($project->type === 'auction') {
             $currentDate = Carbon::now('Europe/Prague');
             $currentDate->addMinutes(10);
 

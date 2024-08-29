@@ -19,7 +19,7 @@
         <h3 @click="detailsOpen = !detailsOpen">Žádosti o zobrazení detailů projektu</h3>
 
         <div x-show="detailsOpen" x-cloak x-collapse>
-            @foreach($project->shows()->where('details_on_request', '!=', 0)->orderBy('details_on_request_time', 'desc')->orderBy('id', 'desc')->get() as $show)
+            @foreach($project->shows()->where('details_on_request', '!=', 0)->orderBy('details_on_request_time', 'desc')->orderBy('id', 'desc')->get(['id', 'details_on_request', 'user_id']) as $show)
                 <div>
                     @include(
                         'components.app.project.part.offer.@public-request',

@@ -38,7 +38,7 @@ Route::view('jak-to-funguje', 'app.jak-to-funguje')->name('jak-to-funguje');
 //            'selected' => '1',
 //            'titleCenter' => true,
 //            'data' => [
-//                '1' => Project::isPublicated()->forDetail()->get(),
+//                '1' => Project::isPublicated()->forList()->get(),
 //            ],
 //        ]
 //    ],

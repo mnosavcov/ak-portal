@@ -119,4 +119,24 @@ class ProjectService
 
         return $qrCode->getDataUri();
     }
+
+    public function prepareForList($project)
+    {
+        return $project->map(function ($project) {
+            return $project->only([
+                'id',
+                'title',
+                'url_detail',
+                'common_img',
+                'short_info_strip',
+                'type',
+                'status_text',
+                'end_date_text',
+                'price_text',
+                'price_text_auction',
+                'tags',
+                'actual_state_text',
+            ]);
+        });
+    }
 }

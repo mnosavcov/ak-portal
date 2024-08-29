@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Project;
+use App\Services\ProjectService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -13,11 +14,11 @@ use Illuminate\Support\Facades\Schema;
 class HomepageController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, ProjectService $projectService)
     {
         $projectAll = new Collection();
         if(Schema::hasTable('projects')) {
-            $projectAll = Project::isPublicated()->forDetail()->get();
+            $projectAll = Project::isPublicated()->forList()->get();
         }
 
         $projects = [
@@ -25,7 +26,7 @@ class HomepageController extends Controller
                 'selected' => '1',
                 'titleCenter' => true,
                 'data' => [
-                    '1' => $projectAll,
+                    '1' => $projectService->prepareForList($projectAll),
                 ],
             ]
         ];

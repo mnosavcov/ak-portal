@@ -36,31 +36,31 @@ class ProjectInvestorService
         return $ret;
     }
 
-    public function news($page)
+    private function news($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->pluck('project_id');
-        $projects = Project::whereNotIn('id', $showed)->isPublicated()->forDetail()->get();
-        return $projects;
+        $projects = Project::whereNotIn('id', $showed)->isPublicated()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 
-    public function showed($page)
+    private function showed($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->where('showed', 1)->pluck('project_id');
-        $projects = Project::whereIn('id', $showed)->isPublicated()->forDetail()->get();
-        return $projects;
+        $projects = Project::whereIn('id', $showed)->isPublicated()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 
-    public function favorites($page)
+    private function favorites($page)
     {
         $favourite = ProjectShow::where('user_id', auth()->id())->where('favourite', true)->pluck('project_id');
-        $projects = Project::whereIn('id', $favourite)->isPublicated()->forDetail()->get();
-        return $projects;
+        $projects = Project::whereIn('id', $favourite)->isPublicated()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 
-    public function myInvestment($page)
+    private function myInvestment($page)
     {
         $showed = ProjectShow::where('user_id', auth()->id())->whereNotNull('price')->pluck('project_id');
-        $projects = Project::whereIn('id', $showed)->isPublicated()->forDetail()->get();
-        return $projects;
+        $projects = Project::whereIn('id', $showed)->isPublicated()->forList()->get();
+        return (new ProjectService)->prepareForList($projects);
     }
 }

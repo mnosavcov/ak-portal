@@ -320,7 +320,7 @@
     @elseif(!auth()->user()->hasVerifiedEmail())
         <x-modal name="not-verify-email" :show="true" :hidenable="false">
             <div class="p-[40px_10px] tablet:p-[50px_40px] text-center" x-data="{ newEmailOpen: false, newEmail: '', valid: true,
-                successMessage: null, errorMessage: null, loaderShow: false, email: @js(auth()->user()->email),
+                successMessage: null, errorMessage: null, loaderShow: false, email: @js($user->email),
                 isValid() {
                     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if(!this.newEmailOpen) {

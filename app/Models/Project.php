@@ -649,9 +649,17 @@ class Project extends Model
             ', 'finished');
     }
 
-    public function scopeForDetail(Builder $query): Builder
+    public function scopeForList(Builder $query): Builder
     {
-        return $query->with(['tags', 'shows']);
+        return $query->withOnly(['tags'])->select([
+            'id',
+            'page_url',
+            'title',
+            'short_info',
+            'type',
+            'status',
+            'actual_state',
+        ]);
     }
 
     private function isVerifiedDefault($checkPublic = true): bool
