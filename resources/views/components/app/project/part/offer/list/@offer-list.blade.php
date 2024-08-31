@@ -117,7 +117,7 @@
                                 'myFirstBid' => ($offer->user_id === auth()->user()?->id && $myOffersCountX === $myOffersCount),
                                 'title' => (
                                     $offer->user_id === auth()->user()?->id ?
-                                    'Váše podání ' . ($myOffersCount--) :
+                                    'Vaše podání ' . ($myOffersCount--) :
                                     'Podání ' . ($loop->remaining + 1)
                                 ),
                                 'type' => $userType,
