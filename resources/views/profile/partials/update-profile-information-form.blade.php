@@ -5,7 +5,12 @@
             laptop:px-[30px] laptop:py-[50px]
             ">
         <header>
-            <h2>{{ __('Přihlašovací a kontaktní údaje') }}</h2>
+            @if(!auth()->user()->superadmin && !auth()->user()->advisor)
+                <h2>{{ __('Přihlašovací a kontaktní údaje') }}</h2>
+            @else
+                <h2>{{ __('Heslo') }}</h2>
+                <div x-init="newPasswordOpen = true;"></div>
+            @endif
         </header>
 
         <form method="post" action="{{ route('profile.update') }}" class="mt-[30px]
@@ -17,26 +22,28 @@
             @method('patch')
             <input type="hidden" name="set_new_password" :value="newPasswordOpen ? 1 : 0">
 
-            <div>
-                <x-input-label for="email" :value="__('Kontaktní e-mail *')"/>
-                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
-                              value="{{ old('email', $user['email']) }}" required autocomplete="email"/>
-            </div>
+            @if(!auth()->user()->superadmin && !auth()->user()->advisor)
+                <div>
+                    <x-input-label for="email" :value="__('Kontaktní e-mail *')"/>
+                    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
+                                  value="{{ old('email', $user['email']) }}" required autocomplete="email"/>
+                </div>
 
-            <div>
-                <x-input-label for="phone_number" :value="__('Telefonní číslo *')"/>
-                <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
-                              value="{{ old('phone_number', $user['phone_number']) }}" required/>
-            </div>
+                <div>
+                    <x-input-label for="phone_number" :value="__('Telefonní číslo *')"/>
+                    <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
+                                  value="{{ old('phone_number', $user['phone_number']) }}" required/>
+                </div>
 
-            <div class="hidden laptop:block"></div>
+                <div class="hidden laptop:block"></div>
 
-            <div class="col-span-full font-Spartan-Regular text-[20px] leading-[30px]">Heslo</div>
+                <div class="col-span-full font-Spartan-Regular text-[20px] leading-[30px]">Heslo</div>
 
-            <div type="button" @click="newPasswordOpen = !newPasswordOpen"
-                 class="col-span-full font-Spartan-SemiBold text-[18px] text-app-blue inline-block justify-self-start cursor-pointer">
-                Nastavit nové heslo
-            </div>
+                <div type="button" @click="newPasswordOpen = !newPasswordOpen"
+                     class="col-span-full font-Spartan-SemiBold text-[18px] text-app-blue inline-block justify-self-start cursor-pointer">
+                    Nastavit nové heslo
+                </div>
+            @endif
 
             <div x-cloak x-show="newPasswordOpen" x-collapse>
                 <x-input-label for="password" :value="__('Zvolte své heslo *')"/>
@@ -54,60 +61,63 @@
             >
                 Uložit změny
             </button>
-
-            <div class="col-span-full h-[1px] bg-[#D9E9F2]"></div>
         </form>
 
-        <div class="col-span-full mt-[20px]">
-            @if(auth()->user()->deletable)
-                <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer"
-                        @click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
-                    Zrušit celý účet
-                </button>
-            @else
-                <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer grayscale"
-                        @click.prevent="alert('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt.')">
-                    Zrušit celý účet
-                </button>
-            @endif
+        @if(!auth()->user()->superadmin && !auth()->user()->advisor)
+            <div class="col-span-full h-[1px] bg-[#D9E9F2] mt-[35px]"></div>
 
-            <x-modal name="confirm-user-deletion">
-                <div class="relative p-[50px_15px_30px]">
-                    <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="$dispatch('close')"
-                         class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
+            <div class="col-span-full mt-[20px]">
+                @if(auth()->user()->deletable)
+                    <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer"
+                            @click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
+                        Zrušit celý účet
+                    </button>
+                @else
+                    <button type="button"
+                            class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer grayscale"
+                            @click.prevent="alert('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt.')">
+                        Zrušit celý účet
+                    </button>
+                @endif
 
-                    <form method="post" action="{{ route('profile.destroy') }}">
-                        @csrf
-                        @method('delete')
+                <x-modal name="confirm-user-deletion">
+                    <div class="relative p-[50px_15px_30px]">
+                        <img src="{{ Vite::asset('resources/images/ico-close.svg') }}" @click="$dispatch('close')"
+                             class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
-                        <h2 class="mb-[15px] max-tablet:text-center">
-                            {{ __('Jste si jistí, že chcete smazat váš účet?') }}
-                        </h2>
+                        <form method="post" action="{{ route('profile.destroy') }}">
+                            @csrf
+                            @method('delete')
 
-                        <p class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center">
-                            {{ __('Jakmile bude váš účet smazán, budou trvale smazány všechny jeho zdroje a data. Zadejte prosím své heslo pro potvrzení, že chcete trvale zrušit svůj účet.') }}
-                        </p>
+                            <h2 class="mb-[15px] max-tablet:text-center">
+                                {{ __('Jste si jistí, že chcete smazat váš účet?') }}
+                            </h2>
 
-                        <div class="mt-6">
-                            <x-input-label for="password_delete" value="{{ __('Heslo') }}"/>
+                            <p class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center">
+                                {{ __('Jakmile bude váš účet smazán, budou trvale smazány všechny jeho zdroje a data. Zadejte prosím své heslo pro potvrzení, že chcete trvale zrušit svůj účet.') }}
+                            </p>
 
-                            <x-text-input
-                                id="password_delete" name="password_delete" type="password"
-                                class="mt-1 block w-3/4 max-tablet:w-full" required="required"
-                                placeholder="{{ __('Heslo') }}"
-                            />
-                        </div>
+                            <div class="mt-6">
+                                <x-input-label for="password_delete" value="{{ __('Heslo') }}"/>
 
-                        <div class="mt-6 flex justify-end">
-                            <button type="submit"
-                                    class="col-span-full h-[50px] leading-[50px] w-full tablet:max-w-[250px] font-Spartan-Bold text-[18px] text-white bg-app-red rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
-                            >
-                                Zrušit účet
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </x-modal>
-        </div>
+                                <x-text-input
+                                    id="password_delete" name="password_delete" type="password"
+                                    class="mt-1 block w-3/4 max-tablet:w-full" required="required"
+                                    placeholder="{{ __('Heslo') }}"
+                                />
+                            </div>
+
+                            <div class="mt-6 flex justify-end">
+                                <button type="submit"
+                                        class="col-span-full h-[50px] leading-[50px] w-full tablet:max-w-[250px] font-Spartan-Bold text-[18px] text-white bg-app-red rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
+                                >
+                                    Zrušit účet
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </x-modal>
+            </div>
+        @endif
     </div>
 </section>

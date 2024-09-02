@@ -31,7 +31,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        if($request->get('add') === 'investor' || $request->get('add') === 'no-investor') {
+        if ($request->get('add') === 'investor' || $request->get('add') === 'no-investor') {
             return redirect()->route('profile.edit')->with('add', $request->get('add'));
         }
 
@@ -55,16 +55,18 @@ class ProfileController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($request->user()->id)],
-            'phone_number' => ['required', 'string', 'min:9'],
-        ], [
-            'email.required' => 'E-mail je povinné pole.',
-            'email.email' => 'E-mail musí být platný.',
-            'email.unique' => 'E-mail je již zaregistrován.',
-            'phone_number.required' => 'Telefonní číslo je povinné.',
-            'phone_number.min' => 'Telefonní číslo musí mít alespoň 9 znaků.',
-        ]);
+        if (!auth()->user()->superadmin && !auth()->user()->advisor) {
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($request->user()->id)],
+                'phone_number' => ['required', 'string', 'min:9'],
+            ], [
+                'email.required' => 'E-mail je povinné pole.',
+                'email.email' => 'E-mail musí být platný.',
+                'email.unique' => 'E-mail je již zaregistrován.',
+                'phone_number.required' => 'Telefonní číslo je povinné.',
+                'phone_number.min' => 'Telefonní číslo musí mít alespoň 9 znaků.',
+            ]);
+        }
 
         if ($request->post('set_new_password')) {
             $request->validate([
@@ -76,15 +78,19 @@ class ProfileController extends Controller
             ]);
         }
 
-        $request->user()->email = $request->post('email');
-        $request->user()->phone_number = $request->post('phone_number');
+        if (!auth()->user()->superadmin && !auth()->user()->advisor) {
+            $request->user()->email = $request->post('email');
+            $request->user()->phone_number = $request->post('phone_number');
+        }
         if ($request->post('set_new_password')) {
             $request->user()->password = Hash::make($request->post('password'));
         }
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-            $request->user()->notify(new CustomVerifyEmail);
+        if (!auth()->user()->superadmin && !auth()->user()->advisor) {
+            if ($request->user()->isDirty('email')) {
+                $request->user()->email_verified_at = null;
+                $request->user()->notify(new CustomVerifyEmail);
+            }
         }
 
         $request->user()->save();

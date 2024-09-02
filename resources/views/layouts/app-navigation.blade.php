@@ -182,12 +182,12 @@
                                         {{ __('Profil realitního makléře') }}
                                     </x-dropdown-link>
                                 @endif
-
-                                <x-dropdown-link :href="route('profile.edit')" class="px-[30px]"
-                                                 :active="request()->routeIs('profile.edit')">
-                                    {{ __('Nastavení účtu') }}
-                                </x-dropdown-link>
                             @endif
+
+                            <x-dropdown-link :href="route('profile.edit')" class="px-[30px]"
+                                             :active="request()->routeIs('profile.edit')">
+                                {{ __('Nastavení účtu') }}
+                            </x-dropdown-link>
 
                             @if(auth()->user()->superadmin || auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
                                 <div class="h-[1px] bg-[#D9E9F2] mx-[30px] mt-[10px]"></div>
@@ -342,12 +342,12 @@
                                     {{ __('Profil realitního makléře') }}
                                 </x-responsive-nav-link>
                             @endif
-
-                            <x-responsive-nav-link :href="route('profile.edit')"
-                                                   :active="request()->routeIs('profile.edit')">
-                                {{ __('Nastavení účtu') }}
-                            </x-responsive-nav-link>
                         @endif
+
+                        <x-responsive-nav-link :href="route('profile.edit')"
+                                               :active="request()->routeIs('profile.edit')">
+                            {{ __('Nastavení účtu') }}
+                        </x-responsive-nav-link>
                     </div>
                 @else
                     <div class="h-[25px]"></div>

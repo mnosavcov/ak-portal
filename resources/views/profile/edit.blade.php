@@ -22,160 +22,167 @@
             </ul>
         @endif
 
-        @if(!auth()->user()->hasVerifiedEmail())
-            <div
-                class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[20px]">
-                <div>
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ EMAIL
+        @if(!auth()->user()->superadmin && !auth()->user()->advisor)
+            @if(!auth()->user()->hasVerifiedEmail())
+                <div
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[20px]">
+                    <div>
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ EMAIL
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
+                            všechny informace o nabízených projektech, musíte ověřit email.
+                        </div>
                     </div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
-                        všechny informace o nabízených projektech, musíte ověřit email.
-                    </div>
+
+                    <button type="button" x-data
+                            class="justify-self-center cursor-pointer font-Spartan-Bold text-[14px] w-full max-w-[350px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
+                            @click="$dispatch('open-modal', 'not-verify-email')">
+                        Ověřit email
+                    </button>
                 </div>
+            @endif
 
-                <button type="button" x-data
-                        class="justify-self-center cursor-pointer font-Spartan-Bold text-[14px] w-full max-w-[350px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
-                        @click="$dispatch('open-modal', 'not-verify-email')">
-                    Ověřit email
-                </button>
-            </div>
-        @endif
-
-        @if(auth()->user()->check_status === 'not_verified')
-            <div class="mb-[20px]">
-                <div class="max-w-[1200px] mx-auto">
-                    <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+            @if(auth()->user()->check_status === 'not_verified')
+                <div class="mb-[20px]">
+                    <div class="max-w-[1200px] mx-auto">
+                        <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                        <div><span class="font-Spartan-SemiBold">Jak probíhá ověření účtu?</span>
-                            Na portálu chceme vytvářet důvěryhodné a transparentní prostředí.
-                            Proto ověřujeme každého uživatele. Nejčastěji se s vámi spojíme telefonicky, seznámíme se s
-                            vašimi záměry a očekáváními. Jakmile účet ověříme, můžete projekty sami nakupovat, nebo
-                            nabízet.
+                            <div><span class="font-Spartan-SemiBold">Jak probíhá ověření účtu?</span>
+                                Na portálu chceme vytvářet důvěryhodné a transparentní prostředí.
+                                Proto ověřujeme každého uživatele. Nejčastěji se s vámi spojíme telefonicky, seznámíme
+                                se s
+                                vašimi záměry a očekáváními. Jakmile účet ověříme, můžete projekty sami nakupovat, nebo
+                                nabízet.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Abyste mohli využívat všechny funkce portálu u zvoleného typu účtu (či typů účtů), musíte
+                            zadat
+                            osobní údaje a sdělit nám své záměry.
                         </div>
                     </div>
                 </div>
+            @endif
 
-                <div
-                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET</div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Abyste mohli využívat všechny funkce portálu u zvoleného typu účtu (či typů účtů), musíte zadat
-                        osobní údaje a sdělit nám své záměry.
+            @if(auth()->user()->check_status === 'waiting')
+                <div class="mb-[20px]">
+                    <div
+                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme
+                            proces
+                            ověření účtu.
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
 
-        @if(auth()->user()->check_status === 'waiting')
-            <div class="mb-[20px]">
-                <div
-                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                        VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ
-                    </div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme proces
-                        ověření účtu.
+            @if(auth()->user()->check_status === 're_verified')
+                <div class="mb-[20px]">
+                    <div
+                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ PO AKTUALIZACI OSOBNÍCH ÚDAJŮ
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Upravili jste své osobní údaje. U všech typů účtů máte omezené funkce. V blízké době Vás
+                            budeme
+                            kontaktovat a dokončíme proces ověření účtu.
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
 
-        @if(auth()->user()->check_status === 're_verified')
-            <div class="mb-[20px]">
-                <div
-                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                        VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ PO AKTUALIZACI OSOBNÍCH ÚDAJŮ
-                    </div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Upravili jste své osobní údaje. U všech typů účtů máte omezené funkce. V blízké době Vás budeme
-                        kontaktovat a dokončíme proces ověření účtu.
+            @if(
+                    auth()->user()->investor_status === 're_verified'
+                    || auth()->user()->investor_status === 'waiting'
+                    || auth()->user()->advertiser_status === 're_verified'
+                    || auth()->user()->advertiser_status === 'waiting'
+                    || auth()->user()->real_estate_broker_status === 're_verified'
+                    || auth()->user()->real_estate_broker_status === 'waiting'
+                )
+                <div class="mb-[20px]">
+                    <div
+                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            ÚDAJE U NOVĚ PŘIDANÉHO TYPU ÚČTU (ČI TYPŮ ÚČTU) ČEKAJÍ NA OVĚŘENÍ
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme
+                            proces
+                            ověření účtu.
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
 
-        @if(
-                auth()->user()->investor_status === 're_verified'
-                || auth()->user()->investor_status === 'waiting'
-                || auth()->user()->advertiser_status === 're_verified'
-                || auth()->user()->advertiser_status === 'waiting'
-                || auth()->user()->real_estate_broker_status === 're_verified'
-                || auth()->user()->real_estate_broker_status === 'waiting'
-            )
-            <div class="mb-[20px]">
-                <div
-                    class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                    <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                        ÚDAJE U NOVĚ PŘIDANÉHO TYPU ÚČTU (ČI TYPŮ ÚČTU) ČEKAJÍ NA OVĚŘENÍ
-                    </div>
-                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme proces
-                        ověření účtu.
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @foreach([
-            'investor_status_verified' => [
-                'column' => 'investor',
-                'item' => 'investor_status',
-                'title' => 'VÁŠ ÚČET INVESTORA BYL OVĚŘEN',
-                'text' => 'Nyní můžete využívat všechny funkce portálu v roli investora – zejména podávat nabídky u projektů.',
-                'status' => 'verified',
-                'class' => 'bg-app-green',
-                'show' => 'show_investor_status',
-            ],
-            'investor_status_denied' => [
-                'column' => 'investor',
-                'item' => 'investor_status',
-                'title' => 'VÁŠ ÚČET INVESTORA NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
-                'text' => 'Administrátor Vám u Účtu investora na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
-                'status' => 'denied',
-                'class' => 'bg-app-red',
-                'show' => 'show_investor_status',
-            ],
-            'advertiser_status_verified' => [
-                'column' => 'advertiser',
-                'item' => 'advertiser_status',
-                'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO BYL OVĚŘEN',
-                'text' => 'Nyní můžete využívat všechny funkce portálu v roli nabízejícího – zejména zveřejňovat projekty k prodeji.',
-                'status' => 'verified',
-                'class' => 'bg-app-green',
-                'show' => 'show_advertiser_status',
-            ],
-            'advertiser_status_denied' => [
-                'column' => 'advertiser',
-                'item' => 'advertiser_status',
-                'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
-                'text' => 'Administrátor Vám u Účtu nabízejícího na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
-                'status' => 'denied',
-                'class' => 'bg-app-red',
-                'show' => 'show_advertiser_status',
-            ],
-            'real_estate_broker_status_verified' => [
-                'column' => 'real_estate_broker',
-                'item' => 'real_estate_broker_status',
-                'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE BYL OVĚŘEN',
-                'text' => 'Nyní můžete využívat všechny funkce portálu v roli realitního makléře – zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka.',
-                'status' => 'verified',
-                'class' => 'bg-app-green',
-                'show' => 'show_real_estate_broker_status',
-            ],
-            'real_estate_broker_status_denied' => [
-                'column' => 'real_estate_broker',
-                'item' => 'real_estate_broker_status',
-                'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
-                'text' => 'Administrátor Vám u Účtu realitího makléře na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
-                'status' => 'denied',
-                'class' => 'bg-app-red',
-                'show' => 'show_real_estate_broker_status',
-            ],
-        ] as $index => $item)
-            @if(auth()->user()->{$item['column']} && auth()->user()->{$item['item']} === $item['status'] && auth()->user()->{$item['show']})
-                <div class="mb-[20px]" x-data="{
+            @foreach([
+                'investor_status_verified' => [
+                    'column' => 'investor',
+                    'item' => 'investor_status',
+                    'title' => 'VÁŠ ÚČET INVESTORA BYL OVĚŘEN',
+                    'text' => 'Nyní můžete využívat všechny funkce portálu v roli investora – zejména podávat nabídky u projektů.',
+                    'status' => 'verified',
+                    'class' => 'bg-app-green',
+                    'show' => 'show_investor_status',
+                ],
+                'investor_status_denied' => [
+                    'column' => 'investor',
+                    'item' => 'investor_status',
+                    'title' => 'VÁŠ ÚČET INVESTORA NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                    'text' => 'Administrátor Vám u Účtu investora na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                    'status' => 'denied',
+                    'class' => 'bg-app-red',
+                    'show' => 'show_investor_status',
+                ],
+                'advertiser_status_verified' => [
+                    'column' => 'advertiser',
+                    'item' => 'advertiser_status',
+                    'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO BYL OVĚŘEN',
+                    'text' => 'Nyní můžete využívat všechny funkce portálu v roli nabízejícího – zejména zveřejňovat projekty k prodeji.',
+                    'status' => 'verified',
+                    'class' => 'bg-app-green',
+                    'show' => 'show_advertiser_status',
+                ],
+                'advertiser_status_denied' => [
+                    'column' => 'advertiser',
+                    'item' => 'advertiser_status',
+                    'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                    'text' => 'Administrátor Vám u Účtu nabízejícího na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                    'status' => 'denied',
+                    'class' => 'bg-app-red',
+                    'show' => 'show_advertiser_status',
+                ],
+                'real_estate_broker_status_verified' => [
+                    'column' => 'real_estate_broker',
+                    'item' => 'real_estate_broker_status',
+                    'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE BYL OVĚŘEN',
+                    'text' => 'Nyní můžete využívat všechny funkce portálu v roli realitního makléře – zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka.',
+                    'status' => 'verified',
+                    'class' => 'bg-app-green',
+                    'show' => 'show_real_estate_broker_status',
+                ],
+                'real_estate_broker_status_denied' => [
+                    'column' => 'real_estate_broker',
+                    'item' => 'real_estate_broker_status',
+                    'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                    'text' => 'Administrátor Vám u Účtu realitího makléře na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                    'status' => 'denied',
+                    'class' => 'bg-app-red',
+                    'show' => 'show_real_estate_broker_status',
+                ],
+            ] as $index => $item)
+                @if(auth()->user()->{$item['column']} && auth()->user()->{$item['item']} === $item['status'] && auth()->user()->{$item['show']})
+                    <div class="mb-[20px]" x-data="{
                     openInfo: true,
                     async closeInfo() {
                         this.openInfo = false;
@@ -192,108 +199,112 @@
                             });
                     },
                 }" x-show="openInfo" x-collapse>
-                    <div
-                        class="{{ $item['class'] }} p-[15px] w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] relative">
-                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                            {{ $item['title'] }}
-                        </div>
-                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            {{ $item['text'] }}
-                        </div>
+                        <div
+                            class="{{ $item['class'] }} p-[15px] w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] relative">
+                            <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                                {{ $item['title'] }}
+                            </div>
+                            <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                                {{ $item['text'] }}
+                            </div>
 
-                        <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
-                             class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
-                             @click="closeInfo()"
-                        >
+                            <img src="{{ Vite::asset('resources/images/ico-x-rounded_33x33.svg') }}"
+                                 class="absolute cursor-pointer h-[25px] w-[25px] tablet:h-[30px] tablet:w-[30px] right-[-10px] top-[-10px] tablet:right-[-13px] tablet:top-[-13px]"
+                                 @click="closeInfo()"
+                            >
+                        </div>
                     </div>
-                </div>
-            @endif
-        @endforeach
+                @endif
+            @endforeach
 
-        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
+
+            <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
             px-[10px] py-[25px]
             tablet:px-[20px] tablet:py-[35px]
             laptop:px-[30px] laptop:py-[50px] mb-[50px]
             ">
 
-            @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
-                <div>
-                    <h2>Vaše osobní údaje</h2>
+                @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
+                    <div>
+                        <h2>Vaše osobní údaje</h2>
 
-                    <div
-                        class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
-                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                            Jméno a příjmení
+                        <div
+                            class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
+                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                Jméno a příjmení
+                            </div>
+                            <div x-text="nameAndSurnameText()"
+                                 class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                Adresa trvalého bydliště
+                            </div>
+                            <div x-text="addressText()"
+                                 class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                                Státní občanství (země)
+                            </div>
+                            <div x-text="countryText()"
+                                 class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
+
+                            {{--                        @if($user->investor)--}}
+                            {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
+                            {{--                                Upřesnění záměrů – jako investor--}}
+                            {{--                            </div>--}}
+                            {{--                            <div x-html="moreInfoTextInvestor()"--}}
+                            {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
+                            {{--                        @endif--}}
+
+                            {{--                        @if($user->advertiser)--}}
+                            {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
+                            {{--                                Upřesnění záměrů – jako nabízející--}}
+                            {{--                            </div>--}}
+                            {{--                            <div x-html="moreInfoTextAdvertiser()"--}}
+                            {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
+                            {{--                        @endif--}}
+
+                            {{--                        @if($user->real_estate_broker)--}}
+                            {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
+                            {{--                                Upřesnění záměrů – jako realitní makléř--}}
+                            {{--                            </div>--}}
+                            {{--                            <div x-html="moreInfoTextRealEstateBroker()"--}}
+                            {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
+                            {{--                        @endif--}}
                         </div>
-                        <div x-text="nameAndSurnameText()"
-                             class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                            Adresa trvalého bydliště
+
+                        <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?
                         </div>
-                        <div x-text="addressText()"
-                             class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                        <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                            Státní občanství (země)
-                        </div>
-                        <div x-text="countryText()"
-                             class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
 
-                        {{--                        @if($user->investor)--}}
-                        {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-                        {{--                                Upřesnění záměrů – jako investor--}}
-                        {{--                            </div>--}}
-                        {{--                            <div x-html="moreInfoTextInvestor()"--}}
-                        {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-                        {{--                        @endif--}}
-
-                        {{--                        @if($user->advertiser)--}}
-                        {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-                        {{--                                Upřesnění záměrů – jako nabízející--}}
-                        {{--                            </div>--}}
-                        {{--                            <div x-html="moreInfoTextAdvertiser()"--}}
-                        {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-                        {{--                        @endif--}}
-
-                        {{--                        @if($user->real_estate_broker)--}}
-                        {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-                        {{--                                Upřesnění záměrů – jako realitní makléř--}}
-                        {{--                            </div>--}}
-                        {{--                            <div x-html="moreInfoTextRealEstateBroker()"--}}
-                        {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-                        {{--                        @endif--}}
-                    </div>
-
-                    <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?
-                    </div>
-
-                    <a href="{{ route('profile.edit-verify') }}"
-                       class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
-                    >
-                        Aktualizovat osobní údaje
-                    </a>
-                </div>
-            @else
-                <div>
-                    <h2 class="text-center tablet:text-left">Vaše osobní údaje</h2>
-
-                    <div class="text-center tablet:text-left">
                         <a href="{{ route('profile.edit-verify') }}"
-                           class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
+                           class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
                         >
-                            Zadat a ověřit účet
+                            Aktualizovat osobní údaje
                         </a>
                     </div>
-                </div>
-            @endif
-        </div>
+                @else
+                    <div>
+                        <h2 class="text-center tablet:text-left">Vaše osobní údaje</h2>
+
+                        <div class="text-center tablet:text-left">
+                            <a href="{{ route('profile.edit-verify') }}"
+                               class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
+                            >
+                                Zadat a ověřit účet
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        @endif
 
         <div class="w-full mx-auto">
             @include('profile.partials.update-profile-information-form')
         </div>
 
-        <div class="w-full mx-auto">
-            @include('profile.partials.active-types-accounts')
-        </div>
+        @if(!auth()->user()->superadmin && !auth()->user()->advisor)
+            <div class="w-full mx-auto">
+                @include('profile.partials.active-types-accounts')
+            </div>
+        @endif
     </div>
 
     @include('app.@faq')
