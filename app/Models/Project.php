@@ -659,6 +659,7 @@ class Project extends Model
             'type',
             'status',
             'actual_state',
+            'end_date',
         ]);
     }
 
