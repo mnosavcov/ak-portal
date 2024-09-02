@@ -17,6 +17,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        $urlPrevious = url()->previous();
+        if($urlPrevious !== route('login')) {
+            session(['loginAfterLogin' => $urlPrevious]);
+        }
         return view('auth.login');
     }
 
@@ -37,7 +41,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('admin.index'));
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(session('loginAfterLogin', RouteServiceProvider::HOME));
     }
 
     /**
@@ -51,6 +55,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(url()->previous() ?? '/');
     }
 }
