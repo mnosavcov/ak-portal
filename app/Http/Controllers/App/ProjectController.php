@@ -10,6 +10,7 @@ use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Models\ProjectImage;
 use App\Models\ProjectShow;
+use App\Models\ProjectTag;
 use App\Models\TempProjectFile;
 use App\Services\PaymentService;
 use App\Services\ProjectService;
@@ -445,6 +446,23 @@ class ProjectController extends Controller
         }
 
         return Storage::download($projectFile->filepath, $projectFile->filename);
+    }
+
+    public function tagImage(Project $project, ProjectTag $projectTag, $urlHash)
+    {
+        if ($projectTag->project_id !== $project->id) {
+            return redirect()->route('homepage');
+        }
+
+        $hash = sha1(sprintf('%s-341VJnP1Hd9-%s-tags', $project->id, $projectTag->id));
+        if ($urlHash !== $hash) {
+            return redirect()->route('homepage');
+        }
+
+        $file = json_decode($projectTag->file, true);
+        $filepath = array_keys($file)[0];
+
+        return response()->file(Storage::path($filepath));
     }
 
     public function gallery(Project $project, ProjectGallery $projectGallery, $urlHash)

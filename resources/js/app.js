@@ -8,7 +8,6 @@ import $ from 'jquery';
 import 'jquery-simple-upload';
 import collapse from '@alpinejs/collapse'
 import mask from '@alpinejs/mask'
-import lightbox from 'bs5-lightbox';
 
 window.Alpine = Alpine;
 
@@ -106,5 +105,4 @@ window.countdown = countdown;
 window.keepSession = keepSession;
 window.jQuery = jQuery;
 window.$ = $;
-window.lightbox = lightbox;
 tinymceInit();

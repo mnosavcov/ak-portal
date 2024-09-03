@@ -7,7 +7,10 @@
                          tablet:text-[12px] tablet:p-[8px_10px]
                          laptop:text-[13px]
         app-project-{{ $tag->color }}">
-            {!! $tag->title !!}
+            <span>{!! $tag->title !!}</span>
+            @if($tag->file_url)
+                <img src="{{ $tag->file_url }}" class="h-[15px] ml-[5px] inline-block">
+            @endif
         </div>
     @endforeach
 </div>

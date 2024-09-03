@@ -380,9 +380,24 @@ class AdminController extends Controller
         foreach ($request->post('tags') ?? [] as $tagId => $tag) {
             if ($tagId > 0) {
                 if ($tag['delete'] ?? false) {
-                    ProjectTag::where('project_id', $project->id)->find($tagId)?->delete();
+                    $projectTag = ProjectTag::where('project_id', $project->id)->find($tagId);
+                    if (!$projectTag) {
+                        continue;
+                    }
+
+                    $fileOld = json_decode($projectTag->file, true);
+                    if (!empty($fileOld)) {
+                        $fileOldPath = array_keys($fileOld)[0];
+                        Storage::delete($fileOldPath);
+                    }
+                    $projectTag->delete();
+                    continue;
                 } else {
-                    ProjectTag::where('project_id', $project->id)->find($tagId)?->update(
+                    $projectTag = ProjectTag::where('project_id', $project->id)->find($tagId);
+                    if (!$projectTag) {
+                        continue;
+                    }
+                    $projectTag->update(
                         [
                             'title' => $tag['title'] ?? '',
                             'color' => $tag['color'],
@@ -397,6 +412,42 @@ class AdminController extends Controller
                     ]
                 );
                 $project->tags()->save($projectTag);
+            }
+
+            // delete file
+            if ($tag['deleteFile'] === '1') {
+                $fileOld = json_decode($projectTag->file, true);
+                if (!empty($fileOld)) {
+                    $fileOldPath = array_keys($fileOld)[0];
+                    Storage::delete($fileOldPath);
+                }
+                $projectTag->file = null;
+                $projectTag->save();
+            }
+
+            // add file
+            $fileList = json_decode($tag['fileList'], true);
+            if (!empty($fileList)) {
+                $fileOld = json_decode($projectTag->file, true);
+                if (!empty($fileOld)) {
+                    $fileOldPath = array_keys($fileOld)[0];
+                    Storage::delete($fileOldPath);
+                }
+
+                $fileList = $fileList[0];
+                $imageTag = TempProjectFile::where('temp_project_id', $tag['uuid'])
+                    ->where('id', $fileList['id'])->first();
+
+                $path = $imageTag->filepath;
+                $path = str_replace(
+                    'temp/' . $tag['uuid'],
+                    'projects/' . auth()->id() . '/' . $project->id . '/tags',
+                    $path
+                );
+
+                Storage::copy($imageTag->filepath, $path);
+                $projectTag->file = [$path => $imageTag->filename];
+                $projectTag->save();
             }
         }
 
@@ -613,10 +664,18 @@ class AdminController extends Controller
             'filename' => $file->getClientOriginalName(),
         ]);
 
+        $base64 = null;
+        $mimeType = $file->getMimeType();
+        if (str_starts_with($mimeType, 'image/')) {
+            $fileContents = file_get_contents($file->getRealPath());
+            $base64 = 'data:' . $mimeType . ';base64,' . base64_encode($fileContents);
+        }
+
         return response()->json([
             'success' => 'success',
             'id' => $tempProjectFile->id,
             'format' => $file->getClientOriginalName(),
+            'base64' => $base64,
         ]);
     }
 

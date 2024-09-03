@@ -20,7 +20,6 @@ class AdminService
         $evaluation = Project::where('status', 'evaluation')->get();
         $finished = Project::where('status', 'finished')->get();
         $projects = [
-            'draft' => $draft,
             'send' => $send,
             'prepared' => $prepared,
             'confirm' => $confirm,
@@ -28,6 +27,7 @@ class AdminService
             'publicated' => $publicated,
             'evaluation' => $evaluation,
             'finished' => $finished,
+            'draft' => $draft,
         ];
 
         return $projects;

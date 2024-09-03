@@ -15,9 +15,9 @@
     </div>
     <div class="swiper w-full h-[300px]">
         <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" uk-lightbox="animation: slide">
             @foreach($project->galleries as $gallery)
-                <a href="{{ $gallery->url }}" data-toggle="lightbox" data-gallery="example-gallery"
+                <a href="{{ $gallery->url }}"
                    class="swiper-slide w-full bg-cover bg-center"
                    style="background-image: url('{{ $gallery->url }}');">
                 </a>
@@ -28,7 +28,10 @@
     </div>
 </div>
 
-<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/http_unpkg.com_franken-wc@0.1.0_dist_css_zinc.min.css"/>
+<script src="/js/uikit.min.js"></script>
+<script src="/js/uikit-icons.min.js"></script>
+
 <link rel="stylesheet" href="/css/swiper-bundle.min.css"/>
 <script src="/js/swiper-bundle.min.js"></script>
 

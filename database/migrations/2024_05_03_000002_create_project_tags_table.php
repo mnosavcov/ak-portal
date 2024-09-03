@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->string('title');
             $table->enum('color', ['default', 'red', 'blue', 'green', 'orange'])->default('default');
+            $table->json('file')->nullable();
 
             $table->foreign('project_id')->references('id')->on('projects')->constrained();
         });

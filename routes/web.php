@@ -84,6 +84,7 @@ Route::post('ajax-form', function (Request $request) {
 
     return response()->json(['status' => 'success']);
 })->name('ajax-form');
+Route::get('project-tags/image/{project}/{project_tag}/{hash}/{filename}', [ProjectController::class, 'tagImage'])->name('project-tags.image');
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
 Route::get('zip/{project}/{hash}/{filename}', [ProjectController::class, 'zip'])->name('zip');
@@ -156,6 +157,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('projekty/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.save');
                 Route::post('projects/store-temp-file/{uuid}', [AdminController::class, 'storeTempFile'])->name('projects.store-temp-file');
+                Route::post('project-tags/store-temp-file/{uuid}', [AdminController::class, 'storeTempFile'])->name('project-tags.store-temp-file');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
                 Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');
