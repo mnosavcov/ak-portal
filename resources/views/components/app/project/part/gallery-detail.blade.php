@@ -17,9 +17,10 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             @foreach($project->galleries as $gallery)
-                <div class="swiper-slide w-full bg-cover bg-center"
-                     style="background-image: url('{{ $gallery->url }}');">
-                </div>
+                <a href="{{ $gallery->url }}" data-toggle="lightbox" data-gallery="example-gallery"
+                   class="swiper-slide w-full bg-cover bg-center"
+                   style="background-image: url('{{ $gallery->url }}');">
+                </a>
             @endforeach
         </div>
 
@@ -27,8 +28,9 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/swiper-bundle.min.css"/>
+<script src="/js/swiper-bundle.min.js"></script>
 
 <script>
     const swiper = new Swiper('.swiper', {
