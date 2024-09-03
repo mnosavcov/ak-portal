@@ -122,6 +122,14 @@
 
                     <div
                         class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
+                        <h2 class="mb-[25px]">Úvod</h2>
+                        <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
+                            <x-app.project.part.short_info :project="$project"></x-app.project.part.short_info>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white px-[15px] pt-[30px] tablet:px-[30px] tablet:pt-[50px] pb-[25px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
                         <h2 class="mb-[25px]">O projektu</h2>
                         <div class="bg-[#F8F8F8] rounded-[3px] p-[20px_15px] tablet:p-[20px_25px]">
                             <x-app.project.part.about :project="$project"></x-app.project.part.about>
