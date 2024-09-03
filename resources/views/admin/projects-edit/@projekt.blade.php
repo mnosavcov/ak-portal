@@ -132,6 +132,36 @@
                 )
                     <div class="p-[5px_15px] rounded-[3px] text-white bg-app-red">Zadavatel není ověřený</div>
                 @endif
+
+                @if($project->status === 'publicated' || $project->publicated_at)
+                    <div class="mt-[10px]" x-cloak x-show="statusSelected === 'publicated'"
+                         x-data="{publicated_at_edit: false}">
+                        <x-input-label for="publicated_at"
+                                       :value="__('Datum publikování (podle tohoto data budou řazeny projekty v seznamu projektů) *')"/>
+                        <x-text-input id="publicated_at" name="publicated_at" type="datetime-local" step="1"
+                                      x-bind:readonly="!publicated_at_edit"
+                                      x-bind:disabled="!publicated_at_edit"
+                                      value="{{ $project->publicated_at ? \Carbon\Carbon::parse($project->publicated_at, 'UTC')->setTimezone('Europe/Prague') : '' }}"
+                                      class="mb-[10px] relative block mt-1 w-[350px] pl-[60px]
+                                          bg-[url('/resources/images/ico-calendar.svg')] bg-no-repeat bg-[20px_12px]"
+                        />
+
+                        <input type="hidden" name="publicated_at_edit" :value="publicated_at_edit ? 1 : 0">
+
+                        <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
+                            <div
+                                class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                                :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': publicated_at_edit}"
+                                @click="publicated_at_edit = !publicated_at_edit"
+                            >
+                            </div>
+                            <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
+                                 @click="publicated_at_edit = !publicated_at_edit">
+                                upravit datum publikování
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <div class="mt-[10px] pt-[25px]" x-data="{ indefinitelyDate: null }"
@@ -139,6 +169,7 @@
                 <x-input-label for="end_date" :value="__('Ukončení sběru nabídek *')"/>
 
                 <x-text-input id="end_date" name="end_date" type="datetime-local" value="{{ $project->end_date }}"
+                              step="1"
                               x-bind:disabled="indefinitelyDate && selectedCategory === 'fixed-price'"
                               class="mb-[10px] relative block mt-1 w-[350px] pl-[60px]
                                           bg-[url('/resources/images/ico-calendar.svg')] bg-no-repeat bg-[20px_12px]"

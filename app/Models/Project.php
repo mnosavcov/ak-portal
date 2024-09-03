@@ -69,6 +69,7 @@ class Project extends Model
         'map_zoom',
         'map_title',
         'map_type',
+        'publicated_at',
     ];
 
     public const STATUSES = [
@@ -660,7 +661,14 @@ class Project extends Model
             'status',
             'actual_state',
             'end_date',
-        ]);
+        ])->orderByRaw('
+            if(status = "publicated", 3,
+                if(status = "evaluation", 2,
+                    if(status = "finished", 1, 0)
+                )
+            ) desc
+        ')->orderBy('publicated_at', 'desc')
+            ->orderBy('id', 'desc');
     }
 
     private function isVerifiedDefault($checkPublic = true): bool

@@ -20,6 +20,7 @@ use App\Services\AdminService;
 use App\Services\EmailService;
 use App\Services\ProjectService;
 use App\Services\UsersService;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -137,6 +138,12 @@ class AdminController extends Controller
             'map_zoom' => $request->map_zoom,
             'map_title' => $request->map_title,
         ];
+
+        if ($request->status === 'publicated' && $project->publicated_at === null) {
+            $update['publicated_at'] = Carbon::now();
+        } elseif ($request->status === 'publicated' && $request->publicated_at_edit && $request->publicated_at) {
+            $update['publicated_at'] = Carbon::create($request->publicated_at, 'Europe/Prague')->setTimezone('UTC');
+        }
 
         if (
             $request->subcategory_id
@@ -432,8 +439,8 @@ class AdminController extends Controller
                     $item['investor_status_email_notification'] = $item['investor_status'];
                 }
                 if ($user->advertiser_status !== $item['advertiser_status']) {
-                   $item['show_advertiser_status'] = true;
-                   $item['advertiser_status_email_notification'] = $item['advertiser_status'];
+                    $item['show_advertiser_status'] = true;
+                    $item['advertiser_status_email_notification'] = $item['advertiser_status'];
                 }
                 if ($user->real_estate_broker_status !== $item['real_estate_broker_status']) {
                     $item['show_real_estate_broker_status'] = true;
