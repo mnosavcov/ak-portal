@@ -115,9 +115,8 @@ class ProfileController extends Controller
             return Redirect::to(route('profile.edit'));
         }
 
-        Auth::logout();
-
         $usersService->deleteUser($user->id);
+        Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

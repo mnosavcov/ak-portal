@@ -249,7 +249,7 @@ class AdminController extends Controller
             $path = $file->filepath;
             $path = str_replace(
                 'temp/' . $request->post('fileUUID'),
-                'projects/' . auth()->id() . '/' . $project->id,
+                'projects/' . $project->user_id . '/' . $project->id,
                 $path
             );
 
@@ -310,7 +310,7 @@ class AdminController extends Controller
             $path = $gallery->filepath;
             $path = str_replace(
                 'temp/' . $request->post('galleryUUID'),
-                'projects/' . auth()->id() . '/' . $project->id . '/galleries',
+                'projects/' . $project->user_id . '/' . $project->id . '/galleries',
                 $path
             );
 
@@ -349,7 +349,7 @@ class AdminController extends Controller
             $path = $image->filepath;
             $path = str_replace(
                 'temp/' . $request->post('imageUUID'),
-                'projects/' . auth()->id() . '/' . $project->id . '/images',
+                'projects/' . $project->user_id . '/' . $project->id . '/images',
                 $path
             );
 
@@ -500,6 +500,8 @@ class AdminController extends Controller
                 if ($user->check_status !== $item['check_status']) {
                     $item['show_check_status'] = true;
                 }
+
+                $item['name'] ??= '';
 
                 $user->update($item);
 

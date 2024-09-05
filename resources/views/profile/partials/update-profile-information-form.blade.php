@@ -90,20 +90,24 @@
                             @method('delete')
 
                             <h2 class="mb-[15px] max-tablet:text-center">
-                                {{ __('Jste si jistí, že chcete smazat váš účet?') }}
+                                {{ __('Opravdu si přejete smazat svůj uživatelský účet?') }}
                             </h2>
 
                             <p class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center">
-                                {{ __('Jakmile bude váš účet smazán, budou trvale smazány všechny jeho zdroje a data. Zadejte prosím své heslo pro potvrzení, že chcete trvale zrušit svůj účet.') }}
+                                {{ __('Smazání je nevratné. Smazání nevede k odstranění některých typů obsahu, které jste na portál mohli umístit. A to s ohledem na informační kontinuitu, transparentnost prezentovaných informací a konzistenci/stabilitu systému portálu. Při smazání dochází zejména k odstranění některých osobních údajů, odhlášení z e-mailových notifikací a uzavře se vám přístup do účtu.') }}
+                            </p>
+
+                            <p class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center mt-[10px]">
+                                {{ __('Správa vašich osobních údajů a dat v&nbsp;uživatelském účtu se řídí Zásadami zpracování osobních údajů zveřejněnými na portálu.') }}
                             </p>
 
                             <div class="mt-6">
                                 <x-input-label for="password_delete" value="{{ __('Heslo') }}"/>
 
                                 <x-text-input
-                                    id="password_delete" name="password_delete" type="password"
-                                    class="mt-1 block w-3/4 max-tablet:w-full" required="required"
-                                    placeholder="{{ __('Heslo') }}"
+                                        id="password_delete" name="password_delete" type="password"
+                                        class="mt-1 block w-3/4 max-tablet:w-full" required="required"
+                                        placeholder="{{ __('Heslo') }}"
                                 />
                             </div>
 

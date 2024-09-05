@@ -87,7 +87,7 @@ class UsersService
 
     public function isInvestorOnly()
     {
-        if(auth()->guest()) {
+        if (auth()->guest()) {
             return false;
         }
 
@@ -103,7 +103,7 @@ class UsersService
 
     public function isAdvertiserOnly()
     {
-        if(auth()->guest()) {
+        if (auth()->guest()) {
             return false;
         }
 
@@ -119,7 +119,7 @@ class UsersService
 
     public function isRealEstateBrokerOnly()
     {
-        if(auth()->guest()) {
+        if (auth()->guest()) {
             return false;
         }
 
@@ -135,7 +135,7 @@ class UsersService
 
     public function isAdvertiserAndRealEstateBrokerOnly()
     {
-        if(auth()->guest()) {
+        if (auth()->guest()) {
             return false;
         }
 
@@ -148,7 +148,7 @@ class UsersService
 
     public function isAll()
     {
-        if(auth()->guest()) {
+        if (auth()->guest()) {
             return false;
         }
 
