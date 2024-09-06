@@ -5,34 +5,101 @@
         verified = {{ auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified' ? 'true' : 'false' }}
      "
      class="mb-[50px]">
-    <div class="max-w-[1200px] mx-auto mb-[50px] float-right">
-        <a href="{{ route('profile.edit') }}"
-           class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer relative pl-[55px]
+
+
+    @if($user->check_status === 'not_verified')
+        <div class="grid grid-cols-[1fr_min-content] gap-y-[50px] mb-[50px]"
+             :class="{'!grid-cols-1': hideBack}"
+             x-data="{hideBack: false,
+                fullWidth: 250,
+                widthSteps: 60,
+                widthStep: {},
+                showStep: {},
+                scrollerButton(that) {
+                    that.hideBack = (that.fullWidth > window.innerWidth);
+                    that.showStep[1] = true;
+                    that.showStep[2] = true;
+                    that.showStep[3] = true;
+                    if (
+                        step === 2
+                        && that.widthSteps > window.innerWidth
+                    ) {
+                        that.showStep[1] = false;
+                    }
+                    if (
+                        step === 3
+                    ) {
+                        if (that.widthSteps > window.innerWidth) {
+                            that.showStep[1] = false;
+
+                            if ((60 + that.widthStep[2] + that.widthStep[3]) > window.innerWidth) {
+                                that.showStep[2] = false;
+                            }
+                        }
+                    }
+                },
+                init() {
+                    const scrollerButton = () => this.scrollerButton(this);
+                    $watch('step', value => this.scrollerButton(this))
+
+                    let step = 1;
+                    this.$refs.buttonItems.querySelectorAll('div').forEach((div) => {
+                        this.widthStep[step] = div.scrollWidth;
+                        this.showStep[step] = true;
+                        step++;
+                        this.fullWidth += div.scrollWidth
+                        this.widthSteps += div.scrollWidth
+                    });
+
+                    window.addEventListener('resize', scrollerButton);
+                    window.addEventListener('load', scrollerButton);
+                },}">
+            <div>
+                <div class="mt-[0] w-auto px-0 overflow-y-hidden">
+                    <div x-ref="buttonItems"
+                         class="app-no-scrollbar whitespace-nowrap snap-x overflow-y-hidden auto-cols-fr mx-auto font-Spartan-regular h-[54px] rounded-[10px] block">
+                        <div x-show="showStep[1]"
+                            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                            :class="{ '!text-app-orange underline': step === 1 }">
+                            1. Zadejte své osobní údaje
+                        </div>
+                        <div x-show="showStep[2]"
+                            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                            :class="{ '!text-app-orange underline': step === 2 }">
+                            2. Upřesněte své záměry
+                        </div>
+                        <div x-show="showStep[3]"
+                            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                            :class="{ '!text-app-orange underline': step === 3 }">
+                            3. Potvrzení a odeslání
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="justify-self-end"
+                 :class="{hidden: hideBack}"
+            >
+                <a href="{{ route('profile.edit') }}"
+                   class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer relative pl-[55px]
+                   font-Spartan-SemiBold text-[16px]
+                   after:absolute after:w-[6px] after:h-[10px] after:bg-[url('/resources/images/arrow-left-black-6x10.svg')] after:bg-no-repeat
+                   after:top-[23px] after:left-[20px]
+                ">
+                    Zrušit
+                </a>
+            </div>
+        </div>
+    @else
+        <div class="max-w-[1200px] mx-auto mb-[50px] float-right pl-[25px]">
+            <a href="{{ route('profile.edit') }}"
+               class="px-[25px] inline-block h-[54px] leading-[54px] bg-white text-[#414141] border cursor-pointer relative pl-[55px]
                 font-Spartan-SemiBold text-[16px]
                 after:absolute after:w-[6px] after:h-[10px] after:bg-[url('/resources/images/arrow-left-black-6x10.svg')] after:bg-no-repeat
                 after:top-[23px] after:left-[20px]
              ">
-            Zrušit
-        </a>
-    </div>
-
-    @if($user->check_status === 'not_verified')
-        <div class="flex-row max-w-[1200px] mx-auto mb-[30px] tablet:mb-[50px]">
-            <div
-                class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-                :class="{ '!text-app-orange underline': step === 1 }">
-                1. Zadejte své osobní údaje
-            </div>
-            <div
-                class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-                :class="{ '!text-app-orange underline': step === 2 }">
-                2. Upřesněte své záměry
-            </div>
-            <div
-                class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-                :class="{ '!text-app-orange underline': step === 3 }">
-                3. Potvrzení a odeslání
-            </div>
+                Zrušit
+            </a>
         </div>
     @endif
     <div class="clear-both"></div>

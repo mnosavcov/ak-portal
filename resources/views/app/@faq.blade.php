@@ -8,25 +8,41 @@
                 Nejčastější otázky a odpovědi
             </h2>
 
-            <div class="w-full px-[15px] tablet:w-auto tablet:px-0 inline-grid mb-[50px]"
-                 :style="'grid-template-columns: repeat(' + data.proKohoCount + ', auto)'">
-                <template x-for="(proKoho, index) in data.proKoho" :key="index">
-                    <div class="relative">
-                        <div class="absolute h-full w-[1px] top-0 bg-[#aaa] left-0" x-show="index > 0"></div>
-                        <button x-text="
-                            (proKoho === 'Pro investory' ? 'Investor' : (proKoho === 'Pro nabízející' ? 'Nabízející' : (proKoho === 'Pro realitní makléře' ? 'Realitní makléř' : proKoho)))
-                            "
-                                class="bg-[#f8f8f8] font-Spartan-SemiBold text-[13px]
-                            h-[50px] leading-[50px] w-full
-                            tablet:h-[54px] tablet:leading-[54px] tablet:w-[200px]
-                            "
-                                :class="{'!bg-app-blue text-white': proKoho === data.proKohoSelected}"
-                                @click="data.proKohoSelected = proKoho"
-                        >
+            {{--            filter - start--}}
+            <div x-data="scroller">
+                <div class="text-center mt-[-40px]" x-show="showArrows" x-cloak>
+                    <div class="min-h-0 inline-grid grid-cols-2 gap-[40px] text-0 mx-auto">
+                        <button type="button" @click="scrollToPrevPage()"><img
+                                src="{{ Vite::asset('resources/images/btn-slider-left-35.svg') }}">
+                        </button>
+                        <button type="button" @click="scrollToNextPage()"><img
+                                src="{{ Vite::asset('resources/images/btn-slider-right-35.svg') }}">
                         </button>
                     </div>
-                </template>
+                </div>
+
+                <div class="w-full px-[15px] mt-[0] tablet:w-auto tablet:px-0 mb-[50px] text-center overflow-y-hidden">
+                    <div x-ref="items_wrap"
+                         class="app-no-scrollbar whitespace-nowrap block snap-x overflow-y-hidden text-[0] auto-cols-fr mx-auto font-Spartan-SemiBold h-[54px] rounded-[10px] cursor-pointer">
+                        <template x-for="(proKoho, index) in data.proKoho" :key="index">
+                            <div class="mb-0 snap-start inline-block relative">
+                                <div class="absolute h-full w-[1px] top-0 bg-[#aaa] left-0" x-show="index > 0"></div>
+                                <div
+                                    class="bg-[#f8f8f8] px-[20px] lg:px-[35px] w-[200px] font-Spartan-SemiBold text-[13px] h-[54px] leading-[54px]"
+                                    @click="data.proKohoSelected = proKoho" x-text="proKoho"
+                                    :class="{
+                                '!bg-app-blue text-white': proKoho === data.proKohoSelected,
+                                'rounded-[10px_0_0_10px]': index === 0,
+                                'rounded-[0_10px_10px_0]': index === Object.entries(data.proKoho).length - 1,
+                                }"
+                                >
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
             </div>
+            {{--            filter - end--}}
 
             <div class="w-full">
                 <div class="border border-[#d9e9f2] w-full rounded-[10px] text-left

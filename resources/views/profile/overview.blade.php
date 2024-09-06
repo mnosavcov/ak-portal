@@ -7,6 +7,7 @@
             <div class="mx-[15px]">
                 <h1 class="mb-[30px] tablet:mb-[40px] laptop:mb-[50px]">{{ $accountTitle }}</h1>
 
+                {{--            filter - start--}}
                 @if(
                         !$accountSingle &&
                         (
@@ -15,27 +16,51 @@
                             || (auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus())
                         )
                     )
-                    <div class="flex-row max-w-[1200px] mx-auto mb-[50px]">
-                        @if(auth()->user()->investor && !auth()->user()->isDeniedInvestor())
-                            <a href="{{ route('profile.overview', ['account' => 'investor']) }}"
-                               class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'investor' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
-                                Přehled investora
-                            </a>
-                        @endif
-                        @if(auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser())
-                            <a href="{{ route('profile.overview', ['account' => 'advertiser']) }}"
-                               class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'advertiser' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
-                                Přehled nabízejiciho
-                            </a>
-                        @endif
-                        @if(auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus())
-                            <a href="{{ route('profile.overview', ['account' => 'real-estate-broker']) }}"
-                               class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'real-estate-broker' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
-                                Přehled realitního makléře
-                            </a>
-                        @endif
+                    <div x-data="scroller">
+                        <div class="text-center" x-show="showArrows" x-cloak>
+                            <div class="min-h-0 inline-grid grid-cols-2 gap-[40px] text-0 mx-auto">
+                                <button type="button" @click="scrollToPrevPage()"><img
+                                        src="{{ Vite::asset('resources/images/btn-slider-left-35.svg') }}">
+                                </button>
+                                <button type="button" @click="scrollToNextPage()"><img
+                                        src="{{ Vite::asset('resources/images/btn-slider-right-35.svg') }}">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-[0] tablet:w-auto px-0 mb-[50px] overflow-y-hidden">
+                            <div x-ref="items_wrap"
+                                 class="app-no-scrollbar whitespace-nowrap snap-x overflow-y-hidden auto-cols-fr mx-auto font-Spartan-regular h-[54px] rounded-[10px] cursor-pointer block">
+
+                                @if(auth()->user()->investor && !auth()->user()->isDeniedInvestor())
+                                    <div class="mb-0 snap-start inline-block relative first:rounded-[10px_0_0_10px] last:rounded-[0_10px_10px_0] overflow-hidden">
+                                        <a href="{{ route('profile.overview', ['account' => 'investor']) }}"
+                                           class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'investor' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
+                                            Přehled investora
+                                        </a>
+                                    </div>
+                                @endif
+                                @if(auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser())
+                                    <div class="mb-0 snap-start inline-block relative first:rounded-[10px_0_0_10px] last:rounded-[0_10px_10px_0] overflow-hidden">
+                                        <a href="{{ route('profile.overview', ['account' => 'advertiser']) }}"
+                                           class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'advertiser' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
+                                            Přehled nabízejiciho
+                                        </a>
+                                    </div>
+                                @endif
+                                @if(auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus())
+                                    <div class="mb-0 snap-start inline-block relative first:rounded-[10px_0_0_10px] last:rounded-[0_10px_10px_0] overflow-hidden">
+                                        <a href="{{ route('profile.overview', ['account' => 'real-estate-broker']) }}"
+                                           class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'real-estate-broker' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
+                                            Přehled realitního makléře
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 @endif
+                {{--            filter - end--}}
             </div>
         </div>
 
@@ -47,7 +72,7 @@
             )
             <div class="max-w-[1230px] px-[15px] mx-auto pb-[20px] mt-[-20px]">
                 <div
-                        class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px]
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px]
                         text-center tablet:text-left
                         gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                     <div>

@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-1c0f8df4.css",
+    "file": "assets/app-46b77ea2.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -588,9 +588,17 @@
     "file": "assets/breadcrumbs-mark-0fd2b639.svg",
     "src": "resources/images/breadcrumbs-mark.svg"
   },
+  "resources/images/btn-slider-left-35.svg": {
+    "file": "assets/btn-slider-left-35-04d7c264.svg",
+    "src": "resources/images/btn-slider-left-35.svg"
+  },
   "resources/images/btn-slider-left.svg": {
     "file": "assets/btn-slider-left-8d69fab2.svg",
     "src": "resources/images/btn-slider-left.svg"
+  },
+  "resources/images/btn-slider-right-35.svg": {
+    "file": "assets/btn-slider-right-35-a7e760a5.svg",
+    "src": "resources/images/btn-slider-right-35.svg"
   },
   "resources/images/btn-slider-right.svg": {
     "file": "assets/btn-slider-right-20dd3039.svg",
@@ -785,7 +793,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-b57d3bc0.js",
+    "file": "assets/app-d80030db.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

@@ -26,6 +26,7 @@ import './app/admin-category.js';
 import './app/admin-user.js';
 import './app/verify-user-account.js';
 import './app/ajax-form.js';
+import './app/scroller.js';
 
 Alpine.start();
 
