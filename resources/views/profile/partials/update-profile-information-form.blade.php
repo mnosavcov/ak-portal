@@ -98,7 +98,7 @@
                             </p>
 
                             <p class="font-Spartan-Regular text-[13px] max-tablet:order-1 text-[#454141] leading-[22px] max-tablet:text-center mt-[10px]">
-                                {{ __('Správa vašich osobních údajů a dat v&nbsp;uživatelském účtu se řídí Zásadami zpracování osobních údajů zveřejněnými na portálu.') }}
+                                {!! __('Správa vašich osobních údajů a dat v&nbsp;uživatelském účtu se řídí Zásadami zpracování osobních údajů zveřejněnými na portálu.') !!}
                             </p>
 
                             <div class="mt-6">
