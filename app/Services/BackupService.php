@@ -27,6 +27,7 @@ class BackupService
         DB::table('backups')->insert([
             'table' => $model->getTable(),
             'column_id' => $model->id,
+            'user_id' => auth()->user()->id,
             'data' => $data,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
