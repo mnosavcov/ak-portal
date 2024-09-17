@@ -202,10 +202,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $deletable = false;
 
-        if(auth()->user()) {
+        if (auth()->user()) {
             $deletable = !$this->projects()
                 ->whereIn('status', Project::STATUS_NOT_DELETE_USER)
                 ->count();
+
+            if ($deletable) {
+                $deletable = !ProjectShow::where('user_id', auth()->user()->id)
+                    ->whereHas('project', function ($query) {
+                        $query->whereIn('status', Project::STATUS_NOT_DELETE_USER)
+                            ->where('offer', 1);
+                    })
+                    ->count();
+            }
         }
 
         return Attribute::make(

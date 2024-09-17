@@ -1,4 +1,42 @@
-<section x-data="{newPasswordOpen: false}">
+<section x-data="{
+        newPasswordOpen: false,
+        email: @js(old('email', $user['email'])),
+        email_origin: @js(old('email', $user['email'])),
+        phone_number: @js(old('phone_number', $user['phone_number'])),
+        phone_number_origin: @js(old('phone_number', $user['phone_number'])),
+        password: '',
+        password_confirmation: '',
+        password_error: '',
+        password_error_show: false,
+        showSave() {
+            if (this.newPasswordOpen) {
+                return true;
+            }
+            if(this.email !== this.email_origin) {
+                return true;
+            }
+            if(this.phone_number !== this.phone_number_origin) {
+                return true;
+            }
+        },
+        beforSave(el) {
+            if(this.newPasswordOpen) {
+                if(this.password.trim().length < 8) {
+                    this.password_error = 'Heslo musí mít alespoň 8 znaků.';
+                    this.password_error_show = true;
+                    return;
+                }
+                if(this.password !== this.password_confirmation) {
+                    this.password_error = 'Hesla se neshodují.';
+                    this.password_error_show = true;
+                    return;
+                }
+            }
+            this.password_error = '';
+            this.password_error_show = false;
+            el.submit();
+        }
+    }" x-init="$watch('newPasswordOpen', value => {if(!value) {password_error_show = false;}})">
     <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto
             px-[10px] py-[25px]
             tablet:px-[20px] tablet:py-[35px]
@@ -17,7 +55,7 @@
             grid gap-x-[20px] gap-y-[35px]
             md:grid-cols-2
             laptop:grid-cols-3
-        ">
+        " @submit.prevent="beforSave($el)">
             @csrf
             @method('patch')
             <input type="hidden" name="set_new_password" :value="newPasswordOpen ? 1 : 0">
@@ -26,37 +64,42 @@
                 <div>
                     <x-input-label for="email" :value="__('Kontaktní e-mail *')"/>
                     <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
-                                  value="{{ old('email', $user['email']) }}" required autocomplete="email"/>
+                                  x-model="email" required autocomplete="email"/>
                 </div>
 
                 <div>
                     <x-input-label for="phone_number" :value="__('Telefonní číslo *')"/>
                     <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
-                                  value="{{ old('phone_number', $user['phone_number']) }}" required/>
+                                  x-model="phone_number" required/>
                 </div>
 
                 <div class="hidden laptop:block"></div>
 
                 <div class="col-span-full font-Spartan-Regular text-[20px] leading-[30px]">Heslo</div>
 
-                <div type="button" @click="newPasswordOpen = !newPasswordOpen"
-                     class="col-span-full font-Spartan-SemiBold text-[18px] text-app-blue inline-block justify-self-start cursor-pointer">
+                <button type="button" @click="newPasswordOpen = !newPasswordOpen"
+                        class="col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
+                >
                     Nastavit nové heslo
-                </div>
+                </button>
             @endif
 
             <div x-cloak x-show="newPasswordOpen" x-collapse>
                 <x-input-label for="password" :value="__('Zvolte své heslo *')"/>
-                <x-text-input id="password" name="password" class="block mt-1 w-full" type="password"/>
+                <x-text-input id="password" name="password" class="block mt-1 w-full" type="password" x-model="password"/>
             </div>
 
             <div x-cloak x-show="newPasswordOpen" x-collapse>
                 <x-input-label for="password_confirmation" :value="__('Zadejte heslo znovu pro kontrolu *')"/>
                 <x-text-input id="password_confirmation" name="password_confirmation" class="block mt-1 w-full"
-                              type="password"/>
+                              type="password" x-model="password_confirmation"/>
             </div>
 
-            <button type="submit"
+            <div x-cloak x-show="password_error_show && password_error" x-text="password_error"
+                 class="col-span-full mt-[-25px] font-Spartan-Bold text-app-red text-[13px]">
+            </div>
+
+            <button type="submit" x-show="showSave()" x-cloak x-collapse
                     class="col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
             >
                 Uložit změny
@@ -75,7 +118,7 @@
                 @else
                     <button type="button"
                             class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer grayscale"
-                            @click.prevent="alert('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt.')">
+                            @click.prevent="alert('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt nebo máte nabídku u aktivního projektu.')">
                         Zrušit celý účet
                     </button>
                 @endif

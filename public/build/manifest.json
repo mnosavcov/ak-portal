@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-46b77ea2.css",
+    "file": "assets/app-afaa7678.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -589,7 +589,7 @@
     "src": "resources/images/breadcrumbs-mark.svg"
   },
   "resources/images/btn-slider-left-35.svg": {
-    "file": "assets/btn-slider-left-35-04d7c264.svg",
+    "file": "assets/btn-slider-left-35-5fdb2d95.svg",
     "src": "resources/images/btn-slider-left-35.svg"
   },
   "resources/images/btn-slider-left.svg": {
@@ -597,7 +597,7 @@
     "src": "resources/images/btn-slider-left.svg"
   },
   "resources/images/btn-slider-right-35.svg": {
-    "file": "assets/btn-slider-right-35-a7e760a5.svg",
+    "file": "assets/btn-slider-right-35-1203f84c.svg",
     "src": "resources/images/btn-slider-right-35.svg"
   },
   "resources/images/btn-slider-right.svg": {
