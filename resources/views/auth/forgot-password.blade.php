@@ -24,7 +24,7 @@
                             tablet:h-[60px] tablet:leading-[60px] tablet:text-[18px]
                             "
             >
-                {{ __('E-mail pro resetování hesla') }}
+                {{ __('Požádat o obnovu hesla') }}
             </button>
         </div>
     </form>

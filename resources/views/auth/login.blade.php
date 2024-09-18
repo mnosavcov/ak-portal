@@ -12,7 +12,18 @@
                     tablet:text-[22px] tablet:leading-[26px] tablet:mb-[50px]
                 ">
                 Ještě u nás nemáte účet?
-                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline text-app-blue">Registrujte se</a></div>
+                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline text-app-blue">Registrujte
+                    se</a></div>
+
+            @if(session('status_code') === \Illuminate\Support\Facades\Password::PASSWORD_RESET)
+                <div class="mb-[20px]">
+                    <div class="p-[15px] bg-app-blue w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            Heslo bylo úspěšně obnoveno.
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             @if(str_contains(session()->get('url')['intended'] ?? '', '/verify-email/'))
                 <div class="mb-[20px]">
@@ -35,7 +46,8 @@
 
                     <div class="max-md:col-span-2">
                         <x-input-label for="email" :value="__('E-mail')"/>
-                        <x-text-input id="email" name="email" class="block mt-1 w-full tablet:min-w-[350px]" type="email"
+                        <x-text-input id="email" name="email" class="block mt-1 w-full tablet:min-w-[350px]"
+                                      type="email"
                                       :value="old('email')"
                                       required autocomplete="email"/>
                         <x-input-error :messages="$errors->get('email')" class="mt-2"/>
@@ -80,7 +92,7 @@
                             h-[50px] leading-[50px] w-full text-[14px]
                             tablet:h-[60px] tablet:leading-[60px] tablet:w-auto tablet:px-[100px] tablet:text-[18px]
                             "
-                            >
+                    >
                         Přihlásit se
                     </button>
                 </div>

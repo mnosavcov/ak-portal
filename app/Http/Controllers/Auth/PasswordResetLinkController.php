@@ -36,9 +36,16 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
+        if ($status === 'passwords.user') {
+            $status = 'Zadanou e-mailovou adresu jsme v naší databázi nenalezli.';
+        }
+        if ($status === 'passwords.throttled') {
+            $status = 'Zaznamenali jsme příliš mnoho pokusů o obnovení hesla. Tuto funkci jsme dočasně deaktivovali. Zkuste to znovu za 5 minut.';
+        }
+
         return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            ? back()->with('status', __('Odeslali jsme vám e-mailovou zprávu s odkazem na obnovu.'))
+            : back()->withInput($request->only('email'))
+                ->withErrors(['email' => __($status)]);
     }
 }

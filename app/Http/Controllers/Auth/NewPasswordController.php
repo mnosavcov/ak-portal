@@ -33,6 +33,11 @@ class NewPasswordController extends Controller
             'token' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'email.required' => 'E-mail je povinné pole.',
+            'password.required' => 'Nové heslo je povinné.',
+            'password.confirmed' => 'Zadaná hesla se neshodují.',
+            'password.min' => 'Nové heslo musí mít alespoň :min znaků.',
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we
@@ -50,11 +55,18 @@ class NewPasswordController extends Controller
             }
         );
 
+        if ($status === 'passwords.user') {
+            $status = 'Zadanou e-mailovou adresu jsme v naší databázi nenalezli.';
+        }
+        if ($status === 'passwords.token') {
+            $status = 'Token pro obnovu hesla není platný.';
+        }
+
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
+                    ? redirect()->route('login')->with('status', __($status))->with('status_code', Password::PASSWORD_RESET)
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
     }
