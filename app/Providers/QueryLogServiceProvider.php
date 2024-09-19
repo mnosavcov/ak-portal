@@ -29,16 +29,25 @@ class QueryLogServiceProvider extends ServiceProvider
                 return;
             }
 
+            $sql = $query->sql;
+
             if (
-                !str_contains(strtolower($query->sql), 'insert ')
-                && !str_contains(strtolower($query->sql), 'update ')
-                && !str_contains(strtolower($query->sql), 'delete ')
+                !str_contains(strtolower($sql), 'insert ')
+                && !str_contains(strtolower($sql), 'update ')
+                && !str_contains(strtolower($sql), 'delete ')
             ) {
                 return;
             }
 
+            $bindings = $query->bindings;
+
+            foreach ($bindings as $binding) {
+                $value = is_numeric($binding) ? $binding : "'" . addslashes($binding) . "'";
+                $sql = preg_replace('/\?/', $value, $sql, 1);
+            }
+
             $filename = 'logs/sql_' . Carbon::now()->format('Y-m-d') . '.log';
-            Storage::append($filename, $query->sql . '|' . serialize($query->bindings));
+            Storage::append($filename, $sql);
         });
     }
 }
