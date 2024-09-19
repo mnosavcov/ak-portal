@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-7378dab5.css",
+    "file": "assets/app-c07ef5a3.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -708,6 +708,10 @@
     "file": "assets/ico-proverujeme-kazdy-projekt-d4f9e31d.svg",
     "src": "resources/images/ico-proverujeme-kazdy-projekt.svg"
   },
+  "resources/images/ico-question.svg": {
+    "file": "assets/ico-question-0a5d88dc.svg",
+    "src": "resources/images/ico-question.svg"
+  },
   "resources/images/ico-state-no.svg": {
     "file": "assets/ico-state-no-1a6a6663.svg",
     "src": "resources/images/ico-state-no.svg"
@@ -723,6 +727,10 @@
   "resources/images/ico-status.svg": {
     "file": "assets/ico-status-dc119d72.svg",
     "src": "resources/images/ico-status.svg"
+  },
+  "resources/images/ico-upload-file.svg": {
+    "file": "assets/ico-upload-file-69e6a459.svg",
+    "src": "resources/images/ico-upload-file.svg"
   },
   "resources/images/ico-upload.svg": {
     "file": "assets/ico-upload-6e424bf8.svg",
@@ -793,7 +801,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-d80030db.js",
+    "file": "assets/app-73ea49a6.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

@@ -54,7 +54,7 @@
 
         <div class="text-center mt-[15px]"
              x-data="{
-                        show: @js($show),
+                        show: @js($show->toArray()),
                         async setPublic(access) {
                             if(access && !confirm('Opravdu si přejete povolit přístup? Povolení již nelze vzít zpět.')) {
                                 return;

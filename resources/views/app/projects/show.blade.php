@@ -32,8 +32,10 @@
 
         <div x-data="{
             projectShow: 'projekt',
+            isSetMaxQuestionId: false,
+            isSetMaxActualityId: false,
         }">
-            <div class="w-full px-[15px]">
+            <div class="w-full px-[15px]" x-data="{questionCount: 0, newQuestionCount: 0}">
                 <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[100px] max-w-[1200px] mx-auto grid text-[#414141]
                     min-h-[780px] content-start
                   grid-cols-1 px-[10px] py-[35px]
@@ -48,18 +50,69 @@
                             Projekt
                         </div>
                         @if(!empty(trim($project->map_lat_lng)))
-                        <div
-                            class="cursor-pointer"
-                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'lokace'}"
-                            @click="projectShow = 'lokace'">
-                            Lokace
-                        </div>
+                            <div
+                                class="cursor-pointer"
+                                :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'lokace'}"
+                                @click="projectShow = 'lokace'">
+                                Lokace
+                            </div>
                         @endif
+                        <div
+                            class="cursor-pointer relative"
+                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'questions'}"
+                            @click="
+                                    projectShow = 'questions';
+                                    if(!isSetMaxQuestionId) {
+                                        fetch(@js(route('project-questions.set-max-question-id', ['project' => $project])), {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-type': 'application/json; charset=UTF-8',
+                                                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                                            },
+                                        })
+
+                                        isSetMaxQuestionId = true;
+                                    }
+                                ">
+                            Otázky a odpovědi (<span
+                                x-text="questionCount"></span>)
+                            @if(auth()->user())
+                                <template x-if="newQuestionCount > 0">
+                                    <div
+                                        class="absolute top-[-10px] right-[-26px] text-center leading-[28px] w-[26px] h-[26px] rounded-full bg-app-red text-white font-Spartan-SemiBold text-[13px]"
+                                        x-text="newQuestionCount"></div>
+                                </template>
+                            @endif
+                        </div>
                         <div
                             class="cursor-pointer"
                             :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'dokumentace'}"
                             @click="projectShow = 'dokumentace'">
                             Dokumentace (<span x-text="{{ $files->count() }}"></span>)
+                        </div>
+                        <div
+                            class="cursor-pointer relative"
+                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'actualities'}"
+                            @click="
+                                    projectShow = 'actualities';
+                                    if(!isSetMaxActualityId) {
+                                        fetch(@js(route('project-actualities.set-max-actuality-id', ['project' => $project])), {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-type': 'application/json; charset=UTF-8',
+                                                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                                            },
+                                        })
+
+                                        isSetMaxActualityId = true;
+                                    }
+                                ">
+                            Aktuality (<span
+                                x-text="{{ $project->projectactualities()->where('confirmed', 1)->count() }}"></span>)
+                            @if($project->new_actualities_count)
+                                <div
+                                    class="absolute top-[-10px] right-[-26px] text-center leading-[28px] w-[26px] h-[26px] rounded-full bg-app-red text-white font-Spartan-SemiBold text-[13px]">{{ $project->new_actualities_count }}</div>
+                            @endif
                         </div>
                     </div>
 
@@ -124,8 +177,10 @@
                         </div>
                     </div>
 
-                    @include('app.projects.@document-list')
                     @include('app.projects.@lokace')
+                    @include('app.projects.@questions')
+                    @include('app.projects.@document-list')
+                    @include('app.projects.@actualities')
                 </div>
             </div>
         </div>

@@ -7,10 +7,12 @@ use App\Events\RegisteredAdvisor;
 use App\Http\Requests\StoreMultipleRecordsRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectActuality;
 use App\Models\ProjectDetail;
 use App\Models\ProjectFile;
 use App\Models\ProjectGallery;
 use App\Models\ProjectImage;
+use App\Models\ProjectQuestion;
 use App\Models\ProjectShow;
 use App\Models\ProjectState;
 use App\Models\ProjectTag;
@@ -691,5 +693,131 @@ class AdminController extends Controller
                 'payments' => $payments,
             ]
         );
+    }
+
+    public function adminQuestionConfirm(Request $request, ProjectQuestion $projectQuestion)
+    {
+        $projectQuestion->confirmed = $request->post('data')['confirm'] ? 1 : -1;
+        if($projectQuestion->confirmed === -1) {
+            $projectQuestion->not_confirmed_reason = $request->post('data')['reason'];
+}
+        $projectQuestion->save();
+
+        return [
+            'status' => 'success',
+            'list' => Project::find($projectQuestion->project->id)->getQuestionsWithAnswers(),
+        ];
+    }
+
+    public function adminQuestionUpdate(Request $request, ProjectQuestion $projectQuestion)
+    {
+        $projectQuestion->content = $request->post('data')['question'];
+        $questionFiles = json_decode($projectQuestion->files, true);
+
+        $images = TempProjectFile::where('temp_project_id', $request->post('data')['uuid'])
+            ->whereIn('id', array_keys($request->post('data')['files']))->get();
+        if ($images) {
+            foreach ($images as $image) {
+                $path = $image->filepath;
+                $path = str_replace(
+                    'temp/' . $request->post('data')['uuid'],
+                    'projects/' . $projectQuestion->project->user_id . '/' . $projectQuestion->project->id . '/questions/' . $projectQuestion->id,
+                    $path
+                );
+
+                Storage::copy($image->filepath, $path);
+                $questionFiles[$path] = $image->filename;
+            }
+
+            $projectQuestion->files = $questionFiles;
+        }
+
+        $deletedFile = false;
+        foreach ($request->post('data')['fileList'] as $file) {
+            if (empty($file['delete'])) {
+                continue;
+            }
+
+            if (!array_key_exists($file['fileindex'], $questionFiles)) {
+                continue;
+            }
+
+            unset($questionFiles[$file['fileindex']]);
+            $deletedFile = true;
+        }
+
+        if ($deletedFile) {
+            $projectQuestion->files = $questionFiles;
+        }
+
+        $projectQuestion->save();
+
+        return [
+            'status' => 'success',
+            'list' => Project::find($projectQuestion->project->id)->getQuestionsWithAnswers(),
+        ];
+    }
+
+    public function adminActualityConfirm(Request $request, ProjectActuality $projectActuality)
+    {
+        $projectActuality->confirmed = $request->post('data')['confirm'] ? 1 : -1;
+        if($projectActuality->confirmed === -1) {
+            $projectActuality->not_confirmed_reason = $request->post('data')['reason'];
+        }
+        $projectActuality->save();
+
+        return [
+            'status' => 'success',
+            'list' => Project::find($projectActuality->project->id)->getActualities(),
+        ];
+    }
+
+    public function adminActualityUpdate(Request $request, ProjectActuality $projectActuality)
+    {
+        $projectActuality->content = $request->post('data')['actuality'];
+        $actualityFiles = json_decode($projectActuality->files, true);
+
+        $images = TempProjectFile::where('temp_project_id', $request->post('data')['uuid'])
+            ->whereIn('id', array_keys($request->post('data')['files']))->get();
+        if ($images) {
+            foreach ($images as $image) {
+                $path = $image->filepath;
+                $path = str_replace(
+                    'temp/' . $request->post('data')['uuid'],
+                    'projects/' . $projectActuality->project->user_id . '/' . $projectActuality->project->id . '/actualities/' . $projectActuality->id,
+                    $path
+                );
+
+                Storage::copy($image->filepath, $path);
+                $actualityFiles[$path] = $image->filename;
+            }
+
+            $projectActuality->files = $actualityFiles;
+        }
+
+        $deletedFile = false;
+        foreach ($request->post('data')['fileList'] as $file) {
+            if (empty($file['delete'])) {
+                continue;
+            }
+
+            if (!array_key_exists($file['fileindex'], $actualityFiles)) {
+                continue;
+            }
+
+            unset($actualityFiles[$file['fileindex']]);
+            $deletedFile = true;
+        }
+
+        if ($deletedFile) {
+            $projectActuality->files = $actualityFiles;
+        }
+
+        $projectActuality->save();
+
+        return [
+            'status' => 'success',
+            'list' => Project::find($projectActuality->project->id)->getActualities(),
+        ];
     }
 }

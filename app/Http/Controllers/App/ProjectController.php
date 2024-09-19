@@ -292,6 +292,7 @@ class ProjectController extends Controller
             [
                 'project' => $project,
                 'nahled' => $nahled,
+                'answerboxRenderView' => view('app.projects.@questions-answerbox')->render(),
             ]
         );
     }
@@ -755,5 +756,25 @@ class ProjectController extends Controller
             'bidExists' => $project->offers()->where('user_id', auth()->user()->id)->count(),
             'maxId' => $project->offers()->first()->id ?? 0
         ];
+    }
+
+    public function setMaxQuestionId(Project $project)
+    {
+        $maxId = $project->projectquestions()->where('confirmed', 1)->max('id');
+        if($maxId) {
+            $myShow = $project->myShow()->first();
+            $myShow->max_question_id = $maxId;
+            $myShow->save();
+        }
+    }
+
+    public function setMaxActualityId(Project $project)
+    {
+        $maxId = $project->projectactualities()->where('confirmed', 1)->max('id');
+        if($maxId) {
+            $myShow = $project->myShow()->first();
+            $myShow->max_actuality_id = $maxId;
+            $myShow->save();
+        }
     }
 }

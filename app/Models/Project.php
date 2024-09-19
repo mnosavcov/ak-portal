@@ -36,6 +36,8 @@ class Project extends Model
         'use_countdown_date_text_long',
         'zip_url',
         'min_bid_amount_text',
+        'new_questions_count',
+        'new_actualities_count',
     ];
 
     protected $fillable = [
@@ -230,6 +232,16 @@ class Project extends Model
     public function projectauctionoffers()
     {
         return $this->hasMany(ProjectAuctionOffer::class);
+    }
+
+    public function projectquestions()
+    {
+        return $this->hasMany(ProjectQuestion::class);
+    }
+
+    public function projectactualities()
+    {
+        return $this->hasMany(ProjectActuality::class);
     }
 
     public function user()
@@ -671,6 +683,162 @@ class Project extends Model
             ->orderBy('id', 'desc');
     }
 
+    public function getQuestionsWithAnswers()
+    {
+        $questions = $this->projectquestions()
+            ->orderBy('id', 'desc')
+            ->whereNull('parent_id')
+            ->with(['childAnswers', 'user']);
+
+        if (!auth()->user() || !auth()->user()->isSuperadmin()) {
+            if (auth()->user()) {
+                $questions = $questions->where(function ($query) {
+                    $query->where('confirmed', 1)
+                        ->orWhere('user_id', auth()->user()->id);
+                });
+            } else {
+                $questions = $questions->where('confirmed', 1);
+            }
+        }
+
+        return $questions->get()->map(function ($question) {
+            $appendColumns = [];
+            if (auth()->user()) {
+                if (auth()->user()->isSuperadmin()) {
+                    $appendColumns = [
+                        'not_confirmed_reason',
+                        'not_confirmed_reason_text',
+                    ];
+                } elseif (auth()->user()->id === $question->user_id) {
+                    $appendColumns = [
+                        'not_confirmed_reason_text',
+                    ];
+                }
+            }
+
+            $questionData = $question->only(array_merge([
+                'id',
+                'content_text',
+                'content_text_edit',
+                'file_list',
+                'confirmed',
+                'user_id',
+                'user_name_text',
+                'date_text',
+                'verified',
+                'file_uuid',
+                'temp_file_url',
+                'parent_id',
+                'project_id',
+                'response_button',
+                'level',
+                'history_list',
+            ], $appendColumns));
+
+            $questionData['child_answers'] = $this->getChildAnswersRecursive($question->childAnswers);
+
+            return $questionData;
+        });
+    }
+
+    private function getChildAnswersRecursive($answers)
+    {
+        return $answers->map(function ($answer) {
+            $appendColumns = [];
+            if (auth()->user()) {
+                if (auth()->user()->isSuperadmin()) {
+                    $appendColumns = [
+                        'not_confirmed_reason',
+                        'not_confirmed_reason_text',
+                    ];
+                } elseif (auth()->user()->id === $answer->user_id) {
+                    $appendColumns = [
+                        'not_confirmed_reason_text',
+                    ];
+                }
+            }
+
+            $answerData = $answer->only(array_merge([
+                'id',
+                'content_text',
+                'content_text_edit',
+                'file_list',
+                'confirmed',
+                'user_id',
+                'user_name_text',
+                'date_text',
+                'verified',
+                'file_uuid',
+                'temp_file_url',
+                'parent_id',
+                'project_id',
+                'response_button',
+                'level',
+                'history_list',
+            ], $appendColumns));
+
+            // Rekurzivně zpracujeme childAnswers, pokud existují
+            if ($answer->childAnswers->isNotEmpty()) {
+                $answerData['child_answers'] = $this->getChildAnswersRecursive($answer->childAnswers, $appendColumns);
+            } else {
+                $answerData['child_answers'] = [];
+            }
+
+            return $answerData;
+        });
+    }
+
+    public function getActualities()
+    {
+        $actualities = $this->projectactualities()
+            ->orderBy('id', 'desc')
+            ->whereNull('parent_id')
+            ->with(['user']);
+
+        $appendColumns = [];
+
+        if (!auth()->user() || !auth()->user()->isSuperadmin()) {
+            if (auth()->user()) {
+                $actualities = $actualities->where(function ($query) {
+                    $query->where('confirmed', 1)
+                        ->orWhere('user_id', auth()->user()->id);
+                });
+            } else {
+                $actualities = $actualities->where('confirmed', 1);
+            }
+        }
+
+        if (auth()->user()) {
+            if (auth()->user()->isSuperadmin()) {
+                $appendColumns = [
+                    'not_confirmed_reason',
+                    'not_confirmed_reason_text',
+                ];
+            } elseif (auth()->user()->id === $this->user_id) {
+                $appendColumns = [
+                    'not_confirmed_reason_text',
+                ];
+            }
+        }
+
+        return $actualities->get()->map(function ($actualities) use ($appendColumns) {
+            return $actualities->only(array_merge([
+                'id',
+                'content_text',
+                'content_text_edit',
+                'file_list',
+                'confirmed',
+                'user_id',
+                'user_name_text',
+                'date_text',
+                'verified',
+                'file_uuid',
+                'temp_file_url',
+                'history_list',
+            ], $appendColumns));
+        });
+    }
+
     private function isVerifiedDefault($checkPublic = true): bool
     {
         if (auth()->guest()) {
@@ -729,7 +897,7 @@ class Project extends Model
 
     public function offers()
     {
-        if($this->type === 'auction') {
+        if ($this->type === 'auction') {
             return $this->projectauctionoffers()->orderBy('offer_amount', 'desc')->orderBy('offer_time', 'desc')->orderBy('id')->get();
         }
 
@@ -742,7 +910,7 @@ class Project extends Model
 
     public function offersCountAll()
     {
-        if($this->type === 'auction') {
+        if ($this->type === 'auction') {
             return $this->projectauctionoffers->count();
         }
 
@@ -788,6 +956,43 @@ class Project extends Model
                 'hash' => $hash,
                 'filename' => sprintf('%s.zip', Str::slug(Str::substr($this->title, 0, 32))),
             ])
+        );
+    }
+
+    public function newQuestionsCount(): Attribute
+    {
+        //        throw new \Exception('tuhle funkčnost nepoužívat, počítá chybně');
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => -999
+        );
+
+        $count = 0;
+        if (auth()->user()) {
+            $maxId = $this->myShow()->max('max_question_id') ?? 0;
+            $count = $this->projectquestions()
+                ->where('confirmed', 1)
+                ->where('id', '>', $maxId)
+                ->count();
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $count
+        );
+    }
+
+    public function newActualitiesCount(): Attribute
+    {
+        $count = 0;
+        if (auth()->user()) {
+            $maxId = $this->myShow()->max('max_actuality_id') ?? 0;
+            $count = $this->projectactualities()
+                ->where('confirmed', 1)
+                ->where('id', '>', $maxId)
+                ->count();
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $count
         );
     }
 }

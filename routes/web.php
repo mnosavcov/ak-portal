@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\BackupController;
 use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
+use App\Http\Controllers\App\ProjectQuestionController;
+use App\Http\Controllers\App\ProjectActualityController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
@@ -95,6 +97,16 @@ Route::get('vseobecne-obchodni-podminky', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
+    Route::get('file/{project}/question/{project_question}/{question_file}/{hash}/{filename}', [ProjectQuestionController::class, 'file'], null)->name('question-file');
+    Route::get('file/{project}/actuality/{project_actuality}/{actuality_file}/{hash}/{filename}', [ProjectActualityController::class, 'file'], null)->name('actuality-file');
+
+    Route::post('project-questions/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('project-questions.store-temp-file');
+    Route::resource('project-questions', ProjectQuestionController::class);
+    Route::post('project-questions/set-max-question-id/{project}', [ProjectController::class, 'setMaxQuestionId'])->name('project-questions.set-max-question-id');
+
+    Route::post('project-actualities/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('project-actualities.store-temp-file');
+    Route::resource('project-actualities', ProjectActualityController::class);
+    Route::post('project-actualities/set-max-actuality-id/{project}', [ProjectController::class, 'setMaxActualityId'])->name('project-actualities.set-max-actuality-id');
 
     Route::resource('projekty', ProjectController::class)
         ->except(['create', 'update', 'index', 'show', 'edit'])
@@ -156,7 +168,7 @@ Route::middleware('auth')->group(function () {
                 Route::post('projekty/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');
                 Route::get('projekty/{project}', [AdminController::class, 'projectEdit'])->name('projects.edit');
                 Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.save');
-                Route::post('projects/store-temp-file/{uuid}', [AdminController::class, 'storeTempFile'])->name('projects.store-temp-file');
+                Route::post('projekty/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
                 Route::post('project-tags/store-temp-file/{uuid}', [AdminController::class, 'storeTempFile'])->name('project-tags.store-temp-file');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
@@ -184,6 +196,11 @@ Route::middleware('auth')->group(function () {
 
                 Route::post('user-new-advisor', [AdminController::class, 'addAdvisor'])->name('user.new-advisor');
                 Route::post('user-new-admin', [AdminController::class, 'addAdmin'])->name('user.new-admin');
+
+                Route::post('project-question/confirm/{project_question}', [AdminController::class, 'adminQuestionConfirm'])->name('project-question.confirm');
+                Route::post('project-question/update/{project_question}', [AdminController::class, 'adminQuestionUpdate'])->name('project-question.update');
+                Route::post('project-actuality/confirm/{project_actuality}', [AdminController::class, 'adminActualityConfirm'])->name('project-actuality.confirm');
+                Route::post('project-actuality/update/{project_actuality}', [AdminController::class, 'adminActualityUpdate'])->name('project-actuality.update');
 
                 Route::get('payments', [AdminController::class, 'paymentsShow'])->name('payments.show');
                 Route::get('payment/fio-check', function () {

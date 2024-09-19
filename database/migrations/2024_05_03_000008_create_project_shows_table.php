@@ -26,7 +26,9 @@ return new class extends Migration
             $table->boolean('showed')->default(false);
             $table->integer('details_on_request')->default(0);
             $table->dateTime('details_on_request_time')->nullable();
-            $table->string(10, 'variable_symbol')->nullable();
+            $table->string('variable_symbol', 10)->nullable();
+            $table->foreignId('max_question_id')->nullable()->constrained('project_contents');
+            $table->foreignId('max_actuality_id')->nullable()->constrained('project_contents');
 
             $table->unique(['user_id', 'project_id']);
             $table->unique(['variable_symbol']);
