@@ -9,12 +9,26 @@ use Illuminate\Support\ServiceProvider;
 
 class QueryLogServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        $this->app->singleton('QueryLogServiceProvider.enabled', function () {
+            return true;
+        });
+    }
+
     /**
      * Register services.
      */
-    public function register(): void
+    public function boot(): void
     {
         DB::listen(function ($query) {
+            if (!$this->app->make('QueryLogServiceProvider.enabled')) {
+                $this->app->singleton('QueryLogServiceProvider.enabled', function () {
+                    return true;
+                });
+                return;
+            }
+
             if (
                 !str_contains(strtolower($query->sql), 'insert ')
                 && !str_contains(strtolower($query->sql), 'update ')
@@ -26,13 +40,5 @@ class QueryLogServiceProvider extends ServiceProvider
             $filename = 'logs/sql_' . Carbon::now()->format('Y-m-d') . '.log';
             Storage::append($filename, $query->sql . '|' . serialize($query->bindings));
         });
-    }
-
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
     }
 }

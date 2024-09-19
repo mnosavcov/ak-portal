@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Facades\QueryLog;
 use App\Models\Project;
 use App\Services\TempProjectFileService;
 use App\Services\UsersService;
@@ -56,6 +57,7 @@ class BeforeMiddleware
         }
 
         if (Schema::hasTable('projects')) {
+            QueryLog::disable();
             Project::IsPublicated()
                 ->where('status', '!=', 'finished')
                 ->where('status', '!=', 'evaluation')
