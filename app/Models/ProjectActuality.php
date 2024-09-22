@@ -44,6 +44,20 @@ class ProjectActuality extends Model
         });
 
         static::updating(function ($model) {
+            if (
+                $model->getDirty()
+                && is_array($model->getDirty())
+                && count($model->getDirty()) === 1
+                && array_keys($model->getDirty())[0] === 'files'
+                && json_encode($model->files) === $model->getOriginal()['files']
+            ) {
+                return;
+            }
+
+            if (!$model->getDirty()) {
+                return;
+            }
+
             (new BackupService)->backup2Table($model);
         });
 
