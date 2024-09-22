@@ -42,25 +42,50 @@
                   laptop:grid-cols-2 laptop:gap-x-[50px] laptop:px-[30px] laptop:py-[50px]
                   ">
 
-                    <div class="col-span-full flex flex-row gap-x-[70px] mb-[50px] font-WorkSans-Regular text-[18px]">
-                        <div
-                            class="cursor-pointer"
-                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'projekt'}"
-                            @click="projectShow = 'projekt'">
-                            Projekt
+                    <div x-data="scroller(160)" class="col-span-full font-WorkSans-Regular text-[18px] relative">
+                        <div class="text-center mt-[-10px] absolute left-[-25px] z-50" x-show="showArrows" x-cloak>
+                            <button type="button" @click="scrollToPrevPage()"><img
+                                    src="{{ Vite::asset('resources/images/btn-slider-left-35.svg') }}">
+                            </button>
                         </div>
-                        @if(!empty(trim($project->map_lat_lng)))
-                            <div
-                                class="cursor-pointer"
-                                :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'lokace'}"
-                                @click="projectShow = 'lokace'">
-                                Lokace
-                            </div>
-                        @endif
+                        <div class="text-center mt-[-10px] absolute right-[-25px] z-50" x-show="showArrows" x-cloak>
+                            <button type="button" @click="scrollToNextPage()"><img
+                                    src="{{ Vite::asset('resources/images/btn-slider-right-35.svg') }}">
+                            </button>
+                        </div>
+
                         <div
-                            class="cursor-pointer relative"
-                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'questions'}"
-                            @click="
+                            class="w-full mt-[0] tablet:w-auto tablet:px-0 mb-[50px] overflow-y-hidden"
+                            :class="{
+                                '!w-[calc(100%-70px)] mx-[35px]': showArrows
+                            }"
+                        >
+                            <div x-ref="items_wrap"
+                                 class="text-[0] app-no-scrollbar whitespace-nowrap block snap-x overflow-y-hidden auto-cols-fr mx-auto rounded-[10px] cursor-pointer space-x-[70px]">
+                                <div
+                                    class="cursor-pointer snap-start inline-block text-[18px]"
+                                    :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'projekt'}"
+                                    @click="projectShow = 'projekt'">
+                                    Projekt
+                                </div>
+                                <div
+                                    class="cursor-pointer snap-start inline-block text-[18px]"
+                                    :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'dokumentace'}"
+                                    @click="projectShow = 'dokumentace'">
+                                    Dokumentace (<span x-text="{{ $files->count() }}"></span>)
+                                </div>
+                                @if(!empty(trim($project->map_lat_lng)))
+                                    <div
+                                        class="cursor-pointer snap-start inline-block text-[18px]"
+                                        :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'lokace'}"
+                                        @click="projectShow = 'lokace'">
+                                        Lokace
+                                    </div>
+                                @endif
+                                <div
+                                    class="cursor-pointer relative snap-start inline-block text-[18px]"
+                                    :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'questions'}"
+                                    @click="
                                     projectShow = 'questions';
                                     if(!isSetMaxQuestionId) {
                                         fetch(@js(route('project-questions.set-max-question-id', ['project' => $project])), {
@@ -74,26 +99,20 @@
                                         isSetMaxQuestionId = true;
                                     }
                                 ">
-                            Otázky a odpovědi (<span
-                                x-text="questionCount"></span>)
-                            @if(auth()->user())
-                                <template x-if="newQuestionCount > 0">
-                                    <div
-                                        class="absolute top-[-10px] right-[-26px] text-center leading-[28px] w-[26px] h-[26px] rounded-full bg-app-red text-white font-Spartan-SemiBold text-[13px]"
-                                        x-text="newQuestionCount"></div>
-                                </template>
-                            @endif
-                        </div>
-                        <div
-                            class="cursor-pointer"
-                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'dokumentace'}"
-                            @click="projectShow = 'dokumentace'">
-                            Dokumentace (<span x-text="{{ $files->count() }}"></span>)
-                        </div>
-                        <div
-                            class="cursor-pointer relative"
-                            :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'actualities'}"
-                            @click="
+                                    Otázky a odpovědi (<span
+                                        x-text="questionCount"></span>)
+                                    @if(auth()->user())
+                                        <template x-if="newQuestionCount > 0">
+                                            <div
+                                                class="absolute top-[-10px] right-[-26px] text-center leading-[28px] w-[26px] h-[26px] rounded-full bg-app-red text-white font-Spartan-SemiBold text-[13px]"
+                                                x-text="newQuestionCount"></div>
+                                        </template>
+                                    @endif
+                                </div>
+                                <div
+                                    class="cursor-pointer relative snap-start inline-block text-[18px]"
+                                    :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'actualities'}"
+                                    @click="
                                     projectShow = 'actualities';
                                     if(!isSetMaxActualityId) {
                                         fetch(@js(route('project-actualities.set-max-actuality-id', ['project' => $project])), {
@@ -107,12 +126,14 @@
                                         isSetMaxActualityId = true;
                                     }
                                 ">
-                            Aktuality (<span
-                                x-text="{{ $project->projectactualities()->where('confirmed', 1)->count() }}"></span>)
-                            @if($project->new_actualities_count)
-                                <div
-                                    class="absolute top-[-10px] right-[-26px] text-center leading-[28px] w-[26px] h-[26px] rounded-full bg-app-red text-white font-Spartan-SemiBold text-[13px]">{{ $project->new_actualities_count }}</div>
-                            @endif
+                                    Aktuality (<span
+                                        x-text="{{ $project->projectactualities()->where('confirmed', 1)->count() }}"></span>)
+                                    @if($project->new_actualities_count)
+                                        <div
+                                            class="absolute top-[-10px] right-[-26px] text-center leading-[28px] w-[26px] h-[26px] rounded-full bg-app-red text-white font-Spartan-SemiBold text-[13px]">{{ $project->new_actualities_count }}</div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -184,7 +205,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     @include('app.@faq')
