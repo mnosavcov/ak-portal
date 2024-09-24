@@ -76,7 +76,9 @@ class ProjectQuestionController extends Controller
             }
 
             $projectAnswer->files = $questionFiles;
+            $projectAnswer->timestamps = false;
             $projectAnswer->save();
+            $projectAnswer->timestamps = true;
         }
 
         return [

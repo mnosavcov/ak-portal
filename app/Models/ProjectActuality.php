@@ -49,12 +49,21 @@ class ProjectActuality extends Model
                 && is_array($model->getDirty())
                 && count($model->getDirty()) === 1
                 && array_keys($model->getDirty())[0] === 'files'
-                && json_encode($model->files) === $model->getOriginal()['files']
+                && json_encode($model->files) === ($model->getOriginal()['files'] ?? [])
             ) {
                 return;
             }
 
             if (!$model->getDirty()) {
+                return;
+            }
+
+            if ($model->timestamps === false) {
+                return;
+            }
+
+            $model->timestamps = true;
+            if ($model->created_at->timestamp === Carbon::now()->timestamp) {
                 return;
             }
 
@@ -151,7 +160,7 @@ class ProjectActuality extends Model
     public function contentText(): Attribute
     {
         $content = $this->content;
-        if (!$this->isVerified()) {
+        if (!$this->isVerified() || !auth()->user()->isVerified()) {
             $description = html_entity_decode($content);
             $description = preg_split("/\R/", strip_tags($description));
             foreach ($description as $index => $itemX) {
@@ -170,13 +179,13 @@ class ProjectActuality extends Model
     {
         $order = 0;
         $fileList = [];
-        $files = json_decode($this->files);
+        $files = json_decode($this->files) ?? [];
         foreach ($files as $index => $filename) {
             $projectId = $this->project_id;
             $fileId = $index;
             $hash = sha1(sprintf('%s-W1zBaIoqfqw-%s-%s', $projectId, $fileId, $this->id));
             $partsFilename = explode('.', $filename);
-            if ($this->isVerified()) {
+            if ($this->isVerified() && auth()->user()->isVerified()) {
                 foreach ($partsFilename as $index2 => $partFilename) {
                     $partsFilename[$index2] = Str::slug($partFilename);
                 }

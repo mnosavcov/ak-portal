@@ -11,7 +11,7 @@
         "
 >
 
-    @if($project->isVerified() && $project->isMine() && !auth()->user()->isSuperadmin())
+    @if($project->isVerified() && $project->isMine() && !auth()->user()->isSuperadmin() && auth()->user()->isVerified())
         <h2 class="mb-[50px]">
             Zveřejněte aktualitu
         </h2>
@@ -21,32 +21,34 @@
 
     <div class="max-w-[800px]">
         @if($project->isVerified() && $project->isMine() && !auth()->user()->isSuperadmin())
-            <div>
-                <div class="tinyBox-wrap mb-[30px]">
-                    <div class="tinyBox">
-                        <x-textarea-input id="actuality" name="actuality" class="block mt-1 w-full"
-                                          x-model="formData.actuality.actuality"/>
+            @if(auth()->user()->isVerified())
+                <div>
+                    <div class="tinyBox-wrap mb-[30px]">
+                        <div class="tinyBox">
+                            <x-textarea-input id="actuality" name="actuality" class="block mt-1 w-full"
+                                              x-model="formData.actuality.actuality"/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="grid grid-cols-2"
-                     x-data="{itemActuality: {id: 0}}"
-                     x-init="
+                    <div class="grid grid-cols-2"
+                         x-data="{itemActuality: {id: 0}}"
+                         x-init="
                         formData.actuality.actuality_file_url[itemActuality.id] = @js(route('project-actualities.store-temp-file', ['uuid' => $projectFileUUID]));
                         tempFiles.fileList[formData.actuality.actuality_file_uuid[itemActuality.id]] = {};
                         tempFiles.fileListError[formData.actuality.actuality_file_uuid[itemActuality.id]] = [];
                         tempFiles.fileListProgress[formData.actuality.actuality_file_uuid[itemActuality.id]] = {};
                     ">
-                    @include('app.projects.@actualities-files')
+                        @include('app.projects.@actualities-files')
 
-                    <button type="button"
-                            class="font-Spartan-SemiBold bg-app-blue text-white text-[14px] h-[45px] justify-self-end rounded-[3px] px-[25px]"
-                            @click="sendActuality()"
-                    >
-                        Zveřejnit
-                    </button>
+                        <button type="button"
+                                class="font-Spartan-SemiBold bg-app-blue text-white text-[14px] h-[45px] justify-self-end rounded-[3px] px-[25px]"
+                                @click="sendActuality()"
+                        >
+                            Zveřejnit
+                        </button>
+                    </div>
                 </div>
-            </div>
+            @endif
         @elseif($project->isVerified() && $project->isMine() && auth()->user()->isSuperadmin())
         @else
             @if(auth()->guest())
@@ -122,7 +124,8 @@
                             Pro zobrazení aktualit musíte mít ověřený účet investora.
                         </div>
                     </div>
-                    <div class="font-Spartan-SemiBold text-[15px] text-app-orange text-center laptop:text-right mt-[15px] laptop:mt-0">
+                    <div
+                        class="font-Spartan-SemiBold text-[15px] text-app-orange text-center laptop:text-right mt-[15px] laptop:mt-0">
                         Váš účet investora čeká na ověření
                     </div>
                 </div>
@@ -166,7 +169,7 @@
             @endif
         @endif
 
-        <div x-data="{isVerified: @js($project->isVerified()),}">
+        <div x-data="{isVerified: @js($project->isVerified() && auth()->user()->isVerified()),}">
             @include('app.projects.@actualities-actualitybox')
         </div>
 

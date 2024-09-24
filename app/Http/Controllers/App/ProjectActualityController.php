@@ -65,7 +65,9 @@ class ProjectActualityController extends Controller
             }
 
             $projectActuality->files = $actualityFiles;
+            $projectActuality->timestamps = false;
             $projectActuality->save();
+            $projectActuality->timestamps = true;
         }
 
         return [

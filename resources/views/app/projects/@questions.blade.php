@@ -23,7 +23,7 @@
 
     <div class="max-w-[800px]">
         @if ($project->isMine())
-        @elseif($project->isVerified())
+        @elseif($project->isVerified() && auth()->user()->isVerified())
             <div>
                 <div class="tinyBox-wrap mb-[30px]">
                     <div class="tinyBox">
@@ -172,7 +172,7 @@
             </div>
         </template>
 
-        <div x-data="{answerContent: @js($answerboxRenderView), isVerified: @js($project->isVerified()),}">
+        <div x-data="{answerContent: @js($answerboxRenderView), isVerified: @js($project->isVerified() && auth()->user()->isVerified()),}">
             @include('app.projects.@questions-questionbox')
         </div>
 
