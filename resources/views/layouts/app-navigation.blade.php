@@ -146,7 +146,7 @@
                         <x-slot name="content">
                             @if(auth()->user()->superadmin)
                                 <x-dropdown-link :href="route('admin.projects')" class="px-[30px]">
-                                    {{ __('Administrace') }}
+                                    {{ __('Administration') }}
                                 </x-dropdown-link>
                             @endif
 
@@ -310,7 +310,7 @@
                     <div class="space-y-[25px] py-[25px] px-[15px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
                         @if(auth()->user()->superadmin)
                             <x-responsive-nav-link :href="route('admin.projects')">
-                                {{ __('Administrace') }}
+                                {{ __('Administration') }}
                             </x-responsive-nav-link>
                         @endif
 

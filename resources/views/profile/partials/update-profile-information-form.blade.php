@@ -62,13 +62,13 @@
 
             @if(!auth()->user()->superadmin && !auth()->user()->advisor)
                 <div>
-                    <x-input-label for="email" :value="__('Kontaktní e-mail *')"/>
+                    <x-input-label for="email" :value="__('Contact e-mail') . ' *'"/>
                     <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
                                   x-model="email" required autocomplete="email"/>
                 </div>
 
                 <div>
-                    <x-input-label for="phone_number" :value="__('Telefonní číslo *')"/>
+                    <x-input-label for="phone_number" :value="__('Phone number') . ' *'"/>
                     <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
                                   x-model="phone_number" required/>
                 </div>

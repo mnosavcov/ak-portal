@@ -182,14 +182,14 @@
                 </ul>
 
                 <div>
-                    <x-input-label for="email" :value="__('E-mail *')"/>
+                    <x-input-label for="email" :value="__('E-mail') . ' *'"/>
                     <x-text-input id="email" class="block mt-1 w-full" type="email" x-model="kontakt.email"
                                   :value="old('email')" name="email"
                                   required autocomplete="email"/>
                 </div>
 
                 <div>
-                    <x-input-label for="phone_number" :value="__('Telefonní číslo *')"/>
+                    <x-input-label for="phone_number" :value="__('Phone number') . ' *'"/>
                     <x-text-input id="phone_number" class="block mt-1 w-full" type="text" x-model="kontakt.phone_number"
                                   :value="old('name')" name="phone_number"
                                   required autofocus autocomplete="phone_number"/>

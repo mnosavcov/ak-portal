@@ -15,6 +15,7 @@
         "madnest/madzipper": "^1.4"
     },
     "require-dev": {
+        "amirami/localizator": "v0.12.1-alpha",
         "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.25",
