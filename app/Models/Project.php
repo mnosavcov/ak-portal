@@ -264,12 +264,10 @@ class Project extends Model
         if ($date === null) {
             $dateText = 'na neurčito';
         } else {
-            $date = Carbon::parse($date, 'Europe/Prague');
-            $utcDate = $date->setTimezone('UTC');
+            $date = Carbon::parse($date);
 
-            $currentDate = Carbon::now('Europe/Prague');
-            $utcCurrentDate = $currentDate->setTimezone('UTC');
-            $diff = $utcCurrentDate->diff($utcDate);
+            $currentDate = Carbon::now();
+            $diff = $currentDate->diff($date);
 
             $dateText = '';
 
@@ -316,9 +314,7 @@ class Project extends Model
         if (empty($this->end_date)) {
             $ret = false;
         } else {
-            $ret = Carbon::parse($this->end_date, 'Europe/Prague');
-            $utcDate = $ret->setTimezone('UTC');
-            $ret = $utcDate->format('Y-m-d\TH:i:s\Z');
+            $ret = Carbon::parse($this->end_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s\Z');
         }
 
         if ($this->status !== 'publicated') {

@@ -89,7 +89,7 @@ class ProjectQuestion extends Model
     public function dateText(): Attribute
     {
         return Attribute::make(
-            get: fn(mixed $value, array $attributes) => str_replace(' ', '&nbsp;', Carbon::create($this->created_at, 'UTC')->setTimezone('Europe/Prague')->format('d.m.Y   H:i:s'))
+            get: fn(mixed $value, array $attributes) => str_replace(' ', '&nbsp;', Carbon::create($this->created_at)->format('d.m.Y   H:i:s'))
         );
     }
 
@@ -324,7 +324,7 @@ class ProjectQuestion extends Model
             $history[(-1 * $item->id)] = (array)$item;
             $history[(-1 * $item->id)]['ext_data'] = json_decode($item->data, true);
             $history[(-1 * $item->id)]['ext_user'] = User::find($item->user_id);
-            $history[(-1 * $item->id)]['ext_date'] = Carbon::create($item->created_at, 'UTC')->setTimezone('Europe/Prague')->format('d.m.Y H:i:s');
+            $history[(-1 * $item->id)]['ext_date'] = Carbon::create($item->created_at)->format('d.m.Y H:i:s');
         }
 
         return Attribute::make(

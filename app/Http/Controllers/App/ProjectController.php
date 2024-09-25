@@ -602,8 +602,7 @@ class ProjectController extends Controller
         $projectShow = ProjectShow::where('user_id', auth()->id())->where('project_id', $request->post('projectId'))->first();
         $projectShow->price = $request->post('offer');
         $projectShow->offer = true;
-        $currentDate = Carbon::now('Europe/Prague');
-        $projectShow->offer_time = $currentDate;
+        $projectShow->offer_time = Carbon::now();
         $projectShow->save();
 
         if ($project->type === 'auction') {
@@ -612,10 +611,10 @@ class ProjectController extends Controller
             ]);
             $projectShow->project->projectauctionoffers()->save($projectAuctionOffer);
 
-            $currentDate = Carbon::now('Europe/Prague');
+            $currentDate = Carbon::now();
             $currentDate->addMinutes(10);
 
-            $projectEndTime = Carbon::create($project->end_date, 'Europe/Prague');
+            $projectEndTime = Carbon::create($project->end_date);
             if ($currentDate->format('Y-m-d H:i:s') > $projectEndTime->format('Y-m-d H:i:s')) {
                 $project->end_date = $currentDate;
                 $project->save();

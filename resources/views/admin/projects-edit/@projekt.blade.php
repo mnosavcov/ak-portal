@@ -141,7 +141,7 @@
                         <x-text-input id="publicated_at" name="publicated_at" type="datetime-local" step="1"
                                       x-bind:readonly="!publicated_at_edit"
                                       x-bind:disabled="!publicated_at_edit"
-                                      value="{{ $project->publicated_at ? \Carbon\Carbon::parse($project->publicated_at, 'UTC')->setTimezone('Europe/Prague') : '' }}"
+                                      value="{{ $project->publicated_at ? \Carbon\Carbon::parse($project->publicated_at) : '' }}"
                                       class="mb-[10px] relative block mt-1 w-[350px] pl-[60px]
                                           bg-[url('/resources/images/ico-calendar.svg')] bg-no-repeat bg-[20px_12px]"
                         />

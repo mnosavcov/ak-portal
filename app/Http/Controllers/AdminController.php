@@ -144,7 +144,7 @@ class AdminController extends Controller
         if ($request->status === 'publicated' && $project->publicated_at === null) {
             $update['publicated_at'] = Carbon::now();
         } elseif ($request->status === 'publicated' && $request->publicated_at_edit && $request->publicated_at) {
-            $update['publicated_at'] = Carbon::create($request->publicated_at, 'Europe/Prague')->setTimezone('UTC');
+            $update['publicated_at'] = Carbon::create($request->publicated_at);
         }
 
         if (
