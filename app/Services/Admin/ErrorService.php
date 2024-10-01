@@ -14,19 +14,17 @@ class ErrorService extends Controller
 
     const EXCEPTION_FILES = ['.gitignore', 'laravel.log'];
 
-    public function getErrors()
+    public function getErrors(): array
     {
         $this->parseErrorLog();
 
         $errors = Storage::disk('locallog')->files();
-        $errors = array_filter($errors, function ($errors) {
+        return array_filter($errors, function ($errors) {
             return !in_array(basename($errors), self::EXCEPTION_FILES);
         });
-
-        return $errors;
     }
 
-    public function parseErrorLog()
+    private function parseErrorLog(): void
     {
         $newFile = Str::uuid() . '.log';
 

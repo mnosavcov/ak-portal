@@ -24,5 +24,8 @@
 
 
 <!-- END OF PAGE CONTENT -->
+<div x-data id="app-loader" x-show="Alpine.store('app').appLoaderShow" x-cloak>
+    <span class="loader"></span>
+</div>
 </body>
 </html>

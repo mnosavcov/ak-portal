@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ErrorController;
+use App\Http\Controllers\Admin\LocalizationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\BackupController;
 use App\Http\Controllers\App\HomepageController;
@@ -211,6 +212,16 @@ Route::middleware('auth')->group(function () {
                 Route::get('/error', [ErrorController::class, 'index'])->name('error.index');
                 Route::get('/error/load/{filename}', [ErrorController::class, 'load'])->name('error.load');
                 Route::delete('/error/archive', [ErrorController::class, 'archive'])->name('error.archive');
+
+                Route::prefix('localization')->group(function () {
+                    Route::name('localization.')->group(function () {
+                        Route::get('/', [LocalizationController::class, 'index'])->name('index');
+                        Route::get('/load/{lng}', [LocalizationController::class, 'load'])->name('load');
+                        Route::post('/save/{lng}/{sub}', [LocalizationController::class, 'save'])->name('save');
+                        Route::post('/set/test/{bool}', [LocalizationController::class, 'setTest'])->name('set.test');
+                        Route::post('/set/test-lng/{lng}', [LocalizationController::class, 'setTestLng'])->name('set.test-lng');
+                    });
+                });
             });
         });
     });

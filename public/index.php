@@ -31,6 +31,34 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
+if (! function_exists('__')) {
+    /**
+     * Translate the given message.
+     *
+     * @param  string|null  $key
+     * @param  array  $replace
+     * @param  string|null  $locale
+     * @return string|array|null
+     */
+    function __($key = null, $replace = [], $locale = null)
+    {
+        if (is_null($key)) {
+            return $key;
+        }
+
+        $trans = trans($key, $replace, $locale);
+        if (empty(trim($trans ?? ''))) {
+            $trans = $key;
+        }
+
+        if (env('LANG_DEBUG') && file_exists(dirname(__DIR__) . '/resources/lang/.test')) {
+            return '~[' . $key . ']' . $trans . '~';
+        }
+
+        return $trans;
+    }
+}
+
 require __DIR__.'/../vendor/autoload.php';
 
 /*
