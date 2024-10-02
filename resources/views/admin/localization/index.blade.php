@@ -157,11 +157,13 @@
                 <template x-if="@js(env('LANG_DEBUG'))">
                     <div class="w-full">
                         <template x-if="Object.keys(languages).length > 1">
-                            <select @input="console.log($el.value);setTestLng($el.value)" class="float-right ml-[10px]" x-model="testLanguage">
+                            <select @input="console.log($el.value);setTestLng($el.value)" class="float-right ml-[10px]"
+                                    x-model="testLanguage">
                                 <option value="__default__" x-text="'[výchozí jazyk] ' + defaultLanguage"></option>
 
                                 <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
-                                    <option :value="lngIndex" x-text="lngVal.title" :selected="testLanguage === lngIndex"></option>
+                                    <option :value="lngIndex" x-text="lngVal.title"
+                                            :selected="testLanguage === lngIndex"></option>
                                 </template>
                             </select>
                         </template>
@@ -178,14 +180,14 @@
                 </template>
             </div>
 
-            <div class="flex flex-row mb-2">
+            <div class="flex flex-row">
                 <div class="border border-transparent border-b-gray-500 shadow w-[5px]">&nbsp;</div>
                 <template x-for="(language, languageIndex) in languages" :key="languageIndex">
                     <div @click="setSelectedLanguage(languageIndex)"
                          x-init="selectedLanguageSub[languageIndex] = localStorage.getItem('admin.language.' + languageIndex + '.sub.selected') || '__default__'"
                          class="min-w-[75px] cursor-pointer border border-gray-500 p-2 rounded-tl rounded-tr"
                          :class="{
-                                '!border-b-transparent': selectedLanguage === languageIndex,
+                                '!border-b-transparent !bg-gray-500 !text-white': selectedLanguage === languageIndex,
                                 '!shadow': selectedLanguage !== languageIndex,
                             }">
                         <div x-text="language.title"></div>
@@ -209,7 +211,7 @@
 
             <template x-for="(language, languageIndex) in languages" :key="languageIndex">
                 <div x-cloak x-show="selectedLanguage === languageIndex">
-                    <div class="grid grid-cols-[200px_1fr] gap-x-4">
+                    <div class="grid grid-cols-[200px_1fr] gap-x-3">
                         <div>
                             <template x-for="(languageSub, languageSubIndex) in language.sub" :key="languageSubIndex">
                                 <div x-text="languageSub.title"
@@ -231,11 +233,10 @@
                                         <template
                                             x-for="(translate, translateIndex) in translateData[languageIndex][selectedLanguageSub[languageIndex]]"
                                             :key="translateIndex">
-                                            <div class="border-b border-b-gray-500 last:border-none mb-1 pb-1">
-                                                <div x-text="translateIndex"
-                                                     class="inline-block cursor-pointer"
-                                                     :class="{'bg-red-600 px-1 text-white rounded-[3px]': (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').trim() === ''}"
-                                                     @click="
+                                            <div
+                                                class="border-b border-b-gray-500 last:border-none pt-1 pb-1 hover:bg-gray-200 px-1 cursor-pointer"
+                                                :data-translate-index="translateIndex"
+                                                @click.prevent.stop="
                                                      () => {
                                                         if (
                                                             selectedTranslate !== null
@@ -255,31 +256,157 @@
 
                                                         selectedTranslate = translateIndex
                                                     }
-                                                 ">
+                                                 "
+                                            >
+                                                <div x-text="translateIndex"
+                                                     class="inline-block"
+                                                     :class="{'bg-red-600 px-1 text-white rounded-[3px]': (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').trim() === ''}">
                                                 </div>
 
                                                 <div>
                                                     <div
-                                                        x-html="(translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').replace(/\n/g, '<br>')"
+                                                        x-html="(translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '')"
                                                         class="text-blue-700 w-full"
                                                         x-show="selectedTranslate !== translateIndex" x-cloak
                                                     ></div>
 
-                                                    <div x-show="selectedTranslate === translateIndex" x-cloak>
-                                                    <textarea
-                                                        x-model="translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]"
-                                                        class="w-full"></textarea>
-                                                        <button
-                                                            @click="translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] = translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]">
-                                                            <i class="fa-solid fa-xmark text-gray-400/75"
-                                                               :class="{'text-red-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"></i>
-                                                        </button>
-                                                        <button
-                                                            @click="if(translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] === translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]) {return;} saveData(translateIndex, translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]); selectedTranslate = null;">
-                                                            <i class="fa-solid fa-check text-gray-400/75"
-                                                               :class="{'text-green-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"></i>
-                                                        </button>
-                                                    </div>
+                                                    <template x-if="selectedTranslate === translateIndex">
+                                                        <div
+                                                            x-data="{
+                                                                saveAction: false,
+                                                                translateDataInputX: (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? ''),
+                                                                replaceHtml() {
+                                                                    return (this.translateDataInputX ?? '').replace(/(:\w+)\b/g, '<span contenteditable=false class=\'bg-gray-400 rounded py-0.5\'>&nbsp;$1&nbsp;</span>');
+                                                                },
+                                                                setValue(value) {
+                                                                    translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] = value.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
+                                                                },
+                                                                clearChanges() {
+                                                                    if(this.saveAction === true) {
+                                                                        this.saveAction = false;
+                                                                        return;
+                                                                    }
+                                                                    this.translateDataInputX = null;
+                                                                    this.translateDataInputX = '';
+                                                                    this.translateDataInputX = translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]
+                                                                    translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] = this.translateDataInputX
+
+                                                                    this.$nextTick(() => {
+                                                                        translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + selectedTranslate)
+                                                                        translateDivElement.focus();
+                                                                        const range = document.createRange();
+                                                                        const selection = window.getSelection();
+
+                                                                        range.selectNodeContents(translateDivElement);
+                                                                        range.collapse(false);
+                                                                        selection.removeAllRanges();
+                                                                        selection.addRange(range);
+                                                                    })
+                                                                },
+                                                                init() {
+                                                                    this.$nextTick(() => {
+                                                                        translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + selectedTranslate)
+                                                                        translateDivElement.focus();
+                                                                        const range = document.createRange();
+                                                                        const selection = window.getSelection();
+
+                                                                        range.selectNodeContents(translateDivElement);
+                                                                        range.collapse(false);
+                                                                        selection.removeAllRanges();
+                                                                        selection.addRange(range);
+                                                                    })
+
+                                                                    this.clearChanges();
+                                                                },
+                                                                save(notUnselectTranslate = false) {
+                                                                    if((translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '') === translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]) {
+                                                                        return;
+                                                                    }
+                                                                    saveData(translateIndex, translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]);
+                                                                    this.saveAction = true;
+                                                                    if(!notUnselectTranslate) {
+                                                                        selectedTranslate = null;
+                                                                    }
+                                                                },
+                                                                nextItem($el) {
+                                                                    let wrap = $el.closest('[data-translate-index]');
+                                                                    if(wrap.nextElementSibling && wrap.nextElementSibling.matches('[data-translate-index]')) {
+                                                                        if(!this.checkChangeTranslateIndex()) {
+                                                                            return;
+                                                                        }
+                                                                        selectedTranslate = wrap.nextElementSibling.dataset.translateIndex;
+                                                                        this.$nextTick(() => {
+                                                                            translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + selectedTranslate)
+                                                                            translateDivElement.focus();
+                                                                            const range = document.createRange();
+                                                                            const selection = window.getSelection();
+
+                                                                            range.selectNodeContents(translateDivElement);
+                                                                            range.collapse(false);
+                                                                            selection.removeAllRanges();
+                                                                            selection.addRange(range);
+                                                                        })
+                                                                    }
+                                                                },
+                                                                prevItem($el) {
+                                                                    let wrap = $el.closest('[data-translate-index]');
+                                                                    if(wrap.previousElementSibling && wrap.previousElementSibling.matches('[data-translate-index]')) {
+                                                                        if(!this.checkChangeTranslateIndex()) {
+                                                                            return;
+                                                                        }
+                                                                        selectedTranslate = wrap.previousElementSibling.dataset.translateIndex;
+                                                                        this.$nextTick(() => {
+                                                                            translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + selectedTranslate)
+                                                                            translateDivElement.focus();
+
+                                                                            const range = document.createRange();
+                                                                            const selection = window.getSelection();
+
+                                                                            range.selectNodeContents(translateDivElement);
+                                                                            range.collapse(false);
+                                                                            selection.removeAllRanges();
+                                                                            selection.addRange(range);
+                                                                        })
+                                                                    }
+                                                                },
+                                                                checkChangeTranslateIndex() {
+                                                                    if (translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] !== translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate]) {
+                                                                        return confirm('Zahodit změny?')
+                                                                    }
+
+                                                                    return true;
+                                                                }
+                                                            }">
+
+                                                            <div
+                                                                @keydown.enter.prevent.stop="save(); nextItem($el);"
+                                                                @keydown.ctrl.s.prevent.stop="save(true);"
+                                                                @keydown.up.prevent.stop="prevItem($el);"
+                                                                @keydown.down.prevent.stop="nextItem($el);"
+                                                                @keydown.tab.prevent.stop="if(event.shiftKey) {prevItem($el);} else {nextItem($el);}"
+                                                                @keydown.esc.prevent.stop="clearChanges();"
+                                                                @click.prevent.stop
+                                                                contenteditable="true"
+                                                                class="border border-gray-500 p-1 rounded bg-white mt-0.5"
+                                                                @input="setValue($el.textContent)"
+                                                                x-html="replaceHtml()"
+                                                                :id="'lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + translateIndex"
+                                                            >
+                                                            </div>
+
+                                                            <button
+                                                                @click.prevent.stop="clearChanges()">
+                                                                <i class="fa-solid fa-xmark text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded"
+                                                                   :class="{'text-red-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"></i>
+                                                            </button>
+                                                            <button
+                                                                @click.prevent.stop="save()">
+                                                                <i class="fa-solid fa-check text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded ml-0.25"
+                                                                   :class="{'text-green-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"
+                                                                ></i>
+                                                            </button>
+                                                        </div>
+                                                    </template>
                                                 </div>
                                             </div>
                                         </template>
