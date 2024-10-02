@@ -20,6 +20,7 @@
                 isTest: @js($is_test),
                 defaultLanguage: @js($default_language),
                 testLanguage: @js($test_language),
+                fromLanguage: @js($from_language),
                 setSelectedLanguage(language) {
                     this.selectedLanguage = language;
                     localStorage.setItem('admin.language.selected', language);
@@ -29,18 +30,26 @@
                     this.selectedLanguageSub[language] = subLanguage;
                     localStorage.setItem('admin.language.' + language + '.sub.selected', subLanguage)
                 },
-                async loadData() {
-                    if (this.selectedLanguage === '__info__') {
+                async loadData(loadLanguage = null) {
+                    if (this.selectedLanguage === '__info__' && loadLanguage === null) {
                         return;
                     }
 
-                    if (this.translateData[this.selectedLanguage]) {
+                    if(loadLanguage === null) {
+                        loadLanguage = this.selectedLanguage;
+                    }
+
+                    if(loadLanguage === '__default__') {
+                        return;
+                    }
+
+                    if (this.translateData[loadLanguage]) {
                         return;
                     }
 
                     Alpine.store('app').appLoaderShow = true;
 
-                    await fetch('/admin/localization/load/' + this.selectedLanguage, {
+                    await fetch('/admin/localization/load/' + loadLanguage, {
                                 method: 'GET',
                                 headers: {
                                     'Content-type': 'application/json; charset=UTF-8',
@@ -49,8 +58,8 @@
                             }).then((response) => response.json())
                                 .then((data) => {
                                     if(data.status === 'success') {
-                                        this.translateData[this.selectedLanguage] = data.translates;
-                                        this.translateOriginData[this.selectedLanguage] = JSON.parse(JSON.stringify(data.translates));
+                                        this.translateData[loadLanguage] = data.translates;
+                                        this.translateOriginData[loadLanguage] = JSON.parse(JSON.stringify(data.translates));
                                         Alpine.store('app').appLoaderShow = false;
                                         return;
                                     }
@@ -144,20 +153,66 @@
                                     alert('Chyba nastavení testovacího jazyka')
                                     Alpine.store('app').appLoaderShow = false;
                                 });
+                },
+                async setFromLng(lng) {
+                    Alpine.store('app').appLoaderShow = true;
+
+                    await fetch('/admin/localization/set/from-lng/' + lng, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                                },
+                            }).then((response) => response.json())
+                                .then((data) => {
+                                    if(data.status === 'success') {
+                                        this.loadData(data.from_language);
+                                        this.fromLanguage = data.from_language;
+                                        Alpine.store('app').appLoaderShow = false;
+                                        return;
+                                    }
+
+                                    alert('Chyba nastavení testovacího jazyka')
+                                    Alpine.store('app').appLoaderShow = false;
+                                })
+                                .catch((error) => {
+                                    alert('Chyba nastavení testovacího jazyka')
+                                    Alpine.store('app').appLoaderShow = false;
+                                });
                 }
             }"
                  x-init="
-                loadData()
+                 loadData(fromLanguage)
+                 loadData()
             ">
             <div class="flex flex-row items-center">
-                <h1 class="text-2xl font-semibold pt-2 pb-6">
-                    Lokalizace&nbsp;<i class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
-                                       @click="setSelectedLanguage('__info__')"></i>
-                </h1>
+                <div class="flex flex-row gap-x-6">
+                    <h1 class="text-2xl font-semibold pt-2 pb-6">
+                        Lokalizace&nbsp;<i class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
+                                           @click="setSelectedLanguage('__info__')"></i>
+                    </h1>
+
+                    <template
+                        x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
+                        <div class="flex items-start pt-4">
+                            <label>z&nbsp;jazyka</label>
+                            <select @input="setFromLng($el.value)" class="float-right ml-[5px] py-[3px]"
+                                    x-model="fromLanguage">
+                                <option value="__default__">---</option>
+
+                                <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
+                                    <option :value="lngIndex" x-text="lngVal.title"
+                                            :selected="fromLanguage === lngIndex"></option>
+                                </template>
+                            </select>
+                        </div>
+                    </template>
+                </div>
                 <template x-if="@js(env('LANG_DEBUG'))">
                     <div class="w-full">
-                        <template x-if="Object.keys(languages).length > 1">
-                            <select @input="console.log($el.value);setTestLng($el.value)" class="float-right ml-[10px]"
+                        <template
+                            x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
+                            <select @input="setTestLng($el.value)" class="float-right ml-[5px] py-[3px]"
                                     x-model="testLanguage">
                                 <option value="__default__" x-text="'[výchozí jazyk] ' + defaultLanguage"></option>
 
@@ -168,7 +223,7 @@
                             </select>
                         </template>
 
-                        <div class="float-right">
+                        <div class="float-right ml-[5px]">
                             <button @click="setTest()"
                                     class="bg-transparent border-gray-500 border-[2px] shadow rounded-[4px] py-0.5 px-1"
                                     :class="{'!bg-red-700 !text-white !border-red-700': isTest}"
@@ -176,16 +231,37 @@
                                 Testovací režim
                             </button>
                         </div>
+
+                        @if(env('LANG_ADMIN_READONLY', true))
+                            <div
+                                class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
+                                READONLY
+                            </div>
+                        @endif
+                    </div>
+                </template>
+                <template x-if="@js(!env('LANG_DEBUG'))">
+                    <div class="w-full">
+                        <div x-text="'jazyk webu `' + defaultLanguage + '`'" class="float-right ml-[5px]"
+                             x-show="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title"
+                             x-cloak></div>
+
+                        @if(env('LANG_ADMIN_READONLY', true))
+                            <div
+                                class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
+                                READONLY
+                            </div>
+                        @endif
                     </div>
                 </template>
             </div>
 
             <div class="flex flex-row">
-                <div class="border border-transparent border-b-gray-500 shadow w-[5px]">&nbsp;</div>
+                <div class="border border-transparent border-b-gray-900 shadow w-[5px]">&nbsp;</div>
                 <template x-for="(language, languageIndex) in languages" :key="languageIndex">
                     <div @click="setSelectedLanguage(languageIndex)"
                          x-init="selectedLanguageSub[languageIndex] = localStorage.getItem('admin.language.' + languageIndex + '.sub.selected') || '__default__'"
-                         class="min-w-[75px] cursor-pointer border border-gray-500 p-2 rounded-tl rounded-tr"
+                         class="min-w-[75px] cursor-pointer border border-gray-700 p-2 rounded-tl rounded-tr"
                          :class="{
                                 '!border-b-transparent !bg-gray-500 !text-white': selectedLanguage === languageIndex,
                                 '!shadow': selectedLanguage !== languageIndex,
@@ -193,7 +269,7 @@
                         <div x-text="language.title"></div>
                     </div>
                 </template>
-                <div class="border border-transparent border-b-gray-500 w-full shadow">&nbsp;</div>
+                <div class="border border-transparent border-b-gray-900 w-full shadow">&nbsp;</div>
             </div>
 
             <div x-cloak x-show="selectedLanguage === '__info__'">
@@ -205,7 +281,10 @@
                 <br>
                 <div>
                     pro možnost debugování překladů je potřeba nastavit v .env<br>
-                    LANG_DEBUG=true
+                    LANG_DEBUG=true<br>
+                    <br>
+                    pro možnost editování překladů je potřeba nastavit v .env<br>
+                    LANG_ADMIN_READONLY=false
                 </div>
             </div>
 
@@ -236,32 +315,56 @@
                                             <div
                                                 class="border-b border-b-gray-500 last:border-none pt-1 pb-1 hover:bg-gray-200 px-1 cursor-pointer"
                                                 :data-translate-index="translateIndex"
-                                                @click.prevent.stop="
-                                                     () => {
-                                                        if (
-                                                            selectedTranslate !== null
-                                                            && translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] !== translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate]
-                                                        ) {
-                                                            if (confirm('Zahodit změny?')) {
-                                                                translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] = translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate]
-                                                            } else {
+                                                @if(!env('LANG_ADMIN_READONLY', true))
+                                                    @click.prevent.stop="
+                                                         () => {
+                                                            if (
+                                                                selectedTranslate !== null
+                                                                && translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] !== translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate]
+                                                            ) {
+                                                                if (confirm('Zahodit změny?')) {
+                                                                    translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] = translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate]
+                                                                } else {
+                                                                    return;
+                                                                }
+                                                            }
+
+                                                            if(selectedTranslate === translateIndex) {
+                                                                selectedTranslate = null;
                                                                 return;
                                                             }
-                                                        }
 
-                                                        if(selectedTranslate === translateIndex) {
-                                                            selectedTranslate = null;
-                                                            return;
+                                                            selectedTranslate = translateIndex
                                                         }
-
-                                                        selectedTranslate = translateIndex
-                                                    }
-                                                 "
+                                                     "
+                                                @endif
                                             >
                                                 <div x-text="translateIndex"
                                                      class="inline-block"
-                                                     :class="{'bg-red-600 px-1 text-white rounded-[3px]': (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').trim() === ''}">
+                                                     :class="{
+                                                        'bg-red-600 px-1 text-white rounded-[3px]': (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').trim() === '',
+                                                        'opacity-30': (translateData[fromLanguage] ?
+                                                                        (translateData[fromLanguage][selectedLanguageSub[languageIndex]] ?
+                                                                            (translateData[fromLanguage][selectedLanguageSub[languageIndex]][translateIndex] ?
+                                                                                translateData[fromLanguage][selectedLanguageSub[languageIndex]][translateIndex] : ''
+                                                                            ) : ''
+                                                                        ) : ''
+                                                                    ).trim().length > 0 && fromLanguage !== '__default__' && fromLanguage !== languageIndex
+                                                     }">
                                                 </div>
+
+                                                <template
+                                                    x-if="fromLanguage !== '__default__' && fromLanguage !== languageIndex">
+                                                    <div>
+                                                        <div x-text="(translateData[fromLanguage] ?
+                                                                        (translateData[fromLanguage][selectedLanguageSub[languageIndex]] ?
+                                                                            (translateData[fromLanguage][selectedLanguageSub[languageIndex]][translateIndex] ?
+                                                                                translateData[fromLanguage][selectedLanguageSub[languageIndex]][translateIndex] : ''
+                                                                            ) : ''
+                                                                        ) : ''
+                                                                    )"></div>
+                                                    </div>
+                                                </template>
 
                                                 <div>
                                                     <div
@@ -270,16 +373,17 @@
                                                         x-show="selectedTranslate !== translateIndex" x-cloak
                                                     ></div>
 
-                                                    <template x-if="selectedTranslate === translateIndex">
-                                                        <div
-                                                            x-data="{
+                                                    @if(!env('LANG_ADMIN_READONLY', true))
+                                                        <template x-if="selectedTranslate === translateIndex">
+                                                            <div
+                                                                x-data="{
                                                                 saveAction: false,
                                                                 translateDataInputX: (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? ''),
                                                                 replaceHtml() {
                                                                     return (this.translateDataInputX ?? '').replace(/(:\w+)\b/g, '<span contenteditable=false class=\'bg-gray-400 rounded py-0.5\'>&nbsp;$1&nbsp;</span>');
                                                                 },
                                                                 setValue(value) {
-                                                                    translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] = value.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
+                                                                    translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] = value.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').replace(/ ,/g, ',').replace(/ \./g, '.');
                                                                 },
                                                                 clearChanges() {
                                                                     if(this.saveAction === true) {
@@ -318,13 +422,13 @@
 
                                                                     this.clearChanges();
                                                                 },
-                                                                save(notUnselectTranslate = false) {
+                                                                save(unselectTranslate = true) {
                                                                     if((translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '') === translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]) {
                                                                         return;
                                                                     }
                                                                     saveData(translateIndex, translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]);
-                                                                    this.saveAction = true;
-                                                                    if(!notUnselectTranslate) {
+                                                                    if(unselectTranslate) {
+                                                                        this.saveAction = true;
                                                                         selectedTranslate = null;
                                                                     }
                                                                 },
@@ -371,42 +475,86 @@
                                                                 },
                                                                 checkChangeTranslateIndex() {
                                                                     if (translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] !== translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate]) {
-                                                                        return confirm('Zahodit změny?')
+                                                                        if(confirm('Zahodit změny?')) {
+                                                                            translateData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate] = translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][selectedTranslate];
+                                                                        } else {
+                                                                            return false;
+                                                                        }
                                                                     }
 
                                                                     return true;
                                                                 }
                                                             }">
 
-                                                            <div
-                                                                @keydown.enter.prevent.stop="save(); nextItem($el);"
-                                                                @keydown.ctrl.s.prevent.stop="save(true);"
-                                                                @keydown.up.prevent.stop="prevItem($el);"
-                                                                @keydown.down.prevent.stop="nextItem($el);"
-                                                                @keydown.tab.prevent.stop="if(event.shiftKey) {prevItem($el);} else {nextItem($el);}"
-                                                                @keydown.esc.prevent.stop="clearChanges();"
-                                                                @click.prevent.stop
-                                                                contenteditable="true"
-                                                                class="border border-gray-500 p-1 rounded bg-white mt-0.5"
-                                                                @input="setValue($el.textContent)"
-                                                                x-html="replaceHtml()"
-                                                                :id="'lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + translateIndex"
-                                                            >
-                                                            </div>
+                                                                <div
+                                                                    x-data="{actualValue: null, actualUndeletableCount: null, actualUndeletableWords: null}"
+                                                                    @keydown.enter.prevent.stop="save(); nextItem($el);"
+                                                                    @keydown.ctrl.s.prevent.stop="save(false);"
+                                                                    @keydown.up.prevent.stop="prevItem($el);"
+                                                                    @keydown.down.prevent.stop="nextItem($el);"
+                                                                    @keydown.tab.prevent.stop="if(event.shiftKey) {prevItem($el);} else {nextItem($el);}"
+                                                                    @keydown.esc.prevent.stop="clearChanges();"
+                                                                    @click.prevent.stop
+                                                                    contenteditable="true"
+                                                                    class="border border-gray-500 p-1 rounded bg-white mt-0.5"
+                                                                    @input="
+                                                                        const spans = Array.from($el.querySelectorAll('span[contenteditable=false]'));
+                                                                        let undeletableCount = spans.length
 
-                                                            <button
-                                                                @click.prevent.stop="clearChanges()">
-                                                                <i class="fa-solid fa-xmark text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded"
-                                                                   :class="{'text-red-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"></i>
-                                                            </button>
-                                                            <button
-                                                                @click.prevent.stop="save()">
-                                                                <i class="fa-solid fa-check text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded ml-0.25"
-                                                                   :class="{'text-green-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"
-                                                                ></i>
-                                                            </button>
-                                                        </div>
-                                                    </template>
+                                                                        if(actualUndeletableCount > undeletableCount) {
+                                                                            let undeletableWords = new Map(spans.map((span) => [span.textContent, span.textContent]));
+
+                                                                            let missingInMap = [];
+
+                                                                            actualUndeletableWords.forEach((value, key) => {
+                                                                                if (!undeletableWords.has(key)) {
+                                                                                    missingInMap.push(key);
+                                                                                }
+                                                                            });
+
+                                                                            missingInMap = missingInMap.join(', ');
+
+                                                                            if(!confirm('Opravdu si přejete smazat klíčové slovo `' + missingInMap.trim() + '`?')) {
+                                                                                setValue($el.textContent)
+                                                                                $el.innerHTML = actualValue;
+                                                                                const range = document.createRange();
+                                                                                const selection = window.getSelection();
+    {{----}}
+                                                                                range.selectNodeContents($el);
+                                                                                range.collapse(false);
+                                                                                selection.removeAllRanges();
+                                                                                selection.addRange(range);
+                                                                                return;
+                                                                            }
+                                                                        }
+
+                                                                        setValue($el.textContent)
+                                                                     "
+                                                                    @keydown="
+                                                                        actualValue = $el.innerHTML;
+                                                                        const spans = Array.from($el.querySelectorAll('span[contenteditable=false]'));
+                                                                        actualUndeletableCount = spans.length
+                                                                        actualUndeletableWords = new Map(spans.map((span) => [span.textContent, span.textContent]));
+                                                                    "
+                                                                    x-html="replaceHtml()"
+                                                                    :id="'lng-translate-' + languageIndex + '-' + selectedLanguageSub[languageIndex] + '-' + translateIndex"
+                                                                >
+                                                                </div>
+
+                                                                <button
+                                                                    @click.prevent.stop="clearChanges()">
+                                                                    <i class="fa-solid fa-xmark text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded"
+                                                                       :class="{'text-red-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"></i>
+                                                                </button>
+                                                                <button
+                                                                    @click.prevent.stop="save(false)">
+                                                                    <i class="fa-solid fa-check text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded ml-0.25"
+                                                                       :class="{'text-green-700': translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] !== translateOriginData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex]}"
+                                                                    ></i>
+                                                                </button>
+                                                            </div>
+                                                        </template>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </template>

@@ -220,6 +220,7 @@ Route::middleware('auth')->group(function () {
                         Route::post('/save/{lng}/{sub}', [LocalizationController::class, 'save'])->name('save');
                         Route::post('/set/test/{bool}', [LocalizationController::class, 'setTest'])->name('set.test');
                         Route::post('/set/test-lng/{lng}', [LocalizationController::class, 'setTestLng'])->name('set.test-lng');
+                        Route::post('/set/from-lng/{lng}', [LocalizationController::class, 'setFromLng'])->name('set.from-lng');
                     });
                 });
             });

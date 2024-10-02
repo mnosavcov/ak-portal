@@ -82,8 +82,18 @@ class LocalizationService extends Controller
         });
 
         foreach ($jsonSubFiles as $subFile) {
+            $filename = $subFile->getPathname();
+            if (!File::isFile($filename . '.bkp')) {
+                File::copy($filename, $filename . '.bkp');
+            }
+
+            if (!File::isFile($filename . '.json')) {
+                $translationsData = require $filename . '.bkp';
+                File::replace($filename . '.json', json_encode($translationsData, JSON_PRETTY_PRINT));
+            }
+
             $subtitle = explode('.', $subFile->getFilename())[0];
-            $translations[$subtitle] = require $subFile->getPathname();
+            $translations[$subtitle] = json_decode(File::get($filename . '.json'), true);
         }
 
         return $translations;
@@ -91,6 +101,10 @@ class LocalizationService extends Controller
 
     public function save($request, $lng, $sub)
     {
+        if (env('LANG_ADMIN_READONLY', true)) {
+            return;
+        }
+
         if ($sub === '__default__') {
             $this->saveDefault($request, $lng);
             return;
@@ -126,18 +140,35 @@ class LocalizationService extends Controller
             File::copy($filename, $filename . '.bkp');
         }
 
-        $translations = require $filename . '.bkp';
+        if (!File::isFile($filename . '.json')) {
+            $translationsData = require $filename . '.bkp';
+            File::replace($filename . '.json', json_encode($translationsData, JSON_PRETTY_PRINT));
+        }
+
+        $translations = json_decode(File::get($filename . '.json'), true);
         $translations[$request->index] = $request->translate;
 
         $content = "<?php\n\nreturn " . str_replace(['array (', ')', '  \''], ['[', ']', '    \''], var_export($translations, true)) . ";\n";
 
+        File::replace($filename . '.json', json_encode($translations, JSON_PRETTY_PRINT));
         File::replace($filename . '.bkp', $content);
         File::replace($filename, $content);
     }
 
-    public function getTestLng()
+    public function getTestLng(): string
     {
         $filename = resource_path('lang/.setting');
+
+        if (!File::isFile($filename)) {
+            return '__default__';
+        }
+
+        return File::get($filename);
+    }
+
+    public function getFromLng(): string
+    {
+        $filename = resource_path('lang/.from');
 
         if (!File::isFile($filename)) {
             return '__default__';

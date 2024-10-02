@@ -15,14 +15,18 @@ class LocalizationController extends Controller
 {
     public function index(LocalizationService $localizationService): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $defaultConfig = include config_path('app.php');
+        $defaultLocale = $defaultConfig['locale'];
+
         $languages = $localizationService->getLanguages();
         return view(
             'admin.localization.index',
             [
                 'languages' => $languages,
                 'is_test' => File::isFile(resource_path('lang/.test')),
-                'default_language' => config('app.locale'),
+                'default_language' => $defaultLocale,
                 'test_language' => $localizationService->getTestLng(),
+                'from_language' => $localizationService->getFromLng(),
             ]
         );
     }
@@ -45,7 +49,7 @@ class LocalizationController extends Controller
         ]);
     }
 
-    public function setTest($bool)
+    public function setTest($bool): JsonResponse
     {
         if ((int)$bool === 1 && !File::isFile(resource_path('lang/.test'))) {
             File::put(resource_path('lang/.test'), '');
@@ -61,7 +65,7 @@ class LocalizationController extends Controller
         ]);
     }
 
-    public function setTestLng(LocalizationService $localizationService, $lng)
+    public function setTestLng(LocalizationService $localizationService, $lng): JsonResponse
     {
         if ($lng === '__default__' && File::isFile(resource_path('lang/.setting'))) {
             File::delete(resource_path('lang/.setting'));
@@ -74,6 +78,22 @@ class LocalizationController extends Controller
         return response()->json([
             'status' => 'success',
             'test_language' => $localizationService->getTestLng(),
+        ]);
+    }
+
+    public function setFromLng(LocalizationService $localizationService, $lng): JsonResponse
+    {
+        if ($lng === '__default__' && File::isFile(resource_path('lang/.from'))) {
+            File::delete(resource_path('lang/.from'));
+        }
+
+        if ($lng !== '__default__') {
+            File::replace(resource_path('lang/.from'), $lng);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'from_language' => $localizationService->getFromLng(),
         ]);
     }
 }

@@ -1,4 +1,6 @@
 !.gitignore
 *.*.bkp
+*.php.json
 .test
 .setting
+.from
