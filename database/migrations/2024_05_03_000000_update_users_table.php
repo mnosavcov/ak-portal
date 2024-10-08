@@ -55,6 +55,9 @@ return new class extends Migration
             $table->dateTime('banned_at')->nullable();
             $table->text('ban_info')->nullable();
             $table->text('last_verified_data')->nullable();
+
+            $table->enum('verify_service', ['bankid'])->nullable();
+            $table->string('verify_id')->nullable();
         });
     }
 

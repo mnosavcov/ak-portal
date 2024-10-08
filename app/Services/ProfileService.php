@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProfileService
 {
@@ -49,6 +51,18 @@ class ProfileService
             $update[$column] = $data[$column];
         }
 
+        if($user->check_status === 'not_verified') {
+            if($user->investor === 1) {
+                $update['investor_status'] = $this->getStatus($user, $data, $columns, 'investor_status', 'show_investor_status');
+            }
+            if($user->advertiser === 1) {
+                $update['advertiser_status'] = $this->getStatus($user, $data, $columns, 'advertiser_status', 'show_advertiser_status');
+            }
+            if($user->real_estate_broker === 1) {
+                $update['real_estate_broker_status'] = $this->getStatus($user, $data, $columns, 'real_estate_broker_status', 'show_real_estate_broker_status');
+            }
+        }
+
         if (isset($request->post('data')['type'])) {
             if ($request->post('data')['type'] === 'investor') {
                 $update['investor_status'] = $this->getStatus($user, $data, $columns, 'investor_status', 'show_investor_status');
@@ -77,6 +91,9 @@ class ProfileService
                 );
             }
             $update['check_status'] = $this->getStatus($user, $data, $columns, 'check_status', 'show_check_status');
+            if ($update['check_status'] === 'waiting' || $update['check_status'] === 're_verified') {
+                $update['check_status'] = 'verified';
+            }
         }
 
         if ($update) {

@@ -8,6 +8,7 @@ use App\Http\Controllers\App\HomepageController;
 use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\App\ProjectQuestionController;
 use App\Http\Controllers\App\ProjectActualityController;
+use App\Http\Controllers\Auth\Ext\BankIdController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
@@ -243,10 +244,17 @@ Route::get('/keep-session', function () {
 require __DIR__ . '/auth.php';
 
 if (Schema::hasTable('projects') && Project::count()) {
-    Route::match(['get', 'post'],'{project:page_url}', [ProjectController::class, 'show'])
+    Route::match(['get', 'post'], '{project:page_url}', [ProjectController::class, 'show'])
         ->where('project', Project::pluck('page_url')->implode('|'))
         ->name('projects.show');
 }
+
+Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
+    Route::prefix('bankid')->name('bankid.')->group(function () {
+        Route::get('profile', [BankIdController::class, 'profile'])->name('profile');
+        Route::get('notify', [BankIdController::class, 'notify'])->name('notify');
+    });
+});
 
 Route::get('backup/dujslP5khfi3mmgGtigEiyTaqVqCyfsA', BackupController::class)->name('backup');
 Route::get('send-mail/SpACoO3DPrLH0a3vs20t1o7zqbHyYTPw', [EmailController::class, 'sendFromQueue'])->name('send-mail-queue');

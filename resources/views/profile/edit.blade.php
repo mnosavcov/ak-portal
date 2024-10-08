@@ -42,145 +42,195 @@
                 </div>
             @endif
 
-            @if(auth()->user()->check_status === 'not_verified')
+            @if(!auth()->user()->isVerified())
                 <div class="mb-[20px]">
                     <div class="max-w-[1200px] mx-auto">
                         <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                            <div><span class="font-Spartan-SemiBold">Jak probíhá ověření účtu?</span>
-                                Na portálu chceme vytvářet důvěryhodné a transparentní prostředí.
-                                Proto ověřujeme každého uživatele. Nejčastěji se s vámi spojíme telefonicky, seznámíme
-                                se s
-                                vašimi záměry a očekáváními. Jakmile účet ověříme, můžete projekty sami nakupovat, nebo
-                                nabízet.
+                            <div><span class="font-Spartan-SemiBold">Proč potřebujeme ověřit vaši totožnost?</span>
+                                Nejen že na portálu chceme vytvářet důvěryhodné a transparentní prostředí, přinášíme i
+                                unikátní možnost uzavírat smluvní vztahy on-line. A to nelze bez ověření totožnosti
+                                uživatelů, kteří účty spravují. Jakmile ověříte svou totožnost, můžete projekty sami
+                                nakupovat, nebo nabízet. Zároveň můžete i prokázat, že jste osoba oprávněná jednat za
+                                jiné
+                                subjekty.
                             </div>
                         </div>
                     </div>
 
                     <div
                         class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ ÚČET
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            ZATÍM JSTE NEOVĚŘILI SVŮJ ÚČET
                         </div>
                         <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            Abyste mohli využívat všechny funkce portálu u zvoleného typu účtu (či typů účtů), musíte
-                            zadat
-                            osobní údaje a sdělit nám své záměry.
+                            <div class="mb-[10px]">
+                                Abyste mohli ověřit svůj účet a využívat všechny funkce portálu u zvolených typů účtu
+                                (investor, nabízející, realitní makléř), musíte:
+                            </div>
+                            <div>
+                                1. Ověřit svou totožnost.
+                            </div>
+                            <div>
+                                2. Doložit oprávněnost svého zájmu o využití zvolených typů účtů.
+                            </div>
                         </div>
                     </div>
                 </div>
             @endif
 
-            @if(auth()->user()->check_status === 'waiting')
-                <div class="mb-[20px]">
-                    <div
-                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ
-                        </div>
-                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme
-                            proces
-                            ověření účtu.
-                        </div>
-                    </div>
-                </div>
-            @endif
+            {{--            @if(auth()->user()->check_status === 'waiting')--}}
+            {{--                <div class="mb-[20px]">--}}
+            {{--                    <div--}}
+            {{--                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">--}}
+            {{--                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">--}}
+            {{--                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ--}}
+            {{--                        </div>--}}
+            {{--                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">--}}
+            {{--                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme--}}
+            {{--                            proces--}}
+            {{--                            ověření účtu.--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            @endif--}}
 
-            @if(auth()->user()->check_status === 're_verified')
-                <div class="mb-[20px]">
-                    <div
-                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ PO AKTUALIZACI OSOBNÍCH ÚDAJŮ
-                        </div>
-                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            Upravili jste své osobní údaje. U všech typů účtů máte omezené funkce. V blízké době Vás
-                            budeme
-                            kontaktovat a dokončíme proces ověření účtu.
-                        </div>
-                    </div>
-                </div>
-            @endif
+            {{--            @if(auth()->user()->check_status === 're_verified')--}}
+            {{--                <div class="mb-[20px]">--}}
+            {{--                    <div--}}
+            {{--                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">--}}
+            {{--                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">--}}
+            {{--                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ PO AKTUALIZACI OSOBNÍCH ÚDAJŮ--}}
+            {{--                        </div>--}}
+            {{--                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">--}}
+            {{--                            Upravili jste své osobní údaje. U všech typů účtů máte omezené funkce. V blízké době Vás--}}
+            {{--                            budeme--}}
+            {{--                            kontaktovat a dokončíme proces ověření účtu.--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            @endif--}}
 
-            @if(
-                    auth()->user()->investor_status === 're_verified'
-                    || auth()->user()->investor_status === 'waiting'
-                    || auth()->user()->advertiser_status === 're_verified'
-                    || auth()->user()->advertiser_status === 'waiting'
-                    || auth()->user()->real_estate_broker_status === 're_verified'
-                    || auth()->user()->real_estate_broker_status === 'waiting'
-                )
-                <div class="mb-[20px]">
-                    <div
-                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                            ÚDAJE U NOVĚ PŘIDANÉHO TYPU ÚČTU (ČI TYPŮ ÚČTU) ČEKAJÍ NA OVĚŘENÍ
-                        </div>
-                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme
-                            proces
-                            ověření účtu.
-                        </div>
-                    </div>
-                </div>
-            @endif
+            {{--            @if(--}}
+            {{--                    (auth()->user()->investor === 1 && auth()->user()->investor_status === 're_verified')--}}
+            {{--                    || (auth()->user()->investor === 1 && auth()->user()->investor_status === 'waiting')--}}
+            {{--                    || (auth()->user()->advertiser === 1 && auth()->user()->advertiser_status === 're_verified')--}}
+            {{--                    || (auth()->user()->advertiser === 1 && auth()->user()->advertiser_status === 'waiting')--}}
+            {{--                    || (auth()->user()->real_estate_broker === 1 && auth()->user()->real_estate_broker_status === 're_verified')--}}
+            {{--                    || (auth()->user()->real_estate_broker === 1 && auth()->user()->real_estate_broker_status === 'waiting')--}}
+            {{--                )--}}
+            {{--                <div class="mb-[20px]">--}}
+            {{--                    <div--}}
+            {{--                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">--}}
+            {{--                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">--}}
+            {{--                            ÚDAJE U NOVĚ PŘIDANÉHO TYPU ÚČTU (ČI TYPŮ ÚČTU) ČEKAJÍ NA OVĚŘENÍ--}}
+            {{--                        </div>--}}
+            {{--                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">--}}
+            {{--                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme--}}
+            {{--                            proces--}}
+            {{--                            ověření účtu.--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            @endif--}}
 
             @foreach([
                 'investor_status_verified' => [
                     'column' => 'investor',
                     'item' => 'investor_status',
-                    'title' => 'VÁŠ ÚČET INVESTORA BYL OVĚŘEN',
-                    'text' => 'Nyní můžete využívat všechny funkce portálu v roli investora – zejména podávat nabídky u projektů.',
-                    'status' => 'verified',
-                    'class' => 'bg-app-green',
-                    'show' => 'show_investor_status',
-                ],
-                'investor_status_denied' => [
-                    'column' => 'investor',
-                    'item' => 'investor_status',
-                    'title' => 'VÁŠ ÚČET INVESTORA NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
-                    'text' => 'Administrátor Vám u Účtu investora na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
-                    'status' => 'denied',
-                    'class' => 'bg-app-red',
+                    'title' => 'VÁŠ ÚČET |NVESTORA ČEKÁ NA OVĚŘENÍ',
+                    'text' => 'Abyste mohli využívat všechny funkce portálu v roli investora, zejména podávat nabídky u projektů, musíme ověřit oprávněnost vaše zájmu o využití tohoto typu účtu.',
+                    'class' => 'bg-app-orange',
                     'show' => 'show_investor_status',
                 ],
                 'advertiser_status_verified' => [
                     'column' => 'advertiser',
                     'item' => 'advertiser_status',
-                    'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO BYL OVĚŘEN',
-                    'text' => 'Nyní můžete využívat všechny funkce portálu v roli nabízejícího – zejména zveřejňovat projekty k prodeji.',
-                    'status' => 'verified',
-                    'class' => 'bg-app-green',
-                    'show' => 'show_advertiser_status',
-                ],
-                'advertiser_status_denied' => [
-                    'column' => 'advertiser',
-                    'item' => 'advertiser_status',
-                    'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
-                    'text' => 'Administrátor Vám u Účtu nabízejícího na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
-                    'status' => 'denied',
-                    'class' => 'bg-app-red',
+                    'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO ČEKÁ NA OVĚŘENÍ',
+                    'text' => 'Abyste mohli využívat všechny funkce portálu v roli nabízejícího, zejména zveřejňovat projekty k prodeji, musíme ověřit oprávněnost vaše zájmu o využití tohoto typu účtu.',
+                    'class' => 'bg-app-orange',
                     'show' => 'show_advertiser_status',
                 ],
                 'real_estate_broker_status_verified' => [
                     'column' => 'real_estate_broker',
                     'item' => 'real_estate_broker_status',
-                    'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE BYL OVĚŘEN',
-                    'text' => 'Nyní můžete využívat všechny funkce portálu v roli realitního makléře – zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka.',
-                    'status' => 'verified',
-                    'class' => 'bg-app-green',
-                    'show' => 'show_real_estate_broker_status',
-                ],
-                'real_estate_broker_status_denied' => [
-                    'column' => 'real_estate_broker',
-                    'item' => 'real_estate_broker_status',
-                    'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
-                    'text' => 'Administrátor Vám u Účtu realitího makléře na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
-                    'status' => 'denied',
-                    'class' => 'bg-app-red',
+                    'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE ČEKÁ NA OVĚŘENÍ',
+                    'text' => 'Abyste mohli využívat všechny funkce portálu v roli realitního makléře, zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka, musíme ověřit oprávněnost vaše zájmu o využití tohoto typu účtu.',
+                    'class' => 'bg-app-orange',
                     'show' => 'show_real_estate_broker_status',
                 ],
             ] as $index => $item)
+                @if(auth()->user()->{$item['column']} && in_array(auth()->user()->{$item['item']}, ['waiting', 're_verified']))
+                    <div class="mb-[20px]">
+                        <div
+                            class="{{ $item['class'] }} p-[15px] w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] relative">
+                            <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                                {{ $item['title'] }}
+                            </div>
+                            <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                                {{ $item['text'] }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+
+            @foreach([
+            'investor_status_verified' => [
+                'column' => 'investor',
+                'item' => 'investor_status',
+                'title' => 'VÁŠ ÚČET INVESTORA BYL OVĚŘEN',
+                'text' => 'Nyní můžete využívat všechny funkce portálu v roli investora – zejména podávat nabídky u projektů.',
+                'status' => 'verified',
+                'class' => 'bg-app-green',
+                'show' => 'show_investor_status',
+            ],
+            'investor_status_denied' => [
+                'column' => 'investor',
+                'item' => 'investor_status',
+                'title' => 'VÁŠ ÚČET INVESTORA NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                'text' => 'Administrátor Vám u Účtu investora na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                'status' => 'denied',
+                'class' => 'bg-app-red',
+                'show' => 'show_investor_status',
+            ],
+            'advertiser_status_verified' => [
+                'column' => 'advertiser',
+                'item' => 'advertiser_status',
+                'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO BYL OVĚŘEN',
+                'text' => 'Nyní můžete využívat všechny funkce portálu v roli nabízejícího – zejména zveřejňovat projekty k prodeji.',
+                'status' => 'verified',
+                'class' => 'bg-app-green',
+                'show' => 'show_advertiser_status',
+            ],
+            'advertiser_status_denied' => [
+                'column' => 'advertiser',
+                'item' => 'advertiser_status',
+                'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                'text' => 'Administrátor Vám u Účtu nabízejícího na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                'status' => 'denied',
+                'class' => 'bg-app-red',
+                'show' => 'show_advertiser_status',
+            ],
+            'real_estate_broker_status_verified' => [
+                'column' => 'real_estate_broker',
+                'item' => 'real_estate_broker_status',
+                'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE BYL OVĚŘEN',
+                'text' => 'Nyní můžete využívat všechny funkce portálu v roli realitního makléře – zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka.',
+                'status' => 'verified',
+                'class' => 'bg-app-green',
+                'show' => 'show_real_estate_broker_status',
+            ],
+            'real_estate_broker_status_denied' => [
+                'column' => 'real_estate_broker',
+                'item' => 'real_estate_broker_status',
+                'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+                'text' => 'Administrátor Vám u Účtu realitího makléře na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+                'status' => 'denied',
+                'class' => 'bg-app-red',
+                'show' => 'show_real_estate_broker_status',
+            ],
+        ] as $index => $item)
                 @if(auth()->user()->{$item['column']} && auth()->user()->{$item['item']} === $item['status'] && auth()->user()->{$item['show']})
                     <div class="mb-[20px]" x-data="{
                     openInfo: true,
@@ -271,7 +321,7 @@
                             {{--                        @endif--}}
                         </div>
 
-                        <div class="mt-[30px] mb-[25px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?
+                        <div class="mt-[30px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?
                         </div>
 
                         <a href="{{ route('profile.edit-verify') }}"

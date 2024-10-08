@@ -8,6 +8,21 @@
             return !(this.user.investor && this.user.advertiser && this.user.real_estate_broker)
         },
         removeType(type) {
+            exists = false;
+            Object.entries(this.types).forEach(([key, value]) => {
+                if(type === key) {
+                    return;
+                }
+                if(this.user[key] === 1) {
+                    exists = true;
+                }
+            });
+
+            if(!exists) {
+                alert('Tento typ účtu nemůžete zrušit, jelikož musíte mít vždy aktivní alespoň jeden. Pokud nechcete využívat žádný typ účtu, můžete zrušit celý účet v oddílu &quot;Přihlašovací a kontaktní údaje&quot;.');
+                return;
+            }
+
             if(this.confirmRemove) {
                 if(!confirm('Pokud budete chtít znovu nastavit tento typ účtu, bude potřeba znovu ověřit účet. Opravdu chcete tento typ účtu zrušit?')) {
                     return;
@@ -77,7 +92,7 @@
                     return 'text-app-orange'
                 }
                 if(item === 'text') {
-                    return 'Čekáme, až zadáte údaje k ověření tohoto typu účtu'
+                    return 'Čekáme, až ověříte svou totožnost a obhájíte oprávněnost svého zájmu o využití tohoto typu účtu.'
                 }
             } else if(this.user[index + '_status'] === 'verified') {
                 if(item === 'color') {
@@ -108,7 +123,7 @@
                     return 'text-app-orange'
                 }
                 if(item === 'text') {
-                    return 'Čekáte na ověření'
+                    return 'Čekáte na ověření účtu'
                 }
             }
 
@@ -203,6 +218,8 @@
                  class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
             <div class="grid gap-y-[15px]">
+                <h2 class="mb-[15px] text-center">Přidání typu účtu</h2>
+
                 <template x-for="(type, index) in types" :key="index">
                     <div x-cloak x-show="!user[index]" x-collapse>
                         <div

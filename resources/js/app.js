@@ -34,6 +34,10 @@ Alpine.start();
 
 function tinymceInit()
 {
+    if(typeof tinymce === 'undefined') {
+        return;
+    }
+
     tinymce.init({
         selector: "div.tinyBox textarea",
         theme: "modern",
