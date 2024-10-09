@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'email',
+        'email_2',
         'password',
         'advisor',
         'investor',
@@ -57,12 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'more_info_advertiser',
         'more_info_real_estate_broker',
         'phone_number',
+        'phone_number_2',
         'notice',
         'investor_info',
         'ban_info',
 
-        'verify_service',
-        'verify_id',
+        'user_verify_service_id',
     ];
 
     /**
@@ -281,7 +282,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function dataForVerify($newData = [])
     {
         $data = $this->toArray();
-        if (empty($this->verify_id)) {
+        if (empty($this->user_verify_service_id)) {
             $data['title_before'] = null;
             $data['name'] = null;
             $data['surname'] = null;
@@ -309,8 +310,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $data['psc'] = $newData['psc'] ?? null;
             $data['country'] = $newData['country'] ?? null;
             $data['country_f'] = $newData['country_f'] ?? null;
-            $data['verify_service'] = $newData['verify_service'] ?? null;
-            $data['verify_id'] = $newData['verify_id'] ?? null;
+            $data['user_verify_service_id'] = $newData['user_verify_service_id'] ?? null;
         }
 
         return $data;

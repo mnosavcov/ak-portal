@@ -3,6 +3,7 @@
     accessToken: null,
     urlProfile: @js(route('auth.ext.bankid.profile')),
     init() {
+        this.data.country = 'ceska_republika';
         step = 2;
         this.hash = new URLSearchParams(window.location.hash.substring(1));
         this.accessToken = this.hash.get('access_token');
@@ -33,8 +34,11 @@
                 this.data.psc = data.psc;
                 this.data.country = data.country;
                 this.data.country_f = data.country_f;
-                this.data.verify_service = data.verify_service;
-                this.data.verify_id = data.verify_id;
+                this.data.email_2 = data.email_2;
+                this.data.phone_number_2 = data.phone_number_2;
+                this.data.user_verify_service_id = data.user_verify_service_id;
+
+                this.canContinue = true;
             })
             .catch((error) => {
                 alert('Chyba získání údajů')
@@ -51,26 +55,26 @@
                  class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
             <div class="text-center mb-[30px]">
-                <h1>Získat data z Bank iD</h1>
+                <h1>Získat data z Bank&nbsp;iD</h1>
             </div>
 
             @include('profile.edit-account-userinfo')
 
             <div class="text-center">
-                <div x-cloak x-show="data.verify_id !== null">
+                <div x-cloak x-show="data.user_verify_service_id !== null">
                     <button type="button" @click="$dispatch('close'); nextBtnClick();" x-cloak
-                            x-show="data.verify_id !== null"
+                            x-show="data.user_verify_service_id !== null"
                             class="mt-[25px] tablet:mt-[50px] w-full tablet:max-w-[350px] h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
                             x-text="nextBtnText()"
                     >
                     </button>
                 </div>
 
-                <div x-cloak x-show="data.verify_id !== null">
-                    <a type="button" @click="getData()" x-cloak x-show="data.verify_id !== null"
+                <div x-cloak x-show="data.user_verify_service_id !== null">
+                    <a type="button" @click="getData()" x-cloak x-show="data.user_verify_service_id !== null"
                        href="{{ (new \App\Services\Auth\Ext\BankIdService)->getAuthUrl() }}"
                        class="mt-[15px] tablet:mt-[25px] font-Spartan-Regular text-[13px] text-[#414141] inline-block">
-                        znovu získat data z Bank iD
+                        znovu získat data z Bank&nbsp;iD
                     </a>
                 </div>
             </div>

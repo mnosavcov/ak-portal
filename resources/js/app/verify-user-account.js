@@ -3,6 +3,7 @@ import Alpine from "alpinejs";
 Alpine.data('verifyUserAccount', (id) => ({
     step: 1,
     verified: false,
+    canContinue: false,
     countries: {},
     data: {},
     scrollToAnchor() {
@@ -67,7 +68,7 @@ Alpine.data('verifyUserAccount', (id) => ({
 
             return true;
         } else if (this.step === 2) {
-            if (!this.data.verify_id) {
+            if (!this.data.user_verify_service_id || !this.canContinue) {
                 alert('Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).');
                 return false;
             }

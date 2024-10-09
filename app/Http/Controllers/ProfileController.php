@@ -322,8 +322,9 @@ class ProfileController extends Controller
             'more_info_investor',
             'more_info_advertiser',
             'more_info_real_estate_broker',
-            'verify_service',
-            'verify_id',
+            'email_2',
+            'phone_number_2',
+            'user_verify_service_id',
         ]);
     }
 

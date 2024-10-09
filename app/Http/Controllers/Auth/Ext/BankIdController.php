@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth\Ext;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserVerifyService;
 use App\Services\CountryServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -20,6 +22,11 @@ class BankIdController extends Controller
         $response = Http::withToken($token)->withOptions(['verify' => !app()->environment('local')])->get($url);
 
         $responseData = $response->json();
+        $userVerifyServiceId = UserVerifyService::create([
+            'verify_service' => 'bankid',
+            'verify_service_user_id' => $responseData['sub'],
+            'data' => Crypt::encryptString(json_encode($responseData)),
+        ]);
 
         $adressData = [];
         foreach ($responseData['addresses'] as $address) {
@@ -54,8 +61,9 @@ class BankIdController extends Controller
             'psc' => $adressData['zipcode'] ?? '',
             'country' => $country,
             'country_f' => CountryServices::COUNTRIES[$country] ?? $country,
-            'verify_service' => 'bankid',
-            'verify_id' => $responseData['sub'],
+            'email_2' => $responseData['email'] ?? '',
+            'phone_number_2' => $responseData['phone_number'] ?? '',
+            'user_verify_service_id' => $userVerifyServiceId->id,
         ];
 
         return response()->json($profile);

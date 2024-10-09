@@ -200,10 +200,10 @@
 
             <h3>Vyberte</h3>
 
-            <div class="grid grid-cols-[150px_1fr] gap-x-[34px] mt-[20px] items-center">
+            <div class="grid tablet:grid-cols-[150px_1fr] gap-x-[34px] gap-y-[25px] mt-[20px] items-center">
                 <a
                     href="{{ (new \App\Services\Auth\Ext\BankIdService)->getAuthUrl() }}"
-                    class="h-[50px] w-[150px] grid items-center justify-items-center border border-[#D9E9F2] cursor-pointer">
+                    class="h-[50px] w-[150px] grid items-center justify-items-center border border-[#D9E9F2] cursor-pointer mx-auto tablet:mx-0">
                     <img src="{{ Vite::asset('resources/images/logo-bank_id.svg') }}">
                 </a>
                 <div class="text-[13px] text-[#676464]">
