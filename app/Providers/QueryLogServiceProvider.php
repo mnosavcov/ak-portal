@@ -47,7 +47,7 @@ class QueryLogServiceProvider extends ServiceProvider
             }
 
             $filename = 'logs/sql_' . Carbon::now()->format('Y-m-d') . '.log';
-            Storage::append($filename, $sql);
+            Storage::append($filename, '# ' . Carbon::now()->format('d.m.Y H:i:s') . "\n" . $sql . "\n");
         });
     }
 }

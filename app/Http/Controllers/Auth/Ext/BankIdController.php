@@ -36,7 +36,7 @@ class BankIdController extends Controller
         ]);
 
         $adressData = [];
-        foreach ($responseData['addresses'] as $address) {
+        foreach ($responseData['addresses'] ?? [] as $address) {
             if (!array_key_exists('type', $address)) {
                 continue;
             }
@@ -46,10 +46,10 @@ class BankIdController extends Controller
             }
 
             $adressData = [
-                'street' => $address['street'],
-                'streetnumber' => $address['streetnumber'],
-                'city' => $address['city'],
-                'zipcode' => $address['zipcode'],
+                'street' => $address['street'] ?? '',
+                'streetnumber' => $address['streetnumber'] ?? '',
+                'city' => $address['city'] ?? '',
+                'zipcode' => $address['zipcode'] ?? '',
             ];
             break;
         }
@@ -68,8 +68,6 @@ class BankIdController extends Controller
             'psc' => $adressData['zipcode'] ?? '',
             'country' => $country,
             'country_f' => CountryServices::COUNTRIES[$country] ?? $country,
-            'email_2' => $responseData['email'] ?? '',
-            'phone_number_2' => $responseData['phone_number'] ?? '',
             'user_verify_service_id' => $userVerifyServiceId->id,
         ];
 
@@ -80,6 +78,6 @@ class BankIdController extends Controller
 
     public function notify(Request $request)
     {
-        dd($request);
+        return true;
     }
 }

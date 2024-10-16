@@ -38,10 +38,8 @@ class BankIdService
             'profile.name',
             'profile.addresses',
             'profile.birthdate',
-            'profile.email',
-            'profile.phonenumber',
             'profile.updatedat',
-//            'notification.claims_updated',
+            'notification.claims_updated',
         ];
 
         $url = sprintf(

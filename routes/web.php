@@ -253,7 +253,7 @@ if (Schema::hasTable('projects') && Project::count()) {
 Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
     Route::prefix('bankid')->name('bankid.')->group(function () {
         Route::post('profile', [BankIdController::class, 'profile'])->name('profile');
-        Route::get('notify', [BankIdController::class, 'notify'])->name('notify');
+        Route::post('notify', [BankIdController::class, 'notify'])->name('notify');
     });
 });
 

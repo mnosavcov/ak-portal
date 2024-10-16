@@ -41,8 +41,6 @@
                 this.data.psc = data.psc;
                 this.data.country = data.country;
                 this.data.country_f = data.country_f;
-                this.data.email_2 = data.email_2;
-                this.data.phone_number_2 = data.phone_number_2;
                 this.data.user_verify_service_id = data.user_verify_service_id;
                 this.data.user_verify_service_id = data.user_verify_service_id;
                 this.data.check_status = data.check_status;

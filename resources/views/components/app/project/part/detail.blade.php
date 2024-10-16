@@ -18,7 +18,7 @@
             </div>
 
             <div
-                class="relative font-Spartan-Regular leading-[22px] text-[#414141] self-center {{ $detailRows->is_long ? 'col-span-2 !leading-1 justify-self-end' : 'justify-self-start col-span-2 tablet:justify-self-end tablet:col-span-1 tablet:mb-0' }}
+                class="relative font-Spartan-Regular leading-[22px] text-[#414141] self-center {{ $detailRows->is_long ? 'col-span-2 !leading-1 justify-self-end tablet:text-right' : 'justify-self-start col-span-2 tablet:justify-self-end tablet:text-right tablet:col-span-1 tablet:mb-0' }}
                     text-[11px] leading-[20px] col-span-2
                      tablet:text-[13px] tablet:leading-[23px] tablet:col-span-1
                      laptop:text-[15px] laptop:leading-[26px]">
