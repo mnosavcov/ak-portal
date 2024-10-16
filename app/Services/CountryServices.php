@@ -6,6 +6,7 @@ class CountryServices
 {
     public const COUNTRIES = [
         'ceska_republika' => 'Česká republika',
+        'slovensko' => 'Slovensko',
         'afghanistan' => 'Afghánistán',
         'albanie' => 'Albánie',
         'alzirsko' => 'Alžírsko',
@@ -144,7 +145,6 @@ class CountryServices
         'seychely' => 'Seychely',
         'sierra_leone' => 'Sierra Leone',
         'singapur' => 'Singapur',
-        'slovensko' => 'Slovensko',
         'slovinsko' => 'Slovinsko',
         'somalsko' => 'Somálsko',
         'srbsko' => 'Srbsko',

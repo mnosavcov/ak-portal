@@ -1,13 +1,17 @@
 <div x-data="verifyUserAccount"
      x-init="
-        data = @js($user->toArray());
+        data = @js($user->dataForVerify());
         countries = @js(\App\Services\CountryServices::COUNTRIES);
         verified = {{ auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified' ? 'true' : 'false' }}
      "
      class="mb-[50px]">
 
+    @if(request()->query('ret') === 'bankid')
+        @include('profile.verify.bankid')
+    @endif
 
-    @if($user->check_status === 'not_verified')
+
+    @if(true || $user->check_status === 'not_verified')
         <div class="grid grid-cols-[1fr_min-content] gap-y-[50px] mb-[50px]"
              :class="{'!grid-cols-1': hideBack}"
              x-data="{hideBack: false,
@@ -20,6 +24,7 @@
                     that.showStep[1] = true;
                     that.showStep[2] = true;
                     that.showStep[3] = true;
+                    that.showStep[4] = true;
                     if (
                         step === 2
                         && that.widthSteps > window.innerWidth
@@ -32,8 +37,23 @@
                         if (that.widthSteps > window.innerWidth) {
                             that.showStep[1] = false;
 
-                            if ((60 + that.widthStep[2] + that.widthStep[3]) > window.innerWidth) {
+                            if ((60 + that.widthStep[2] + that.widthStep[3] + that.widthStep[4]) > window.innerWidth) {
                                 that.showStep[2] = false;
+                            }
+                        }
+                    }
+                    if (
+                        step === 4
+                    ) {
+                        if (that.widthSteps > window.innerWidth) {
+                            that.showStep[1] = false;
+
+                            if ((60 + that.widthStep[2] + that.widthStep[3] + that.widthStep[4]) > window.innerWidth) {
+                                that.showStep[2] = false;
+
+                                if ((60 + that.widthStep[3] + that.widthStep[4]) > window.innerWidth) {
+                                    that.showStep[3] = false;
+                                }
                             }
                         }
                     }
@@ -59,19 +79,24 @@
                     <div x-ref="buttonItems"
                          class="app-no-scrollbar whitespace-nowrap snap-x overflow-y-hidden auto-cols-fr mx-auto font-Spartan-regular h-[54px] rounded-[10px] block">
                         <div x-show="showStep[1]"
-                            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-                            :class="{ '!text-app-orange underline': step === 1 }">
-                            1. Zadejte své osobní údaje
+                             class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                             :class="{ '!text-app-orange underline': step === 1 }">
+                            1. Přehled požadovaných údajů
                         </div>
                         <div x-show="showStep[2]"
-                            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-                            :class="{ '!text-app-orange underline': step === 2 }">
-                            2. Upřesněte své záměry
+                             class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                             :class="{ '!text-app-orange underline': step === 2 }">
+                            2. Ověření totožnosti
                         </div>
                         <div x-show="showStep[3]"
-                            class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
-                            :class="{ '!text-app-orange underline': step === 3 }">
-                            3. Potvrzení a odeslání
+                             class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                             :class="{ '!text-app-orange underline': step === 3 }">
+                            3. Upřesněte své záměry
+                        </div>
+                        <div x-show="showStep[4]"
+                             class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
+                             :class="{ '!text-app-orange underline': step === 4 }">
+                            4. Potvrzení a odeslání
                         </div>
                     </div>
                 </div>
@@ -104,82 +129,114 @@
     @endif
     <div class="clear-both"></div>
 
-    <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
-            px-[10px] py-[25px]
-            tablet:px-[20px] tablet:py-[35px]
-            laptop:px-[30px] laptop:py-[50px]
-            ">
+    <div x-show="step === 1">
+        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
+                    px-[10px] py-[25px]
+                    tablet:px-[20px] tablet:py-[35px]
+                    laptop:px-[30px] laptop:py-[50px]
+                    ">
+            <h2 class="mb-[25px]">
+                K plnému přístupu musíte ověřit následující osobní údaje
+            </h2>
 
-        <div x-show="step === 1">
-            <h2 class="mb-[25px] tablet:mb-[35px] laptop:mb-[40px]">Identifikujte se jako fyzická osoba</h2>
+            @include('profile.edit-account-userinfo')
+        </div>
 
-            <div
-                class="grid tablet:grid-cols-2 laptop:grid-cols-4 gap-x-[15px] tablet:gap-x-[20px] gap-y-[20px] tablet:gap-y-[25px]">
-                <div class="mt-[10px]">
-                    <x-input-label for="title_before" value="Titul(y) před"/>
-                    <x-text-input id="title_before" name="title_before" x-model="data.title_before"
-                                  class="block mt-1 w-full" type="text"/>
-                </div>
-                <div class="mt-[10px]">
-                    <x-input-label for="name" value="Jméno *"/>
-                    <x-text-input id="name" name="name" x-model="data.name" class="block mt-1 w-full" type="text"
-                    />
-                </div>
-                <div class="mt-[10px]">
-                    <x-input-label for="surname" value="Příjmení *"/>
-                    <x-text-input id="surname" name="surname:" x-model="data.surname" class="block mt-1 w-full"
-                                  type="text"/>
-                </div>
-                <div class="mt-[10px]">
-                    <x-input-label for="title_after" value="Titul(y) za"/>
-                    <x-text-input id="title_after" name="title_after" x-model="data.title_after"
-                                  class="block mt-1 w-full" type="text"/>
-                </div>
+        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto mt-[50px]
+                    px-[10px] py-[25px]
+                    tablet:px-[20px] tablet:py-[35px]
+                    laptop:px-[30px] laptop:py-[50px]
+                    ">
+            <h2 class="mb-[25px]">Zvolte svou zemi</h2>
 
-                <div class="mt-[10px]">
-                    <x-input-label for="birthdate" value="Datum narození *"/>
-                    <x-text-input id="birthdate" name="birthdate" x-model="data.birthdate"
-                                  class="block mt-1 w-full" type="date"/>
+            <div class="p-[30px] bg-[#F8F8F8] text-center">
+                <div class="inline-block w-full max-w-[400px]">
+                    <x-input-label for="country" value="Jaké je vaše státní občanství? *" class="mb-[10px]"/>
+                    <div class="text-left">
+                        <x-countries-select id="country" class="block mt-1 w-full" type="text"/>
+                    </div>
                 </div>
-                <div class="hidden laptop:block"></div>
-                <div class="hidden laptop:block"></div>
-                <div class="hidden tablet:block"></div>
+            </div>
 
-                <div class="mt-[10px]">
-                    <x-input-label for="street" value="Ulice *"/>
-                    <x-text-input id="street" name="street" x-model="data.street" class="block mt-1 w-full"
-                                  type="text"
-                    />
+            <div x-show="data.country && data.country !== 'ceska_republika'" x-cloak>
+                <div
+                    class="mt-[25px] p-[15px] bg-app-orange w-auto rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
+                    <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                        Pro vaši zemi, ve které máte státní občanství, nemáme k dispozici žádnou on-line metodu pro
+                        ověření vaší totožnosti.
+                        Prosím <a href="{{ route('kontakt') }}" class="underline">kontaktuje nás</a> a budeme ověření
+                        realizovat alternativní cestou.
+                    </div>
                 </div>
-                <div class="mt-[10px]">
-                    <x-input-label for="street_number" value="Číslo domu / Číslo orientační *"/>
-                    <x-text-input id="street_number" name="street_number" x-model="data.street_number"
-                                  class="block mt-1 w-full" type="text"/>
-                </div>
-                <div class="hidden laptop:block"></div>
-                <div class="hidden laptop:block"></div>
+            </div>
+        </div>
+    </div>
 
-                <div class="mt-[10px]">
-                    <x-input-label for="city" value="Obec *"/>
-                    <x-text-input id="city" name="city" x-model="data.city" class="block mt-1 w-full" type="text"
-                    />
-                </div>
-                <div class="mt-[10px]">
-                    <x-input-label for="psc" value="PSČ *"/>
-                    <x-text-input id="psc" name="psc" x-model="data.psc" class="block mt-1 w-full" type="text"
-                    />
-                </div>
-                <div class="hidden laptop:block"></div>
-                <div class="hidden laptop:block"></div>
-
-                <div class="mt-[10px]">
-                    <x-input-label for="country" value="Státní občanství (země)"/>
-                    <x-countries-select id="country" class="block mt-1 w-full" type="text"/>
+    <div x-show="step === 2" x-cloak>
+        <div class="max-w-[1200px] mx-auto">
+            <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+                <div>
+                    <p class="mb-[10px]">
+                        Pro ověření osobních údajů využíváme služby třetích stran.
+                    </p>
+                    <p>
+                        U <span class="font-Spartan-SemiBold">Bank&nbsp;iD</span>
+                        ověřujete svou totožnost přes svou banku a v jejím prostředí. Pro banky je ochrana bezpečí
+                        klientů maximální prioritou a odpovídají za bezpečnost ověření. Bankovní identita, a.s. ani
+                        poskytovatelé služeb, pro které ověřujete svoji totožnost, nikdy nevidí Vaše přihlašovací údaje,
+                        ani informace o Vašich financích. Službu podporuje většina českých bank. Avšak ne všechny.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <div x-show="step === 2" x-cloak>
+        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
+                    px-[10px] py-[25px]
+                    tablet:px-[20px] tablet:py-[35px]
+                    laptop:px-[30px] laptop:py-[50px]
+                    ">
+
+            <template x-if="data.check_status !== 'not_verified' && data.user_verify_service_id !== null">
+                <div>
+                    <h2 class="mb-[10px] laptop:mb-[30px]">Ověřené údaje totožnosti</h2>
+                    @include('profile.edit-account-userinfo')
+                </div>
+            </template>
+
+            <template x-if="data.check_status === 'not_verified' || data.user_verify_service_id === null">
+                <div>
+                    <h2 class="mb-[30px] laptop:mb-[50px]">Proveďte ověření přes některou z nabízených možností</h2>
+
+                    <h3>Vyberte</h3>
+
+                    <div class="grid tablet:grid-cols-[150px_1fr] gap-x-[34px] gap-y-[25px] mt-[20px] items-center">
+                        <button
+                            @click="
+                            user_verify_service_selected = 'bankid',
+                            user_verify_service_data = {href: @js((new \App\Services\Auth\Ext\BankIdService)->getAuthUrl())}
+                        "
+                            class="h-[50px] w-[150px] grid items-center justify-items-center border border-[#D9E9F2] cursor-pointer mx-auto tablet:mx-0"
+                            :class="{'border-app-blue border-[2px]': user_verify_service_selected === 'bankid'}">
+                            <img src="{{ Vite::asset('resources/images/logo-bank_id.svg') }}">
+                        </button>
+                        <div class="text-[13px] text-[#676464]">
+                            <span class="font-Spartan-SemiBold">Podporované banky:</span>
+                            {{ $bankid_banks }}
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <div x-show="step === 3" x-cloak>
+
+        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
+                    px-[10px] py-[25px]
+                    tablet:px-[20px] tablet:py-[35px]
+                    laptop:px-[30px] laptop:py-[50px]
+                    ">
             <h2>Sdělte nám více informací</h2>
 
             @if($user->investor)
@@ -201,7 +258,8 @@
                 <div>
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_advertiser">
-                            Za jakým účelem či účely chcete náš portál využívat jako <span class="text-app-orange">nabízející</span>
+                            Za jakým účelem či účely chcete náš portál využívat jako <span
+                                class="text-app-orange">nabízející</span>
                             (jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.
                         </x-input-label>
                         <x-textarea-input id="more_info_advertiser" name="more_info_advertiser"
@@ -216,9 +274,9 @@
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_real_estate_broker">
                             Za jakým účelem či účely chcete náš portál využívat jako <span
-                                class="text-app-orange">realitní makléř</span> (zprostředkováváte prodej projektu
-                            například
-                            na základě smlouvy o realitním zprostředkování)? Upřesněte své záměry.
+                                class="text-app-orange">realitní makléř</span> (zprostředkováváte prodej
+                            projektu například na základě smlouvy o realitním zprostředkování)? Upřesněte své
+                            záměry.
                         </x-input-label>
                         <x-textarea-input id="more_info_real_estate_broker" name="more_info_real_estate_broker"
                                           class="block mt-1 w-full !leading-[2.25]"
@@ -227,52 +285,17 @@
                 </div>
             @endif
         </div>
+    </div>
 
-        <div x-show="step === 3" x-cloak>
-            <h2>Zkontrolujte zadané údaje</h2>
+    <div x-show="step === 4" x-cloak>
+        <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto
+                    px-[10px] py-[25px]
+                    tablet:px-[20px] tablet:py-[35px]
+                    laptop:px-[30px] laptop:py-[50px]
+                    ">
+            <h2 class="mb-[25px]">Zkontrolujte své ověřené osobní údaje</h2>
 
-            <div
-                class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Jméno a
-                    příjmení
-                </div>
-                <div x-text="nameAndSurnameText()"
-                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Adresa
-                    trvalého bydliště
-                </div>
-                <div x-text="addressText()"
-                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">Státní
-                    občanství (země)
-                </div>
-                <div x-text="countryText()"
-                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-
-                @if($user->investor)
-                    <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                        Upřesnění záměrů – jako investor
-                    </div>
-                    <div x-html="moreInfoTextInvestor()"
-                         class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                @endif
-
-                @if($user->advertiser)
-                    <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                        Upřesnění záměrů – jako nabízející
-                    </div>
-                    <div x-html="moreInfoTextAdvertiser()"
-                         class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                @endif
-
-                @if($user->real_estate_broker)
-                    <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                        Upřesnění záměrů – jako realitní makléř
-                    </div>
-                    <div x-html="moreInfoTextRealEstateBroker()"
-                         class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-                @endif
-            </div>
+            @include('profile.edit-account-userinfo', ['upresneni' => true])
         </div>
     </div>
 
@@ -284,7 +307,8 @@
         </button>
 
         <button type="button" @click="nextBtnClick()"
-                class="mt-[25px] tablet:mt-[50px] w-full tablet:max-w-[350px] h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+                class="mt-[25px] tablet:mt-[50px] w-full tablet:max-w-[350px] h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
+                :disabled="data.country && data.country !== 'ceska_republika'"
                 x-text="nextBtnText()">
         </button>
     </div>

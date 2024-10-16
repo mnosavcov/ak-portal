@@ -6,7 +6,7 @@
         openSelectCountries: false,
     }">
     <div
-        class="grid gap-x-[20px] border border-[#e2e2e2] h-[45px] leading-[45px] px-[12px] cursor-pointer"
+        class="grid gap-x-[20px] border border-[#e2e2e2] h-[45px] leading-[45px] px-[12px] cursor-pointer bg-white"
             :class="{'grid-cols-[20px_1fr]': data.country}">
         <template x-if="data.country">
             <img x-bind:src="'/images/flags/1x1/' + countries_flags[data.country]"
@@ -15,7 +15,7 @@
         <div
             class="relative rounded-[3px] font-Spartan-Regular text-[13px] text-[#414141]
          after:absolute after:bg-[url('/resources/images/dropdown-mark.svg')] after:w-[10px] after:h-[6px] after:right-[12px] after:top-[19px] after:transform after:transition pr-[40px]"
-            x-text="countries[data.country] ? countries[data.country] : '-- vyberte --'"
+        x-text="countries[data.country] ? countries[data.country] : 'Vyberte...'"
             @click="openSelectCountries = !openSelectCountries"
             :class="{'after:rotate-180': openSelectCountries}"
         >

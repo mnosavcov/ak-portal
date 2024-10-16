@@ -69,14 +69,15 @@ class ProfileService
                 }
             }
         } else {
-            if ($user->check_status !== 'not_verified') {
-                unset(
-                    $update['more_info_investor'],
-                    $update['more_info_advertiser'],
-                    $update['more_info_real_estate_broker']
-                );
+            if ($user->investor === 1) {
+                $update['investor_status'] = $this->getStatus($user, $data, $columns, 'investor_status', 'show_investor_status');
             }
-            $update['check_status'] = $this->getStatus($user, $data, $columns, 'check_status', 'show_check_status');
+            if ($user->advertiser === 1) {
+                $update['advertiser_status'] = $this->getStatus($user, $data, $columns, 'advertiser_status', 'show_advertiser_status');
+            }
+            if ($user->real_estate_broker === 1) {
+                $update['real_estate_broker_status'] = $this->getStatus($user, $data, $columns, 'real_estate_broker_status', 'show_real_estate_broker_status');
+            }
         }
 
         if ($update) {

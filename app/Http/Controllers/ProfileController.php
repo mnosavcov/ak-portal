@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\CustomVerifyEmail;
+use App\Services\Auth\Ext\BankIdService;
 use App\Services\ProfileService;
 use App\Services\UsersService;
 use Illuminate\Support\Facades\Hash;
@@ -43,10 +44,11 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function editVerify(Request $request): View
+    public function editVerify(BankIdService $bankIdService, Request $request): View
     {
         return view('profile.edit-verify', [
             'user' => $request->user(),
+            'bankid_banks' => $bankIdService->getListOfBanks(),
         ]);
     }
 
@@ -309,16 +311,6 @@ class ProfileController extends Controller
     public function verifyAccount(Request $request): JsonResponse
     {
         return (new ProfileService)->verifyAccount($request, [
-            'title_before',
-            'name',
-            'surname',
-            'title_after',
-            'street',
-            'street_number',
-            'city',
-            'psc',
-            'country',
-            'birthdate',
             'more_info_investor',
             'more_info_advertiser',
             'more_info_real_estate_broker',

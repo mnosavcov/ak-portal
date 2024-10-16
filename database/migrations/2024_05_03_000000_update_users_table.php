@@ -27,7 +27,9 @@ return new class extends Migration
             $table->text('more_info_advertiser')->nullable()->after('more_info_investor');
             $table->text('more_info_real_estate_broker')->nullable()->after('more_info_advertiser');
 
-            $table->string('phone_number')->nullable()->after('email');
+            $table->string('email_2')->nullable()->after('email');
+            $table->string('phone_number')->nullable()->after('email_2');
+            $table->string('phone_number_2')->nullable()->after('phone_number');
 
             $table->boolean('advisor')->default(false);
 
@@ -55,6 +57,8 @@ return new class extends Migration
             $table->dateTime('banned_at')->nullable();
             $table->text('ban_info')->nullable();
             $table->text('last_verified_data')->nullable();
+
+            $table->foreignId('user_verify_service_id')->nullable()->constrained('user_verify_services');
         });
     }
 

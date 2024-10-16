@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Notifications\CustomVerifyEmail;
 use App\Services\BackupService;
+use App\Services\CountryServices;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'email',
+        'email_2',
         'password',
         'advisor',
         'investor',
@@ -55,9 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'more_info_advertiser',
         'more_info_real_estate_broker',
         'phone_number',
+        'phone_number_2',
         'notice',
         'investor_info',
         'ban_info',
+
+        'user_verify_service_id',
     ];
 
     /**
@@ -73,6 +79,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'deletable',
         'crypt',
+        'birthdate_f',
+        'country_f',
+        'is_verify_finished_b'
     ];
 
     /**
@@ -199,6 +208,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return auth()->user()->real_estate_broker_status === 'verified';
     }
 
+    public function userverifyservice()
+    {
+        return $this->belongsTo(UserVerifyService::class, 'user_verify_service_id', 'id');
+    }
+
     public function projects()
     {
         return $this->hasMany(Project::class);
@@ -240,8 +254,99 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function birthdateF(): Attribute
+    {
+        if (empty($this->birthdate)) {
+            return Attribute::make(
+                get: fn(mixed $value, array $attributes) => ''
+            );
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => Carbon::create($this->birthdate)->format('d.m.Y')
+        );
+    }
+
+    public function countryF(): Attribute
+    {
+        if (empty($this->country)) {
+            return Attribute::make(
+                get: fn(mixed $value, array $attributes) => ''
+            );
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => CountryServices::COUNTRIES[$this->country] ?? $this->country
+        );
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new CustomVerifyEmail);
+    }
+
+    public function dataForVerify($newData = [])
+    {
+        $data = $this->toArray();
+        if (empty($this->user_verify_service_id)) {
+            $data['title_before'] = null;
+            $data['name'] = null;
+            $data['surname'] = null;
+            $data['title_after'] = null;
+            $data['birthdate'] = null;
+            $data['birthdate_f'] = null;
+            $data['street'] = null;
+            $data['street_number'] = null;
+            $data['city'] = null;
+            $data['psc'] = null;
+            $data['country'] = null;
+            $data['country_f'] = null;
+        }
+
+        if (!empty($newData)) {
+            $data['title_before'] = $newData['title_before'] ?? null;
+            $data['name'] = $newData['name'] ?? null;
+            $data['surname'] = $newData['surname'] ?? null;
+            $data['title_after'] = $newData['title_after'] ?? null;
+            $data['birthdate'] = $newData['birthdate'] ?? null;
+            $data['birthdate_f'] = $newData['birthdate_f'] ?? null;
+            $data['street'] = $newData['street'] ?? null;
+            $data['street_number'] = $newData['street_number'] ?? null;
+            $data['city'] = $newData['city'] ?? null;
+            $data['psc'] = $newData['psc'] ?? null;
+            $data['country'] = $newData['country'] ?? null;
+            $data['country_f'] = $newData['country_f'] ?? null;
+            $data['user_verify_service_id'] = $newData['user_verify_service_id'] ?? null;
+        }
+
+        return $data;
+    }
+
+    public function isVerifyFinishedB(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $this->isVerifyFinished()
+        );
+    }
+
+    public function isVerifyFinished()
+    {
+        if ($this->check_status === 'not_verified') {
+            return false;
+        }
+
+        if ($this->investor && !mb_strlen(trim($this->more_info_investor))) {
+            return false;
+        }
+
+        if ($this->advertiser && !mb_strlen(trim($this->more_info_advertiser))) {
+            return false;
+        }
+
+        if ($this->real_estate_broker && !mb_strlen(trim($this->more_info_real_estate_broker))) {
+            return false;
+        }
+
+        return true;
     }
 }

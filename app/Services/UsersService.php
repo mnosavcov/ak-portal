@@ -10,6 +10,93 @@ use Illuminate\Support\Str;
 
 class UsersService
 {
+    public const ACCOUNT_TYPE_WAITING = [
+        'investor_status_verified' => [
+            'index' => 'investor',
+            'column' => 'investor',
+            'item' => 'investor_status',
+            'title' => 'VÁŠ ÚČET INVESTORA ČEKÁ NA OVĚŘENÍ',
+            'text' => 'Abyste mohli využívat všechny funkce portálu v roli investora, zejména podávat nabídky u projektů, musíme ověřit oprávněnost vaše zájmu o využití tohoto typu účtu.',
+            'class' => 'bg-app-orange',
+            'show' => 'show_investor_status',
+        ],
+        'advertiser_status_verified' => [
+            'index' => 'advertiser',
+            'column' => 'advertiser',
+            'item' => 'advertiser_status',
+            'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO ČEKÁ NA OVĚŘENÍ',
+            'text' => 'Abyste mohli využívat všechny funkce portálu v roli nabízejícího, zejména zveřejňovat projekty k prodeji, musíme ověřit oprávněnost vaše zájmu o využití tohoto typu účtu.',
+            'class' => 'bg-app-orange',
+            'show' => 'show_advertiser_status',
+        ],
+        'real_estate_broker_status_verified' => [
+            'index' => 'real-estate-broker',
+            'column' => 'real_estate_broker',
+            'item' => 'real_estate_broker_status',
+            'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE ČEKÁ NA OVĚŘENÍ',
+            'text' => 'Abyste mohli využívat všechny funkce portálu v roli realitního makléře, zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka, musíme ověřit oprávněnost vaše zájmu o využití tohoto typu účtu.',
+            'class' => 'bg-app-orange',
+            'show' => 'show_real_estate_broker_status',
+        ],
+    ];
+
+    public const ACCOUNT_TYPE_FINISHED = [
+        'investor_status_verified' => [
+            'column' => 'investor',
+            'item' => 'investor_status',
+            'title' => 'VÁŠ ÚČET INVESTORA BYL OVĚŘEN',
+            'text' => 'Nyní můžete využívat všechny funkce portálu v roli investora – zejména podávat nabídky u projektů.',
+            'status' => 'verified',
+            'class' => 'bg-app-green',
+            'show' => 'show_investor_status',
+        ],
+        'investor_status_denied' => [
+            'column' => 'investor',
+            'item' => 'investor_status',
+            'title' => 'VÁŠ ÚČET INVESTORA NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+            'text' => 'Administrátor Vám u Účtu investora na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+            'status' => 'denied',
+            'class' => 'bg-app-red',
+            'show' => 'show_investor_status',
+        ],
+        'advertiser_status_verified' => [
+            'column' => 'advertiser',
+            'item' => 'advertiser_status',
+            'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO BYL OVĚŘEN',
+            'text' => 'Nyní můžete využívat všechny funkce portálu v roli nabízejícího – zejména zveřejňovat projekty k prodeji.',
+            'status' => 'verified',
+            'class' => 'bg-app-green',
+            'show' => 'show_advertiser_status',
+        ],
+        'advertiser_status_denied' => [
+            'column' => 'advertiser',
+            'item' => 'advertiser_status',
+            'title' => 'VÁŠ ÚČET NABÍZEJÍCÍHO NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+            'text' => 'Administrátor Vám u Účtu nabízejícího na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+            'status' => 'denied',
+            'class' => 'bg-app-red',
+            'show' => 'show_advertiser_status',
+        ],
+        'real_estate_broker_status_verified' => [
+            'column' => 'real_estate_broker',
+            'item' => 'real_estate_broker_status',
+            'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE BYL OVĚŘEN',
+            'text' => 'Nyní můžete využívat všechny funkce portálu v roli realitního makléře – zejména zveřejňovat projekty k prodeji, u kterých zastupujete vlastníka.',
+            'status' => 'verified',
+            'class' => 'bg-app-green',
+            'show' => 'show_real_estate_broker_status',
+        ],
+        'real_estate_broker_status_denied' => [
+            'column' => 'real_estate_broker',
+            'item' => 'real_estate_broker_status',
+            'title' => 'VÁŠ ÚČET REALITNÍHO MAKLÉŘE NEBYL ÚSPĚŠNĚ OVĚŘEN A NEOBDRŽELI JSTE PŘÍSTUP',
+            'text' => 'Administrátor Vám u Účtu realitího makléře na základě dodaných informací zamítl přístup. Pokud s rozhodnutím nesouhlasíte, můžete se vůči němu písemně odvolat na info@pvtrusted.cz',
+            'status' => 'denied',
+            'class' => 'bg-app-red',
+            'show' => 'show_real_estate_broker_status',
+        ],
+    ];
+
     public function deleteUser($id)
     {
         $user = User::find($id);

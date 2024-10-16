@@ -4,29 +4,37 @@ Alpine.data('verifyUserAccount', (id) => ({
     step: 1,
     verified: false,
     countries: {},
+    user_verify_service_selected: null,
+    user_verify_service_data: null,
     data: {},
     scrollToAnchor() {
         const scrollDiv = document.getElementById('anchor-overeni-uctu');
-        if(scrollDiv) {
+        if (scrollDiv) {
             scrollDiv.scrollIntoView({behavior: 'smooth'});
         }
     },
     nextBtnClick() {
-        if(!this.nextBtnEnable()) {
+        if (!this.nextBtnEnable()) {
             return false;
         }
 
-        if (this.data.check_status === 'not_verified' && this.step < 3) {
+        if (!this.data.is_verify_finished_b && this.step < 4) {
             this.scrollToAnchor();
             this.step++;
             return;
         }
 
-        if (this.data.check_status === 'verified') {
-            if (!confirm('Pokud budete aktualizovat své osobní údaje, některé funkce účtu mohou být, dokud změny neověříme, omezeny.')) {
-                return;
-            }
+        if (this.data.is_verify_finished_b && this.step < 2) {
+            this.scrollToAnchor();
+            this.step++;
+            return;
         }
+
+        // if (this.data.check_status === 'verified') {
+        //     if (!confirm('Pokud budete aktualizovat své osobní údaje, některé funkce účtu mohou být, dokud změny neověříme, omezeny.')) {
+        //         return;
+        //     }
+        // }
 
         this.sendData();
     },
@@ -37,11 +45,7 @@ Alpine.data('verifyUserAccount', (id) => ({
         }
     },
     nextBtnText() {
-        if (this.data.check_status !== 'not_verified') {
-            return 'Aktualizovat';
-        }
-
-        if (this.step === 3) {
+        if (this.step === 4) {
             return 'Potvrdit a odeslat';
         } else {
             return 'Pokračovat';
@@ -49,56 +53,38 @@ Alpine.data('verifyUserAccount', (id) => ({
     },
     nextBtnEnable() {
         if (this.step === 1) {
-            if(!String(this.data.name).trim().length) {
-                alert('Zadejte jméno.');
+            if (this.data.country === null) {
+                alert('Zadejte vaše státní občanství.');
                 return false;
             }
 
-            if(this.data.surname === null || !String(this.data.surname).trim().length) {
-                alert('Zadejte příjmení.');
-                return false;
-            }
-
-            if(
-                this.data.birthdate === null
-                || !String(this.data.birthdate).trim().length
-            ) {
-                alert('Zadejte datum narození.');
-                return false;
-            }
-
-            if(this.data.street === null || !String(this.data.street).trim().length) {
-                alert('Zadejte ulici.');
-                return false;
-            }
-
-            if(this.data.street_number === null || !String(this.data.street_number).trim().length) {
-                alert('Zadejte číslo domu.');
-                return false;
-            }
-
-            if(this.data.city === null || !String(this.data.city).trim().length) {
-                alert('Zadejte Obec.');
-                return false;
-            }
-
-            if(this.data.psc === null || (String(this.data.psc).trim().length < 5)) {
-                alert('Zadejte PSČ.');
-                return false;
-            }
-
-            if(this.data.country === null) {
-                alert('Zadejte státní občanství.');
+            if (this.data.country !== 'ceska_republika') {
+                alert('Pro vaše státní občanství není možné automatické ověření.');
                 return false;
             }
 
             return true;
         } else if (this.step === 2) {
+            if (this.data.user_verify_service_id) {
+                return true;
+            }
+
+            if (!this.user_verify_service_selected) {
+                alert('Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).');
+                return false;
+            }
+
+            if (this.user_verify_service_selected === 'bankid') {
+                window.location.href = this.user_verify_service_data.href;
+                return false;
+            }
+            return true;
+        } else if (this.step === 3) {
             if (this.data.investor && String(this.data.more_info_investor).trim().length < 5) {
                 alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.');
                 return false;
             }
-            if (this.data.advertiser && String(this.data.more_info_advertiser	).trim().length < 5) {
+            if (this.data.advertiser && String(this.data.more_info_advertiser).trim().length < 5) {
                 alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.');
                 return false;
             }
@@ -107,7 +93,7 @@ Alpine.data('verifyUserAccount', (id) => ({
                 return false;
             }
             return true;
-        } else if (this.step === 3) {
+        } else if (this.step >= 4) {
             return true;
         }
 
@@ -117,23 +103,23 @@ Alpine.data('verifyUserAccount', (id) => ({
         let titleBefore = this.data.title_before ?? '';
         let name = this.data.name ?? '';
         let surname = this.data.surname ?? '';
-        let title_after = this.data.title_after ?? '';
+        let title_after = this.data.title_after ? ', ' + this.data.title_after : '';
 
         return titleBefore.trim() + ' ' +
             name.trim() + ' ' +
-            surname.trim() + ' ' +
+            surname.trim() +
             title_after.trim();
     },
     addressText() {
         let street = this.data.street ?? '';
-        let street_number = this.data.street_number ?? '';
-        let city = this.data.city ?? '';
-        let psc = this.data.psc ?? '';
+        let street_number = this.data.street_number ? String(this.data.street_number) : '';
+        let psc = this.data.psc ? ', ' + this.data.psc : '';
+        let city = this.data.city ? ', ' + this.data.city : '';
 
         return street.trim() + ' ' +
-            street_number.trim() + ' ' +
-            city.trim() + ' ' +
-            psc.trim();
+            street_number.trim() +
+            psc.trim() +
+            city.trim();
     },
     countryText() {
         return this.countries[this.data.country]

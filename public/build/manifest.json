@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-d55bf8ae.css",
+    "file": "assets/app-80c55b92.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -752,6 +752,10 @@
     "file": "assets/img-hp-jak-se-u-nas-projekty-nabizeji-e1d384dd.png",
     "src": "resources/images/img-hp-jak-se-u-nas-projekty-nabizeji.png"
   },
+  "resources/images/logo-bank_id.svg": {
+    "file": "assets/logo-bank_id-15b88d6a.svg",
+    "src": "resources/images/logo-bank_id.svg"
+  },
   "resources/images/logo-deloitte.png": {
     "file": "assets/logo-deloitte-18e24875.png",
     "src": "resources/images/logo-deloitte.png"
@@ -801,7 +805,7 @@
     "src": "resources/images/user-register-delete-type.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-e50d5d40.js",
+    "file": "assets/app-ff212d6b.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
