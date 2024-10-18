@@ -62,8 +62,8 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Nastavíte minimální nabídkovou cenu a&nbsp;investoři vám neveřejně zasílají nabídky s
-                                    částkou dle svých možností.
+                                    Nastavíte minimální nabídkovou cenu a&nbsp;investoři vám neveřejně zasílají nabídky
+                                    s částkou dle svých možností.
                                 </div>
 
                                 <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}"
@@ -77,7 +77,8 @@
                                     Zobrazit projekty
                                 </a>
                                 <div></div>
-                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
+                                   class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
@@ -130,7 +131,8 @@
                                     Zobrazit projekty
                                 </a>
                                 <div></div>
-                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
+                                   class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
@@ -181,7 +183,61 @@
                                     Zobrazit projekty
                                 </a>
                                 <div></div>
-                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}" class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
+                                   class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                         after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
+                         after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
+                         text-[12px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         underline hover:no-underline
+                            ">
+                                    Nabídnout svůj projekt
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide w-full mb-[100px]">
+                        <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
+                            <div
+                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                        ">
+                                <img src="{{ Vite::asset('resources/images/ico-projev-predbezneho-zajmu.svg') }}"
+                                     class="h-[100px] mx-auto
+                          mb-[25px]
+                          tablet:mb-[35px]
+                          laptop:mb-[50px]
+                         ">
+                                <div class="text-[#31363A] font-Spartan-Bold leading-[30px]
+                         text-[13px] mb-[25px]
+                         tablet:text-[15px]
+                         laptop:text-[18px] laptop:mb-[30px]
+                        ">
+                                    Projev předběžného zájmu
+                                </div>
+                                <div class="text-[#31363A] font-Spartan-Regular
+                         text-[12px] mb-[25px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                        ">
+                                    Máte projekt v rané fázi? Informujte o něm už nyní. Investoři se nezávazně přihlásí
+                                    a k prodeji dojde, až bude projekt připraven.
+                                </div>
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['preliminary-interest']['url']]) }}"
+                                   class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
+                         after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
+                         after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
+                         text-[12px] leading-[22px]
+                         tablet:text-[13px] tablet:leading-[24px]
+                         laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
+                         underline hover:no-underline
+                            ">
+                                    Zobrazit projekty
+                                </a>
+                                <div></div>
+                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
+                                   class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]

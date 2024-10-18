@@ -25,39 +25,19 @@
                     <div class="font-Spartan-Bold text-[13px] tablet:text-[18px] mb-[25px] laptop:mb-[40px]">
                         Kategorie podle typu nabídky
                     </div>
-                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="{{ route('projects.index.category',
-                                ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]
+                    @foreach(\App\Models\Category::CATEGORIES as $category)
+                        <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
+                            <a href="{{ route('projects.index.category',
+                                ['category' => $category['url']]
                             ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
                          text-[12px] justify-self-center mb-[15px]
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
                          underline hover:no-underline
                          ">
-                            {{ \App\Models\Category::CATEGORIES['offer-the-price']['title'] }}
-                        </a>
-                    </div>
-                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="{{ route('projects.index.category',
-                                ['category' => \App\Models\Category::CATEGORIES['auction']['url']]
-                            ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
-                         text-[12px] justify-self-center mb-[15px]
-                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
-                         underline hover:no-underline
-                         ">
-                            {{ \App\Models\Category::CATEGORIES['auction']['title'] }}
-                        </a>
-                    </div>
-                    <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
-                        <a href="{{ route('projects.index.category',
-                                ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]
-                            ) }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
-                         text-[12px] justify-self-center mb-[15px]
-                         tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
-                         underline hover:no-underline
-                         ">
-                            {{ \App\Models\Category::CATEGORIES['fixed-price']['title'] }}
-                        </a>
-                    </div>
+                                {{ $category['title'] }}
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="max-laptop:mb-[20px]">
@@ -145,8 +125,8 @@
                     <div class="ped-input-wrap mb-[25px] md:mb-[30px]">
                         <x-input-label for="upresneni-pozadavku">Zde napište svoji zprávu</x-input-label>
                         <x-textarea-input id="upresneni-pozadavku" name="upresneni-pozadavku"
-                                  class="w-full min-h-[200px] md:min-h-[100px]"
-                                  x-model="data.pozadavek"></x-textarea-input>
+                                          class="w-full min-h-[200px] md:min-h-[100px]"
+                                          x-model="data.pozadavek"></x-textarea-input>
                     </div>
                     <div class="bg-ped-gray-100 my-[15px] max-h-[1px] h-1"></div>
 
@@ -156,37 +136,38 @@
                         <div class="ped-input-wrap">
                             <x-input-label for="kontakt-jmeno">Jméno *</x-input-label>
                             <x-text-input type="text" id="kontakt-jmeno" name="kontakt-jmeno" class="w-full"
-                                   x-model="data.kontaktJmeno" @keyup="validate()" @change="validate()" />
+                                          x-model="data.kontaktJmeno" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div class="ped-input-wrap">
                             <x-input-label for="kontakt-prijmeni">Příjmení *</x-input-label>
                             <x-text-input type="text" id="kontakt-prijmeni" name="kontakt-prijmeni" class="w-full"
-                                   x-model="data.kontaktPrijmeni" @keyup="validate()" @change="validate()" />
+                                          x-model="data.kontaktPrijmeni" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div class="ped-input-wrap">
                             <x-input-label for="kontakt-firma">Firma</x-input-label>
                             <x-text-input type="text" id="kontakt-firma" name="kontakt-firma" class="w-full"
-                                   x-model="data.kontaktFirma" @keyup="validate()" @change="validate()" />
+                                          x-model="data.kontaktFirma" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div></div>
                         <div class="ped-input-wrap">
                             <x-input-label for="kontakt-email">E-mail *</x-input-label>
                             <x-text-input type="email" id="kontakt-email" name="kontakt-email" class="w-full"
-                                   x-model="data.kontaktEmail" @keyup="validate()" @change="validate()" />
+                                          x-model="data.kontaktEmail" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div class="ped-input-wrap">
                             <x-input-label for="kontakt-telefon">Telefonní číslo</x-input-label>
                             <x-text-input type="tel" id="kontakt-telefon" name="kontakt-telefon" class="w-full"
-                                   x-model="data.kontaktTelefon" @keyup="validate()" @change="validate()" />
+                                          x-model="data.kontaktTelefon" @keyup="validate()" @change="validate()"/>
                         </div>
                     </div>
 
                     <div
-                         class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] min-h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] py-[14px] mb-[30px]
+                        class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] min-h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] py-[14px] mb-[30px]
                  text-[12px] tablet:text-[15px]
                  leading-[20px] tablet:leading-[24px]">
-                        <div class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white"
-                             @click="souhlas = !souhlas; validate()">
+                        <div
+                            class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white"
+                            @click="souhlas = !souhlas; validate()">
                             <div class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
                                  x-show="souhlas">
                             </div>
@@ -205,7 +186,8 @@
                         text-[14px] h-[50px] leading-[50px] px-[50px]
                         tablet::text-[16px] tablet::h-[55px] tablet::leading-[55px] tablet::px-[30px]
                         laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] laptop:px-[30px]
-                       ">Odeslat</button>
+                       ">Odeslat
+                            </button>
                         </div>
                     </div>
                     <div class="ped-text-13 mt-[20px] mb-0 text-center">

@@ -19,7 +19,7 @@ return new class extends Migration {
                     'real-estate-broker',
                 ]
             );
-            $table->enum('type', ['auction', 'fixed-price', 'offer-the-price'])->nullable();
+            $table->enum('type', ['auction', 'fixed-price', 'offer-the-price', 'preliminary-interest'])->nullable();
             $table->foreignId('subcategory_id')->nullable();
             $table->enum('status', [
                 'draft',

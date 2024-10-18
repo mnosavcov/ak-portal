@@ -35,7 +35,7 @@
                                     : '!text-[15px] inline-flex items-center px-1 text-sm font-medium leading-5 text-[#31363A]/80 hover:text-[#31363A] transition duration-150 ease-in-out font-Spartan-SemiBold';
                 @endphp
                 <div class="{{ $classeW }}">
-                    <x-dropdown align="left-170" width="">
+                    <x-dropdown align="left-185" width="">
                         <x-slot name="trigger">
                             <button
                                 class="{{ $classes }}">
@@ -54,18 +54,16 @@
 
                         <x-slot name="content">
                             <div
-                                class="px-[35px] pt-[15px] pb-[40px] grid grid-cols-[max-content_max-content_max-content] gap-x-[69px]">
+                                class="px-[35px] pt-[15px] pb-[40px] grid gap-x-[24px] min-[1120px]:gap-x-[49px] min-[1200px]:gap-x-[69px]"
+                                style="grid-template-columns: repeat({{ count(\App\Models\Category::CATEGORIES) }}, max-content)"
+                            >
 
-                                @foreach([
-                                    \App\Models\Category::CATEGORIES['offer-the-price'],
-                                    \App\Models\Category::CATEGORIES['fixed-price'],
-                                    \App\Models\Category::CATEGORIES['auction']
-                                    ] as $category)
+                                @foreach(\App\Models\Category::CATEGORIES as $category)
                                     <div>
                                         <x-dropdown-content :href="route('projects.index.category', [
                                     'category' => $category['url'],
                                     ])">
-                                            {{ \App\Models\Category::CATEGORIES[$category['id']]['title'] }}
+                                            {{ $category['title'] }}
                                         </x-dropdown-content>
 
                                         @foreach($projectCategories[$category['id']] as $nav)
@@ -79,7 +77,7 @@
                                     </div>
                                 @endforeach
 
-                                <div class="mt-[40px] col-span-3 text-center">
+                                <div class="mt-[40px] col-span-full text-center">
                                     <a href="{{ route('projects.index') }}"
                                        class="font-Spartan-Bold text-[15px] text-app-blue underline hover:no-underline">Zobrazit
                                         všechny kategorie</a>
@@ -372,11 +370,7 @@
 
                         <div x-show="open" x-collapse>
                             <div class="pt-[15px] pb-[20px] grid">
-                                @foreach([
-                                    \App\Models\Category::CATEGORIES['offer-the-price'],
-                                    \App\Models\Category::CATEGORIES['fixed-price'],
-                                    \App\Models\Category::CATEGORIES['auction']
-                                    ] as $category)
+                                @foreach(\App\Models\Category::CATEGORIES as $category)
                                     <x-dropdown-content :href="route('projects.index.category', [
                                     'category' => $category['url'],
                                     ])" class="!text-[13px] !font-WorkSans-SemiBold !p-0 !pb-[25px]"
@@ -384,7 +378,7 @@
                                                         (request()->routeIs('projects.index') || request()->routeIs('projects.index.category'))
                                                         && request()->route()->parameter('category') === $category['url']
                                                         ">
-                                        {{ \App\Models\Category::CATEGORIES[$category['id']]['title'] }}
+                                        {{ $category['title'] }}
                                     </x-dropdown-content>
 
                                     @foreach($projectCategories[$category['id']] as $nav)

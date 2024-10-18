@@ -32,15 +32,21 @@ class Category extends Model
         ],
         'fixed-price' => [
             'id' => 'fixed-price',
-            'title' => 'Cenu navrhuje prodávající',
+            'title' => 'Cenu navrhuje nabízející',
             'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
-            'url' => 'cenu-navrhuje-prodavajici',
+            'url' => 'cenu-navrhuje-nabizejici',
         ],
         'offer-the-price' => [
             'id' => 'offer-the-price',
             'title' => 'Cenu navrhuje investor',
             'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
             'url' => 'cenu-navrhuje-investor',
+        ],
+        'preliminary-interest' => [
+            'id' => 'preliminary-interest',
+            'title' => 'Projev předběžného zájmu',
+            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'url' => 'projev-predbezneho-zajmu',
         ],
     ];
 

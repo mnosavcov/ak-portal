@@ -1,6 +1,6 @@
 {
   "resources/css/app.less": {
-    "file": "assets/app-dcf54bf3.css",
+    "file": "assets/app-b522b626.css",
     "isEntry": true,
     "src": "resources/css/app.less"
   },
@@ -703,6 +703,10 @@
   "resources/images/ico-projekty-a-investori-z-celeho-sveta.svg": {
     "file": "assets/ico-projekty-a-investori-z-celeho-sveta-10465da3.svg",
     "src": "resources/images/ico-projekty-a-investori-z-celeho-sveta.svg"
+  },
+  "resources/images/ico-projev-predbezneho-zajmu.svg": {
+    "file": "assets/ico-projev-predbezneho-zajmu-e6a244a7.svg",
+    "src": "resources/images/ico-projev-predbezneho-zajmu.svg"
   },
   "resources/images/ico-proverujeme-kazdy-projekt.svg": {
     "file": "assets/ico-proverujeme-kazdy-projekt-d4f9e31d.svg",

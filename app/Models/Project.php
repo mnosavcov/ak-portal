@@ -125,6 +125,11 @@ class Project extends Model
             'text' => 'Prodej formou aukce',
             'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
         ],
+        'preliminary-interest' => [
+            'value' => 'preliminary-interest',
+            'text' => 'Chci získat jen projevy předběžného zájmu',
+            'description' => 'Máte projekt v rané fázi? Informujte o něm už nyní. Investoři se nezávazně přihlásí a k prodeji dojde, až bude projekt připraven.',
+        ],
     ];
 
     public const REPRESENTATION_OPTIONS = [
