@@ -8,12 +8,15 @@ use App\Services\CountryServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class BankIdController extends Controller
 {
+    private const TOKEN = '5VoiGW3eD4hNi9VAy09hST3PnjM7WoGn';
+
     public function profile(Request $request)
     {
         $token = Str::replace('Bearer ', '', $request->server('HTTP_AUTHORIZATION'));
@@ -79,5 +82,46 @@ class BankIdController extends Controller
     public function notify(Request $request)
     {
         return true;
+    }
+
+    public function localhostNotifySet(Request $request)
+    {
+        Cache::put('localhostNotify', $request->all());
+        return true;
+    }
+
+    public function localhostNotifyGet(Request $request)
+    {
+        $token = Str::replace('Bearer ', '', $request->server('HTTP_AUTHORIZATION'));
+
+        if (self::TOKEN !== $token) {
+            abort(401);
+        }
+
+        $data = Cache::get('localhostNotify');
+
+        return response()->json($data);
+    }
+
+    public function localhostNotifyUpdateData(Request $request)
+    {
+        if (!app()->environment('local')) {
+            abort(404, 'Tato funkčnost je možné volat jen z vývojového serveru');
+        }
+
+        $options = [
+            'http' => [
+                'header' => 'Authorization: Bearer ' . self::TOKEN . "\r\n",
+            ],
+        ];
+        $data = file_get_contents('https://portal.c18.cz/auth/ext/bankid/localhost/notify', false, stream_context_create($options));
+        $data = json_decode($data, true);
+
+        $notification_token = $data['notification_token'] ?? '..';
+        $aData = explode('.', $notification_token);
+        dump($aData);
+
+        dump(json_decode(base64_decode($aData[0])));
+        dump(json_decode(base64_decode($aData[1])));
     }
 }

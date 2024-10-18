@@ -254,6 +254,12 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
     Route::prefix('bankid')->name('bankid.')->group(function () {
         Route::post('profile', [BankIdController::class, 'profile'])->name('profile');
         Route::post('notify', [BankIdController::class, 'notify'])->name('notify');
+
+        Route::prefix('localhost')->name('localhost.')->group(function () {
+            Route::post('notify', [BankIdController::class, 'localhostNotifySet'])->name('notify.set');
+            Route::get('notify', [BankIdController::class, 'localhostNotifyGet'])->name('notify.get');
+            Route::get('update-data', [BankIdController::class, 'localhostNotifyUpdateData'])->name('notify.update-data');
+        });
     });
 });
 
