@@ -46,7 +46,7 @@
                                         class="mb-0 snap-start inline-block relative first:rounded-[10px_0_0_10px] last:rounded-[0_10px_10px_0] overflow-hidden">
                                         <a href="{{ route('profile.overview', ['account' => 'advertiser']) }}"
                                            class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'advertiser' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
-                                            Přehled nabízejiciho
+                                            Přehled nabízejícího
                                         </a>
                                     </div>
                                 @endif
