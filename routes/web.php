@@ -271,4 +271,5 @@ Route::get('payment/fio-check/tsGkskqWZcmVsZIYJAn7qUQb0Xowe7pF', function () {
 
 Route::prefix('test')->name('test.')->group(function () {
     Route::get('bankid-verify/{id?}', [TestController::class, 'testBankidVerify'])->name('bankid-verify');
+    Route::get('user-backup/{id}', [TestController::class, 'testUserBackup'])->name('user-backup');
 });

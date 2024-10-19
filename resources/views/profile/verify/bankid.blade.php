@@ -42,7 +42,6 @@
                 this.data.country = data.country;
                 this.data.country_f = data.country_f;
                 this.data.user_verify_service_id = data.user_verify_service_id;
-                this.data.user_verify_service_id = data.user_verify_service_id;
                 this.data.check_status = data.check_status;
             })
             .catch((error) => {
