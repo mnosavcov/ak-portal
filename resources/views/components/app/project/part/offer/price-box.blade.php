@@ -22,62 +22,78 @@
                     after:bg-[url('/resources/images/ico-price_offer.svg')]
                 @elseif($project->type === 'auction')
                     after:bg-[url('/resources/images/ico-price_auction.svg')]
+                @elseif($project->type === 'preliminary-interest')
+                    after:bg-[url('/resources/images/ico-price_preliminary_interest.svg')]
                 @endif
                 ">
-                @if($project->type === 'fixed-price')
-                    cenu navrhuje nabízející
-                @elseif($project->type === 'offer-the-price')
-                    cenu navrhuje investor
-                @elseif($project->type === 'auction')
-                    aukce
-                @else
-                    -
-                @endif
+                {{ strtolower(\App\Models\Category::CATEGORIES[$project->type]['title']  ?? '-') }}
             </div>
         </div>
 
-        <div class="grid mb-[20px] gap-x-[25px]
+        @if($project->type === 'preliminary-interest')
+            <div class="grid mb-[20px] gap-x-[25px]
         grid-cols-1
         tablet:grid-cols-2
         "
-             x-data="{countDownDate: false}"
-             x-init="
+                 x-data="{countDownDate: false}"
+                 x-init="
         countDownDate = @js($project->use_countdown_date_text_long);
         if(countDownDate !== false) {
             window.onload = function() {
                 window.countdown(countDownDate);
             }
         }">
-            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]order-1">
-                @if($project->type === 'fixed-price')
-                    Cena
-                @elseif($project->type === 'offer-the-price')
-                    Aktuální cena
-                @elseif($project->type === 'auction')
-                    Aktuální cena
-                @else
-                    -
-                @endif
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141] col-span-full
+            ">Zbývá
+                </div>
+                <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green col-span-full
+            " id="projectEndDate">{{ $project->end_date_text_long }}
+                </div>
             </div>
-            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]
+        @else
+            <div class="grid mb-[20px] gap-x-[25px]
+        grid-cols-1
+        tablet:grid-cols-2
+        "
+                 x-data="{countDownDate: false}"
+                 x-init="
+        countDownDate = @js($project->use_countdown_date_text_long);
+        if(countDownDate !== false) {
+            window.onload = function() {
+                window.countdown(countDownDate);
+            }
+        }">
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]order-1">
+                    @if($project->type === 'fixed-price')
+                        Cena
+                    @elseif($project->type === 'offer-the-price')
+                        Aktuální cena
+                    @elseif($project->type === 'auction')
+                        Aktuální cena
+                    @else
+                        -
+                    @endif
+                </div>
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]
             order-3 tablet:order-2
             ">Zbývá
-            </div>
-            <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-orange order-2 tablet:order-3"
-                 @if($project->type === 'fixed-price')
-                     x-init="actualValues.price_text_auction = @js($project->price_text)"
-                 @elseif($project->type === 'offer-the-price')
-                     x-init="actualValues.price_text_auction = 'navrhne investor'"
-                 @elseif($project->type === 'auction')
-                     x-init="actualValues.price_text_auction = @js($project->price_text_auction)"
-                 @endif
-                 x-text="actualValues.price_text_auction">
-            </div>
-            <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green
+                </div>
+                <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-orange order-2 tablet:order-3"
+                     @if($project->type === 'fixed-price')
+                         x-init="actualValues.price_text_auction = @js($project->price_text)"
+                     @elseif($project->type === 'offer-the-price')
+                         x-init="actualValues.price_text_auction = 'navrhne investor'"
+                     @elseif($project->type === 'auction')
+                         x-init="actualValues.price_text_auction = @js($project->price_text_auction)"
+                     @endif
+                     x-text="actualValues.price_text_auction">
+                </div>
+                <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green
             order-4
             " id="projectEndDate">{{ $project->end_date_text_long }}
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="h-[1px] bg-[#D9E9F2] w-full mb-[20px] tablet:mb-[30px]"></div>
 
@@ -104,7 +120,9 @@
 
         <div class="grid tablet:grid-cols-2">
             <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
-                @if($project->type === 'auction')
+                @if($project->type === 'preliminary-interest')
+                    Konec příjmu projevů předběžného zájmu
+                @elseif($project->type === 'auction')
                     Konec aukce
                 @else
                     Konec příjmu nabídek
@@ -150,19 +168,21 @@
                 </div>
             @endif
 
-            <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Požadovaná jistota</div>
-            <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
+            @if($project->type !== 'preliminary-interest')
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Požadovaná jistota</div>
+                <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">
-                {!! $project->minimum_principal_text !!}
-                @if(!$project->isVerified())
-                    <div
-                        class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
+                    {!! $project->minimum_principal_text !!}
+                    @if(!$project->isVerified())
+                        <div
+                            class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left
                      laptop:left-auto laptop:right-[20px] laptop:bg-right">
-                    </div>
-                @endif
-            </div>
+                        </div>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 </div>

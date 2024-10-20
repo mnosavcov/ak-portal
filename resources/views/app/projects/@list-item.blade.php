@@ -54,7 +54,7 @@
             </div>
 
             <div class="tablet:hidden laptop:block">
-            @include('app.projects.@list-item-tags')
+                @include('app.projects.@list-item-tags')
             </div>
         </div>
 
@@ -85,6 +85,29 @@
                         <div class="font-Spartan-SemiBold">Cena:</div>
                         <div class="font-Spartan-Regular">navrhne investor</div>
                     </div>
+                </div>
+            </template>
+            <template x-if="project.type === 'preliminary-interest'">
+                <div class="grid grid-1 gap-[10px] tablet:gap-[13px] laptop:gap-[15px]">
+                    <div
+                        class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_offer.svg')] after:w-[15px] after:h-[15px]
+                         text-[11px] tablet:text-[12px] laptop:text-[14px]
+                         after:top-0[px] tablet:after:top-3[px]">
+                        Projev předběžného zájmu
+                    </div>
+                    <div
+                        class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]
+                        text-[11px] tablet:text-[12px] laptop:text-[14px]
+                        after:top-0[px] tablet:after:top-3[px]"
+                        x-html="project.status_text">
+                    </div>
+                    <div
+                        class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-clocks.svg')] after:w-[15px] after:h-[15px]
+                        text-[11px] tablet:text-[12px] laptop:text-[14px]
+                        after:top-0[px] tablet:after:top-3[px]"
+                        x-text="project.end_date_text">
+                    </div>
+                    <div>&nbsp;</div>
                 </div>
             </template>
             <template x-if="project.type === 'fixed-price'">

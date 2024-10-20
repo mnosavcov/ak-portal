@@ -1,4 +1,4 @@
-@if(($type ?? null) === 'investor')
+@if(($type ?? null) === 'investor' && $project->type !== 'preliminary-interest')
     <div class="col-span-2 text-center pt-[15px] tablet:pt-[20px]">
         @if($offer->winner)
             @if($project->type === 'offer-the-price')

@@ -63,7 +63,7 @@ class BeforeMiddleware
                 ->where('status', '!=', 'evaluation')
                 ->isNotActive()
                 ->update(['status' => DB::raw(
-                    'if(`type` = \'auction\', \'finished\', \'evaluation\')'
+                    'if(`type` in (\'auction\', \'preliminary-interest\'), \'finished\', \'evaluation\')'
                 )]);
         }
 

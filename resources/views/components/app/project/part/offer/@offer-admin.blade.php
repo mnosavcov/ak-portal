@@ -3,15 +3,15 @@
         <div class="col-span-2 text-center pt-[15px] tablet:pt-[20px]" x-cloak
              x-show="winner === @js($offer->id)">
                 <span
-                        class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] inline-block">
+                    class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] inline-block">
                     Nabídka je zvolena jako vítězná
                 </span>
         </div>
 
         @if($project->type==='fixed-price' && $project->isStateEvaluation())
             <button
-                    x-show="winner === null && principal_paid" x-cloak x-collapse
-                    x-data="{
+                x-show="winner === null && principal_paid" x-cloak x-collapse
+                x-data="{
                     async pickAWinner() {
                         if(!confirm('Opravdu si přejete vybrat tohoho investora?')) {
                             return;
@@ -41,18 +41,19 @@
                     }
                 }"
 
-                    class="font-Spartan-Regular bg-app-green text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mt-[-10px]
+                class="font-Spartan-Regular bg-app-green text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mt-[-10px]
                          text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                          tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
                          laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] mb-[15px]
                          "
-                    @click="pickAWinner()"
+                @click="pickAWinner()"
             >
                 Akceptovat nabídku
             </button>
         @endif
 
-        <button
+        @if($project->type !== 'preliminary-interest')
+            <button
                 x-data="{
                         async setPrincipalPaid() {
                             await fetch('/admin/projekty/{{ $offer->id }}/set-principal-paid', {
@@ -90,7 +91,8 @@
                 }"
                 @click="setPrincipalPaid()"
                 x-text="principal_paid ? 'Jistota je uhrazena' : 'Jistota není uhrazena'"
-        >
-        </button>
+            >
+            </button>
+        @endif
     </div>
 @endif

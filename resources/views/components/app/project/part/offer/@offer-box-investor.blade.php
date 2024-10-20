@@ -2,8 +2,14 @@
     <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
         <div>
             <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-                Pro zaslání nabídky a zobrazení všech údajů se musíte přihlásit jako investor a mít ověřený
-                účet.
+                @if($project->type === 'preliminary-interest')
+                    Pro projevení předběžného zájmu a zobrazení všech údajů se musíte přihlásit jako investor a mít
+                    ověřený
+                    účet.
+                @else
+                    Pro zaslání nabídky a zobrazení všech údajů se musíte přihlásit jako investor a mít ověřený
+                    účet.
+                @endif
             </div>
             <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
                 Nemáte účet?
@@ -23,7 +29,11 @@
 @elseif(!auth()->user()->isVerified())
     <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
         <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-            Pro zobrazení všech údajů nebo zaslání nabídky musíte mít ověřený účet investora.
+            @if($project->type === 'preliminary-interest')
+                Pro zobrazení všech údajů nebo projevení předběžného zájmu musíte mít ověřený účet investora.
+            @else
+                Pro zobrazení všech údajů nebo zaslání nabídky musíte mít ověřený účet investora.
+            @endif
         </div>
         <div class="text-center laptop:text-right">
             <a href="{{ route('profile.edit') }}"
@@ -37,10 +47,15 @@
 @elseif(auth()->user()->investor && !auth()->user()->isInvestorVerified())
     <div class="grid gap-x-[20px] mb-[25px] grid-cols-1 laptop:grid-cols-2">
         <div class="font-Spartan-Bold text-[13px] leading-[22px] text-[#414141]">
-            Pro zobrazení všech údajů nebo zaslání nabídky musíte mít ověřený účet investora.
+            @if($project->type === 'preliminary-interest')
+                Pro zobrazení všech údajů nebo projevení předběžného zájmu musíte mít ověřený účet investora.
+            @else
+                Pro zobrazení všech údajů nebo zaslání nabídky musíte mít ověřený účet investora.
+            @endif
         </div>
-        <div class="font-Spartan-SemiBold text-[15px] text-app-orange text-left laptop:text-center mt-[15px] laptop:mt-0">
-                Váš účet investora čeká na ověření
+        <div
+            class="font-Spartan-SemiBold text-[15px] text-app-orange text-left laptop:text-center mt-[15px] laptop:mt-0">
+            Váš účet investora čeká na ověření
         </div>
     </div>
 @elseif(auth()->user()->investor)
@@ -48,7 +63,7 @@
         @include(
             'components.app.project.part.offer.@offer',
             [
-                'title' => 'Vaše nabídka',
+                'title' => $project->type === 'preliminary-interest' ? 'Váš projev zájmu' : 'Vaše nabídka',
                 'type' => 'investor',
                 'offer' => $project->myOffer(),
                 'user' => auth()->user()
@@ -135,6 +150,13 @@
                     @if($project->type === 'fixed-price')
                         <div x-init="offerPrice = @js($project->price)"></div>
                     @endif
+                    @if($project->type === 'preliminary-interest')
+                        <div x-init="offerPrice = 0"></div>
+                        <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141] mb-[24px]">
+                            Projev zájmu je nezávazný. Vlastníkovi projektu budete identifikováni, domluvíte se na
+                            dalším postupu, nebo budete zavčas informováni, pokud ho dá k prodeji na naši platformu.
+                        </div>
+                    @endif
                     @if($project->type === 'auction')
                         <div x-init="priceBox.auction = true"></div>
                         <div
@@ -207,6 +229,8 @@
                                             Nabídnout
                                         @elseif($project->type === 'auction')
                                             Přihodit
+                                        @elseif($project->type === 'preliminary-interest')
+                                            Projevit předběžný zájem
                                         @else
                                             -
                                         @endif
@@ -253,7 +277,9 @@
                                      class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
                                 <div class="text-center mb-[30px]">
-                                    @if($project->type === 'auction')
+                                    @if($project->type === 'preliminary-interest')
+                                        <h1>Podání předběžného zájmu</h1>
+                                    @elseif($project->type === 'auction')
                                         <h1>Potvrzení podání</h1>
                                     @else
                                         <h1>Podání nabídky</h1>
@@ -272,18 +298,45 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
-                                        <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
-                                            Nabídková cena:
+                                    @if($project->type !== 'preliminary-interest')
+                                        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
+                                            <div
+                                                class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
+                                                Nabídková cena:
+                                            </div>
+                                            <div
+                                                class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]"
+                                                x-text="inputData.offerFormated + ' Kč'">
+                                            </div>
                                         </div>
-                                        <div
-                                            class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]"
-                                            x-text="inputData.offerFormated + ' Kč'">
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
 
-                                @if($project->type === 'auction')
+                                @if($project->type === 'preliminary-interest')
+                                    <div class="max-w-[1200px] mx-auto">
+                                        <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px] bg-[#F8F8F8]
+                                    after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+                                            <div class="text-left">
+                                                <p class="mb-[10px]">
+                                                    <span class="font-Spartan-SemiBold">Podáním předběžného zájmu se nezavazujete ke koupi projektu.</span>
+                                                    <br><br>
+                                                    To, že zájem projevíte, má však důležité dopady na vaši potenciální
+                                                    účast v projektu. <span class="font-Spartan-SemiBold">Budoucímu prodávajícímu budete jako možný investor identifikováni.</span>
+                                                    Mohou tak, bude-li o to mít zájem, započít případná přímá jednání o
+                                                    dalším postupu.
+                                                    <br><br>
+                                                    Následně mohou nastat tyto scénáře:<br>
+                                                    1. Domluvíte se na tom, že do projektu vstoupíte jako spoluinvestor,
+                                                    nebo se na něm budete jakkoliv jinak podílet.<br>
+                                                    2. Domluvíte se na budoucím prodeji.<br>
+                                                    3. Prodávající projekt, jakmile bude způsobilý k prodeji, umístí na
+                                                    naši platformu. A vy budete na základě projeveného předběžného zájmu
+                                                    informováni a budete moct učinit nabídku.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($project->type === 'auction')
                                     <div class="max-w-[1200px] mx-auto">
                                         <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px] bg-[#F8F8F8]
                                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
@@ -339,6 +392,8 @@
                                         Podat nabídku
                                     @elseif($project->type === 'auction')
                                         Potvrdit podání
+                                    @elseif($project->type === 'preliminary-interest')
+                                        Potvrdit předběžný zájem
                                     @else
                                         -
                                     @endif

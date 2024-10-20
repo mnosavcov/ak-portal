@@ -125,6 +125,11 @@ class Project extends Model
             'text' => 'Prodej formou aukce',
             'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
         ],
+        'preliminary-interest' => [
+            'value' => 'preliminary-interest',
+            'text' => 'Chci získat jen projevy předběžného zájmu',
+            'description' => 'Máte projekt v rané fázi? Informujte o něm už nyní. Investoři se nezávazně přihlásí a k prodeji dojde, až bude projekt připraven.',
+        ],
     ];
 
     public const REPRESENTATION_OPTIONS = [
@@ -534,7 +539,11 @@ class Project extends Model
         $state = '---';
 
         if ($this->status === 'publicated') {
-            $state = '<span class="text-app-green">Aktivní</span>';
+            if ($this->type === 'preliminary-interest') {
+                $state = '<span class="text-app-green">Příjem zájemců</span>';
+            } else {
+                $state = '<span class="text-app-green">Aktivní</span>';
+            }
         } elseif ($this->status === 'evaluation') {
             $state = '<span class="text-app-green">Vyhodnocování</span>';
         } elseif ($this->status === 'finished') {

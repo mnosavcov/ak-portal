@@ -2,7 +2,9 @@
                 text-[15px] leading-[20px] mb-[15px]
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
                 laptop:text-[20px] laptop:leading-[30px]">
-    @if($project->type === 'auction')
+    @if($project->type === 'preliminary-interest')
+        Obdržené projevy zájmu
+    @elseif($project->type === 'auction')
         Podání
     @else
         Obdržené nabídky

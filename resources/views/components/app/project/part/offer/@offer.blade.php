@@ -9,27 +9,29 @@
         {{ $title }}
     </div>
 
-    <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Čas přidání nabídky:</div>
-        <div
-            class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($offer->offer_time)->format('d.m.Y H:i:s') }}</div>
-    </div>
-
-    <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Výše nabídky:</div>
-        <div
-            class="font-Spartan-Regular text-[14px]">{{ number_format($offer->price ?? 0, 0, '.', ' ') }}
-            Kč
+    @if($project->type !== 'preliminary-interest')
+        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
+            <div class="font-Spartan-SemiBold text-[14px]">Čas přidání nabídky:</div>
+            <div
+                class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($offer->offer_time)->format('d.m.Y H:i:s') }}</div>
         </div>
-    </div>
 
-    <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Složena jistota:</div>
-        <div class="font-Spartan-Regular text-[14px]">
-            <span class="text-app-green" x-cloak x-show="principal_paid">ano</span>
-            <span class="text-app-red" x-cloak x-show="!principal_paid">ne</span>
+        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
+            <div class="font-Spartan-SemiBold text-[14px]">Výše nabídky:</div>
+            <div
+                class="font-Spartan-Regular text-[14px]">{{ number_format($offer->price ?? 0, 0, '.', ' ') }}
+                Kč
+            </div>
         </div>
-    </div>
+
+        <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
+            <div class="font-Spartan-SemiBold text-[14px]">Složena jistota:</div>
+            <div class="font-Spartan-Regular text-[14px]">
+                <span class="text-app-green" x-cloak x-show="principal_paid">ano</span>
+                <span class="text-app-red" x-cloak x-show="!principal_paid">ne</span>
+            </div>
+        </div>
+    @endif
 
     @if(!$user)
         <div class="pt-[10px]">

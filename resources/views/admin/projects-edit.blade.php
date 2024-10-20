@@ -10,7 +10,7 @@
                 </svg>
             </button>
         </div>
-        <section class="max-w-7xl mx-auto py-4 px-5">
+        <section class="max-w-7xl mx-auto py-4 px-5" x-data="{exclusive: @js($project->exclusive_contract ? 1 : 0)}">
             <div class="flex justify-between items-center border-b border-gray-300 mb-[25px]">
                 <h1 class="text-2xl font-semibold pt-2 pb-6">Editace projektu</h1>
             </div>
@@ -21,21 +21,31 @@
 
             @include('admin.projects-edit.@user-info')
 
-            <form method="post" action="{{ route('admin.projects.save', ['project' => $project]) }}" x-data="adminProjectEdit" enctype="multipart/form-data"
-                @submit="
+            <form method="post" action="{{ route('admin.projects.save', ['project' => $project]) }}"
+                  x-data="adminProjectEdit" enctype="multipart/form-data"
+                  @submit="
                     if(selectedCategory !== 'fixed-price') {
                         if(!document.getElementById('end_date').value) {
                             alert('Musíte vyplnit `Ukončení sběru nabídek`');
                             $event.preventDefault();
+                            return;
                         }
+                    }
+                    if(selectedCategory === 'preliminary-interest' && exclusive !== 1) {
+                        alert('Pro typ prodeje `{{ \App\Models\Category::CATEGORIES['preliminary-interest']['title'] }}` je povinná `Exkluzivní smlouva`');
+                        $event.preventDefault();
+                        return;
                     }
                 ">
                 <input type="hidden" name="fileUUID" value="{{ $filesData['uuid'] }}">
                 <input type="hidden" name="imageUUID" value="{{ $imagesData['uuid'] }}">
                 <input type="hidden" name="galleryUUID" value="{{ $galleriesData['uuid'] }}">
-                <input type="hidden" name="fileIds" :value="Object.keys(tempFiles.fileList['{{ $filesData['uuid'] }}'] ?? {})">
-                <input type="hidden" name="imageIds" :value="Object.keys(tempFiles.fileList['{{ $imagesData['uuid'] }}'] ?? {})">
-                <input type="hidden" name="galleryIds" :value="Object.keys(tempFiles.fileList['{{ $galleriesData['uuid'] }}'] ?? {})">
+                <input type="hidden" name="fileIds"
+                       :value="Object.keys(tempFiles.fileList['{{ $filesData['uuid'] }}'] ?? {})">
+                <input type="hidden" name="imageIds"
+                       :value="Object.keys(tempFiles.fileList['{{ $imagesData['uuid'] }}'] ?? {})">
+                <input type="hidden" name="galleryIds"
+                       :value="Object.keys(tempFiles.fileList['{{ $galleriesData['uuid'] }}'] ?? {})">
                 @if($project->states->count())
                     <div x-init="projectStates.data = @js($project->states->pluck(null, 'id'));"></div>
                 @endif
@@ -69,7 +79,7 @@
                 @include('admin.projects-edit.@settings')
                 @include('admin.projects-edit.@maps')
 
-                <div x-data="{ open: true, exclusive: @js($project->exclusive_contract ? 1 : 0), details_on_request: @js($project->details_on_request ? 1 : 0) }" class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                <div x-data="{ open: true, details_on_request: @js($project->details_on_request ? 1 : 0) }" class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                     <div class="float-right cursor-pointer text-gray-700" x-text="open ? 'skrýt' : 'zobrazit'"
                          @click="open = !open"
@@ -112,7 +122,7 @@
 
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white disabled:grayscale"
-                    :disabled="uploadActive()">
+                        :disabled="uploadActive()">
                     Uložit změny
                 </button>
 

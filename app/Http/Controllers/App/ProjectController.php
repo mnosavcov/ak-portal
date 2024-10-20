@@ -40,13 +40,15 @@ class ProjectController extends Controller
         ];
 
         if ($category) {
-            if (Category::CATEGORIES['auction']['url'] === $category) {
-                $category = 'auction';
-            } elseif (Category::CATEGORIES['fixed-price']['url'] === $category) {
-                $category = 'fixed-price';
-            } elseif (Category::CATEGORIES['offer-the-price']['url'] === $category) {
-                $category = 'offer-the-price';
-            } else {
+            $redirect = true;
+            foreach(Category::CATEGORIES as $categoryX) {
+                if($categoryX['url'] === $category) {
+                    $category = $categoryX['id'];
+                    $redirect = false;
+                    break;
+                }
+            }
+            if ($redirect) {
                 return redirect()->route('projects.index');
             }
 

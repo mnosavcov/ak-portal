@@ -227,7 +227,7 @@
                 </div>
             </div>
 
-            <div class="mt-[10px] pt-[25px]" x-data>
+            <div class="mt-[10px] pt-[25px]" x-data x-show="selectedCategory !== 'preliminary-interest'">
                 <x-input-label for="price"
                                :value="__($project->type === 'fixed-price' ? 'Pevná cena' : 'Minimální cena k nabídnutí')"/>
                 <x-text-input id="price" name="price" class="block mt-1 w-full" type="text"
@@ -243,7 +243,7 @@
                 </div>
             </template>
 
-            <div class="mt-[10px] pt-[25px]" x-data>
+            <div class="mt-[10px] pt-[25px]" x-data x-show="selectedCategory !== 'preliminary-interest'">
                 <x-input-label for="minimum_principal"
                                :value="__('Požadovaná jistota')"/>
                 <x-text-input id="minimum_principal" name="minimum_principal" class="block mt-1 w-full" type="text"

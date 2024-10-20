@@ -11,6 +11,14 @@
 
                 @if($project->type === 'auction')
                     podání
+                @elseif($project->type === 'preliminary-interest')
+                    @if($project->offersCountAll() > 0 && $project->offersCountAll() < 2)
+                        zájemce
+                    @elseif($project->offersCountAll() > 1 && $project->offersCountAll() < 5)
+                        zájemci
+                    @else
+                        zájemců
+                    @endif
                 @else
                     @if($project->offers()->count() > 0 && $project->offers()->count() < 5)
                         nabízející
@@ -49,7 +57,7 @@
                             @include(
                                 'components.app.project.part.offer.@offer',
                                 [
-                                    'title' => 'Nabídka ' . $loop->iteration,
+                                    'title' => ($project->type === 'preliminary-interest' ? 'Projev zájmu ' : 'Nabídka ') . $loop->iteration,
                                     'type' => $userType,
                                     'offer' => $offer,
                                     'user' => (
@@ -69,7 +77,9 @@
                 text-[13px] leading-[24px] mb-[25px] p-[15px]
                 laptop:text-[15px] laptop:leading-[26px] laptop:mb-[30px] laptop:p-[20px]
             ">
-            @if($project->type === 'auction')
+            @if($project->type === 'preliminary-interest')
+                U projektu zatím nemáte žádné projevy zájmu.
+            @elseif($project->type === 'auction')
                 U projektu zatím nemáte žádné podání.
             @else
                 U projektu zatím nemáte žádné nabídky.
@@ -79,17 +89,19 @@
 @endif
 
 @if($userType === 'investor')
-    @if($project->offersCountAll() > 0 && ($project->type === 'offer-the-price' || $project->type === 'auction'))
-        <template x-if="$store.app.projectPublicated">
-            <div class="h-[1px] bg-[#D9E9F2] w-full mb-[20px] tablet:mb-[30px]"></div>
-        </template>
+    @if($project->offersCountAll() > 0 && ($project->type === 'offer-the-price' || $project->type === 'auction' || $project->type === 'preliminary-interest'))
+        @if($project->type !== 'preliminary-interest')
+            <template x-if="$store.app.projectPublicated">
+                <div class="h-[1px] bg-[#D9E9F2] w-full mb-[20px] tablet:mb-[30px]"></div>
+            </template>
 
-        <div class="font-Spartan-Regular text-[#414141]
+            <div class="font-Spartan-Regular text-[#414141]
                 text-[15px] leading-[20px] mb-[15px]
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
                 laptop:text-[20px] laptop:leading-[30px]">
-            Podání
-        </div>
+                Podání
+            </div>
+        @endif
 
         <div x-data="{offersOpen: true}">
             <div class="font-Spartan-SemiBold text-[13px] leading-[29px] mb-[20px] pl-[40px] text-app-blue underline relative {{ $project->offersCountAll() ? 'cursor-pointer' : '' }}
@@ -133,6 +145,14 @@
                     </div>
                 @endforeach
             </div>
+            @elseif($project->type === 'preliminary-interest')
+                @if($project->offersCountAll() > 0 && $project->offersCountAll() < 2)
+                    zájemce
+                @elseif($project->offersCountAll() > 1 && $project->offersCountAll() < 5)
+                    zájemci
+                @else
+                    zájemců
+                @endif
             @else
                 @if($project->offersCountAll() > 0 && $project->offersCountAll() < 5)
                     nabízející
