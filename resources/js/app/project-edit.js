@@ -11,12 +11,26 @@ Alpine.data('projectEdit', (id) => ({
     fileListError: [],
     fileListProgress: {},
     showUpresneteUmisteniVyroby() {
-        return this.data.subjectOffer != null;
+        if (this.data.subjectOffer === null) {
+            return false;
+        }
+
+        if (!this.data.subjectOffers[this.data.subjectOffer]) {
+            return false;
+        }
+
+        return true;
     },
     showSdelteViceInformaci() {
-        let show = this.showUpresneteUmisteniVyroby();
-        show &&= this.data.locationOffer != null;
-        return show;
+        if (this.data.locationOffer === null) {
+            return false;
+        }
+
+        if (!this.data.locationOffers[this.data.locationOffer]) {
+            return false;
+        }
+
+        return this.showUpresneteUmisteniVyroby();
     },
     removeNewFile(fileData) {
         if (typeof this.data.fileListDelete === 'undefined') {
@@ -39,22 +53,22 @@ Alpine.data('projectEdit', (id) => ({
             return false;
         }
 
-        if(!this.data.title.trim().length) {
+        if (!this.data.title.trim().length) {
             alert('Vyplňte název projektu.')
             return false;
         }
 
-        if(!this.data.country.trim().length) {
+        if (!this.data.country.trim().length) {
             alert('Vyplňte zemi umístění projektu.')
             return false;
         }
 
-        if(!this.data.description.trim().length) {
+        if (!this.data.description.trim().length) {
             alert('Vyplňte podrobné informace o projektu.')
             return false;
         }
 
-        if(this.data.type === null) {
+        if (this.data.type === null) {
             alert('Zvolte preferovaný způsob prodeje projektu.')
             return false;
         }
@@ -62,19 +76,19 @@ Alpine.data('projectEdit', (id) => ({
         let show = true;
 
         if (this.data.accountType === 'real-estate-broker') {
-            if(this.data.representation.selected === null) {
+            if (this.data.representation.selected === null) {
                 alert('Zvolte formu zastoupení klienta.')
                 return false;
             }
 
             if (this.data.representation.indefinitelyDate === false) {
-                if(!this.data.representation.endDate.trim().length) {
+                if (!this.data.representation.endDate.trim().length) {
                     alert('Vyplňte platnost smlouvy.')
                     return false;
                 }
             }
 
-            if(this.data.representation.mayBeCancelled === null) {
+            if (this.data.representation.mayBeCancelled === null) {
                 alert('Zvolte jestli je smlouva podepsaná s možností zrušení a výpovědní lhůtou.')
                 return false;
             }

@@ -182,13 +182,13 @@
                                 Předmět&nbsp;nabídky
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::SUBJECT_OFFERS[$project->subject_offer] }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::SUBJECT_OFFERS_ALL_VERSIONS[$project->subject_offer] ?? $project->subject_offer }}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Umístění projektu
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::LOCATION_OFFERS[$project->location_offer] }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::LOCATION_OFFERS_ALL_VERSIONS[$project->location_offer] ?? $project->location_offer }}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Název projektu

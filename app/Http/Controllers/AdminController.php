@@ -97,8 +97,8 @@ class AdminController extends Controller
             [
                 'project' => $project,
                 'statuses' => $statuses,
-                'subject_offer' => ProjectService::SUBJECT_OFFERS,
-                'location_offer' => ProjectService::LOCATION_OFFERS,
+                'subject_offer' => ProjectService::SUBJECT_OFFERS_ALL_VERSIONS,
+                'location_offer' => ProjectService::LOCATION_OFFERS_ALL_VERSIONS,
                 'projectDetails' => $projectDetails,
                 'filesData' => [
                     'uuid' => $filesUuid,
