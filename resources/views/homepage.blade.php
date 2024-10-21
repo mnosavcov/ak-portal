@@ -1,7 +1,8 @@
-<x-app-layout :htmlTitle="'on-line tržiště projektů z oblasti OZE'" :htmlDescription="'Nabídněte nebo investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.'">
+<x-app-layout :htmlTitle="'on-line tržiště projektů z oblasti OZE'"
+              :htmlDescription="'Nabídněte nebo investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.'">
     <x-app.top-content
         imgSrc="{{ Vite::asset('resources/images/top-img-homepage.png') }}"
-        header="On-line tržiště projektů z&nbsp;oblasti obnovitelných zdrojů energie"
+        header="On-line tržiště projektů z&nbsp;oblasti obnovitelných zdrojů energie a&nbsp;energetiky"
     >
 
         <div class="max-w-[900px] mx-auto">
@@ -10,15 +11,14 @@
                     tablet:text-[19px] tablet:leading-[22px] tablet:order-2
                     laptop:text-[22px] laptop:leading-[25px] laptop:order-1
                     ">
-                    Prodej a nákup projektů na výstavbu fotovoltaických nebo větrných elektráren
-                    – od rané fáze připravenosti až po příležitosti s&nbsp;platným stavebním povolením a
-                    rezervovaným výkonem v&nbsp;distribuční soustavě.
+                    Prodej a&nbsp;nákup projektů v&nbsp;provozu.
                 </div>
                 <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px] order-1
                     tablet:text-[19px] tablet:leading-[22px] tablet:order-1
                     laptop:text-[22px] laptop:leading-[25px] laptop:order-2
                     ">
-                    Prodej a nákup výroben v&nbsp;provozu.
+                    Prodej a nákup práv k výstavbě projektů – od rané fáze připravenosti až po příležitosti s platným
+                    stavebním povolením a rezervovaným výkonem v distribuční soustavě.
                 </div>
             </div>
 

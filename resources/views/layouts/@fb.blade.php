@@ -1,4 +1,4 @@
-<meta property="og:title" content="{{ ($ogTitle ?? null) ?: 'On-line tržiště projektů z oblasti obnovitelných zdrojů energie' }}">
+<meta property="og:title" content="{{ ($ogTitle ?? null) ?: 'On-line tržiště projektů z oblasti obnovitelných zdrojů energie a energetiky' }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url()->current() }}">
 <meta property="og:image" content="{{ url('pvtrusted.png') }}">
