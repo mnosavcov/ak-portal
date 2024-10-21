@@ -152,6 +152,7 @@ h3 {
 
 .inline-loader {
     display: inline-block;
+
     .loader {
     @apply justify-self-center;
         width: 100%;
@@ -182,9 +183,10 @@ h3 {
         color: #414141;
 
         a {
-            @apply underline text-app-blue;
+        @apply underline text-app-blue;
+
             &hover {
-                @apply no-underline;
+            @apply no-underline;
             }
         }
 
@@ -205,11 +207,26 @@ h3 {
             font-size: 15px;
             line-height: 26px;
         }
+
+        ol {
+            margin-left: 15px;
+            li {
+                list-style-type: decimal;
+            }
+        }
+
+        ul {
+            margin-left: 15px;
+            li {
+                list-style-type: disc;
+            }
+        }
     }
 
     .app-project-state {
         a {
         @apply underline text-app-blue;
+
             &hover {
             @apply no-underline;
             }
@@ -272,6 +289,7 @@ h3 {
 
     a {
     @apply underline text-app-blue;
+
         &hover {
         @apply no-underline;
         }
@@ -288,7 +306,7 @@ h3 {
     div {
         &.number,
         &.title {
-           @apply text-center font-Spartan-Bold;
+        @apply text-center font-Spartan-Bold;
             margin-bottom: 5px;
         }
     }

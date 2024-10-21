@@ -86,6 +86,24 @@
                     class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
                     {!! nl2br($user->investor_info) !!}
                 </div>
+
+                <div
+                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mt-[10px]">
+                    E-mail
+                </div>
+                <div
+                    class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mt-[10px]">
+                    <a href="mailto:{{ $user->email }}"
+                       class="underline hover:no-underline text-app-blue">{{ $user->email }}</a>
+                </div>
+                <div
+                    class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                    Telefon
+                </div>
+                <div
+                    class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
+                    {{ $user->phone_number }}
+                </div>
             </div>
         </div>
     @endif
