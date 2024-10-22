@@ -19,12 +19,12 @@
     <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]"
          x-init="selectedCategory = @js($project->type)">
         <div>
-            <div class="font-bold">Předmět nabídky:</div>
-            <div>{{ $subject_offer[$project->subject_offer] ?? $project->subject_offer }}</div>
+            <div class="font-bold">Stupeň rozpracovanosti projektu:</div>
+            <div>{!! $subject_offer[$project->subject_offer] ?? $project->subject_offer !!}</div>
         </div>
         <div>
-            <div class="font-bold">Umístění výrobny:</div>
-            <div>{{ $location_offer[$project->location_offer] ?? $project->location_offer }}</div>
+            <div class="font-bold">Předmět nabídky:</div>
+            <div>{!! $location_offer[$project->location_offer] ?? $project->location_offer !!}</div>
         </div>
         <div></div>
         <div></div>

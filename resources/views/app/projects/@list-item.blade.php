@@ -27,7 +27,7 @@
             laptop:order-2 laptop:col-span-1
          ">
             <div
-                class="font-Spartan-Bold overflow-hidden text-ellipsis whitespace-nowrap
+                class="font-Spartan-Bold
                   mb-[5px] text-[13px] leading-[18px] pt-[2px]
                  tablet:mb-[10px] tablet:text-[18px] tablet:leading-[30px]
                  laptop:mb-[10px] laptop:text-[18px] laptop:leading-[30px]"

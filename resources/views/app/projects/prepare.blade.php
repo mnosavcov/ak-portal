@@ -179,16 +179,16 @@
                         <div
                             class="bg-[#F8F8F8] rounded-[3px] p-[25px] grid tablet:grid-cols-[max-content_1fr] gap-x-[75px] mb-[30px]">
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
-                                Předmět&nbsp;nabídky
+                                Stupeň&nbsp;rozpracovanosti&nbsp;projektu
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::SUBJECT_OFFERS_ALL_VERSIONS[$project->subject_offer] ?? $project->subject_offer }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{!! \App\Services\ProjectService::SUBJECT_OFFERS_ALL_VERSIONS[$project->subject_offer] ?? $project->subject_offer !!}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
-                                Umístění projektu
+                                Předmět nabídky
                             </div>
                             <div
-                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{{ \App\Services\ProjectService::LOCATION_OFFERS_ALL_VERSIONS[$project->location_offer] ?? $project->location_offer }}</div>
+                                class="font-Spartan-Regular text-[13px] leading-[24px] text-[#414141] max-tablet:mb-[15px]">{!! \App\Services\ProjectService::LOCATION_OFFERS_ALL_VERSIONS[$project->location_offer] ?? $project->location_offer !!}</div>
 
                             <div class="font-Spartan-SemiBold text-[13px] leading-[24px] text-[#414141]">
                                 Název projektu

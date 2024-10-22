@@ -26,7 +26,11 @@ Alpine.data('projectEdit', (id) => ({
             return false;
         }
 
-        if (!this.data.locationOffers[this.data.locationOffer]) {
+        if (!this.data.locationOffers[this.data.subjectOffer]) {
+            return false;
+        }
+
+        if (!this.data.locationOffers[this.data.subjectOffer][this.data.locationOffer]) {
             return false;
         }
 
@@ -49,7 +53,7 @@ Alpine.data('projectEdit', (id) => ({
         }
 
         if (!this.showSdelteViceInformaci()) {
-            alert('Vyberte předmět nabídky a umístění výrobny.')
+            alert('Vyberte stupeň rozpracovanosti projektu a stupeň rozpracovanosti projektu.')
             return false;
         }
 

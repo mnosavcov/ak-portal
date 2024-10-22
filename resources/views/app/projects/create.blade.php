@@ -34,28 +34,28 @@
 
                 <div
                     class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
-                    <h2 class="mb-[25px] tablet:mb-[50px]">Upřesněte předmět nabídky</h2>
+                    <h2 class="mb-[25px] tablet:mb-[50px]">Zvolte stupeň rozpracovanosti projektu</h2>
 
                     <div class="grid tablet:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[15px] tablet:gap-[20px]">
                         <template x-for="(subject, index) in data.subjectOffers" :key="index">
                             <div
                                 class="cursor-pointer font-Spartan-SemiBold text-[12px] tablet:text-[13px] text-[#676464] p-[21px_16px] tablet:p-[31px_21px] text-center leading-[22px] rounded-[3px] border border-[#D9E9F2] m-[1px] flex items-center justify-center"
                                 :class="{'!font-Spartan-Bold !border-app-blue border-[3px] !m-0 !p-[20px_15px] tablet:!p-[30px_20px] !text-app-blue shadow-[0_3px_6px_rgba(0,0,0,0.16)]': index === data.subjectOffer}"
-                                x-text="subject" @click="data.subjectOffer = index"></div>
+                                x-html="subject" @click="data.subjectOffer = index"></div>
                         </template>
                     </div>
                 </div>
 
                 <div x-cloak x-show="showUpresneteUmisteniVyroby()" x-collapse
                      class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
-                    <h2 class="mb-[25px] tablet:mb-[50px]">Upřesněte umístění výrobny</h2>
+                    <h2 class="mb-[25px] tablet:mb-[50px]">Zvolte předmět nabídky</h2>
 
                     <div class="grid tablet:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[15px] tablet:gap-[20px]">
-                        <template x-for="(location, index) in data.locationOffers" :key="index">
+                        <template x-for="(location, index) in data.locationOffers[data.subjectOffer]" :key="index">
                             <div
                                 class="cursor-pointer font-Spartan-SemiBold text-[12px] tablet:text-[13px] text-[#676464] p-[21px_16px] tablet:p-[31px_21px] text-center leading-[22px] rounded-[3px] border border-[#D9E9F2] m-[1px] flex items-center justify-center"
                                 :class="{'!font-Spartan-Bold !border-app-blue border-[3px] !m-0 !p-[20px_15px] tablet:!p-[30px_20px] !text-app-blue shadow-[0_3px_6px_rgba(0,0,0,0.16)]': index === data.locationOffer}"
-                                x-text="location" @click="data.locationOffer = index"></div>
+                                x-html="location" @click="data.locationOffer = index"></div>
                         </template>
                     </div>
                 </div>
