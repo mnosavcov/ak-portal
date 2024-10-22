@@ -7,18 +7,18 @@
 
         <div class="max-w-[900px] mx-auto">
             <div class="grid gap-y-[20px] tablet:gap-y-[25px] laptop:gap-y-[30px]">
-                <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px] order-2
-                    tablet:text-[19px] tablet:leading-[22px] tablet:order-2
-                    laptop:text-[22px] laptop:leading-[25px] laptop:order-1
-                    ">
-                    Prodej a&nbsp;nákup projektů v&nbsp;provozu.
-                </div>
-                <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px] order-1
-                    tablet:text-[19px] tablet:leading-[22px] tablet:order-1
-                    laptop:text-[22px] laptop:leading-[25px] laptop:order-2
+                <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px]
+                    tablet:text-[19px] tablet:leading-[22px]
+                    laptop:text-[22px] laptop:leading-[25px]
                     ">
                     Prodej a nákup práv k výstavbě projektů – od rané fáze připravenosti až po příležitosti s platným
                     stavebním povolením a rezervovaným výkonem v distribuční soustavě.
+                </div>
+                <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px]
+                    tablet:text-[19px] tablet:leading-[22px]
+                    laptop:text-[22px] laptop:leading-[25px]
+                    ">
+                    Prodej a&nbsp;nákup projektů v&nbsp;provozu.
                 </div>
             </div>
 
