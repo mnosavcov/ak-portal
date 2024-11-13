@@ -27,25 +27,29 @@ class Category extends Model
         'auction' => [
             'id' => 'auction',
             'title' => 'Aukce',
-            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'titleTrans' => 'kategorie.Auction-Title',
+            'description' => 'kategorie.Auction-Description',
             'url' => 'aukce',
         ],
         'fixed-price' => [
             'id' => 'fixed-price',
             'title' => 'Cenu navrhuje nabízející',
-            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'titleTrans' => 'kategorie.FixedPrice-Title',
+            'description' => 'kategorie.FixedPrice-Description',
             'url' => 'cenu-navrhuje-nabizejici',
         ],
         'offer-the-price' => [
             'id' => 'offer-the-price',
             'title' => 'Cenu navrhuje investor',
-            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'titleTrans' => 'kategorie.OfferThePrice-Title',
+            'description' => 'kategorie.OfferThePrice-Description',
             'url' => 'cenu-navrhuje-investor',
         ],
         'preliminary-interest' => [
             'id' => 'preliminary-interest',
             'title' => 'Projev předběžného zájmu',
-            'description' => 'Investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.',
+            'titleTrans' => 'kategorie.PreliminaryInterest-Title',
+            'description' => 'kategorie.PreliminaryInterest-Description',
             'url' => 'projev-predbezneho-zajmu',
         ],
     ];

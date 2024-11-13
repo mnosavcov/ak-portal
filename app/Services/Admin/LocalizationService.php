@@ -89,7 +89,7 @@ class LocalizationService extends Controller
 
             if (!File::isFile($filename . '.json')) {
                 $translationsData = require $filename . '.bkp';
-                File::replace($filename . '.json', json_encode($translationsData, JSON_PRETTY_PRINT));
+                File::replace($filename . '.json', json_encode($translationsData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             }
 
             $subtitle = explode('.', $subFile->getFilename())[0];
@@ -124,8 +124,8 @@ class LocalizationService extends Controller
         $translations = json_decode(File::get($filename), true);
         $translations[$request->index] = $request->translate;
 
-        File::replace($filename . '.bkp', json_encode($translations, JSON_PRETTY_PRINT));
-        File::replace($filename, json_encode($translations, JSON_PRETTY_PRINT));
+        File::replace($filename . '.bkp', json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        File::replace($filename, json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
     private function saveSub($request, $lng, $sub)
@@ -142,7 +142,7 @@ class LocalizationService extends Controller
 
         if (!File::isFile($filename . '.json')) {
             $translationsData = require $filename . '.bkp';
-            File::replace($filename . '.json', json_encode($translationsData, JSON_PRETTY_PRINT));
+            File::replace($filename . '.json', json_encode($translationsData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
 
         $translations = json_decode(File::get($filename . '.json'), true);
@@ -150,7 +150,7 @@ class LocalizationService extends Controller
 
         $content = "<?php\n\nreturn " . str_replace(['array (', ')', '  \''], ['[', ']', '    \''], var_export($translations, true)) . ";\n";
 
-        File::replace($filename . '.json', json_encode($translations, JSON_PRETTY_PRINT));
+        File::replace($filename . '.json', json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         File::replace($filename . '.bkp', $content);
         File::replace($filename, $content);
     }

@@ -5,11 +5,11 @@
         $overviewTitle = 'Přehled účtu';
         $usersService = new \App\Services\UsersService();
         if ($usersService->isInvestorOnly()) {
-            $overviewTitle = 'Přehled investora';
+            $overviewTitle = __('menu.Přehled_investora');
         } elseif ($usersService->isAdvertiserOnly()) {
-            $overviewTitle = 'Přehled nabízejícího';
+            $overviewTitle = __('menu.Přehled_nabízejícího');
         } elseif ($usersService->isRealEstateBrokerOnly()) {
-            $overviewTitle = 'Přehled realitního makléře';
+            $overviewTitle = __('menu.Přehled_realitního_makléře');
         }
     @endphp
         <!-- Primary Navigation Menu -->
@@ -39,7 +39,7 @@
                         <x-slot name="trigger">
                             <button
                                 class="{{ $classes }}">
-                                <div>Projekty</div>
+                                <div>{{ __('menu.Projekty') }}</div>
 
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@
                                         <x-dropdown-content :href="route('projects.index.category', [
                                     'category' => $category['url'],
                                     ])">
-                                            {{ $category['title'] }}
+                                            {{ __($category['titleTrans']) }}
                                         </x-dropdown-content>
 
                                         @foreach($projectCategories[$category['id']] as $nav)
@@ -79,8 +79,9 @@
 
                                 <div class="mt-[40px] col-span-full text-center">
                                     <a href="{{ route('projects.index') }}"
-                                       class="font-Spartan-Bold text-[15px] text-app-blue underline hover:no-underline">Zobrazit
-                                        všechny kategorie</a>
+                                       class="font-Spartan-Bold text-[15px] text-app-blue underline hover:no-underline">
+                                        {{ __('menu.ZobrazitVšechnyKategorie') }}
+                                    </a>
                                 </div>
                             </div>
                         </x-slot>
@@ -89,7 +90,7 @@
 
                 <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">
                     <x-nav-link :href="route('jak-to-funguje')" :active="request()->routeIs('jak-to-funguje')">
-                        {{ __('Jak to funguje') }}
+                        {{ __('menu.JakToFunguje') }}
                     </x-nav-link>
                 </div>
 
@@ -101,7 +102,7 @@
 
                 <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">
                     <x-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')">
-                        {{ __('Kontakt') }}
+                        {{ __('menu.Kontakt') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -127,7 +128,7 @@
                                     <div class="self-center">
                                         <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
                                     </div>
-                                    <div class="self-center mt-[8px]">Váš účet</div>
+                                    <div class="self-center mt-[8px]">{{ __('menu.Váš účet') }}</div>
                                 </div>
 
                                 <div class="ml-1 mt-[8px]">
@@ -144,7 +145,7 @@
                         <x-slot name="content">
                             @if(auth()->user()->superadmin)
                                 <x-dropdown-link :href="route('admin.projects')" class="px-[30px]">
-                                    {{ __('Administration') }}
+                                    {{ __('menu.Administrace') }}
                                 </x-dropdown-link>
                             @endif
 
@@ -163,28 +164,28 @@
                                 @if(auth()->user()->investor && !auth()->user()->isDeniedInvestor())
                                     <x-dropdown-link :href="route('profile.investor')" class="px-[30px]"
                                                      :active="request()->routeIs('profile.investor')">
-                                        {{ __('Profil investora') }}
+                                        {{ __('menu.Profil_investora') }}
                                     </x-dropdown-link>
                                 @endif
 
                                 @if(auth()->user()->advertiser && !auth()->user()->isDeniedAdvertiser())
                                     <x-dropdown-link :href="route('profile.advertiser')" class="px-[30px]"
                                                      :active="request()->routeIs('profile.advertiser')">
-                                        {{ __('Profil nabízejícího') }}
+                                        {{ __('menu.Profil_nabízejícího') }}
                                     </x-dropdown-link>
                                 @endif
 
                                 @if(auth()->user()->real_estate_broker && !auth()->user()->isDeniedRealEstateBrokerStatus())
                                     <x-dropdown-link :href="route('profile.real-estate-broker')" class="px-[30px]"
                                                      :active="request()->routeIs('profile.real-estate-broker')">
-                                        {{ __('Profil realitního makléře') }}
+                                        {{ __('menu.Profil_realitního_makléře') }}
                                     </x-dropdown-link>
                                 @endif
                             @endif
 
                             <x-dropdown-link :href="route('profile.edit')" class="px-[30px]"
                                              :active="request()->routeIs('profile.edit')">
-                                {{ __('Nastavení účtu') }}
+                                {{ __('menu.Nastavení_účtu') }}
                             </x-dropdown-link>
 
                             @if(auth()->user()->superadmin || auth()->user()->investor || auth()->user()->advertiser || auth()->user()->real_estate_broker)
@@ -201,7 +202,7 @@
                                     <div class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] mt-[5px]">
                                         <img src="{{ Vite::asset('resources/images/ico-logout.svg') }}">
                                         <div class="!font-Spartan-SemiBold !text-[13px] underline">
-                                            {{ __('Odhlásit se') }}
+                                            {{ __('menu.Odhlásit_Se') }}
                                         </div>
                                     </div>
                                 </x-dropdown-link>
@@ -228,7 +229,7 @@
                             <div class="laptop:top-0 laptop:right-0 pl-0 p-6 pr-0 text-right z-10">
                                 <a href="{{ route('login') }}"
                                    class="{{ $classes }}">
-                                    Přihlásit se
+                                    {{ __('menu.PřihlásitSe') }}
                                 </a>
 
                                 {{--                                @if (Route::has('register'))--}}
@@ -277,7 +278,7 @@
             @guest
                 <x-responsive-nav-link :href="route('login')"
                                        class="py-[25px] px-[15px] !font-Spartan-Bold !text-[15px] underline">
-                    {{ __('Přihlásit se') }}
+                    {{ __('menu.PřihlásitSe') }}
                 </x-responsive-nav-link>
             @endguest
             @auth
@@ -295,7 +296,7 @@
                             <div class="inline-grid grid-cols-[20px_1fr] gap-x-[15px]">
                                 <img src="{{ Vite::asset('resources/images/ico-logout.svg') }}">
                                 <div class="!font-Spartan-Bold !text-[15px] underline">
-                                    {{ __('Odhlásit se') }}
+                                    {{ __('menu.Odhlásit_Se') }}
                                 </div>
                             </div>
                         </x-responsive-nav-link>
@@ -308,7 +309,7 @@
                     <div class="space-y-[25px] py-[25px] px-[15px] bg-white rounded-[3px] mx-[15px] mt-[5px] mb-[25px]">
                         @if(auth()->user()->superadmin)
                             <x-responsive-nav-link :href="route('admin.projects')">
-                                {{ __('Administration') }}
+                                {{ __('menu.Administrace') }}
                             </x-responsive-nav-link>
                         @endif
 
@@ -323,28 +324,28 @@
                             @if(auth()->user()->investor)
                                 <x-responsive-nav-link :href="route('profile.investor')"
                                                        :active="request()->routeIs('profile.investor')">
-                                    {{ __('Profil investora') }}
+                                    {{ __('menu.Profil_investora') }}
                                 </x-responsive-nav-link>
                             @endif
 
                             @if(auth()->user()->advertiser)
                                 <x-responsive-nav-link :href="route('profile.advertiser')"
                                                        :active="request()->routeIs('profile.advertiser')">
-                                    {{ __('Profil nabízejícího') }}
+                                    {{ __('menu.Profil_nabízejícího') }}
                                 </x-responsive-nav-link>
                             @endif
 
                             @if(auth()->user()->real_estate_broker)
                                 <x-responsive-nav-link :href="route('profile.real-estate-broker')"
                                                        :active="request()->routeIs('profile.real-estate-broker')">
-                                    {{ __('Profil realitního makléře') }}
+                                    {{ __('menu.Profil_realitního_makléře') }}
                                 </x-responsive-nav-link>
                             @endif
                         @endif
 
                         <x-responsive-nav-link :href="route('profile.edit')"
                                                :active="request()->routeIs('profile.edit')">
-                            {{ __('Nastavení účtu') }}
+                            {{ __('menu.Nastavení_účtu') }}
                         </x-responsive-nav-link>
                     </div>
                 @else
@@ -359,7 +360,7 @@
                                                @click="open = !open"
                                                class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] mr-[15px] cursor-pointer">
                             <div class="grid grid-cols-[1fr_10px] pr-[15px]">
-                                {{ __('Projekty') }}
+                                {{ __('menu.Projekty') }}
                                 <div class="self-center">
                                     <img src="{{ Vite::asset('resources/images/arrow-down-black-10x6.svg') }}"
                                          class="transition"
@@ -378,7 +379,7 @@
                                                         (request()->routeIs('projects.index') || request()->routeIs('projects.index.category'))
                                                         && request()->route()->parameter('category') === $category['url']
                                                         ">
-                                        {{ $category['title'] }}
+                                        {{ __($category['titleTrans']) }}
                                     </x-dropdown-content>
 
                                     @foreach($projectCategories[$category['id']] as $nav)
@@ -397,8 +398,9 @@
                                 @endforeach
 
                                 <a href="{{ route('projects.index') }}"
-                                   class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline mt-[20px]">Zobrazit
-                                    všechny kategorie</a>
+                                   class="!font-Spartan-Bold !text-[15px] text-app-blue underline hover:no-underline mt-[20px]">
+                                    {{ __('menu.ZobrazitVšechnyKategorie') }}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -409,7 +411,7 @@
                     <x-responsive-nav-link :href="route('jak-to-funguje')"
                                            :active="request()->routeIs('jak-to-funguje')"
                                            class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                        {{ __('Jak to funguje') }}
+                        {{ __('menu.JakToFunguje') }}
                     </x-responsive-nav-link>
                 </div>
                 {{--                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>--}}
@@ -423,7 +425,7 @@
                 <div class="pb-[25px]">
                     <x-responsive-nav-link :href="route('kontakt')" :active="request()->routeIs('kontakt')"
                                            class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                        {{ __('Kontakt') }}
+                        {{ __('menu.Kontakt') }}
                     </x-responsive-nav-link>
                 </div>
             </div>

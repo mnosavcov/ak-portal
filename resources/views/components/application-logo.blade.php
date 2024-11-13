@@ -1,1 +1,1 @@
-<img src="{{ Vite::asset('resources/images/pvtrusted.svg') }}" class="h-full" height="32" width="185">
+<img src="{{ Vite::asset('resources/images/' . __('logo_url', [], null, false)) }}" class="h-full" height="32" width="185">

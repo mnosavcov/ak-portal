@@ -1,5 +1,5 @@
 <x-app-layout :htmlTitle="'on-line tržiště projektů z oblasti OZE'"
-              :htmlDescription="'Nabídněte nebo investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.'">
+              :htmlDescription="__('Nabídněte nebo investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.')">
     <x-app.top-content
         imgSrc="{{ Vite::asset('resources/images/top-img-homepage.png') }}"
         header="On-line tržiště projektů z&nbsp;oblasti obnovitelných zdrojů energie a&nbsp;energetiky"

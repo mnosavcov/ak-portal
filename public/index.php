@@ -40,7 +40,7 @@ if (! function_exists('__')) {
      * @param  string|null  $locale
      * @return string|array|null
      */
-    function __($key = null, $replace = [], $locale = null)
+    function __($key = null, $replace = [], $locale = null, $enableDebug = true)
     {
         if (is_null($key)) {
             return $key;
@@ -51,7 +51,7 @@ if (! function_exists('__')) {
             $trans = $key;
         }
 
-        if (env('LANG_DEBUG') && file_exists(dirname(__DIR__) . '/resources/lang/.test')) {
+        if ($enableDebug && env('LANG_DEBUG') && file_exists(dirname(__DIR__) . '/resources/lang/.test')) {
             return '~[' . $key . ']' . $trans . '~';
         }
 
