@@ -231,13 +231,13 @@ class ProfileController extends Controller
         $accountSingle = false;
         $usersService = new UsersService();
         if ($usersService->isInvestorOnly()) {
-            $accountTitle = 'Přehled investora';
+            $accountTitle = __('profil.Přehled_investora');
             $accountSingle = true;
         } elseif ($usersService->isAdvertiserOnly()) {
-            $accountTitle = 'Přehled nabízejícího';
+            $accountTitle = __('profil.Přehled_nabízejícího');
             $accountSingle = true;
         } elseif ($usersService->isRealEstateBrokerOnly()) {
-            $accountTitle = 'Přehled realitního makléře';
+            $accountTitle = __('profil.Přehled_realitního_makléře');
             $accountSingle = true;
         }
 

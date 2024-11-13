@@ -10,7 +10,7 @@
                         tablet::text-[16px] tablet::h-[55px] tablet::leading-[55px] tablet::px-[30px]
                         laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] laptop:px-[30px]
                        ">
-                        Kontaktujte nás
+                        {{ __('Kontaktujte nás') }}
                     </button>
                 </div>
                 {{--                <div class="grid grid-cols-3 gap-x-[20px] justify-self-end">--}}
@@ -23,7 +23,7 @@
             <div class="grid laptop:grid-cols-3 text-center laptop:text-left">
                 <div class="max-laptop:mb-[20px]">
                     <div class="font-Spartan-Bold text-[13px] tablet:text-[18px] mb-[25px] laptop:mb-[40px]">
-                        Kategorie podle typu nabídky
+                        {{ __('Kategorie podle typu nabídky') }}
                     </div>
                     @foreach(\App\Models\Category::CATEGORIES as $category)
                         <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
@@ -34,7 +34,7 @@
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
                          underline hover:no-underline
                          ">
-                                {{ $category['title'] }}
+                                {{ __($category['title']) }}
                             </a>
                         </div>
                     @endforeach
@@ -72,7 +72,7 @@
 
                 <div class="max-laptop:mb-[20px]">
                     <div class="font-Spartan-Bold text-[13px] tablet:text-[18px] mb-[25px] laptop:mb-[40px]">
-                        Další informace
+                        {{ __('Další informace') }}
                     </div>
                     <div class="mb-[20px]">
                         <a href="{{ route('vseobecne-obchodni-podminky') }}" class="font-Spartan-Regular max-laptop:underline max-laptop:hover:no-underline
@@ -80,7 +80,7 @@
                          tablet:text-[15px] laptop:justify-self-start laptop:mb-[20px]
                          underline hover:no-underline
                          ">
-                            Všeobecné obchodní podmínky
+                            {{ __('Všeobecné obchodní podmínky') }}
                         </a>
                     </div>
                     <div class="mb-[20px]">
@@ -89,7 +89,7 @@
                          tablet:text-[15px] laptop:justify-self-center laptop:mb-[20px]
                          underline hover:no-underline
                          ">
-                            Zásady zpracování osobních údajů
+                            {{ __('Zásady zpracování osobních údajů') }}
                         </a>
                     </div>
                     <div class="mb-[20px]">
@@ -98,7 +98,7 @@
                          tablet:text-[15px] laptop:justify-self-end laptop:mb-[20px]
                          underline hover:no-underline
                          ">
-                            Mapa webu
+                            {{ __('Mapa webu') }}
                         </a>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
 
     <div
         class="w-full bg-white text-center font-Spartan-Regular text-[13px] leading-[60px] h-[60px] px-[30px]">
-        &copy;{{ date('Y') }} <a href="{{ route('homepage') }}">PVtrusted.cz</a>
+        &copy;{{ date('Y') }} <a href="{{ route('homepage') }}">{{ __('PVtrusted_cz') }}</a>
     </div>
 
     <div x-data="ajaxForm">
@@ -118,44 +118,44 @@
                 <img src="{{ Vite::asset('resources/images/ico-close.svg') }}"
                      @click="setDefault();$dispatch('close')"
                      class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
-                <h2 class="mb-[25px] md:mb-[30px]">Odeslání kontaktního formuláře</h2>
+                <h2 class="mb-[25px] md:mb-[30px]">{{ __('Odeslání kontaktního formuláře') }}</h2>
 
                 <form action="" method="post" @submit.prevent="postForm(); return false;"
                       enctype="multipart/form-data">
                     <div class="ped-input-wrap mb-[25px] md:mb-[30px]">
-                        <x-input-label for="upresneni-pozadavku">Zde napište svoji zprávu</x-input-label>
+                        <x-input-label for="upresneni-pozadavku">{{ __('Zde napište svoji zprávu') }}</x-input-label>
                         <x-textarea-input id="upresneni-pozadavku" name="upresneni-pozadavku"
                                           class="w-full min-h-[200px] md:min-h-[100px]"
                                           x-model="data.pozadavek"></x-textarea-input>
                     </div>
                     <div class="bg-ped-gray-100 my-[15px] max-h-[1px] h-1"></div>
 
-                    <h3 class="mb-[15px]">Zadejte své kontaktní údaje</h3>
+                    <h3 class="mb-[15px]">{{ __('Zadejte své kontaktní údaje') }}</h3>
                     <div
                         class="grid grid-cols-1 md:grid-cols-[repeat(2,_minmax(50px,1fr))] gap-[20px] md:gap-[25px_20px] mb-[25px] md:mb-[30px]">
                         <div class="ped-input-wrap">
-                            <x-input-label for="kontakt-jmeno">Jméno *</x-input-label>
+                            <x-input-label for="kontakt-jmeno">{{ __('Jméno') }} *</x-input-label>
                             <x-text-input type="text" id="kontakt-jmeno" name="kontakt-jmeno" class="w-full"
                                           x-model="data.kontaktJmeno" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div class="ped-input-wrap">
-                            <x-input-label for="kontakt-prijmeni">Příjmení *</x-input-label>
+                            <x-input-label for="kontakt-prijmeni">{{ __('Příjmení') }} *</x-input-label>
                             <x-text-input type="text" id="kontakt-prijmeni" name="kontakt-prijmeni" class="w-full"
                                           x-model="data.kontaktPrijmeni" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div class="ped-input-wrap">
-                            <x-input-label for="kontakt-firma">Firma</x-input-label>
+                            <x-input-label for="kontakt-firma">{{ __('Firma') }}</x-input-label>
                             <x-text-input type="text" id="kontakt-firma" name="kontakt-firma" class="w-full"
                                           x-model="data.kontaktFirma" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div></div>
                         <div class="ped-input-wrap">
-                            <x-input-label for="kontakt-email">E-mail *</x-input-label>
+                            <x-input-label for="kontakt-email">{{ __('E-mail') }} *</x-input-label>
                             <x-text-input type="email" id="kontakt-email" name="kontakt-email" class="w-full"
                                           x-model="data.kontaktEmail" @keyup="validate()" @change="validate()"/>
                         </div>
                         <div class="ped-input-wrap">
-                            <x-input-label for="kontakt-telefon">Telefonní číslo</x-input-label>
+                            <x-input-label for="kontakt-telefon">{{ __('Telefonní číslo') }}</x-input-label>
                             <x-text-input type="tel" id="kontakt-telefon" name="kontakt-telefon" class="w-full"
                                           x-model="data.kontaktTelefon" @keyup="validate()" @change="validate()"/>
                         </div>
@@ -172,10 +172,9 @@
                                  x-show="souhlas">
                             </div>
                         </div>
-                        <div @click="souhlas = !souhlas; validate()">Odesláním formuláře souhlasím se <a
+                        <div @click="souhlas = !souhlas; validate()">{{ __('Odesláním formuláře souhlasím se') }} <a
                                 href="{{ route('zasady-zpracovani-osobnich-udaju') }}" target="_blank"
-                                class="underline hover:no-underline">Zásadami
-                                zpracování osobních údajů </a>
+                                class="underline hover:no-underline">{{ __('Zásadami zpracování osobních údajů') }} </a>
                         </div>
                     </div>
                     <div class="grayscale tranform-[filter] duration-[400ms]"
@@ -186,12 +185,12 @@
                         text-[14px] h-[50px] leading-[50px] px-[50px]
                         tablet::text-[16px] tablet::h-[55px] tablet::leading-[55px] tablet::px-[30px]
                         laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] laptop:px-[30px]
-                       ">Odeslat
+                       ">{{ __('Odeslat') }}
                             </button>
                         </div>
                     </div>
                     <div class="ped-text-13 mt-[20px] mb-0 text-center">
-                        odpovíme vám do 24 hodin
+                        {{ __('odpovíme vám do 24 hodin') }}
                     </div>
                 </form>
             </div>

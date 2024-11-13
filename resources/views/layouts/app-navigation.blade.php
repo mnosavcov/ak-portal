@@ -63,7 +63,7 @@
                                         <x-dropdown-content :href="route('projects.index.category', [
                                     'category' => $category['url'],
                                     ])">
-                                            {{ __($category['titleTrans']) }}
+                                            {{ __($category['title']) }}
                                         </x-dropdown-content>
 
                                         @foreach($projectCategories[$category['id']] as $nav)
@@ -90,7 +90,7 @@
 
                 <div class="hidden space-x-8 laptop:-my-px laptop:ml-10 laptop:flex">
                     <x-nav-link :href="route('jak-to-funguje')" :active="request()->routeIs('jak-to-funguje')">
-                        {{ __('menu.JakToFunguje') }}
+                        {{ __('menu.Jak_to_funguje') }}
                     </x-nav-link>
                 </div>
 
@@ -128,7 +128,7 @@
                                     <div class="self-center">
                                         <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
                                     </div>
-                                    <div class="self-center mt-[8px]">{{ __('menu.Váš účet') }}</div>
+                                    <div class="self-center mt-[8px]">{{ __('menu.Váš_účet') }}</div>
                                 </div>
 
                                 <div class="ml-1 mt-[8px]">
@@ -379,7 +379,7 @@
                                                         (request()->routeIs('projects.index') || request()->routeIs('projects.index.category'))
                                                         && request()->route()->parameter('category') === $category['url']
                                                         ">
-                                        {{ __($category['titleTrans']) }}
+                                        {{ __($category['title']) }}
                                     </x-dropdown-content>
 
                                     @foreach($projectCategories[$category['id']] as $nav)
@@ -411,7 +411,7 @@
                     <x-responsive-nav-link :href="route('jak-to-funguje')"
                                            :active="request()->routeIs('jak-to-funguje')"
                                            class="!font-Spartan-SemiBold !text-[14px] h-[50px] leading-[50px] pt-[5px] mx-[15px]">
-                        {{ __('menu.JakToFunguje') }}
+                        {{ __('menu.Jak_to_funguje') }}
                     </x-responsive-nav-link>
                 </div>
                 {{--                <div class="pt-[5px] border-b border-[#D9E9F2]"></div>--}}

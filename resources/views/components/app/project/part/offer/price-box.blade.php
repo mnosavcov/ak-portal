@@ -26,7 +26,7 @@
                     after:bg-[url('/resources/images/ico-price_preliminary_interest.svg')]
                 @endif
                 ">
-                {{ strtolower(\App\Models\Category::CATEGORIES[$project->type]['title']  ?? '-') }}
+                {{ strtolower(__(\App\Models\Category::CATEGORIES[$project->type]['title']  ?? '-')) }}
             </div>
         </div>
 

@@ -8,16 +8,14 @@
 
         <div class="relative mx-auto pt-[60px] p-[15px] pb-0 text-white text-center">
             <h2 class="mb-[35px] text-white">
-                Jak se u nás projekty prodávají?
+                {{ __('homepage.Jak_se_u_nás_projekty_prodávají?') }}
             </h2>
             <div class="max-w-[720px] mx-auto
                     text-[16px] leading-[26px]
                     tablet:text-[18px] tablet:leading-[28px]
                     laptop:text-[20px] laptop:leading-[30px]
                     ">
-                Jako nabízející projektu si můžete vybrat ze třech typů prodeje. Před zveřejněním
-                projektu budete provozovatelem detailně seznámeni s&nbsp;výhodami, a&nbsp;i&nbsp;limity každého
-                z&nbsp;nich.
+                {!! __('homepage.Jako_nabízející_projektu_si_můžete_vybrat_ze_třech_typů_prodeje-_Před_zveřejněním_projektu_budete_provozovatelem_detailně_seznámeni_s&nbsp;výhodami,_a&nbsp;i&nbsp;limity_každého_z&nbsp;nich') !!}
             </div>
         </div>
 
@@ -54,7 +52,7 @@
                          tablet:text-[15px]
                          laptop:text-[18px] laptop:mb-[30px]
                         ">
-                                    Cenu navrhuje investor
+                                    {{ __('homepage.Cenu_navrhuje_investor') }}
                                 </div>
 
                                 <div class="text-[#31363A] font-Spartan-Regular
@@ -62,8 +60,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Nastavíte minimální nabídkovou cenu a&nbsp;investoři vám neveřejně zasílají nabídky
-                                    s částkou dle svých možností.
+                                    {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;investoři_vám_neveřejně_zasílají_nabídky_s_částkou_dle_svých_možností') !!}
                                 </div>
 
                                 <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}"
@@ -74,7 +71,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline">
-                                    Zobrazit projekty
+                                    {{ __('homepage.Zobrazit_projekty') }}
                                 </a>
                                 <div></div>
                                 <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
@@ -85,7 +82,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
-                         ">Nabídnout svůj projekt
+                         ">{{ __('homepage.Nabídnout_svůj_projekt') }}
                                 </a>
                             </div>
                         </div>
@@ -108,7 +105,7 @@
                          tablet:text-[15px]
                          laptop:text-[18px] laptop:mb-[30px]
                         ">
-                                    Aukce
+                                    {{ __('homepage.Aukce') }}
                                 </div>
 
                                 <div class="text-[#31363A] font-Spartan-Regular
@@ -116,8 +113,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Nastavíte minimální nabídkovou cenu a&nbsp;minimální příhoz. Vítězná bude poslední
-                                    nabídka s&nbsp;nejvyšší částkou.
+                                    {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz._Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou') !!}
                                 </div>
 
                                 <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['auction']['url']]) }}"
@@ -128,7 +124,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline">
-                                    Zobrazit projekty
+                                    {{ __('homepage.Zobrazit_projekty') }}
                                 </a>
                                 <div></div>
                                 <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
@@ -139,7 +135,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
-                         ">Nabídnout svůj projekt
+                         ">{{ __('homepage.Nabídnout_svůj_projekt') }}
                                 </a>
                             </div>
                         </div>
@@ -161,15 +157,14 @@
                          tablet:text-[15px]
                          laptop:text-[18px] laptop:mb-[30px]
                         ">
-                                    Cenu navrhuje nabízející
+                                    {{ __('homepage.Cenu_navrhuje_nabízející') }}
                                 </div>
                                 <div class="text-[#31363A] font-Spartan-Regular
                          text-[12px] mb-[25px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Nastavíte fixní nabídkovou cenu. Na ni musí investor, pokud má o&nbsp;projekt zájem,
-                                    přistoupit. První platná nabídka vyhrává.
+                                    {!! __('homepage.Nastavíte_fixní_nabídkovou_cenu-_Na_ni_musí_investor,_pokud_má_o&nbsp;projekt_zájem,_přistoupit-_První_platná_nabídka_vyhrává') !!}
                                 </div>
                                 <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
@@ -180,7 +175,7 @@
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
                             ">
-                                    Zobrazit projekty
+                                    {{ __('homepage.Zobrazit_projekty') }}
                                 </a>
                                 <div></div>
                                 <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
@@ -192,7 +187,7 @@
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
                             ">
-                                    Nabídnout svůj projekt
+                                    {{ __('homepage.Nabídnout_svůj_projekt') }}
                                 </a>
                             </div>
                         </div>
@@ -214,15 +209,14 @@
                          tablet:text-[15px]
                          laptop:text-[18px] laptop:mb-[30px]
                         ">
-                                    Projev předběžného zájmu
+                                    {{ __('homepage.Projev_předběžného_zájmu') }}
                                 </div>
                                 <div class="text-[#31363A] font-Spartan-Regular
                          text-[12px] mb-[25px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    Máte projekt v rané fázi? Informujte o něm už nyní. Investoři se nezávazně přihlásí
-                                    a k prodeji dojde, až bude projekt připraven.
+                                    {!! __('homepage.Máte_projekt_v_rané_fázi?_Informujte_o_něm_už_nyní-_Investoři_se_nezávazně_přihlásí_a_k_prodeji_dojde,_až_bude_projekt_připraven') !!}
                                 </div>
                                 <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['preliminary-interest']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
@@ -233,7 +227,7 @@
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
                             ">
-                                    Zobrazit projekty
+                                    {{ __('homepage.Zobrazit_projekty') }}
                                 </a>
                                 <div></div>
                                 <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
@@ -245,7 +239,7 @@
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
                             ">
-                                    Nabídnout svůj projekt
+                                    {{ __('homepage.Nabídnout_svůj_projekt') }}
                                 </a>
                             </div>
                         </div>

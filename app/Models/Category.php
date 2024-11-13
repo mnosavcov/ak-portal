@@ -26,29 +26,25 @@ class Category extends Model
     public const CATEGORIES = [
         'auction' => [
             'id' => 'auction',
-            'title' => 'Aukce',
-            'titleTrans' => 'kategorie.Auction-Title',
+            'title' => 'kategorie.Auction-Title',
             'description' => 'kategorie.Auction-Description',
             'url' => 'aukce',
         ],
         'fixed-price' => [
             'id' => 'fixed-price',
-            'title' => 'Cenu navrhuje nabízející',
-            'titleTrans' => 'kategorie.FixedPrice-Title',
+            'title' => 'kategorie.FixedPrice-Title',
             'description' => 'kategorie.FixedPrice-Description',
             'url' => 'cenu-navrhuje-nabizejici',
         ],
         'offer-the-price' => [
             'id' => 'offer-the-price',
-            'title' => 'Cenu navrhuje investor',
-            'titleTrans' => 'kategorie.OfferThePrice-Title',
+            'title' => 'kategorie.OfferThePrice-Title',
             'description' => 'kategorie.OfferThePrice-Description',
             'url' => 'cenu-navrhuje-investor',
         ],
         'preliminary-interest' => [
             'id' => 'preliminary-interest',
-            'title' => 'Projev předběžného zájmu',
-            'titleTrans' => 'kategorie.PreliminaryInterest-Title',
+            'title' => 'kategorie.PreliminaryInterest-Title',
             'description' => 'kategorie.PreliminaryInterest-Description',
             'url' => 'projev-predbezneho-zajmu',
         ],

@@ -32,7 +32,7 @@
                         }
                     }
                     if(selectedCategory === 'preliminary-interest' && exclusive !== 1) {
-                        alert('Pro typ prodeje `{{ \App\Models\Category::CATEGORIES['preliminary-interest']['title'] }}` je povinná `Exkluzivní smlouva`');
+                        alert('Pro typ prodeje `{{ __(\App\Models\Category::CATEGORIES['preliminary-interest']['title']) }}` je povinná `Exkluzivní smlouva`');
                         $event.preventDefault();
                         return;
                     }

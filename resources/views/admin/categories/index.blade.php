@@ -20,7 +20,7 @@
                 @foreach(\App\Models\Category::CATEGORIES as $index => $category)
                     <div class="p-[20px] bg-white rounded-[7px]">
                         <div class="font-Spartan-Bold text-[15px]" title="{{ $category['description'] }}">
-                            {{ $category['title'] }}
+                            {{ __($category['title']) }}
                         </div>
                         <div class="font-Spartan-Regular text-[11px] inline-block mb-[5px] text-gray-500">
                             {{ $category['url'] }}

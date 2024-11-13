@@ -267,7 +267,7 @@ class Project extends Model
     {
         $date = $this->end_date;
         if ($date === null) {
-            $dateText = 'na neurčito';
+            $dateText = __('projekt.na_neurčito');
         } else {
             $date = Carbon::parse($date);
 
@@ -281,27 +281,27 @@ class Project extends Model
             } else {
                 if (isset($diff->days) && $diff->days > 0) {
                     if ($diff->days === 1) {
-                        $dateText .= '1 den';
+                        $dateText .= __('projekt.1_den');
                     } elseif ($diff->days > 1 && $diff->days < 5) {
-                        $dateText .= $diff->days . ' dny';
+                        $dateText .= $diff->days . __('projekt._dny');
                     } else {
-                        $dateText .= $diff->days . ' dní';
+                        $dateText .= $diff->days . __('projekt._dní');
                     }
                 }
                 if ($diff->h === 1) {
-                    $dateText .= ' 1 hodina';
+                    $dateText .= __('projekt._1_hodina');
                 } elseif ($diff->h > 1 && $diff->h < 5) {
-                    $dateText .= ' ' . $diff->h . ' hodiny';
+                    $dateText .= ' ' . $diff->h . __('projekt._hodiny');
                 } elseif ($diff->h > 4) {
-                    $dateText .= ' ' . $diff->h . ' hodin';
+                    $dateText .= ' ' . $diff->h . __('projekt._hodin');
                 }
             }
         }
 
         if ($this->status === 'evaluation') {
-            $dateText = 'vyhodnocování';
+            $dateText = __('projekt.vyhodnocování');
         } elseif ($this->status === 'finished') {
-            $dateText = 'dokončeno';
+            $dateText = __('projekt.dokončeno');
         }
 
         return Attribute::make(
@@ -334,13 +334,13 @@ class Project extends Model
     public function endDateTextNormal(): Attribute
     {
         if (empty($this->end_date)) {
-            $dateText = 'na neurčito';
+            $dateText = __('projekt.na_neurčito');
         } else {
             $dateText = Carbon::parse($this->end_date)->format('d.m.Y H:i:s');
         }
 
         if ($this->status === 'finished') {
-            $dateText = 'dokončeno';
+            $dateText = __('projekt.dokončeno');
         }
 
         return Attribute::make(
@@ -355,39 +355,39 @@ class Project extends Model
         $type = $this->type;
         if ($type === 'fixed-price' || $type === null) {
             if (auth()->guest()) {
-                $priceText = 'jen pro přihlášené';
+                $priceText = __('projekt.jen_pro_přihlášené');
             } elseif (!$this->isMine() && !auth()->user()->investor) {
-                $priceText = 'jen pro investory';
+                $priceText = __('projekt.jen_pro_investory');
             } elseif (!$this->isVerified()) {
-                $priceText = 'jen s ověřeným účtem';
+                $priceText = __('projekt.jen_s_ověřeným_účtem');
             } elseif (empty($price)) {
-                $priceText = 'cena není zadaná';
+                $priceText = __('projekt.cena_není_zadaná');
             } else {
-                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+                $priceText = number_format($price, 0, '.', ' ') . __('projekt._Kč');
             }
         } elseif ($type === 'auction' || $type === null) {
             if ($auctionoffer) {
                 $price = $this->getActualAuctionPrice();
             }
             if (auth()->guest()) {
-                $priceText = 'jen pro přihlášené';
+                $priceText = __('projekt.jen_pro_přihlášené');
             } elseif (!$this->isMine() && !auth()->user()->investor) {
-                $priceText = 'jen pro investory';
+                $priceText = __('projekt.jen_pro_investory');
             } elseif (!$this->isVerified()) {
-                $priceText = 'jen s ověřeným účtem';
+                $priceText = __('projekt.jen_s_ověřeným_účtem');
             } elseif (empty($price)) {
-                $priceText = 'cena není zadaná';
+                $priceText = __('projekt.cena_není_zadaná');
             } else {
-                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+                $priceText = number_format($price, 0, '.', ' ') . __('projekt._Kč');
             }
         } elseif ($type === 'offer-the-price') {
             if ($this->isVerified()) {
-                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+                $priceText = number_format($price, 0, '.', ' ') . __('projekt._Kč');
             } else {
                 if ($offer) {
                     $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
                 } else {
-                    $priceText = 'navrhne investor';
+                    $priceText = __('projekt.navrhne_investor');
                 }
             }
         }
@@ -401,15 +401,15 @@ class Project extends Model
     {
         $minBidAmount = $this->min_bid_amount;
         if (auth()->guest()) {
-            $minBidAmountText = 'jen pro přihlášené';
+            $minBidAmountText = __('projekt.jen_pro_přihlášené');
         } elseif (!$this->isMine() && !auth()->user()->investor) {
-            $minBidAmountText = 'jen pro investory';
+            $minBidAmountText = __('projekt.jen_pro_investory');
         } elseif (!$this->isVerified()) {
-            $minBidAmountText = 'jen s ověřeným účtem';
+            $minBidAmountText = __('projekt.jen_s_ověřeným_účtem');
         } elseif (empty($minBidAmount)) {
-            $minBidAmountText = 'výše není zadaná';
+            $minBidAmountText = __('projekt.výše_není_zadaná');
         } else {
-            $minBidAmountText = number_format($minBidAmount, 0, '.', ' ') . ' Kč';
+            $minBidAmountText = number_format($minBidAmount, 0, '.', ' ') . __('projekt._Kč');
         }
 
         return Attribute::make(
@@ -431,15 +431,15 @@ class Project extends Model
     {
         $minBidAmount = $this->getActualMinBidAmount();
         if (auth()->guest()) {
-            $minBidAmountText = 'jen pro přihlášené';
+            $minBidAmountText = __('projekt.jen_pro_přihlášené');
         } elseif (!$this->isMine() && !auth()->user()->investor) {
-            $minBidAmountText = 'jen pro investory';
+            $minBidAmountText = __('projekt.jen_pro_investory');
         } elseif (!$this->isVerified()) {
-            $minBidAmountText = 'jen s ověřeným účtem';
+            $minBidAmountText = __('projekt.jen_s_ověřeným_účtem');
         } elseif (empty($minBidAmount)) {
-            $minBidAmountText = 'výše není zadaná';
+            $minBidAmountText = __('projekt.výše_není_zadaná');
         } else {
-            $minBidAmountText = number_format($minBidAmount, 0, '.', ' ') . ' Kč';
+            $minBidAmountText = number_format($minBidAmount, 0, '.', ' ') . __('projekt._Kč');
         }
 
         return Attribute::make(
@@ -478,9 +478,9 @@ class Project extends Model
         if (!$this->isVerified()) {
             $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
         } elseif (empty($price)) {
-            $priceText = 'výše není zadaná';
+            $priceText = __('projekt.výše_není_zadaná');
         } else {
-            $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+            $priceText = number_format($price, 0, '.', ' ') . __('projekt._Kč');
         }
 
         return Attribute::make(
@@ -523,9 +523,9 @@ class Project extends Model
     {
         $state = null;
         if (in_array($this->status, self::STATUS_PREPARE)) {
-            $state = nl2br(htmlspecialchars(trim($this->actual_state ?? 'Projekt čeká na kontrolu provozovatelem')));
+            $state = nl2br(htmlspecialchars(trim($this->actual_state ?? __('projekt.Projekt_čeká_na_kontrolu_provozovatelem'))));
             if (empty(trim($state))) {
-                $state = 'Projekt čeká na kontrolu provozovatelem';
+                $state = __('projekt.Projekt_čeká_na_kontrolu_provozovatelem');
             }
         }
 
@@ -540,14 +540,14 @@ class Project extends Model
 
         if ($this->status === 'publicated') {
             if ($this->type === 'preliminary-interest') {
-                $state = '<span class="text-app-green">Příjem zájemců</span>';
+                $state = '<span class="text-app-green">' . __('projekt.Příjem_zájemců') . '</span>';
             } else {
-                $state = '<span class="text-app-green">Aktivní</span>';
+                $state = '<span class="text-app-green">' . __('projekt.Aktivní') . '</span>';
             }
         } elseif ($this->status === 'evaluation') {
-            $state = '<span class="text-app-green">Vyhodnocování</span>';
+            $state = '<span class="text-app-green">' . __('projekt.Vyhodnocování') . '</span>';
         } elseif ($this->status === 'finished') {
-            $state = '<span class="text-app-green">Ukončeno</span>';
+            $state = '<span class="text-app-green">' . __('projekt.Ukončeno') . '</span>';
         }
 
         return Attribute::make(

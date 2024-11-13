@@ -55,7 +55,7 @@ class ProjectController extends Controller
             $projectAll = $projectAll->where('type', $category);
             $description = Category::CATEGORIES[$category]['description'];
 
-            $title = Category::CATEGORIES[$category]['title'];
+            $title = __(Category::CATEGORIES[$category]['title']);
             $breadcrumbs[$title] = route('projects.index.category', ['category' => Category::CATEGORIES[$category]['url']]);
         }
 

@@ -5,7 +5,7 @@
     <div class="w-full bg-white" x-data="faq" x-init="data = @js($faqs);">
         <div class="w-full max-w-[1230px] px-[15px] mx-auto text-center">
             <h2 class="text-[#414141] mb-[50px] text-center">
-                Nejčastější otázky a odpovědi
+                {{ __('faq.Nejčastější_otázky_a_odpovědi') }}
             </h2>
 
             {{--            filter - start--}}

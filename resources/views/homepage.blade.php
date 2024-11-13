@@ -1,8 +1,8 @@
-<x-app-layout :htmlTitle="'on-line tržiště projektů z oblasti OZE'"
+<x-app-layout :htmlTitle="__('on-line tržiště projektů z oblasti OZE')"
               :htmlDescription="__('Nabídněte nebo investujte do projektů v oblasti výstavby a provozu obnovitelných zdrojů energie v různých stupních rozpracovanosti.')">
     <x-app.top-content
         imgSrc="{{ Vite::asset('resources/images/top-img-homepage.png') }}"
-        header="On-line tržiště projektů z&nbsp;oblasti obnovitelných zdrojů energie a&nbsp;energetiky"
+        :header="__('On-line tržiště projektů z&nbsp;oblasti obnovitelných zdrojů energie a&nbsp;energetiky')"
     >
 
         <div class="max-w-[900px] mx-auto">
@@ -11,14 +11,13 @@
                     tablet:text-[19px] tablet:leading-[22px]
                     laptop:text-[22px] laptop:leading-[25px]
                     ">
-                    Prodej a nákup práv k výstavbě projektů – od rané fáze připravenosti až po příležitosti s platným
-                    stavebním povolením a rezervovaným výkonem v distribuční soustavě.
+                    {{ __('homepage.Prodej_a_nákup_práv_k_výstavbě_projektů_–_od_rané_fáze_připravenosti_až_po_příležitosti_s_platným_stavebním_povolením_a_rezervovaným_výkonem_v_distribuční_soustavě') }}
                 </div>
                 <div class="font-WorkSans-Regular text-white text-[16px] leading-[19px]
                     tablet:text-[19px] tablet:leading-[22px]
                     laptop:text-[22px] laptop:leading-[25px]
                     ">
-                    Prodej a&nbsp;nákup projektů v&nbsp;provozu.
+                    {!! __('homepage.Prodej_a&nbsp;nákup_projektů_v&nbsp;provozu') !!}
                 </div>
             </div>
 
@@ -34,7 +33,7 @@
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
                              laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] hover:bg-app-orange-80
                              "><span
-                        class="font-Spartan-Bold">Chci investovat</span> do projektu
+                        class="font-Spartan-Bold">{{ __('homepage.btn-Chci_investovat') }}</span> {{ __('homepage.btn-do_projektu') }}
                 </a>
                 <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
                    class="font-Spartan-Regular bg-app-blue text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
@@ -42,7 +41,7 @@
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-start
                              laptop:text-[18px] laptop:h-[60px] laptop:leading-[60px] hover:bg-app-blue-80
                              "><span
-                        class="font-Spartan-Bold">Chci nabídnout</span> projekt
+                        class="font-Spartan-Bold">{{ __('homepage.btn-Chci_nabídnout') }}</span> {{ __('homepage.btn-projekt') }}
                 </a>
             </div>
 

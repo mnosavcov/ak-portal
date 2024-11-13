@@ -23,6 +23,7 @@ class HomepageController extends Controller
 
         $projects = [
             'Nejnovější projekty' => [
+                'title' => __('projekt.Nejnovější_projekty'),
                 'selected' => '1',
                 'titleCenter' => true,
                 'data' => [
@@ -33,7 +34,7 @@ class HomepageController extends Controller
 
         return view('homepage', [
             'projects' => $projects,
-            'projectsListButtonAll' => ['title' => 'Zobrazit vše', 'url' => Route('projects.index')]
+            'projectsListButtonAll' => ['title' => __('projekt.Zobrazit_vše'), 'url' => Route('projects.index')]
         ]);
     }
 

@@ -12,14 +12,14 @@
                 mb-[20px] text-center
                 tablet:mb-[35px] tablet:text-left
                 laptop:mb-[50px]
-                " :class="{'!text-center': projectLists.titleCenter }" x-text="index"></h2>
+                " :class="{'!text-center': projectLists.titleCenter }" x-text="projectLists.title ?? index"></h2>
             </template>
 
             {{--            prepinac mezi subkategoriemi--}}
             <template x-if="Object.entries(projectLists.data).length > 1">
                 <div class="flex flex-wrap mb-[35px] gap-x-[30px] tablet:gap-x-[70px]">
                     <template x-for="(projects, index) in projectLists.data" :key="index">
-                        <div x-text="index + ' (' + Object.entries(projects).length + ')'"
+                        <div x-text="(projectLists.title ?? index) + ' (' + Object.entries(projects).length + ')'"
                              class="cursor-pointer font-WorkSans-SemiBold text-[15px] tablet:text-[18px] leading-[34px]"
                              @click="projectLists.selected = index"
                              :class="{ 'text-app-orange underline': projectLists.selected === index }"></div>
@@ -47,9 +47,9 @@
                                 class="grid tablet:grid-cols-[2fr,3fr] laptop:grid-cols-[2fr,3fr,min-content] gap-x-[25px]
                                 bg-[#5E6468] text-white min-h-[50px] leading-[50px] font-Spartan-Bold text-[13px] rounded-[3px]
                                 ">
-                                <div class="pl-[25px]">Název projektu</div>
-                                <div class="hidden tablet:block">Aktuální stav</div>
-                                <div class="hidden laptop:block invisible pr-[25px]">Zobrazit&nbsp;detail</div>
+                                <div class="pl-[25px]">{{ __('projekt.Název_projektu') }}</div>
+                                <div class="hidden tablet:block">{{ __('projekt.Aktuální_stav') }}</div>
+                                <div class="hidden laptop:block invisible pr-[25px]">{!! __('projekt.Zobrazit&nbsp;detail') !!}</div>
                             </div>
 
                             <template x-for="(project, index) in projects" :key="index">
@@ -73,8 +73,8 @@
                                 class="grid tablet:grid-cols-[1fr,min-content] gap-x-[25px]
                                 bg-[#5E6468] text-white min-h-[50px] leading-[50px] font-Spartan-Bold text-[13px] rounded-[3px]
                                 ">
-                                <div class="pl-[25px]">Název projektu</div>
-                                <div class="hidden tablet:block invisible pr-[25px]">Zobrazit&nbsp;detail</div>
+                                <div class="pl-[25px]">{{ __('projekt.Název_projektu') }}</div>
+                                <div class="hidden tablet:block invisible pr-[25px]">{{ __('projekt.Zobrazit&nbsp;detail') }}</div>
                             </div>
 
                             <template x-for="(project, index) in projects" :key="index">
@@ -92,7 +92,7 @@
 
                     <template x-if="Object.keys(projectLists.data[index]).length === 0">
                         <div x-show="projectLists.selected === index" class="mt-[15px]">
-                            <h3>{{ $projectEmptyMessage ?? 'Projekty v této kategorii pro vás již připravujeme.' }}</h3>
+                            <h3>{{ $projectEmptyMessage ?? __('projekt.Projekty_v_této_kategorii_pro_vás_již_připravujeme') }}</h3>
                         </div>
                     </template>
                 </div>

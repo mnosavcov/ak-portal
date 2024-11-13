@@ -2,7 +2,7 @@
 
 return [
     'Administrace' => 'Administrace',
-    'JakToFunguje' => 'Jak to funguje',
+    'Jak_to_funguje' => 'Jak to funguje',
     'Kontakt' => 'Kontakt',
     'Nastavení_účtu' => 'Nastavení účtu',
     'Odhlásit_Se' => 'Odhlásit se',
@@ -14,5 +14,6 @@ return [
     'Přehled_nabízejícího' => 'Přehled nabízejícího',
     'Přehled_realitního_makléře' => 'Přehled realitního makléře',
     'PřihlásitSe' => 'Přihlásit se',
+    'Váš_účet' => 'Váš účet',
     'ZobrazitVšechnyKategorie' => 'Zobrazit všechny kategorie',
 ];

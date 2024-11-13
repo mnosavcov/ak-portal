@@ -37,17 +37,6 @@ Route::get('projekty/add/{accountType?}', function () {
 })->name('projects.add');
 
 Route::view('jak-to-funguje', 'app.jak-to-funguje')->name('jak-to-funguje');
-//Route::view('o-nas', 'homepage', [
-//    'projects' => [
-//        'Nejnovější projekty' => [
-//            'selected' => '1',
-//            'titleCenter' => true,
-//            'data' => [
-//                '1' => Project::isPublicated()->forList()->get(),
-//            ],
-//        ]
-//    ],
-//])->name('o-nas');
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('sitemap.xml', [HomepageController::class, 'sitemap'])->name('sitemap');
