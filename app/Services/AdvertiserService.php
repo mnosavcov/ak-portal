@@ -4,12 +4,15 @@ namespace App\Services;
 
 class AdvertiserService
 {
-    public const LISTS = [
-        [
-            'title' => 'Nastavení newsletterů',
-            'items' => [
-                'advertiser_newsletters' => 'Zasílat novinky z oblasti investic do obnovitelných zdrojů energie, notifikace o nových funkcích a službách na portálu a další související informace, <span class="font-Spartan-SemiBold">které se týkají těch, kdo projektů investují.</span>'
+    public function getList()
+    {
+        return [
+            [
+                'title' => __('profil.Nastavení_newsletterů'),
+                'items' => [
+                    'advertiser_newsletters' => __('profil.Zasílat_novinky_z_oblasti_investic_do_obnovitelných_zdrojů_energie,_notifikace_o_nových_funkcích_a_službách_na_portálu_a_další_související_informace,') . ' <span class="font-Spartan-SemiBold">' . __('profil.které_se_týkají_těch,_kdo_projektů_investují') . '</span>'
+                ]
             ]
-        ]
-    ];
+        ];
+    }
 }

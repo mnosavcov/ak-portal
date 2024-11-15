@@ -138,7 +138,7 @@
             laptop:px-[30px] laptop:py-[50px]
             ">
         <header id="aktivni-typy-uctu">
-            <h2 class="mb-[30px]">{{ __('Active account types') }}</h2>
+            <h2 class="mb-[30px]">{{ __('Aktivní typy účtů') }}</h2>
         </header>
 
         <div x-cloak x-collapse x-show="showBtn()">

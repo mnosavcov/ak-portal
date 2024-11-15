@@ -62,11 +62,11 @@ class ProfileController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($request->user()->id)],
                 'phone_number' => ['required', 'string', 'min:9'],
             ], [
-                'email.required' => 'E-mail je povinné pole.',
-                'email.email' => 'E-mail musí být platný.',
-                'email.unique' => 'E-mail je již zaregistrován.',
-                'phone_number.required' => 'Telefonní číslo je povinné.',
-                'phone_number.min' => 'Telefonní číslo musí mít alespoň 9 znaků.',
+                'email.required' => __('profil.E-mail_je_povinné_pole'),
+                'email.email' => __('profil.E-mail_musí_být_platný'),
+                'email.unique' => __('profil.E-mail_je_již_zaregistrován'),
+                'phone_number.required' => __('profil.Telefonní_číslo_je_povinné'),
+                'phone_number.min' => __('profil.Telefonní__číslo_musí_mít_alespoň_9_znaků'),
             ]);
         }
 
@@ -74,9 +74,9 @@ class ProfileController extends Controller
             $request->validate([
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], [
-                'password.required' => 'Heslo je povinné.',
-                'password.confirmed' => 'Hesla se neshodují.',
-                'password.min' => 'Heslo musí mít alespoň :min znaků.',
+                'password.required' => __('profil.Heslo_je_povinné'),
+                'password.confirmed' => __('profil.Hesla_se_neshodují'),
+                'password.min' => __('profil.Heslo_musí_mít_alespoň__min__znaků'),
             ]);
         }
 
@@ -108,8 +108,8 @@ class ProfileController extends Controller
         $request->validate([
             'password_delete' => ['required', 'current_password'],
         ], [
-            'password_delete.required' => 'Heslo pro smazání je povinné pole.',
-            'password_delete.current_password' => 'Heslo musí být platné.',
+            'password_delete.required' => __('profil.Heslo_pro_smazání_je_povinné_pole'),
+            'password_delete.current_password' => __('profil.Heslo_musí_být_platné'),
         ]);
 
         $user = $request->user();
@@ -136,10 +136,10 @@ class ProfileController extends Controller
         )->toArray();
         $notifications['newsletters'] = (bool)$newsletters;
         return view('profile.index', [
-            'title' => 'Profil investora',
+            'title' => __('profil.Profil_investora'),
             'route' => route('profile.investor'),
             'data' => [
-                'notificationList' => $investorService::LISTS,
+                'notificationList' => $investorService->getList(),
                 'notifications' => $notifications,
             ]]);
     }
@@ -154,10 +154,10 @@ class ProfileController extends Controller
         )->toArray();
         $notifications['newsletters'] = (bool)$newsletters;
         return view('profile.index', [
-            'title' => 'Profil nabízejícího',
+            'title' => __('profil.Profil_nabízejícího'),
             'route' => route('profile.advertiser'),
             'data' => [
-                'notificationList' => $advertiserService::LISTS,
+                'notificationList' => $advertiserService->getList(),
                 'notifications' => $notifications,
             ]]);
     }
@@ -172,10 +172,10 @@ class ProfileController extends Controller
         )->toArray();
         $notifications['newsletters'] = (bool)$newsletters;
         return view('profile.index', [
-            'title' => 'Profil realitního makléře',
+            'title' => __('profil.Profil_realitního_makléře'),
             'route' => route('profile.real-estate-broker'),
             'data' => [
-                'notificationList' => $realEstateBrokerService::LISTS,
+                'notificationList' => $realEstateBrokerService->getList(),
                 'notifications' => $notifications,
             ]]);
     }
@@ -248,7 +248,7 @@ class ProfileController extends Controller
                 'accountTitle' => $accountTitle,
                 'accountSingle' => $accountSingle,
                 'projects' => $projects,
-                'projectEmptyMessage' => 'Nejsou žádné nové projekty k zobrazení'
+                'projectEmptyMessage' => __('profil.Nejsou_žádné_nové_projekty_k_zobrazení')
             ]
         );
     }
@@ -260,7 +260,7 @@ class ProfileController extends Controller
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'status' => 'ok',
-                'statusMessage' => 'E-mail byl již úspěšně verifikován',
+                'statusMessage' => __('profil.E-mail_byl_již_úspěšně_verifikován'),
             ]);
         }
 
@@ -268,7 +268,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'status' => 'ok',
-            'statusMessage' => 'Zpráva s aktivačním odkazem byla úspěšně odeslána',
+            'statusMessage' => __('profil.Zpráva_s_aktivačním_odkazem_byla_úspěšně_odeslána'),
         ]);
     }
 
@@ -279,14 +279,14 @@ class ProfileController extends Controller
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'status' => 'ok',
-                'statusMessage' => 'E-mail byl již úspěšně verifikován',
+                'statusMessage' => __('profil.E-mail_byl_již_úspěšně_verifikován'),
             ]);
         }
 
         if (User::where('email', $request->post('newEmail'))->count()) {
             return response()->json([
                 'status' => 'error',
-                'statusMessage' => 'E-mail je již zaregistrovaný',
+                'statusMessage' => __('profil.E-mail_je_již_zaregistrovaný'),
             ]);
         }
 
@@ -296,7 +296,7 @@ class ProfileController extends Controller
         } catch (Exception) {
             return response()->json([
                 'status' => 'error',
-                'statusMessage' => 'E-mail se nepodařilo změnit',
+                'statusMessage' => __('profil.E-mail_se_nepodařilo_změnit'),
             ]);
         }
 
@@ -304,7 +304,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'status' => 'ok',
-            'statusMessage' => 'E-mail byl úspěšně změněn a zpráva s aktivačním odkazem byla úspěšně odeslána',
+            'statusMessage' => __('profil.E-mail_byl_úspěšně_změněn_a_zpráva_s_aktivačním_odkazem_byla_úspěšně_odeslána'),
         ]);
     }
 

@@ -14,9 +14,7 @@ return [
     'Nabídnout_svůj_projekt' => 'Nabídnout svůj projekt',
     'Nastavíte_fixní_nabídkovou_cenu-_Na_ni_musí_investor,_pokud_má_o&nbsp;projekt_zájem,_přistoupit-_První_platná_nabídka_vyhrává' => 'Nastavíte fixní nabídkovou cenu. Na ni musí investor, pokud má o&nbsp;projekt zájem, přistoupit. První platná nabídka vyhrává.',
     'Nastavíte_minimální_nabídkovou_cenu_a&nbsp;investoři_vám_neveřejně_zasílají_nabídky_s_částkou_dle_svých_možností' => 'Nastavíte minimální nabídkovou cenu a&nbsp;investoři vám neveřejně zasílají nabídky s částkou dle svých možností.',
-    'Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz' => [
-        '_Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou' => 'Nastavíte minimální nabídkovou cenu a&nbsp;minimální příhoz. Vítězná bude poslední nabídka s&nbsp;nejvyšší částkou.',
-    ],
+    'Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz-_Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou' => 'Nastavíte minimální nabídkovou cenu a&nbsp;minimální příhoz. Vítězná bude poslední nabídka s&nbsp;nejvyšší částkou.',
     'Naši_partneři' => 'Naši partneři',
     'Prodej_a&nbsp;nákup_projektů_v&nbsp;provozu' => 'Prodej a&nbsp;nákup projektů v&nbsp;provozu.',
     'Prodej_a_nákup_práv_k_výstavbě_projektů_–_od_rané_fáze_připravenosti_až_po_příležitosti_s_platným_stavebním_povolením_a_rezervovaným_výkonem_v_distribuční_soustavě' => 'Prodej a nákup práv k výstavbě projektů – od rané fáze

@@ -293,11 +293,21 @@
                     <div class="grid grid-cols-[200px_1fr] gap-x-3">
                         <div>
                             <template x-for="(languageSub, languageSubIndex) in language.sub" :key="languageSubIndex">
-                                <div x-text="languageSub.title"
-                                     @click="setSelectedSubLanguage(languageIndex, languageSubIndex)"
-                                     class="cursor-pointer p-2 border-b border-b-gray-300 last:border-none rounded-sm"
-                                     :class="{'bg-gray-500 text-white shadow': selectedLanguageSub[languageIndex] === languageSubIndex}"
+                                <div
+                                    @click="setSelectedSubLanguage(languageIndex, languageSubIndex)"
+                                    class="cursor-pointer p-2 border-b border-b-gray-300 last:border-none rounded-sm"
+                                    :class="{'bg-gray-500 text-white shadow': selectedLanguageSub[languageIndex] === languageSubIndex}"
                                 >
+                                    <span x-text="languageSub.title"></span>
+                                    <template x-if="
+                                        typeof(translateData[languageIndex]) !== 'undefined'
+                                        && typeof(translateData[languageIndex][languageSubIndex]) !== 'undefined'
+                                         && Object.values(translateData[languageIndex][languageSubIndex]).filter(value => (value ?? '').trim() === '').length > 0
+                                         ">
+                                    <span
+                                        class="bg-red-600 text-white text-[13px] p-1 rounded-full"
+                                        x-text="Object.values(translateData[languageIndex][languageSubIndex]).filter(value => (value ?? '').trim() === '').length"></span>
+                                    </template>
                                 </div>
                             </template>
                         </div>

@@ -4,22 +4,25 @@ namespace App\Services;
 
 class InvestorService
 {
-    public const LISTS = [
-        [
-            'title' => 'Nastavení e-mailových notifikací',
-            'info' => 'Zasílat na kontaktní e-mail upozornění na nové projekty',
-            'items' => [
-                'investor_pozemky-k-vystavbe' => 'V kategorii <span class="font-Spartan-SemiBold">Pozemky k výstavbě</span>',
-                'investor_rezervovana-kapacita-v-siti-distributora' => 'V kategorii <span class="font-Spartan-SemiBold">Rezervovaná kapacita v síti distributora</span>',
-                'investor_projekt-se-stavebnim-povolenim' => 'V kategorii <span class="font-Spartan-SemiBold">Projekt se stavebním povolením</span>',
-                'investor_vyrobny-v-provozu' => 'V kategorii <span class="font-Spartan-SemiBold">Výrobny v provozu</span>',
+    public function getList()
+    {
+        return [
+            [
+                'title' => __('profil.Nastavení_e-mailových_notifikací'),
+                'info' => __('profil.Zasílat_na_kontaktní_e-mail_upozornění_na_nové_projekty'),
+                'items' => [
+                    'investor_pozemky-k-vystavbe' => __('profil.V_kategorii') . ' <span class="font-Spartan-SemiBold">' . __('profil.Pozemky_k_výstavbě') . '</span>',
+                    'investor_rezervovana-kapacita-v-siti-distributora' => __('profil.V_kategorii') . ' <span class="font-Spartan-SemiBold">' . __('profil.Rezervovaná_kapacita_v_síti_distributora') . '</span>',
+                    'investor_projekt-se-stavebnim-povolenim' => __('profil.V_kategorii') . ' <span class="font-Spartan-SemiBold">' . __('profil.Projekt_se_stavebním_povolením') . '</span>',
+                    'investor_vyrobny-v-provozu' => __('profil.V_kategorii') . ' <span class="font-Spartan-SemiBold">' . __('profil.Výrobny_v_provozu') . '</span>',
+                ],
             ],
-        ],
-        [
-            'title' => 'Nastavení newsletterů',
-            'items' => [
-                'investor_newsletters' => 'Zasílat novinky z oblasti investic do obnovitelných zdrojů energie, notifikace o nových funkcích a službách na portálu a další související informace, <span class="font-Spartan-SemiBold">které se týkají těch, kdo projektů investují.</span>'
+            [
+                'title' => __('profil.Nastavení_newsletterů'),
+                'items' => [
+                    'investor_newsletters' => __('profil.Zasílat_novinky_z_oblasti_investic_do_obnovitelných_zdrojů_energie,_notifikace_o_nových_funkcích_a_službách_na_portálu_a_další_související_informace,') . ' <span class="font-Spartan-SemiBold">' . __('profil.které_se_týkají_těch,_kdo_projektů_investují') . '</span>'
+                ]
             ]
-        ]
-    ];
+        ];
+    }
 }

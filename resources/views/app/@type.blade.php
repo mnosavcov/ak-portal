@@ -113,7 +113,7 @@
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz._Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou') !!}
+                                    {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz-_Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou') !!}
                                 </div>
 
                                 <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['auction']['url']]) }}"
