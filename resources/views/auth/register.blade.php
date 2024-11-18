@@ -1,28 +1,39 @@
 <x-app-layout>
-    <div class="w-full max-w-[1230px] mx-auto" x-data="register">
+    <div class="w-full max-w-[1230px] mx-auto" x-data="register"
+    x-init="
+        lang.Zvolte_typ_sveho_uctu = @js(__('Zvolte typ svého účtu.'));
+        lang.Zadejte_e_mail_ve_spravnem_formatu = @js(__('Zadejte e-mail ve správném formátu.'));
+        lang.Zadejte_do_pole_telefonni_cislo_alespon_9_znaku = @js(__('Zadejte do pole telefonní číslo alespoň 9 znaků.'));
+        lang.Zadejte_heslo = @js(__('Zadejte heslo.'));
+        lang.Zadejte_kontrolni_heslo = @js(__('Zadejte kontrolní heslo.'));
+        lang.Hesla_se_neshoduji = @js(__('Hesla se neshodují.'));
+        lang.Potvrdte_souhlas_s_registraci = @js(__('Potvrďte souhlas s registrací.'));
+        lang.Chyba_registrace = @js(__('Chyba registrace'));
+        ">
         <x-app.breadcrumbs :breadcrumbs="[
-            'Registrace' => route('register'),
+            __('Registrace') => route('register'),
         ]"></x-app.breadcrumbs>
 
         <div class="mx-[15px]">
-            <h1 class="mb-[25px]">Registrace</h1>
+            <h1 class="mb-[25px]">{{ __('Registrace') }}</h1>
 
             <div class="font-Spartan-Regular text-[#31363A]
                     text-[16px] leading-[19px] mb-[35px]
                     tablet:text-[22px] tablet:leading-[26px] tablet:mb-[50px]
-                ">Už u nás máte účet? <a
-                    href="{{ route('login') }}" class="font-Spartan-SemiBold underline text-app-blue">Přihlaste se</a>
+                ">{{ __('Už u nás máte účet?') }} <a
+                    href="{{ route('login') }}"
+                    class="font-Spartan-SemiBold underline text-app-blue">{{ __('Přihlaste se') }}</a>
             </div>
 
             <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[20px] tablet:mb-[50px]
                  px-[10px] py-[25px]
                  tablet:px-[30px] tablet:py-[50px]
                 ">
-                <h2 class="mb-[15px] tablet:mb-[25px]">Zvolte typ svého účtu</h2>
+                <h2 class="mb-[15px] tablet:mb-[25px]">{{ __('Zvolte typ svého účtu') }}</h2>
 
                 <div class="bg-[#f8f8f8] rouded-[3px] px-[10px] py-[20px] tablet:py-[30px]">
                     <div class="font-Spartan-Bold text-[11px] tablet:text-[13px] leading-[29px] text-center mb-[10px]">
-                        Vyberte jednu, nebo více z možností *
+                        {{ __('Vyberte jednu, nebo více z možností') }} *
                     </div>
 
                     <div x-show="!userType.selected" x-cloak
@@ -36,8 +47,8 @@
                          style="transition-property: background-color;"
                          :class="{ '!bg-[#f5fbff] !rounded-bl-none !rounded-br-none after:rotate-180': selectedOpen }">
 
-                        <div class='px-[20px]' @click="selectedOpen = !selectedOpen" dusk="register-chci-zalozit">Chci
-                            založit...
+                        <div class='px-[20px]' @click="selectedOpen = !selectedOpen" dusk="register-chci-zalozit">
+                            {{ __('Chci založit...') }}
                         </div>
 
                         <div
@@ -59,9 +70,9 @@
                                 </div>
                                 <div class="mt-[4px]">
                                     <span class="font-Spartan-SemiBold">
-                                        {{ \App\Services\AccountTypes::TYPES['investor']['title'] }}
+                                        {{ \App\Services\AccountTypes::getTypes()['investor']['title'] }}
                                     </span>
-                                    {{ \App\Services\AccountTypes::TYPES['investor']['short'] }}
+                                    {{ \App\Services\AccountTypes::getTypes()['investor']['short'] }}
                                 </div>
                             </div>
                             <div dusk="register-advertiser"
@@ -76,9 +87,9 @@
                                 </div>
                                 <div class="mt-[4px]">
                                     <span class="font-Spartan-SemiBold">
-                                        {{ \App\Services\AccountTypes::TYPES['advertiser']['title'] }}
+                                        {{ \App\Services\AccountTypes::getTypes()['advertiser']['title'] }}
                                     </span>
-                                    {{ \App\Services\AccountTypes::TYPES['advertiser']['short'] }}
+                                    {{ \App\Services\AccountTypes::getTypes()['advertiser']['short'] }}
                                 </div>
                             </div>
                             <div dusk="register-real-estate-broker"
@@ -92,9 +103,9 @@
                                         x-show="userType.realEstateBroker"></div>
                                 </div>
                                 <div class="mt-[4px]"><span class="font-Spartan-SemiBold">
-                                        {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['title'] }}
+                                        {{ \App\Services\AccountTypes::getTypes()['real_estate_broker']['title'] }}
                                     </span>
-                                    {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['short'] }}
+                                    {{ \App\Services\AccountTypes::getTypes()['real_estate_broker']['short'] }}
                                 </div>
                             </div>
                             <div dusk="register-potvrdit-vyber"
@@ -105,7 +116,7 @@
                                 "
                                  :class="{grayscale: !userType.enabled()}"
                                  @click="if(!userType.enabled()) {return}; userType.selectedOpen = false; userType.selected = true;"
-                            >Potvrdit výběr
+                            >{{ __('Potvrdit výběr') }}
                             </div>
                         </div>
                     </div>
@@ -117,8 +128,8 @@
                             <div x-show="userType.investor"
                                  class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
                                 <div>
-                                    {{ \App\Services\AccountTypes::TYPES['investor']['title'] }}
-                                    {{ \App\Services\AccountTypes::TYPES['investor']['short'] }}
+                                    {{ \App\Services\AccountTypes::getTypes()['investor']['title'] }}
+                                    {{ \App\Services\AccountTypes::getTypes()['investor']['short'] }}
                                 </div>
                                 <div @click="userType.investor = false">
                                     <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
@@ -130,8 +141,8 @@
                         <div>
                             <div x-show="userType.advertiser"
                                  class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
-                                {{ \App\Services\AccountTypes::TYPES['advertiser']['title'] }}
-                                {{ \App\Services\AccountTypes::TYPES['advertiser']['short'] }}
+                                {{ \App\Services\AccountTypes::getTypes()['advertiser']['title'] }}
+                                {{ \App\Services\AccountTypes::getTypes()['advertiser']['short'] }}
                                 <div @click="userType.advertiser = false">
                                     <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
                                          class="h-[26px] w-[26px] cursor-pointer">
@@ -142,8 +153,8 @@
                         <div>
                             <div x-show="userType.realEstateBroker"
                                  class="inline-grid grid-cols-[1fr_26px] justify-center gap-x-[10px] font-Spartan-Regular text-[11px] leading-[30px] text-[#31363A] bg-white rounded-[3px] px-[10px]">
-                                {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['title'] }}
-                                {{ \App\Services\AccountTypes::TYPES['real_estate_broker']['short'] }}
+                                {{ \App\Services\AccountTypes::getTypes()['real_estate_broker']['title'] }}
+                                {{ \App\Services\AccountTypes::getTypes()['real_estate_broker']['short'] }}
                                 <div @click="userType.realEstateBroker = false">
                                     <img src="{{ Vite::asset('resources/images/user-register-delete-type.svg') }}"
                                          class="h-[26px] w-[26px] cursor-pointer">
@@ -154,7 +165,7 @@
                         <div
                             class="text-app-blue font-Spartan-SemiBold text-[15px] leading-[22px] cursor-pointer mt-[15px]"
                             @click="userType.selected = false"
-                        >Změnit výběr
+                        >{{ __('Změnit výběr') }}
                         </div>
                     </div>
                 </div>
@@ -170,7 +181,7 @@
                 <h2 class="tablet:mb-[25px]
                     md:col-span-2
                     laptop:col-span-3
-                ">Zvolte své přihlašovací a kontaktní údaje</h2>
+                ">{{ __('Zvolte své přihlašovací a kontaktní údaje') }}</h2>
 
                 <ul class="text-sm text-red-600 space-y-1
                         md:col-span-2
@@ -227,11 +238,13 @@
                     </div>
                 </div>
                 <div
-                    @click="confirm = !confirm">Registrací souhlasím se <a
-                        href="{{ route('zasady-zpracovani-osobnich-udaju') }}" class="underline cursor-pointer">Zásadami
-                        zpracování osobních údajů</a>
-                    a <a href="{{ route('vseobecne-obchodni-podminky') }}" class="underline cursor-pointer">Všeobecnými
-                        obchodními podmínkami</a></div>
+                    @click="confirm = !confirm">{{ __('Registrací souhlasím se') }} <a
+                        href="{{ route('zasady-zpracovani-osobnich-udaju') }}" class="underline cursor-pointer">
+                        {{ __('Zásadami zpracování osobních údajů') }}
+                    </a>
+                    {{ __('a') }} <a href="{{ route('vseobecne-obchodni-podminky') }}" class="underline cursor-pointer">
+                        {{ __('Všeobecnými obchodními podmínkami') }}
+                    </a></div>
             </div>
 
             <button type="button" x-show="userType.selected" x-cloak
@@ -241,7 +254,7 @@
                     "
                     @click="sendRegister()"
             >
-                Registrovat se
+                {{ __('Registrovat se') }}
             </button>
 
             <div class="h-[50px]"></div>

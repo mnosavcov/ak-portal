@@ -6,7 +6,7 @@
     </div>
 
     <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Čas přidání žádosti:</div>
+        <div class="font-Spartan-SemiBold text-[14px]">{{ __('Čas přidání žádosti') }}:</div>
         <div
             class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($show->details_on_request_time)->format('d.m.Y H:i:s') }}</div>
     </div>
@@ -16,11 +16,11 @@
             class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10x]">
             <div
                 class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mb-[5px]">
-                Kontaktní osoba
+                {{ __('Kontaktní osoba') }}
             </div>
             <div
                 class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                Jméno a příjmení
+                {{ __('Jméno a příjmení') }}
             </div>
             <div
                 class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -28,7 +28,7 @@
             </div>
             <div
                 class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                Adresa trvalého bydliště
+                {{ __('Adresa trvalého bydliště') }}
             </div>
             <div
                 class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -36,7 +36,7 @@
             </div>
             <div
                 class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                Státní občanství (země)
+                {{ __('Státní občanství (země)') }}
             </div>
             <div
                 class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -44,7 +44,7 @@
             </div>
             <div
                 class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mt-[20px] mb-[5px]">
-                Investor
+                {{ __('Investor') }}
             </div>
             <div
                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
@@ -80,10 +80,10 @@
                                         return;
                                     }
 
-                                    alert('Chyba nastavení přístupu')
+                                    alert(@js(__('Chyba nastavení přístupu')))
                                 })
                                 .catch((error) => {
-                                    alert('Chyba nastavení přístupu')
+                                    alert(@js(__('Chyba nastavení přístupu')))
                                 });
                         }
                     }"
@@ -91,7 +91,7 @@
 
              <span x-show="show.details_on_request === 999"
                  class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green max-w-[350px] inline-block">
-                 Plný přístup jste povolili
+                 {{ __('Plný přístup jste povolili') }}
             </span>
 
             <button x-show="show.details_on_request === 1 || show.details_on_request === -1"
@@ -102,12 +102,12 @@
                              "
                 @click="setPublic(true)"
             >
-                Povolit plný přístup
+                {{ __('Povolit plný přístup') }}
             </button>
 
             <span x-show="show.details_on_request === -1"
                   class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-red max-w-[350px] inline-block mt-[15px]">
-                Zamítli jste plný přístup
+                {{ __('Zamítli jste plný přístup') }}
             </span>
 
             <button x-show="show.details_on_request === 1"
@@ -118,7 +118,7 @@
                              "
                 @click="setPublic(false)"
             >
-                Zamítnout plný přístup
+                {{ __('Zamítnout plný přístup') }}
             </button>
         </div>
     </div>

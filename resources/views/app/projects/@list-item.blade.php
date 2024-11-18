@@ -65,7 +65,7 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_offer.svg')] after:w-[15px] after:h-[15px]
                          text-[11px] tablet:text-[12px] laptop:text-[14px]
                          after:top-0[px] tablet:after:top-3[px]">
-                        cenu navrhuje investor
+                        {{ __('projekt.cenu_navrhuje_investor') }}
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]
@@ -82,8 +82,8 @@
                     <div
                         class="font-Spartan-Regular text-[#31363A]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]">
-                        <div class="font-Spartan-SemiBold">Cena:</div>
-                        <div class="font-Spartan-Regular">navrhne investor</div>
+                        <div class="font-Spartan-SemiBold">{{ __('projekt.Cena') }}:</div>
+                        <div class="font-Spartan-Regular">{{ __('projekt.navrhne_investor') }}</div>
                     </div>
                 </div>
             </template>
@@ -93,7 +93,7 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_offer.svg')] after:w-[15px] after:h-[15px]
                          text-[11px] tablet:text-[12px] laptop:text-[14px]
                          after:top-0[px] tablet:after:top-3[px]">
-                        {{ __('projekt.Projev_předběžného_zájmu') }}
+                        {{ __('projekt.projev_předběžného_zájmu') }}
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]
@@ -116,7 +116,7 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_fix.svg')] after:w-[15px] after:h-[15px]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]
                         after:top-0[px] tablet:after:top-3[px]">
-                        cenu navrhuje nabízející
+                        {{ __('projekt.cenu_navrhuje_nabízející') }}
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]
@@ -133,7 +133,7 @@
                     <div
                         class="font-Spartan-Regular text-[#31363A]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]">
-                        <div class="font-Spartan-SemiBold">Cena:</div>
+                        <div class="font-Spartan-SemiBold">{{ __('projekt.Cena') }}:</div>
                         <div class="font-Spartan-Regular" x-text="project.price_text"></div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-price_auction.svg')] after:w-[15px] after:h-[15px]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]
                         after:top-0[px] tablet:after:top-3[px]">
-                        aukce
+                        {{ __('projekt.aukce') }}
                     </div>
                     <div
                         class="relative pl-[30px] font-Spartan-Regular text-[#31363A] after:absolute after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]
@@ -161,7 +161,7 @@
                     <div
                         class="font-Spartan-Regular text-[#31363A]
                         text-[11px] tablet:text-[12px] laptop:text-[14px]">
-                        <div class="font-Spartan-SemiBold">Cena:</div>
+                        <div class="font-Spartan-SemiBold">{{ __('projekt.Cena') }}:</div>
                         <div class="font-Spartan-Regular" x-text="project.price_text_auction"></div>
                     </div>
                 </div>

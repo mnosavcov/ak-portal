@@ -79,11 +79,11 @@
                 class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10x]">
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mb-[5px]">
-                    Kontaktní osoba
+                    {{ __('Kontaktní osoba') }}
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Jméno a příjmení
+                    {{ __('Jméno a příjmení') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -91,7 +91,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Adresa trvalého bydliště
+                    {{ __('Adresa trvalého bydliště') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -99,7 +99,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Státní občanství (země)
+                    {{ __('Státní občanství (země)') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -107,7 +107,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mt-[20px] mb-[5px]">
-                    Investor
+                    {{ __('Investor') }}
                 </div>
                 <div
                     class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
@@ -116,7 +116,7 @@
 
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mt-[10px]">
-                    E-mail
+                    {{ __('E-mail') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mt-[10px]">
@@ -125,7 +125,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Telefon
+                    {{ __('Telefon') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -139,20 +139,20 @@
         @if($userType === 'advertiser' || $userType === 'superadmin')
             @if($iteration === 1)
                 <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] text-center">
-                    Vítězné podání
+                    {{ __('Vítězné podání') }}
                 </div>
             @endif
         @elseif($iteration === 1 && $user)
             <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] text-center">
-                Vaše podání je vítězné, vyčkejte na výzvu k uzavření Rezervační smlouvy
+                {{ __('Vaše podání je vítězné, vyčkejte na výzvu k uzavření Rezervační smlouvy') }}
             </div>
         @elseif($iteration === 1 && !$user)
             <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] text-center">
-                Vítězné podání
+                {{ __('Vítězné podání') }}
             </div>
         @elseif($user && $myFirstBid)
             <div class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-red mb-[15px] text-center">
-                Vaše podání není vítězné
+                {{ __('Vaše podání není vítězné') }}
             </div>
         @endif
     @endif

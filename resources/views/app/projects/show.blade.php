@@ -16,14 +16,14 @@
     @if($nahled)
         <div
             class="relative font-WorkSans-SemiBold text-white bg-app-orange rounded-[3px] max-w-[1200px] mx-auto p-[25px] text-center text-[32px] leading-[44px] mb-[25px]">
-            Náhled projektu před zveřejněním
+            {{ __('Náhled projektu před zveřejněním') }}
         </div>
     @endif
 
     <div class="app-project relative">
         <div class="w-full max-w-[1230px] mx-auto text-white">
             <x-app.breadcrumbs :breadcrumbs="[
-            'Projekty' => route('projects.index'),
+            __('Projekty') => route('projects.index'),
             $project->title => route('projects.show', ['project' => $project->url_part] + (request()->query('overview') ? ['overview' => true] : [])),
         ]" :color="'text-white'" :mark="'breadcrumbs-mark-white'"></x-app.breadcrumbs>
 
@@ -66,20 +66,20 @@
                                     class="cursor-pointer snap-start inline-block text-[18px]"
                                     :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'projekt'}"
                                     @click="projectShow = 'projekt'">
-                                    Projekt
+                                    {{ __('Projekt') }}
                                 </div>
                                 <div
                                     class="cursor-pointer snap-start inline-block text-[18px]"
                                     :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'dokumentace'}"
                                     @click="projectShow = 'dokumentace'">
-                                    Dokumentace (<span x-text="{{ $files->count() }}"></span>)
+                                    {{ __('Dokumentace') }} (<span x-text="{{ $files->count() }}"></span>)
                                 </div>
                                 @if(!empty(trim($project->map_lat_lng)))
                                     <div
                                         class="cursor-pointer snap-start inline-block text-[18px]"
                                         :class="{'font-WorkSans-SemiBold text-app-orange underline': projectShow === 'lokace'}"
                                         @click="projectShow = 'lokace'">
-                                        Lokace
+                                        {{ __('Lokace') }}
                                     </div>
                                 @endif
                                 <div
@@ -99,7 +99,7 @@
                                         isSetMaxQuestionId = true;
                                     }
                                 ">
-                                    Otázky a odpovědi (<span
+                                    {{ __('Otázky a odpovědi') }} (<span
                                         x-text="questionCount"></span>)
                                     @if(auth()->user())
                                         <template x-if="newQuestionCount > 0">
@@ -126,7 +126,7 @@
                                         isSetMaxActualityId = true;
                                     }
                                 ">
-                                    Aktuality (<span
+                                    {{ __('Aktuality') }} (<span
                                         x-text="{{ $project->projectactualities()->where('confirmed', 1)->count() }}"></span>)
                                     @if($project->new_actualities_count)
                                         <div
@@ -147,7 +147,7 @@
                         mb-[25px]
                         laptop:mb-[50px]
                         ">
-                                <h2 class="mb-[25px]">Úvod</h2>
+                                <h2 class="mb-[25px]">{{ __('Úvod') }}</h2>
                                 <div class="app-project-about relative">
                                     {!! $project->short_info !!}
                                 </div>
@@ -157,7 +157,7 @@
                         mb-[25px]
                         laptop:mb-[50px]
                         ">
-                                <h2 class="mb-[25px]">O projektu</h2>
+                                <h2 class="mb-[25px]">{{ __('O projektu') }}</h2>
                                 <x-app.project.part.about :project="$project"></x-app.project.part.about>
                             </div>
 
@@ -165,7 +165,7 @@
                                 <h2 class="
                             mb-[15px]
                             laptop:mb-[25px]
-                            ">Stav projektu</h2>
+                            ">{{ __('Stav projektu') }}</h2>
                                 <x-app.project.part.state :project="$project"></x-app.project.part.state>
                             </div>
                         </div>

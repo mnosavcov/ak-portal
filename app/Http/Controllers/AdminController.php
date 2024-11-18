@@ -50,7 +50,7 @@ class AdminController extends Controller
             'admin.projects',
             [
                 'projects' => $projects,
-                'statuses' => Project::STATUSES,
+                'statuses' => Project::getSTATUSES(),
                 'user_account_type' => [
                     'advertiser' => 'Nabízející',
                     'real-estate-broker' => 'Realitní makléř',
@@ -77,7 +77,7 @@ class AdminController extends Controller
 
     public function projectEdit(Project $project)
     {
-        $statuses = Project::STATUSES;
+        $statuses = Project::getSTATUSES();
 
         $projectDetails = $project->details->groupBy('head_title')->values()->mapWithKeys(function ($items, $index) {
             return [
@@ -97,8 +97,8 @@ class AdminController extends Controller
             [
                 'project' => $project,
                 'statuses' => $statuses,
-                'subject_offer' => ProjectService::SUBJECT_OFFERS_ALL_VERSIONS,
-                'location_offer' => ProjectService::LOCATION_OFFERS_ALL_VERSIONS,
+                'subject_offer' => ProjectService::getSUBJECT_OFFERS_ALL_VERSIONS(),
+                'location_offer' => ProjectService::getLOCATION_OFFERS_ALL_VERSIONS(),
                 'projectDetails' => $projectDetails,
                 'filesData' => [
                     'uuid' => $filesUuid,

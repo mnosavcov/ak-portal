@@ -85,6 +85,8 @@ return [
 
     'locale' => 'cs',
 
+    'locale_lng' => env('APP_LOCALE_LNG', 'cs_CZ'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

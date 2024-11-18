@@ -74,76 +74,86 @@ class Project extends Model
         'publicated_at',
     ];
 
-    public const STATUSES = [
-        'draft' => [
-            'title' => 'Rozpracováno',
-            'description' => 'Stav ve kterém může zadavatel upravovat zadání (nemůže upravovat data, která jsou zadaná administrátorem))',
-        ],
-        'send' => [
-            'title' => 'Odesláno ke zpracování',
-            'description' => 'Zadavatel odeslal své zadání ke zpracování projektu',
-        ],
-        'prepared' => [
-            'title' => 'Připraveno ke kontrole zadavatelem',
-            'description' => 'Zpracované administrátorem a zaslané zadavateli ke schválení',
-        ],
-        'confirm' => [
-            'title' => 'Potvrzeno zadavatelem',
-            'description' => 'Zadavatel potvrdil správnost projektu',
-        ],
-        'reminder' => [
-            'title' => 'Zadavatel má připomínky',
-            'description' => 'Zadavatel má připomínky ke správnosti projektu',
-        ],
-        'publicated' => [
-            'title' => 'Publikované (aktivní)',
-            'description' => 'Projekt bude vypublikován a bude veřejně přístupný',
-        ],
-        'evaluation' => [
-            'title' => 'Publikované (čeká na vyhodnocení)',
-            'description' => 'Projekt bude nastaven na čeká na vyhodnocení, ale bude veřejně viditelný se stavem "Vyhodnocování"',
-        ],
-        'finished' => [
-            'title' => 'Publikované (dokončené)',
-            'description' => 'Projekt bude nastaven na ukončený, ale bude veřejně viditelný se stavem "Ukončeno"',
-        ],
-    ];
+    public static function getSTATUSES()
+    {
+        return [
+            'draft' => [
+                'title' => __('Rozpracováno'),
+                'description' => __('Stav ve kterém může zadavatel upravovat zadání (nemůže upravovat data, která jsou zadaná administrátorem))'),
+            ],
+            'send' => [
+                'title' => __('Odesláno ke zpracování'),
+                'description' => __('Zadavatel odeslal své zadání ke zpracování projektu'),
+            ],
+            'prepared' => [
+                'title' => __('Připraveno ke kontrole zadavatelem'),
+                'description' => __('Zpracované administrátorem a zaslané zadavateli ke schválení'),
+            ],
+            'confirm' => [
+                'title' => __('Potvrzeno zadavatelem'),
+                'description' => __('Zadavatel potvrdil správnost projektu'),
+            ],
+            'reminder' => [
+                'title' => __('Zadavatel má připomínky'),
+                'description' => __('Zadavatel má připomínky ke správnosti projektu'),
+            ],
+            'publicated' => [
+                'title' => __('Publikované (aktivní)'),
+                'description' => __('Projekt bude vypublikován a bude veřejně přístupný'),
+            ],
+            'evaluation' => [
+                'title' => __('Publikované (čeká na vyhodnocení)'),
+                'description' => __('Projekt bude nastaven na čeká na vyhodnocení, ale bude veřejně viditelný se stavem "Vyhodnocování"'),
+            ],
+            'finished' => [
+                'title' => __('Publikované (dokončené)'),
+                'description' => __('Projekt bude nastaven na ukončený, ale bude veřejně viditelný se stavem "Ukončeno"'),
+            ],
+        ];
+    }
 
-    public const PAID_TYPES = [
-        'fixed-price' => [
-            'value' => 'fixed-price',
-            'text' => 'Cenu stanovíte vy (prodávající)',
-            'description' => 'V projektu nastavíte fixní cenu, kterou chcete za projekt obdržet. Jakmile ji některý z investorů nabídne, dochází k ukončení projektu.',
-        ],
-        'offer-the-price' => [
-            'value' => 'offer-the-price',
-            'text' => 'Cenu stanoví zájemce o projekt (investor)',
-            'description' => 'Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.',
-        ],
-        'auction' => [
-            'value' => 'auction',
-            'text' => 'Prodej formou aukce',
-            'description' => 'Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.',
-        ],
-        'preliminary-interest' => [
-            'value' => 'preliminary-interest',
-            'text' => 'Chci získat jen projevy předběžného zájmu',
-            'description' => 'Máte projekt v rané fázi? Informujte o něm už nyní. Investoři se nezávazně přihlásí a k prodeji dojde, až bude projekt připraven.',
-        ],
-    ];
 
-    public const REPRESENTATION_OPTIONS = [
-        'exclusive' => [
-            'value' => 'exclusive',
-            'text' => 'Výhradní zastoupení',
-            'description' => 'Klienta zastupujete jen vy. Za zveřejnění projektu nic neplatíte. Platíte jen provizi za úspěšné zprostředkování prodeje ve výši, na které se dohodneme před zveřejněním projektu.',
-        ],
-        'non-exclusive' => [
-            'value' => 'non-exclusive',
-            'text' => 'Nevýhradní zastoupení',
-            'description' => 'Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu zaplatíte inzertní poplatek. Pokud dojde k úspěšnému zprostředkování prodeje skrze portál, zaplatíte nám provizi z prodeje, na jejíž výši se domluvíme před spuštěním projektu. Od této částky bude odečten inzertní poplatek.',
-        ],
-    ];
+    public static function getPAID_TYPES()
+    {
+        return [
+            'fixed-price' => [
+                'value' => 'fixed-price',
+                'text' => __('Cenu stanovíte vy (prodávající)'),
+                'description' => __('V projektu nastavíte fixní cenu, kterou chcete za projekt obdržet. Jakmile ji některý z investorů nabídne, dochází k ukončení projektu.'),
+            ],
+            'offer-the-price' => [
+                'value' => 'offer-the-price',
+                'text' => __('Cenu stanoví zájemce o projekt (investor)'),
+                'description' => __('Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.'),
+            ],
+            'auction' => [
+                'value' => 'auction',
+                'text' => __('Prodej formou aukce'),
+                'description' => __('Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.'),
+            ],
+            'preliminary-interest' => [
+                'value' => 'preliminary-interest',
+                'text' => __('Chci získat jen projevy předběžného zájmu'),
+                'description' => __('Máte projekt v rané fázi? Informujte o něm už nyní. Investoři se nezávazně přihlásí a k prodeji dojde, až bude projekt připraven.'),
+            ],
+        ];
+    }
+
+    public static function getREPRESENTATION_OPTIONS()
+    {
+        return [
+            'exclusive' => [
+                'value' => 'exclusive',
+                'text' => __('Výhradní zastoupení'),
+                'description' => __('Klienta zastupujete jen vy. Za zveřejnění projektu nic neplatíte. Platíte jen provizi za úspěšné zprostředkování prodeje ve výši, na které se dohodneme před zveřejněním projektu.'),
+            ],
+            'non-exclusive' => [
+                'value' => 'non-exclusive',
+                'text' => __('Nevýhradní zastoupení'),
+                'description' => __('Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu zaplatíte inzertní poplatek. Pokud dojde k úspěšnému zprostředkování prodeje skrze portál, zaplatíte nám provizi z prodeje, na jejíž výši se domluvíme před spuštěním projektu. Od této částky bude odečten inzertní poplatek.'),
+            ],
+        ];
+    }
 
     public const STATUS_DRAFT = [
         'draft',

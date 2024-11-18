@@ -1,6 +1,17 @@
 import Alpine from "alpinejs";
 
 Alpine.data('verifyUserAccount', (id) => ({
+    lang: {
+        'Potvrdit_a_odeslat': 'Potvrdit a odeslat',
+        'Pokracovat': 'Pokračovat',
+        'Zadejte_vase_statni_obcanstvi': 'Zadejte vaše státní občanství.',
+        'Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni': 'Pro vaše státní občanství není možné automatické ověření.',
+        'Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby': 'Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).',
+        'Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_investor_alespon_5_znaku': 'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.',
+        'Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_nabizejici_alespon_5_znaku': 'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.',
+        'Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_realitni_makler_alespon_5_znaku': 'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.',
+        'Chyba_deslani_dat': 'Chyba odeslání dat',
+    },
     step: 1,
     verified: false,
     countries: {},
@@ -46,20 +57,20 @@ Alpine.data('verifyUserAccount', (id) => ({
     },
     nextBtnText() {
         if (this.step === 4) {
-            return 'Potvrdit a odeslat';
+            return  this.lang['Potvrdit_a_odeslat'];
         } else {
-            return 'Pokračovat';
+            return this.lang['Pokracovat'];
         }
     },
     nextBtnEnable() {
         if (this.step === 1) {
             if (this.data.country === null) {
-                alert('Zadejte vaše státní občanství.');
+                alert(this.lang['Zadejte_vase_statni_obcanstvi'])
                 return false;
             }
 
             if (this.data.country !== 'ceska_republika') {
-                alert('Pro vaše státní občanství není možné automatické ověření.');
+                alert(this.lang['Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni'])
                 return false;
             }
 
@@ -70,7 +81,7 @@ Alpine.data('verifyUserAccount', (id) => ({
             }
 
             if (!this.user_verify_service_selected) {
-                alert('Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).');
+                alert(this.lang['Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby'])
                 return false;
             }
 
@@ -81,15 +92,15 @@ Alpine.data('verifyUserAccount', (id) => ({
             return true;
         } else if (this.step === 3) {
             if (this.data.investor && String(this.data.more_info_investor).trim().length < 5) {
-                alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.');
+                alert(this.lang['Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_investor_alespon_5_znaku'])
                 return false;
             }
             if (this.data.advertiser && String(this.data.more_info_advertiser).trim().length < 5) {
-                alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.');
+                alert(this.lang['Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_nabizejici_alespon_5_znaku'])
                 return false;
             }
             if (this.data.real_estate_broker && String(this.data.more_info_real_estate_broker).trim().length < 5) {
-                alert('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.');
+                alert(this.lang['Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_realitni_makler_alespon_5_znaku'])
                 return false;
             }
             return true;
@@ -155,7 +166,7 @@ Alpine.data('verifyUserAccount', (id) => ({
                 this.errors = data.errors;
             })
             .catch((error) => {
-                alert('Chyba odeslání dat')
+                alert(this.lang['Chyba_deslani_dat'])
             });
     }
 }));

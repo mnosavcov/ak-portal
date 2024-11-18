@@ -25,6 +25,7 @@ return [
     'Přehled_investora' => 'Přehled investora',
     'Přehled_nabízejícího' => 'Přehled nabízejícího',
     'Přehled_realitního_makléře' => 'Přehled realitního makléře',
+    'Přehled_účtu' => 'Přehled účtu',
     'Rezervovaná_kapacita_v_síti_distributora' => 'Rezervovaná kapacita v síti distributora',
     'Telefonní__číslo_musí_mít_alespoň_9_znaků' => 'Telefonní číslo musí mít alespoň 9 znaků.',
     'Telefonní_číslo_je_povinné' => 'Telefonní číslo je povinné.',

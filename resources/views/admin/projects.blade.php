@@ -12,7 +12,7 @@
         </div>
         <section class="max-w-7xl mx-auto py-4 px-5">
             <div class="flex justify-between items-center border-b border-gray-300 mb-[25px]">
-                <h1 class="text-2xl font-semibold pt-2 pb-6">Projekty</h1>
+                <h1 class="text-2xl font-semibold pt-2 pb-6">{{ __('admin.Projekty') }}</h1>
             </div>
 
             @foreach($projects as $projectsIndex => $projectList)

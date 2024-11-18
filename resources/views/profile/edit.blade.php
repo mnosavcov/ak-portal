@@ -1,18 +1,27 @@
 <x-app-layout>
     <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
-            'Nastavení účtu' => route('profile.edit'),
+            __('Nastavení účtu') => route('profile.edit'),
         ]"></x-app.breadcrumbs>
     </div>
 
     <div class="w-full max-w-[1230px] mx-auto px-[15px]"
          x-data="verifyUserAccount"
          x-init="
-        data = @js($user->toArray());
-        countries = @js(\App\Services\CountryServices::COUNTRIES);
+         lang.Potvrdit_a_odeslat = @js(__('Potvrdit a odeslat'));
+         lang.Pokracovat = @js(__('Pokračovat'));
+         lang.Zadejte_vase_statni_obcanstvi = @js(__('Zadejte vaše státní občanství.'));
+         lang.Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni = @js(__('Pro vaše státní občanství není možné automatické ověření.'));
+         lang.Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby = @js(__('Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).'));
+         lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_investor_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.'));
+         lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_nabizejici_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.'));
+         lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_realitni_makler_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.'));
+         lang.Chyba_deslani_dat = @js(__('Chyba odeslání dat'));
+         data = @js($user->toArray());
+         countries = @js(\App\Services\CountryServices::COUNTRIES);
      ">
 
-        <h1 class="mb-[25px]">Nastavení účtu</h1>
+        <h1 class="mb-[25px]">{{ __('Nastavení účtu') }}</h1>
 
         @if ($errors->any())
             <ul class="bg-app-red text-white p-[15px] rounded-[3px] mb-[50px]">
@@ -27,17 +36,18 @@
                 <div
                     class="p-[15px] bg-app-orange w-full max-w-[900px] grid tablet:grid-cols-[1fr_200px] gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[20px]">
                     <div>
-                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">OVĚŘTE SVŮJ EMAIL
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            {{ __('OVĚŘTE SVŮJ EMAIL') }}
                         </div>
-                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">Abyste mohli vidět
-                            všechny informace o nabízených projektech, musíte ověřit email.
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            {{ __('Abyste mohli vidět všechny informace o nabízených projektech, musíte ověřit email.') }}
                         </div>
                     </div>
 
                     <button type="button" x-data
                             class="justify-self-center cursor-pointer font-Spartan-Bold text-[14px] w-full max-w-[350px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]"
                             @click="$dispatch('open-modal', 'not-verify-email')">
-                        Ověřit email
+                        {{ __('Ověřit email') }}
                     </button>
                 </div>
             @endif
@@ -47,13 +57,8 @@
                     <div class="max-w-[1200px] mx-auto">
                         <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                            <div><span class="font-Spartan-SemiBold">Proč potřebujeme ověřit vaši totožnost?</span>
-                                Nejen že na portálu chceme vytvářet důvěryhodné a transparentní prostředí, přinášíme i
-                                unikátní možnost uzavírat smluvní vztahy on-line. A to nelze bez ověření totožnosti
-                                uživatelů, kteří účty spravují. Jakmile ověříte svou totožnost, můžete projekty sami
-                                nakupovat, nebo nabízet. Zároveň můžete i prokázat, že jste osoba oprávněná jednat za
-                                jiné
-                                subjekty.
+                            <div><span class="font-Spartan-SemiBold">{{ __('Proč potřebujeme ověřit vaši totožnost?') }}</span>
+                                {{ __('Nejen že na portálu chceme vytvářet důvěryhodné a transparentní prostředí, přinášíme i unikátní možnost uzavírat smluvní vztahy on-line. A to nelze bez ověření totožnosti uživatelů, kteří účty spravují. Jakmile ověříte svou totožnost, můžete projekty sami nakupovat, nebo nabízet. Zároveň můžete i prokázat, že jste osoba oprávněná jednat za jiné subjekty.') }}
                             </div>
                         </div>
                     </div>
@@ -61,80 +66,23 @@
                     <div
                         class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                         <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                            ZATÍM JSTE NEOVĚŘILI SVŮJ ÚČET
+                            {{ __('ZATÍM JSTE NEOVĚŘILI SVŮJ ÚČET') }}
                         </div>
                         <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
                             <div class="mb-[10px]">
-                                Abyste mohli ověřit svůj účet a využívat všechny funkce portálu u zvolených typů účtu
-                                (investor, nabízející, realitní makléř), musíte:
+                                {{ __('Abyste mohli ověřit svůj účet a využívat všechny funkce portálu u zvolených typů účtu (investor, nabízející, realitní makléř), musíte') }}:
                             </div>
                             <div>
-                                1. Ověřit svou totožnost.
+                                {{ __('1. Ověřit svou totožnost.') }}
                             </div>
                             <div>
-                                2. Doložit oprávněnost svého zájmu o využití zvolených typů účtů.
+                                {{ __('2. Doložit oprávněnost svého zájmu o využití zvolených typů účtů.') }}
                             </div>
                         </div>
                     </div>
                 </div>
             @else
-
-                {{--            @if(auth()->user()->check_status === 'waiting')--}}
-                {{--                <div class="mb-[20px]">--}}
-                {{--                    <div--}}
-                {{--                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">--}}
-                {{--                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">--}}
-                {{--                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ--}}
-                {{--                        </div>--}}
-                {{--                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">--}}
-                {{--                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme--}}
-                {{--                            proces--}}
-                {{--                            ověření účtu.--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
-                {{--            @endif--}}
-
-                {{--            @if(auth()->user()->check_status === 're_verified')--}}
-                {{--                <div class="mb-[20px]">--}}
-                {{--                    <div--}}
-                {{--                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">--}}
-                {{--                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">--}}
-                {{--                            VÁŠ ÚČET ČEKÁ NA OVĚŘENÍ PO AKTUALIZACI OSOBNÍCH ÚDAJŮ--}}
-                {{--                        </div>--}}
-                {{--                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">--}}
-                {{--                            Upravili jste své osobní údaje. U všech typů účtů máte omezené funkce. V blízké době Vás--}}
-                {{--                            budeme--}}
-                {{--                            kontaktovat a dokončíme proces ověření účtu.--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
-                {{--            @endif--}}
-
-                {{--            @if(--}}
-                {{--                    (auth()->user()->investor === 1 && auth()->user()->investor_status === 're_verified')--}}
-                {{--                    || (auth()->user()->investor === 1 && auth()->user()->investor_status === 'waiting')--}}
-                {{--                    || (auth()->user()->advertiser === 1 && auth()->user()->advertiser_status === 're_verified')--}}
-                {{--                    || (auth()->user()->advertiser === 1 && auth()->user()->advertiser_status === 'waiting')--}}
-                {{--                    || (auth()->user()->real_estate_broker === 1 && auth()->user()->real_estate_broker_status === 're_verified')--}}
-                {{--                    || (auth()->user()->real_estate_broker === 1 && auth()->user()->real_estate_broker_status === 'waiting')--}}
-                {{--                )--}}
-                {{--                <div class="mb-[20px]">--}}
-                {{--                    <div--}}
-                {{--                        class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">--}}
-                {{--                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">--}}
-                {{--                            ÚDAJE U NOVĚ PŘIDANÉHO TYPU ÚČTU (ČI TYPŮ ÚČTU) ČEKAJÍ NA OVĚŘENÍ--}}
-                {{--                        </div>--}}
-                {{--                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">--}}
-                {{--                            Děkujeme za zadání požadovaných údajů. V blízké době Vás budeme kontaktovat a dokončíme--}}
-                {{--                            proces--}}
-                {{--                            ověření účtu.--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
-                {{--            @endif--}}
-
-                @foreach(\App\Services\UsersService::ACCOUNT_TYPE_WAITING as $index => $item)
+                @foreach(\App\Services\UsersService::getACCOUNT_TYPE_WAITING() as $index => $item)
                     @if(auth()->user()->{$item['column']} && in_array(auth()->user()->{$item['item']}, ['waiting', 're_verified', 'not_verified']))
                         <div class="mb-[20px]">
                             <div
@@ -151,7 +99,7 @@
                 @endforeach
             @endif
 
-            @foreach(\App\Services\UsersService::ACCOUNT_TYPE_FINISHED as $index => $item)
+            @foreach(\App\Services\UsersService::getACCOUNT_TYPE_FINISHED() as $index => $item)
                 @if(auth()->user()->{$item['column']} && auth()->user()->{$item['item']} === $item['status'] && auth()->user()->{$item['show']})
                     <div class="mb-[20px]" x-data="{
                     openInfo: true,
@@ -196,50 +144,26 @@
             ">
 
                 <div>
-                    <h2>Vaše osobní údaje</h2>
+                    <h2>{{ __('Vaše osobní údaje') }}</h2>
 
                     @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
                         <div
                             class="mt-[25px] p-[25px] bg-[#F8F8F8] rounded-[3px] grid tablet:grid-cols-[200px_1fr] gap-x-[50px] tablet:gap-y-[10px]">
                             <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                Jméno a příjmení
+                                {{ __('Jméno a příjmení') }}
                             </div>
                             <div x-text="nameAndSurnameText()"
                                  class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
                             <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                Adresa trvalého bydliště
+                                {{ __('Adresa trvalého bydliště') }}
                             </div>
                             <div x-text="addressText()"
                                  class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
                             <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                                Státní občanství (země)
+                                {{ __('Státní občanství (země)') }}
                             </div>
                             <div x-text="countryText()"
                                  class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>
-
-                            {{--                        @if($user->investor)--}}
-                            {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-                            {{--                                Upřesnění záměrů – jako investor--}}
-                            {{--                            </div>--}}
-                            {{--                            <div x-html="moreInfoTextInvestor()"--}}
-                            {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-                            {{--                        @endif--}}
-
-                            {{--                        @if($user->advertiser)--}}
-                            {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-                            {{--                                Upřesnění záměrů – jako nabízející--}}
-                            {{--                            </div>--}}
-                            {{--                            <div x-html="moreInfoTextAdvertiser()"--}}
-                            {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-                            {{--                        @endif--}}
-
-                            {{--                        @if($user->real_estate_broker)--}}
-                            {{--                            <div class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">--}}
-                            {{--                                Upřesnění záměrů – jako realitní makléř--}}
-                            {{--                            </div>--}}
-                            {{--                            <div x-html="moreInfoTextRealEstateBroker()"--}}
-                            {{--                                 class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black"></div>--}}
-                            {{--                        @endif--}}
                         </div>
                     @endif
 
@@ -250,9 +174,9 @@
                                    class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
                                 >
                                     @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
-                                        Dokončit ověření účtu
+                                        {{ __('Dokončit ověření účtu') }}
                                     @else
-                                        Zadat a ověřit účet
+                                        {{ __('Zadat a ověřit účet') }}
                                     @endif
                                 </a>
                             </div>
@@ -260,14 +184,14 @@
                     @endif
 
                     @if(auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified')
-                        <div class="mt-[45px] font-Spartan-Regular text-[20px] leading-[30px]">Došlo ke změně?</div>
+                        <div class="mt-[45px] font-Spartan-Regular text-[20px] leading-[30px]">{{ __('Došlo ke změně?') }}</div>
 
                         @if(auth()->user()->userverifyservice?->verify_service === 'bankid')
                             <button
                                 @click="$dispatch('open-modal', 'bankid-update-notice')"
                                 class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
                             >
-                                Aktualizovat osobní údaje
+                                {{ __('Aktualizovat osobní údaje') }}
                             </button>
 
                             <x-modal name="bankid-update-notice">
@@ -277,13 +201,10 @@
                                          @click="$dispatch('close')"
                                          class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
-                                    <h2 class="mb-[25px]">Aktualizace osobních údajů</h2>
+                                    <h2 class="mb-[25px]">{{ __('Aktualizace osobních údajů') }}</h2>
 
                                     <div class="text-left mb-[30px] font-Spartan-Regular text-[16px]">
-                                        Vaše osobní údaje jsme ověřili přes službu Bank&nbsp;iD. Pokud jsou tyto údaje
-                                        neaktuální, kontaktujte svou banku a oznamte jí, že došlo k jejich změně. K
-                                        aktualizaci vašich osobních údajů dojde automaticky, jakmile nám služba Bank&nbsp;iD
-                                        změnu ohlásí.
+                                        {!! __('Vaše osobní údaje jsme ověřili přes službu Bank&nbsp;iD. Pokud jsou tyto údaje neaktuální, kontaktujte svou banku a oznamte jí, že došlo k jejich změně. K aktualizaci vašich osobních údajů dojde automaticky, jakmile nám služba Bank&nbsp;iD změnu ohlásí.') !!}
                                     </div>
                                 </div>
                             </x-modal>
@@ -291,7 +212,7 @@
                             <a href="{{ route('profile.edit-verify') }}"
                                class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
                             >
-                                Aktualizovat osobní údaje
+                                {{ __('Aktualizovat osobní údaje') }}
                             </a>
                         @endif
                     @endif
@@ -317,11 +238,11 @@
             <div class="p-[40px_10px] tablet:p-[50px_40px] text-center">
 
                 <div class="text-center mb-[30px]">
-                    <h1>Váš účet byl zablokován</h1>
+                    <h1>{{ __('Váš účet byl zablokován') }}</h1>
                 </div>
                 <div class="text-left mb-[10px]">
                     <div class="block font-Spartan-Bold text-[11px] tablet:text-[13px] leading-29px text-[#676464]">
-                        Zdůvodnění:
+                        {{ __('Zdůvodnění') }}:
                     </div>
                 </div>
 
@@ -367,7 +288,7 @@
                                 if(seconds < 0 || seconds > 59) {
                                     seconds = 0;
                                 }
-                                alert(`Zprávu s aktivačním odkazem jsme vám již odeslali. Z důvodu ochrany našeho systému můžete o další zaslání požádat až za ${minutes} min ${seconds} sec`)
+                                alert(@js(__('Zprávu s aktivačním odkazem jsme vám již odeslali. Z důvodu ochrany našeho systému můžete o další zaslání požádat až za ${minutes} min ${seconds} sec')))
                             } else {
                                 return response.json();
                             }
@@ -383,7 +304,7 @@
                         })
                         .catch((error) => {
                             if (showError) {
-                                alert('Chyba znovuodelání verifikačního emailu')
+                                alert(@js(__('Chyba znovuodelání verifikačního emailu')))
                             }
 
                             this.loaderShow = false;
@@ -416,7 +337,7 @@
                                 if(seconds < 0 || seconds > 59) {
                                     seconds = 0;
                                 }
-                                alert(`Z důvodu ochrany našeho systému můžete provést změnu e-mailu až za ${minutes} min ${seconds} sec`)
+                                alert(@js(__('Z důvodu ochrany našeho systému můžete provést změnu e-mailu až za ${minutes} min ${seconds} sec')))
                             } else {
                                 return response.json();
                             }
@@ -435,7 +356,7 @@
                         })
                         .catch((error) => {
                             if (showError) {
-                                alert('Chyba změny emailu')
+                                alert(@js(__('Chyba změny emailu')))
                             }
                             this.loaderShow = false;
                         });
@@ -443,7 +364,7 @@
                 }">
 
                 <div class="text-center mb-[30px]">
-                    <h1 dusk="overeni-emailu-modal">Ověření e-mailu</h1>
+                    <h1 dusk="overeni-emailu-modal">{{ __('Ověření e-mailu') }}</h1>
                 </div>
 
                 <div x-cloak x-show="successMessage !== null">
@@ -462,15 +383,15 @@
 
                 <div
                     class="p-[25px] rounded-[7px] bg-[#F4FAFE] font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px] text-[#414141] text-center mb-[30px]">
-                    Na váš e-mail <span x-text="email"></span> jsme odeslali zprávu s <span
-                        class="font-Spartan-SemiBold">aktivačním odkazem</span>. Potvrďte přes něj
-                    svou registraci a vlastnictví e-mailu.
+                    {{ __('Na váš e-mail') }} <span x-text="email"></span> {{ __('jsme odeslali zprávu s') }} <span
+                        class="font-Spartan-SemiBold">{{ __('aktivačním odkazem') }}</span>.
+                    {{ __('Potvrďte přes něj svou registraci a vlastnictví e-mailu.') }}
                 </div>
 
                 <div x-show="!newEmailOpen" x-collapse>
                     <div @click="resend()"
                          class="cursor-pointer text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue mb-[20px]">
-                        Znovu odeslat aktivační e-mail
+                        {{ __('Znovu odeslat aktivační e-mail') }}
                     </div>
 
                     <div
@@ -491,7 +412,7 @@
                 <div x-show="newEmailOpen" x-collapse x-cloak="">
                     <div class="pb-[10px]">
                         <div class="text-center font-Spartan-Bold text-[13px] leading-[29px] text-[#676464]">
-                            Zadejte správný kontaktní e-mail *
+                            {{ __('Zadejte správný kontaktní e-mail') }} *
                         </div>
                         <form x-ref="form">
                             <x-text-input class="block mt-1 w-[350px] mx-auto" type="email" x-model="newEmail"
@@ -502,7 +423,7 @@
 
                     <div @click="newEmailOpen = false; newEmail = '';"
                          class="cursor-pointer text-center font-Spartan-SemiBold text-[11px] leading-[16px] text-app-blue mb-[20px]">
-                        zrušit
+                        {{ __('zrušit') }}
                     </div>
                 </div>
 
@@ -510,7 +431,7 @@
                     class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px]"
                     @click="
                         if(!((!newEmailOpen) || (newEmailOpen && valid))) {
-                            alert('Zadejte e-mail ve správném formátu.');
+                            alert(@js(__('Zadejte e-mail ve správném formátu.')));
                             return;
                         }
 
@@ -523,7 +444,7 @@
                         }
                         "
                     x-text="newEmailOpen ? 'Odeslat' : 'Hotovo'">
-                    >Hotovo
+                    >{{ __('Hotovo') }}
                 </button>
 
                 <div id="loader" x-show="loaderShow" x-cloak>

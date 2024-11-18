@@ -10,89 +10,101 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectService
 {
-    public const SUBJECT_OFFERS = [
-        'zamer-v-rane-fazi' => 'Záměr v rané fázi',
-        'ready-to-build' => 'Projekt k výstavbě<br>(Ready To Build)',
-        'projekt-ve-vystabe' => 'Projekt ve výstabě',
-        'projekt-v-provozu' => 'Projekt v provozu',
-    ];
+    public static function getSUBJECT_OFFERS()
+    {
+        return [
+            'zamer-v-rane-fazi' => __('Záměr v rané fázi'),
+            'ready-to-build' => __('Projekt k výstavbě') . '<br>' . __('Ready To Build)'),
+            'projekt-ve-vystabe' => __('Projekt ve výstabě'),
+            'projekt-v-provozu' => __('Projekt v provozu'),
+        ];
+    }
 
-    public const LOCATION_OFFERS = [
-        'zamer-v-rane-fazi' => [
-            'nabidka-pozemku-k-vystavbe' => 'Nabídka pozemku k výstavbě',
-            'nabidka-jine-plochy-k-vystavbe' => 'Nabídka jiné plochy k výstavbě<br>(např. střecha)',
-            'nabidka-rezervovane-kapacity-v-siti-distributora' => 'Nabídka rezervované kapacity v síti distributora',
-            'projekt-pozemni-fve' => 'Projekt pozemní FVE',
-            'projekt-stresni-fve' => 'Projekt střešní FVE',
-            'projekt-vetrne-elektrarny' => 'Projekt větrné elektrárny',
-            'projekt-svr' => 'Projekt SVR',
-            'projekt-bess' => 'Projekt BESS',
-            'hybridni-projekt-kombinace-technologií' => 'Hybridní projekt<br>(kombinace technologií)',
-            'projekt-lokálni-distribucni-soustavy' => 'Projekt lokální distribuční soustavy',
-            'jina-nabidka' => 'Jiná nabídka',
-        ],
-        'ready-to-build' => [
-            'projekt-pozemni-fve' => 'Projekt pozemní FVE',
-            'projekt-stresni-fve' => 'Projekt střešní FVE',
-            'projekt-vetrne-elektrarny' => 'Projekt větrné elektrárny',
-            'projekt-svr' => 'Projekt SVR',
-            'projekt-bess' => 'Projekt BESS',
-            'hybridni-projekt-kombinace-technologií' => 'Hybridní projekt<br>(kombinace technologií)',
-            'projekt-lokálni-distribucni-soustavy' => 'Projekt lokální distribuční soustavy',
-            'jina-nabidka' => 'Jiná nabídka',
-        ],
-        'projekt-ve-vystabe' => [
-            'projekt-pozemni-fve' => 'Projekt pozemní FVE',
-            'projekt-stresni-fve' => 'Projekt střešní FVE',
-            'projekt-vetrne-elektrarny' => 'Projekt větrné elektrárny',
-            'projekt-svr' => 'Projekt SVR',
-            'projekt-bess' => 'Projekt BESS',
-            'hybridni-projekt-kombinace-technologií' => 'Hybridní projekt<br>(kombinace technologií)',
-            'projekt-lokálni-distribucni-soustavy' => 'Projekt lokální distribuční soustavy',
-            'jina-nabidka' => 'Jiná nabídka',
-        ],
-        'projekt-v-provozu' => [
-            'projekt-pozemni-fve' => 'Projekt pozemní FVE',
-            'projekt-stresni-fve' => 'Projekt střešní FVE',
-            'projekt-vetrne-elektrarny' => 'Projekt větrné elektrárny',
-            'projekt-svr' => 'Projekt SVR',
-            'projekt-bess' => 'Projekt BESS',
-            'hybridni-projekt-kombinace-technologií' => 'Hybridní projekt<br>(kombinace technologií)',
-            'projekt-lokálni-distribucni-soustavy' => 'Projekt lokální distribuční soustavy',
-            'jina-nabidka' => 'Jiná nabídka',
-        ],
-    ];
+    public static function getLOCATION_OFFERS()
+    {
+        return [
+            'zamer-v-rane-fazi' => [
+                'nabidka-pozemku-k-vystavbe' => __('Nabídka pozemku k výstavbě'),
+                'nabidka-jine-plochy-k-vystavbe' => __('Nabídka jiné plochy k výstavbě') . '<br>' . __('(např. střecha)'),
+                'nabidka-rezervovane-kapacity-v-siti-distributora' => __('Nabídka rezervované kapacity v síti distributora'),
+                'projekt-pozemni-fve' => __('Projekt pozemní FVE'),
+                'projekt-stresni-fve' => __('Projekt střešní FVE'),
+                'projekt-vetrne-elektrarny' => __('Projekt větrné elektrárny'),
+                'projekt-svr' => __('Projekt SVR'),
+                'projekt-bess' => __('Projekt BESS'),
+                'hybridni-projekt-kombinace-technologií' => __('Hybridní projekt') . '<br>' . __('(kombinace technologií)'),
+                'projekt-lokálni-distribucni-soustavy' => __('Projekt lokální distribuční soustavy'),
+                'jina-nabidka' => __('Jiná nabídka'),
+            ],
+            'ready-to-build' => [
+                'projekt-pozemni-fve' => __('Projekt pozemní FVE'),
+                'projekt-stresni-fve' => __('Projekt střešní FVE'),
+                'projekt-vetrne-elektrarny' => __('Projekt větrné elektrárny'),
+                'projekt-svr' => __('Projekt SVR'),
+                'projekt-bess' => __('Projekt BESS'),
+                'hybridni-projekt-kombinace-technologií' => __('Hybridní projekt') . '<br>' . __('(kombinace technologií)'),
+                'projekt-lokálni-distribucni-soustavy' => __('Projekt lokální distribuční soustavy'),
+                'jina-nabidka' => __('Jiná nabídka'),
+            ],
+            'projekt-ve-vystabe' => [
+                'projekt-pozemni-fve' => __('Projekt pozemní FVE'),
+                'projekt-stresni-fve' => __('Projekt střešní FVE'),
+                'projekt-vetrne-elektrarny' => __('Projekt větrné elektrárny'),
+                'projekt-svr' => __('Projekt SVR'),
+                'projekt-bess' => __('Projekt BESS'),
+                'hybridni-projekt-kombinace-technologií' => __('Hybridní projekt') . '<br>' . __('(kombinace technologií)'),
+                'projekt-lokálni-distribucni-soustavy' => __('Projekt lokální distribuční soustavy'),
+                'jina-nabidka' => __('Jiná nabídka'),
+            ],
+            'projekt-v-provozu' => [
+                'projekt-pozemni-fve' => __('Projekt pozemní FVE'),
+                'projekt-stresni-fve' => __('Projekt střešní FVE'),
+                'projekt-vetrne-elektrarny' => __('Projekt větrné elektrárny'),
+                'projekt-svr' => __('Projekt SVR'),
+                'projekt-bess' => __('Projekt BESS'),
+                'hybridni-projekt-kombinace-technologií' => __('Hybridní projekt') . '<br>' . __('(kombinace technologií)'),
+                'projekt-lokálni-distribucni-soustavy' => __('Projekt lokální distribuční soustavy'),
+                'jina-nabidka' => __('Jiná nabídka'),
+            ],
+        ];
+    }
 
-    public const SUBJECT_OFFERS_ALL_VERSIONS = [
-        'zamer-v-rane-fazi' => 'Záměr v rané fázi',
-        'ready-to-build' => 'Projekt k výstavbě<br>(Ready To Build)',
-        'projekt-ve-vystabe' => 'Projekt ve výstabě',
-        'projekt-v-provozu' => 'Projekt v provozu',
-        'nabidka-plochy-pro-vystavbu-fve' => 'Nabídka plochy pro výstavbu FVE',
-        'nabidka-rezervovane-kapacity-v-siti-distributora' => 'Nabídka rezervované kapacity v síti distributora',
-        'prodej-prav-k-projektu-na-vystavbu-fve' => 'Prodej práv k projektu na výstavbu FVE',
-        'fve-ve-vystavbe' => 'FVE ve výstavbě',
-        'fve-v-provozu' => 'FVE v provozu',
-        'jina-nabidka' => 'Jiná nabídka',
-    ];
+    public static function getSUBJECT_OFFERS_ALL_VERSIONS()
+    {
+        return [
+            'zamer-v-rane-fazi' => __('Záměr v rané fázi'),
+            'ready-to-build' => __('Projekt k výstavbě') . '<br>' . __('(Ready To Build)'),
+            'projekt-ve-vystabe' => __('Projekt ve výstabě'),
+            'projekt-v-provozu' => __('Projekt v provozu'),
+            'nabidka-plochy-pro-vystavbu-fve' => __('Nabídka plochy pro výstavbu FVE'),
+            'nabidka-rezervovane-kapacity-v-siti-distributora' => __('Nabídka rezervované kapacity v síti distributora'),
+            'prodej-prav-k-projektu-na-vystavbu-fve' => __('Prodej práv k projektu na výstavbu FVE'),
+            'fve-ve-vystavbe' => __('FVE ve výstavbě'),
+            'fve-v-provozu' => __('FVE v provozu'),
+            'jina-nabidka' => __('Jiná nabídka'),
+        ];
+    }
 
-    public const LOCATION_OFFERS_ALL_VERSIONS = [
-        'nabidka-pozemku-k-vystavbe' => 'Nabídka pozemku k výstavbě',
-        'nabidka-jine-plochy-k-vystavbe' => 'Nabídka jiné plochy k výstavbě<br>(např. střecha)',
-        'nabidka-rezervovane-kapacity-v-siti-distributora' => 'Nabídka rezervované kapacity v síti distributora',
-        'projekt-pozemni-fve' => 'Projekt pozemní FVE',
-        'projekt-stresni-fve' => 'Projekt střešní FVE',
-        'projekt-vetrne-elektrarny' => 'Projekt větrné elektrárny',
-        'projekt-svr' => 'Projekt SVR',
-        'projekt-bess' => 'Projekt BESS',
-        'hybridni-projekt-kombinace-technologií' => 'Hybridní projekt<br>(kombinace technologií)',
-        'projekt-lokálni-distribucni-soustavy' => 'Projekt lokální distribuční soustavy',
-        'jina-nabidka' => 'Jiná nabídka',
-        'pozemni-fve' => 'Pozemní FVE',
-        'fve-na-strese' => 'FVE na střeše',
-        'kombinace-pozemni-fve-a-fve-na-strese' => 'Kombinace pozemní FVE a FVE na střeše',
-        'jine-umisteni' => 'Jiné umístění',
-    ];
+    public static function getLOCATION_OFFERS_ALL_VERSIONS()
+    {
+        return [
+            'nabidka-pozemku-k-vystavbe' => __('Nabídka pozemku k výstavbě'),
+            'nabidka-jine-plochy-k-vystavbe' => __('Nabídka jiné plochy k výstavbě') . '<br>' . __('(např. střecha)'),
+            'nabidka-rezervovane-kapacity-v-siti-distributora' => __('Nabídka rezervované kapacity v síti distributora'),
+            'projekt-pozemni-fve' => __('Projekt pozemní FVE'),
+            'projekt-stresni-fve' => __('Projekt střešní FVE'),
+            'projekt-vetrne-elektrarny' => __('Projekt větrné elektrárny'),
+            'projekt-svr' => __('Projekt SVR'),
+            'projekt-bess' => __('Projekt BESS'),
+            'hybridni-projekt-kombinace-technologií' => __('Hybridní projekt') . '<br>' . __('(kombinace technologií)'),
+            'projekt-lokálni-distribucni-soustavy' => __('Projekt lokální distribuční soustavy'),
+            'jina-nabidka' => __('Jiná nabídka'),
+            'pozemni-fve' => __('Pozemní FVE'),
+            'fve-na-strese' => __('FVE na střeše'),
+            'kombinace-pozemni-fve-a-fve-na-strese' => __('Kombinace pozemní FVE a FVE na střeše'),
+            'jine-umisteni' => __('Jiné umístění'),
+        ];
+    }
 
     public function getProjectData($accountType)
     {
@@ -103,22 +115,22 @@ class ProjectService
             'method' => 'POST',
             'accountType' => $accountType,
             'status' => 'draft',
-            'subjectOffers' => ProjectService::SUBJECT_OFFERS,
+            'subjectOffers' => ProjectService::getSUBJECT_OFFERS(),
             'subjectOffer' => null,
-            'locationOffers' => ProjectService::LOCATION_OFFERS,
+            'locationOffers' => ProjectService::getLOCATION_OFFERS(),
             'locationOffer' => null,
             'title' => '',
             'description' => '',
             'country' => '',
             'type' => null,
-            'types' => Project::PAID_TYPES,
+            'types' => Project::getPAID_TYPES(),
             'representation' => [
                 'selected' => null,
                 'endDate' => '',
                 'indefinitelyDate' => false,
                 'mayBeCancelled' => null,
             ],
-            'representationOptions' => Project::REPRESENTATION_OPTIONS,
+            'representationOptions' => Project::getREPRESENTATION_OPTIONS(),
             'files' => [],
         ];
     }

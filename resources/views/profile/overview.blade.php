@@ -74,18 +74,17 @@
                         gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                     <div>
                         <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
-                            ZATÍM JSTE NEOVĚŘILI SVŮJ ÚČET
+                            {{ __('ZATÍM JSTE NEOVĚŘILI SVŮJ ÚČET') }}
                         </div>
                         <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
                             <div class="mb-[10px]">
-                                Abyste mohli ověřit svůj účet a využívat všechny funkce portálu u zvolených typů účtu
-                                (investor, nabízející, realitní makléř), musíte:
+                                {{ __('Abyste mohli ověřit svůj účet a využívat všechny funkce portálu u zvolených typů účtu (investor, nabízející, realitní makléř), musíte') }}:
                             </div>
                             <div>
-                                1. Ověřit svou totožnost.
+                                {{ __('1. Ověřit svou totožnost.') }}
                             </div>
                             <div>
-                                2. Doložit oprávněnost svého zájmu o využití zvolených typů účtů.
+                                {{ __('2. Doložit oprávněnost svého zájmu o využití zvolených typů účtů.') }}
                             </div>
                         </div>
                     </div>
@@ -93,7 +92,7 @@
                        class="
                         w-full tablet:max-w-[200px] mx-auto
                        font-Spartan-Bold text-[14px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
-                        Ověřit účet
+                        {{ __('Ověřit účet') }}
                     </a>
                 </div>
             </div>
@@ -103,7 +102,7 @@
             || ($account === 'real-estate-broker' && auth()->user()->real_estate_broker && !auth()->user()->isVerifiedRealEstateBrokerStatus())
         )
             <div class="max-w-[1230px] px-[15px] mx-auto pb-[20px] mt-[-20px]">
-                @foreach(\App\Services\UsersService::ACCOUNT_TYPE_WAITING as $index => $item)
+                @foreach(\App\Services\UsersService::getACCOUNT_TYPE_WAITING() as $index => $item)
                     @if($account === $item['index'] && auth()->user()->{$item['column']} && in_array(auth()->user()->{$item['item']}, ['not_verified', 'waiting', 're_verified']))
                         <div class="mb-[20px]">
                             <div
@@ -126,7 +125,7 @@
                 <a href="{{ route('projects.create', ['accountType' => 'advertiser']) }}"
                    class="text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
                 >
-                    + Přidat nový projekt
+                    {{ __('+ Přidat nový projekt') }}
                 </a>
             </div>
         @endif
@@ -136,7 +135,7 @@
                 <a href="{{ route('projects.create', ['accountType' => 'real-estate-broker']) }}"
                    class="text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
                 >
-                    + Přidat nový projekt
+                    {{ __('+ Přidat nový projekt') }}
                 </a>
             </div>
         @endif

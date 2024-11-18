@@ -12,10 +12,10 @@
         </div>
         <section class="max-w-7xl mx-auto py-4 px-5" x-data="{exclusive: @js($project->exclusive_contract ? 1 : 0)}">
             <div class="flex justify-between items-center border-b border-gray-300 mb-[25px]">
-                <h1 class="text-2xl font-semibold pt-2 pb-6">Editace projektu</h1>
+                <h1 class="text-2xl font-semibold pt-2 pb-6">{{ __('Editace projektu') }}</h1>
             </div>
             <a href="{{ $project->url_detail }}" target="_blank"
-               class="bg-app-orange p-[10px_25px] inline-block mb-[20px] text-white font-WorkSans-Regular rounded-[3px]">Náhled</a>
+               class="bg-app-orange p-[10px_25px] inline-block mb-[20px] text-white font-WorkSans-Regular rounded-[3px]">{{ __('Náhled') }}</a>
 
             <h2 class="mb-[25px]">{{ $project->title }}</h2>
 
@@ -85,24 +85,24 @@
                          @click="open = !open"
                          x-show="Object.entries(projectDetails.data).length"></div>
                     <div class="font-WorkSans-Bold text-[18px] mb-[10px]">
-                        Režim našeho smluvního vztahu s nabízejícím
+                        {{ __('Režim našeho smluvního vztahu s nabízejícím') }}
                     </div>
                     <div>
                         <input type="hidden" x-model="exclusive" name="exclusive_contract">
                         <div
                             @click="exclusive = (exclusive ? 0 : 1)"
                             class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
-                            x-text="exclusive ? 'Exkluzivní smlouva' : 'Neexkluzivní smlouva'"
+                            x-text="exclusive ? @js(__('Exkluzivní smlouva')) : @js(__('Neexkluzivní smlouva'))"
                             :class="{
                             'bg-app-green': exclusive,
                             'bg-app-red': !exclusive,
                         }">
                         </div>
                         <div class="font-Spartan-SemiBold text-[15px]"
-                             x-text="exclusive ? 'Nabízející uvidí identifikaci kupujícího' : 'Nabízející neuvidí identifikaci kupujícího'">
+                             x-text="exclusive ? @js(__('Nabízející uvidí identifikaci kupujícího')) : @js(__('Nabízející neuvidí identifikaci kupujícího'))">
                         </div>
                         <div class="font-Spartan-SemiBold text-[15px] text-app-red" x-show="!exclusive">
-                            Všichni Investoři uvidí detaily projektu bez nutnosti žádat o zobrazení.
+                            {{ __('Všichni Investoři uvidí detaily projektu bez nutnosti žádat o zobrazení.') }}
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                         <div
                             @click="details_on_request = (details_on_request ? 0 : 1)"
                             class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
-                            x-text="!details_on_request ? 'Investor má přístup k detailu projektu' : 'Investor musí požádat o přístup k detailu projektu'"
+                            x-text="!details_on_request ? @js(__('Investor má přístup k detailu projektu')) : @js(__('Investor musí požádat o přístup k detailu projektu'))"
                             :class="{
                             'bg-app-green': !details_on_request,
                             'bg-app-red': details_on_request,
@@ -123,7 +123,7 @@
                 <button type="submit"
                         class="bg-app-green p-[15px_25px] rounded-[3px] font-WorkSans-SemiBold text-white disabled:grayscale"
                         :disabled="uploadActive()">
-                    Uložit změny
+                    {{ __('Uložit změny') }}
                 </button>
 
                 <div x-data="{ enable: false }" class="mt-[-15px]">
@@ -135,7 +135,7 @@
                     </div>
                     <button type="button" @click="deleteProject({{ $project->id }})"
                             class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[70px]"
-                            :disabled="!enable">Smazat&nbsp;projekt
+                            :disabled="!enable">{!! __('Smazat&nbsp;projekt') !!}
                     </button>
                 </div>
             </form>

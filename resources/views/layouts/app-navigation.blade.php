@@ -2,7 +2,7 @@
     @php
         $projectCategories = (new \App\Services\AdminService())->getProjectCategory();
 
-        $overviewTitle = 'Přehled účtu';
+        $overviewTitle = __('profil.Přehled_účtu');
         $usersService = new \App\Services\UsersService();
         if ($usersService->isInvestorOnly()) {
             $overviewTitle = __('menu.Přehled_investora');

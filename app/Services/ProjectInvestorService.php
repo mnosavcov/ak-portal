@@ -14,47 +14,47 @@ class ProjectInvestorService
         $myPreliminaryInterest = $this->myPreliminaryInterest($page);
 
         $ret = [
-            'Projekty' => [
-                'selected' => 'Nové projekty',
+            __('Projekty') => [
+                'selected' => __('Nové projekty'),
                 'data' => [
-                    'Nové projekty' => $this->news($page),
-                    'Již zobrazené' => $this->showed($page),
+                    __('Nové projekty') => $this->news($page),
+                    __('Již zobrazené') => $this->showed($page),
 //                    'Oblíbené' => $this->favorites($page),
                 ],
             ],
-            'Mé investice' => [
-                'selected' => 'Mé investice',
+            __('Mé investice') => [
+                'selected' => __('Mé investice'),
                 'data' => [
-                    'Mé investice' => $myInvestment,
+                    __('Mé investice') => $myInvestment,
                 ],
             ],
-            'Projekty s podanou nabídkou' => [
-                'selected' => 'Projekty s podanou nabídkou',
+            __('Projekty s podanou nabídkou') => [
+                'selected' => __('Projekty s podanou nabídkou'),
                 'data' => [
-                    'Projekty s podanou nabídkou' => $myOffer,
+                    __('Projekty s podanou nabídkou') => $myOffer,
                 ],
             ],
-            'Projekty s podaným předběžným zájmem' => [
-                'selected' => 'Projekty s podaným předběžným zájmem',
+            __('Projekty s podaným předběžným zájmem') => [
+                'selected' => __('Projekty s podaným předběžným zájmem'),
                 'data' => [
-                    'Projekty s podaným předběžným zájmem' => $myPreliminaryInterest,
+                    __('Projekty s podaným předběžným zájmem') => $myPreliminaryInterest,
                 ],
             ],
         ];
 
         if (!$myInvestment->count()) {
-            $ret['Mé investice']['selected'] = 'empty';
-            $ret['Mé investice']['empty'] = 'Zatím jste neinvestovali do žádného projektu.';
+            $ret[__('Mé investice')]['selected'] = 'empty';
+            $ret[__('Mé investice')]['empty'] = __('Zatím jste neinvestovali do žádného projektu.');
         }
 
         if (!$myOffer->count()) {
-            $ret['Projekty s podanou nabídkou']['selected'] = 'empty';
-            $ret['Projekty s podanou nabídkou']['empty'] = 'Zatím jste nepodali žádnou nabídku.';
+            $ret[__('Projekty s podanou nabídkou')]['selected'] = 'empty';
+            $ret[__('Projekty s podanou nabídkou')]['empty'] = __('Zatím jste nepodali žádnou nabídku.');
         }
 
         if (!$myPreliminaryInterest->count()) {
-            $ret['Projekty s podaným předběžným zájmem']['selected'] = 'empty';
-            $ret['Projekty s podaným předběžným zájmem']['empty'] = 'Zatím jste neprojevili předběžný zájem.';
+            $ret[__('Projekty s podaným předběžným zájmem')]['selected'] = 'empty';
+            $ret[__('Projekty s podaným předběžným zájmem')]['empty'] = __('Zatím jste neprojevili předběžný zájem.');
         }
 
         return $ret;

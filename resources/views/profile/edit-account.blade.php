@@ -1,8 +1,17 @@
 <div x-data="verifyUserAccount"
      x-init="
-        data = @js($user->dataForVerify());
-        countries = @js(\App\Services\CountryServices::COUNTRIES);
-        verified = {{ auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified' ? 'true' : 'false' }}
+         lang.Potvrdit_a_odeslat = @js(__('Potvrdit a odeslat'));
+         lang.Pokracovat = @js(__('Pokračovat'));
+         lang.Zadejte_vase_statni_obcanstvi = @js(__('Zadejte vaše státní občanství.'));
+         lang.Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni = @js(__('Pro vaše státní občanství není možné automatické ověření.'));
+         lang.Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby = @js(__('Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).'));
+         lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_investor_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.'));
+         lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_nabizejici_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.'));
+         lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_realitni_makler_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.'));
+         lang.Chyba_deslani_dat = @js(__('Chyba odeslání dat'));
+         data = @js($user->dataForVerify());
+         countries = @js(\App\Services\CountryServices::COUNTRIES);
+         verified = {{ auth()->user()->check_status === 'verified' || auth()->user()->check_status === 'waiting' || auth()->user()->check_status === 're_verified' ? 'true' : 'false' }}
      "
      class="mb-[50px]">
 
@@ -81,22 +90,22 @@
                         <div x-show="showStep[1]"
                              class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
                              :class="{ '!text-app-orange underline': step === 1 }">
-                            1. Přehled požadovaných údajů
+                            {{ __('1. Přehled požadovaných údajů') }}
                         </div>
                         <div x-show="showStep[2]"
                              class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
                              :class="{ '!text-app-orange underline': step === 2 }">
-                            2. Ověření totožnosti
+                            {{ __('2. Ověření totožnosti') }}
                         </div>
                         <div x-show="showStep[3]"
                              class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
                              :class="{ '!text-app-orange underline': step === 3 }">
-                            3. Upřesněte své záměry
+                            {{ __('3. Upřesněte své záměry') }}
                         </div>
                         <div x-show="showStep[4]"
                              class="px-[25px] inline-block h-[50px] leading-[50px] tablet:h-[54px] tablet:leading-[54px] bg-white text-[#414141] font-Spartan-SemiBold text-[13px]"
                              :class="{ '!text-app-orange underline': step === 4 }">
-                            4. Potvrzení a odeslání
+                            {{ __('4. Potvrzení a odeslání') }}
                         </div>
                     </div>
                 </div>
@@ -111,7 +120,7 @@
                    after:absolute after:w-[6px] after:h-[10px] after:bg-[url('/resources/images/arrow-left-black-6x10.svg')] after:bg-no-repeat
                    after:top-[23px] after:left-[20px]
                 ">
-                    Zrušit
+                    {{ __('Zrušit') }}
                 </a>
             </div>
         </div>
@@ -123,7 +132,7 @@
                 after:absolute after:w-[6px] after:h-[10px] after:bg-[url('/resources/images/arrow-left-black-6x10.svg')] after:bg-no-repeat
                 after:top-[23px] after:left-[20px]
              ">
-                Zrušit
+                {{ __('Zrušit') }}
             </a>
         </div>
     @endif
@@ -136,7 +145,7 @@
                     laptop:px-[30px] laptop:py-[50px]
                     ">
             <h2 class="mb-[25px]">
-                K plnému přístupu musíte ověřit následující osobní údaje
+                {{ __('K plnému přístupu musíte ověřit následující osobní údaje') }}
             </h2>
 
             @include('profile.edit-account-userinfo')
@@ -147,11 +156,12 @@
                     tablet:px-[20px] tablet:py-[35px]
                     laptop:px-[30px] laptop:py-[50px]
                     ">
-            <h2 class="mb-[25px]">Zvolte svou zemi</h2>
+            <h2 class="mb-[25px]">{{ __('Zvolte svou zemi') }}</h2>
 
             <div class="p-[30px] bg-[#F8F8F8] text-center">
                 <div class="inline-block w-full max-w-[400px]">
-                    <x-input-label for="country" value="Jaké je vaše státní občanství? *" class="mb-[10px]"/>
+                    <x-input-label for="country" value="{{ __('Jaké je vaše státní občanství?') }} *"
+                                   class="mb-[10px]"/>
                     <div class="text-left">
                         <x-countries-select id="country" class="block mt-1 w-full" type="text"/>
                     </div>
@@ -162,10 +172,9 @@
                 <div
                     class="mt-[25px] p-[15px] bg-app-orange w-auto rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
                     <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                        Pro vaši zemi, ve které máte státní občanství, nemáme k dispozici žádnou on-line metodu pro
-                        ověření vaší totožnosti.
-                        Prosím <a href="{{ route('kontakt') }}" class="underline">kontaktuje nás</a> a budeme ověření
-                        realizovat alternativní cestou.
+                        {{ __('Pro vaši zemi, ve které máte státní občanství, nemáme k dispozici žádnou on-line metodu pro ověření vaší totožnosti. Prosím') }}
+                        <a href="{{ route('kontakt') }}" class="underline">{{ __('kontaktuje nás') }}</a>
+                        {{ __('a budeme ověření realizovat alternativní cestou.') }}
                     </div>
                 </div>
             </div>
@@ -178,14 +187,14 @@
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
                 <div>
                     <p class="mb-[10px]">
-                        Pro ověření osobních údajů využíváme služby třetích stran.
+                        {{ __('Pro ověření osobních údajů využíváme služby třetích stran.') }}
                     </p>
                     <p>
-                        U <span class="font-Spartan-SemiBold">Bank&nbsp;iD</span>
-                        ověřujete svou totožnost přes svou banku a v jejím prostředí. Pro banky je ochrana bezpečí
-                        klientů maximální prioritou a odpovídají za bezpečnost ověření. Bankovní identita, a.s. ani
-                        poskytovatelé služeb, pro které ověřujete svoji totožnost, nikdy nevidí Vaše přihlašovací údaje,
-                        ani informace o Vašich financích. Službu podporuje většina českých bank. Avšak ne všechny.
+                        {{ __('U') }}
+                        <span class="font-Spartan-SemiBold">
+                            {!! __('Bank&nbsp;iD') !!}
+                        </span>
+                        {{ __('ověřujete svou totožnost přes svou banku a v jejím prostředí. Pro banky je ochrana bezpečí klientů maximální prioritou a odpovídají za bezpečnost ověření. Bankovní identita, a.s. ani poskytovatelé služeb, pro které ověřujete svoji totožnost, nikdy nevidí Vaše přihlašovací údaje, ani informace o Vašich financích. Službu podporuje většina českých bank. Avšak ne všechny.') }}
                     </p>
                 </div>
             </div>
@@ -199,16 +208,16 @@
 
             <template x-if="data.check_status !== 'not_verified' && data.user_verify_service_id !== null">
                 <div>
-                    <h2 class="mb-[10px] laptop:mb-[30px]">Ověřené údaje totožnosti</h2>
+                    <h2 class="mb-[10px] laptop:mb-[30px]">{{ __('Ověřené údaje totožnosti') }}</h2>
                     @include('profile.edit-account-userinfo')
                 </div>
             </template>
 
             <template x-if="data.check_status === 'not_verified' || data.user_verify_service_id === null">
                 <div>
-                    <h2 class="mb-[30px] laptop:mb-[50px]">Proveďte ověření přes některou z nabízených možností</h2>
+                    <h2 class="mb-[30px] laptop:mb-[50px]">{{ __('Proveďte ověření přes některou z nabízených možností') }}</h2>
 
-                    <h3>Vyberte</h3>
+                    <h3>{{ __('Vyberte') }}</h3>
 
                     <div class="grid tablet:grid-cols-[150px_1fr] gap-x-[34px] gap-y-[25px] mt-[20px] items-center">
                         <button
@@ -221,7 +230,7 @@
                             <img src="{{ Vite::asset('resources/images/logo-bank_id.svg') }}">
                         </button>
                         <div class="text-[13px] text-[#676464]">
-                            <span class="font-Spartan-SemiBold">Podporované banky:</span>
+                            <span class="font-Spartan-SemiBold">{{ __('Podporované banky') }}:</span>
                             {{ $bankid_banks }}
                         </div>
                     </div>
@@ -237,15 +246,15 @@
                     tablet:px-[20px] tablet:py-[35px]
                     laptop:px-[30px] laptop:py-[50px]
                     ">
-            <h2>Sdělte nám více informací</h2>
+            <h2>{{ __('Sdělte nám více informací') }}</h2>
 
             @if($user->investor)
                 <div>
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_investor">
-                            Za jakým účelem či účely chcete náš portál využívat jako <span
-                                class="text-app-orange">investor</span>
-                            (jste zájemce o koupi, nebo ho zastupujete)? Upřesněte své záměry.
+                            {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }}
+                            <span class="text-app-orange">{{ __('investor') }}</span>
+                            {{ __('(jste zájemce o koupi, nebo ho zastupujete)? Upřesněte své záměry.') }}
                         </x-input-label>
                         <x-textarea-input id="more_info_investor" name="more_info_investor"
                                           class="block mt-1 w-full !leading-[2.25]"
@@ -258,9 +267,9 @@
                 <div>
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_advertiser">
-                            Za jakým účelem či účely chcete náš portál využívat jako <span
-                                class="text-app-orange">nabízející</span>
-                            (jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.
+                            {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }}
+                            <span class="text-app-orange">nabízející</span>
+                            {{ __('(jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.') }}
                         </x-input-label>
                         <x-textarea-input id="more_info_advertiser" name="more_info_advertiser"
                                           class="block mt-1 w-full !leading-[2.25]"
@@ -273,10 +282,9 @@
                 <div>
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_real_estate_broker">
-                            Za jakým účelem či účely chcete náš portál využívat jako <span
-                                class="text-app-orange">realitní makléř</span> (zprostředkováváte prodej
-                            projektu například na základě smlouvy o realitním zprostředkování)? Upřesněte své
-                            záměry.
+                            {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }}
+                            <span class="text-app-orange">realitní makléř</span>
+                            {{ __('(zprostředkováváte prodej projektu například na základě smlouvy o realitním zprostředkování)? Upřesněte své záměry.') }}
                         </x-input-label>
                         <x-textarea-input id="more_info_real_estate_broker" name="more_info_real_estate_broker"
                                           class="block mt-1 w-full !leading-[2.25]"
@@ -293,7 +301,7 @@
                     tablet:px-[20px] tablet:py-[35px]
                     laptop:px-[30px] laptop:py-[50px]
                     ">
-            <h2 class="mb-[25px]">Zkontrolujte své ověřené osobní údaje</h2>
+            <h2 class="mb-[25px]">{{ __('Zkontrolujte své ověřené osobní údaje') }}</h2>
 
             @include('profile.edit-account-userinfo', ['upresneni' => true])
         </div>
@@ -303,7 +311,7 @@
          :class="{'tablet:grid-cols-[min-content_1fr]': step > 1}">
         <button type="button" @click="prevBtnClick()" x-cloak x-show="step > 1"
                 class="mt-[25px] tablet:mt-[50px] font-Spartan-SemiBold text-app-blue text-[15px] leading-[22px]">
-            Zpět
+            {{ __('Zpět') }}
         </button>
 
         <button type="button" @click="nextBtnClick()"

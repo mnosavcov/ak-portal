@@ -25,6 +25,7 @@ return [
     'Přehled_investora' => '',
     'Přehled_nabízejícího' => '',
     'Přehled_realitního_makléře' => '',
+    'Přehled_účtu' => '',
     'Rezervovaná_kapacita_v_síti_distributora' => '',
     'Telefonní__číslo_musí_mít_alespoň_9_znaků' => '',
     'Telefonní_číslo_je_povinné' => '',

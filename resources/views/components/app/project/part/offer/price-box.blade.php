@@ -44,7 +44,8 @@
             }
         }">
                 <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141] col-span-full
-            ">Zbývá
+            ">
+                    {{ __('Zbývá') }}
                 </div>
                 <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-green col-span-full
             " id="projectEndDate">{{ $project->end_date_text_long }}
@@ -65,18 +66,18 @@
         }">
                 <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]order-1">
                     @if($project->type === 'fixed-price')
-                        Cena
+                        {{ __('Cena') }}
                     @elseif($project->type === 'offer-the-price')
-                        Aktuální cena
+                        {{ __('Aktuální cena') }}
                     @elseif($project->type === 'auction')
-                        Aktuální cena
+                        {{ __('Aktuální cena') }}
                     @else
                         -
                     @endif
                 </div>
                 <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]
             order-3 tablet:order-2
-            ">Zbývá
+            ">{{ __('Zbývá') }}
                 </div>
                 <div class="font-Spartan-Bold text-[18px] leading-[30px] text-app-orange order-2 tablet:order-3"
                      @if($project->type === 'fixed-price')
@@ -121,11 +122,11 @@
         <div class="grid tablet:grid-cols-2">
             <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">
                 @if($project->type === 'preliminary-interest')
-                    Konec příjmu projevů předběžného zájmu
+                    {{ __('Konec příjmu projevů předběžného zájmu') }}
                 @elseif($project->type === 'auction')
-                    Konec aukce
+                    {{ __('Konec aukce') }}
                 @else
-                    Konec příjmu nabídek
+                    {{ __('Konec příjmu nabídek') }}
                 @endif
             </div>
             <div
@@ -137,7 +138,7 @@
                 x-text="actualValues.end_date_text_normal"></div>
 
             @if($project->type === 'offer-the-price')
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální nabídková cena</div>
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">{{ __('Minimální nabídková cena') }}</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">
@@ -153,14 +154,14 @@
             @endif
 
             @if($project->type === 'auction')
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Vyvolávací cena</div>
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">{{ __('Vyvolávací cena') }}</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">
                     {!! $project->price_text_offer !!}
                 </div>
 
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Minimální výše příhozu</div>
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">{{ __('Minimální výše příhozu') }}</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">
@@ -169,7 +170,7 @@
             @endif
 
             @if($project->type !== 'preliminary-interest')
-                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">Požadovaná jistota</div>
+                <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">{{ __('Požadovaná jistota') }}</div>
                 <div class="relative font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
             justify-self-start
             laptop:justify-self-end">

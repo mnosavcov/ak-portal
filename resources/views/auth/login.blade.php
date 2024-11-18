@@ -1,25 +1,26 @@
 <x-app-layout>
     <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
-            'Přihlásit se' => route('login'),
+            __('Přihlásit se') => route('login'),
         ]"></x-app.breadcrumbs>
 
         <div class="mx-[15px]">
-            <h1 class="mb-[25px]">Přihlášení</h1>
+            <h1 class="mb-[25px]">{{ __('Přihlášení') }}</h1>
 
             <div class="font-Spartan-Regular text-[#31363A]
                     text-[16px] leading-[19px] mb-[35px]
                     tablet:text-[22px] tablet:leading-[26px] tablet:mb-[50px]
                 ">
-                Ještě u nás nemáte účet?
-                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline text-app-blue">Registrujte
-                    se</a></div>
+                {{ __('Ještě u nás nemáte účet?') }}
+                <a href="{{ route('register') }}" class="font-Spartan-SemiBold underline text-app-blue">
+                    {{ __('Registrujte se') }}
+                </a></div>
 
             @if(session('status_code') === \Illuminate\Support\Facades\Password::PASSWORD_RESET)
                 <div class="mb-[20px]">
                     <div class="p-[15px] bg-app-blue w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                         <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            Heslo bylo úspěšně obnoveno.
+                            {{ __('Heslo bylo úspěšně obnoveno.') }}
                         </div>
                     </div>
                 </div>
@@ -30,7 +31,7 @@
                     <div
                         class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                         <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
-                            Abyste mohli ověřit svůj e-mail, musíte se přihlásit do svého uživatelského účtu.
+                            {{ __('Abyste mohli ověřit svůj e-mail, musíte se přihlásit do svého uživatelského účtu.') }}
                         </div>
                     </div>
                 </div>
@@ -42,7 +43,7 @@
                  px-[10px] py-[25px]
                  tablet:px-[30px] tablet:py-[50px]
                 ">
-                    <h2 class="tablet:mb-[25px] col-span-2">Přihlaste se pomocí e-mailu a hesla</h2>
+                    <h2 class="tablet:mb-[25px] col-span-2">{{ __('Přihlaste se pomocí e-mailu a hesla') }}</h2>
 
                     <div class="max-md:col-span-2">
                         <x-input-label for="email" :value="__('E-mail')"/>
@@ -79,7 +80,7 @@
                         </div>
 
                         <label @click="remember_me = (remember_me > 0 ? 0 : 1)"
-                               class="text-[#414141] relative top-[3px]">Pamatovat přihlášení</label>
+                               class="text-[#414141] relative top-[3px]">{{ __('Pamatovat přihlášení') }}</label>
                     </div>
 
                     <a class="col-span-2 font-Spartan-SemiBold text-[11px] text-app-blue tablet:mb-[25px]"
@@ -93,7 +94,7 @@
                             tablet:h-[60px] tablet:leading-[60px] tablet:w-auto tablet:px-[100px] tablet:text-[18px]
                             "
                     >
-                        Přihlásit se
+                        {{ __('Přihlásit se') }}
                     </button>
                 </div>
 

@@ -10,20 +10,20 @@
                 {{ $project->offers()->count() }}
 
                 @if($project->type === 'auction')
-                    podání
+                    {{ __('podání') }}
                 @elseif($project->type === 'preliminary-interest')
                     @if($project->offersCountAll() > 0 && $project->offersCountAll() < 2)
-                        zájemce
+                        {{ __('zájemce') }}
                     @elseif($project->offersCountAll() > 1 && $project->offersCountAll() < 5)
-                        zájemci
+                        {{ __('zájemci') }}
                     @else
-                        zájemců
+                        {{ __('zájemců') }}
                     @endif
                 @else
                     @if($project->offers()->count() > 0 && $project->offers()->count() < 5)
-                        nabízející
+                        {{ __('nabízející') }}
                     @else
-                        nabízejících
+                        {{ __('nabízejících') }}
                     @endif
                 @endif
             </div>
@@ -57,7 +57,7 @@
                             @include(
                                 'components.app.project.part.offer.@offer',
                                 [
-                                    'title' => ($project->type === 'preliminary-interest' ? 'Projev zájmu ' : 'Nabídka ') . $loop->iteration,
+                                    'title' => ($project->type === 'preliminary-interest' ? __('Projev zájmu') : __('Nabídka')) . ' ' . $loop->iteration,
                                     'type' => $userType,
                                     'offer' => $offer,
                                     'user' => (
@@ -78,11 +78,11 @@
                 laptop:text-[15px] laptop:leading-[26px] laptop:mb-[30px] laptop:p-[20px]
             ">
             @if($project->type === 'preliminary-interest')
-                U projektu zatím nemáte žádné projevy zájmu.
+                {{ __('U projektu zatím nemáte žádné projevy zájmu.') }}
             @elseif($project->type === 'auction')
-                U projektu zatím nemáte žádné podání.
+                {{ __('U projektu zatím nemáte žádné podání.') }}
             @else
-                U projektu zatím nemáte žádné nabídky.
+                {{ __('U projektu zatím nemáte žádné nabídky.') }}
             @endif
         </div>
     @endif
@@ -99,7 +99,7 @@
                 text-[15px] leading-[20px] mb-[15px]
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
                 laptop:text-[20px] laptop:leading-[30px]">
-                Podání
+                {{ __('Podání') }}
             </div>
         @endif
 
@@ -113,7 +113,7 @@
                 {{ $project->offersCountAll() }}
 
                 @if($project->type === 'auction')
-                    podání
+                    {{ __('podání') }}
             </div>
 
             <div x-show="offersOpen" x-cloak x-collapse>
@@ -147,17 +147,17 @@
             </div>
             @elseif($project->type === 'preliminary-interest')
                 @if($project->offersCountAll() > 0 && $project->offersCountAll() < 2)
-                    zájemce
+                    {{ __('zájemce') }}
                 @elseif($project->offersCountAll() > 1 && $project->offersCountAll() < 5)
-                    zájemci
+                    {{ __('zájemci') }}
                 @else
-                    zájemců
+                    {{ __('zájemců') }}
                 @endif
             @else
                 @if($project->offersCountAll() > 0 && $project->offersCountAll() < 5)
-                    nabízející
+                    {{ __('nabízející') }}
                 @else
-                    nabízejících
+                    {{ __('nabízejících') }}
                 @endif
         </div>
         @endif

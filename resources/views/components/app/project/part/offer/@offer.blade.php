@@ -11,24 +11,24 @@
 
     @if($project->type !== 'preliminary-interest')
         <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-            <div class="font-Spartan-SemiBold text-[14px]">Čas přidání nabídky:</div>
+            <div class="font-Spartan-SemiBold text-[14px]">{{ __('Čas přidání nabídky') }}:</div>
             <div
                 class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($offer->offer_time)->format('d.m.Y H:i:s') }}</div>
         </div>
 
         <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-            <div class="font-Spartan-SemiBold text-[14px]">Výše nabídky:</div>
+            <div class="font-Spartan-SemiBold text-[14px]">{{ __('Výše nabídky') }}:</div>
             <div
                 class="font-Spartan-Regular text-[14px]">{{ number_format($offer->price ?? 0, 0, '.', ' ') }}
-                Kč
+                {{ __('Kč') }}
             </div>
         </div>
 
         <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-            <div class="font-Spartan-SemiBold text-[14px]">Složena jistota:</div>
+            <div class="font-Spartan-SemiBold text-[14px]">{{ __('Složena jistota') }}:</div>
             <div class="font-Spartan-Regular text-[14px]">
-                <span class="text-app-green" x-cloak x-show="principal_paid">ano</span>
-                <span class="text-app-red" x-cloak x-show="!principal_paid">ne</span>
+                <span class="text-app-green" x-cloak x-show="principal_paid">{{ __('ano') }}</span>
+                <span class="text-app-red" x-cloak x-show="!principal_paid">{{ __('ne') }}</span>
             </div>
         </div>
     @endif
@@ -39,10 +39,7 @@
                 class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px]">
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Identifikace investora je dostupná jen klientům, kteří s provozovatelem portálu PVtrusted uzavřeli
-                    smlouvu o realitním zprostředkování v režimu výhradního zastoupení. Pro zobrazení těchto údajů nás
-                    kontaktujte s žádostí o podepsání dodatku smlouvy ve věci změny nevýhradního zastoupení na
-                    zastoupení výhradní.
+                    {{ __('Identifikace investora je dostupná jen klientům, kteří s provozovatelem portálu PVtrusted uzavřeli smlouvu o realitním zprostředkování v režimu výhradního zastoupení. Pro zobrazení těchto údajů nás kontaktujte s žádostí o podepsání dodatku smlouvy ve věci změny nevýhradního zastoupení na zastoupení výhradní.') }}
                 </div>
             </div>
         </div>
@@ -52,11 +49,11 @@
                 class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10x]">
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mb-[5px]">
-                    Kontaktní osoba
+                    {{ __('Kontaktní osoba') }}
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Jméno a příjmení
+                    {{ __('Jméno a příjmení') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -64,7 +61,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Adresa trvalého bydliště
+                    {{ __('Adresa trvalého bydliště') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -72,7 +69,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Státní občanství (země)
+                    {{ __('Státní občanství (země)') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
@@ -80,7 +77,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mt-[20px] mb-[5px]">
-                    Investor
+                    {{ __('Investor') }}
                 </div>
                 <div
                     class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
@@ -89,7 +86,7 @@
 
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mt-[10px]">
-                    E-mail
+                    {{ __('E-mail') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mt-[10px]">
@@ -98,7 +95,7 @@
                 </div>
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Telefon
+                    {{ __('Telefon') }}
                 </div>
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">

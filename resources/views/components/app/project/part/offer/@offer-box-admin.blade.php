@@ -3,11 +3,11 @@
                 tablet:text-[17px] tablet:leading-[24px] tablet:mb-[20px]
                 laptop:text-[20px] laptop:leading-[30px]">
     @if($project->type === 'preliminary-interest')
-        Obdržené projevy zájmu
+        {{ __('Obdržené projevy zájmu') }}
     @elseif($project->type === 'auction')
-        Podání
+        {{ __('Podání') }}
     @else
-        Obdržené nabídky
+        {{ __('Obdržené nabídky') }}
     @endif
 </div>
 

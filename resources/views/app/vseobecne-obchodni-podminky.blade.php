@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
-            'Všeobecné obchodní podmínky' => route('vseobecne-obchodni-podminky'),
+            __('Všeobecné obchodní podmínky') => route('vseobecne-obchodni-podminky'),
         ]"></x-app.breadcrumbs>
     </div>
 

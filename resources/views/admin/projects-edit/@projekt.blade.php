@@ -1,43 +1,43 @@
 @if($project->status === 'reminder')
     <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-        <div class="font-WorkSans-Bold text-[18px] mb-[10px] text-app-red">Připomínky zadavatele</div>
+        <div class="font-WorkSans-Bold text-[18px] mb-[10px] text-app-red">{{ __('Připomínky zadavatele') }}</div>
         <div class="bg-app-red p-[10px] rounded-[5px] text-white">{{ $project->user_reminder }}</div>
     </div>
 @endif
 
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Aktuální stav</div>
+    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">{{ __('Aktuální stav') }}</div>
     <x-textarea-input id="actual_state" name="actual_state"
                       class="block mt-1 w-full">{{ $project->actual_state }}</x-textarea-input>
 </div>
 
 <div class="relative w-full max-w-[1200px] p-[15px] pl-[50px] bg-[#d8d8d8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">Projekt</div>
+    <div class="font-WorkSans-Bold text-[18px] mb-[10px]">{{ __('Projekt') }}</div>
     <div class="w-full grid grid-cols-4 gap-x-[20px] gap-y-[10px]"
          x-init="selectedCategory = @js($project->type)">
         <div>
-            <div class="font-bold">Stupeň rozpracovanosti projektu:</div>
+            <div class="font-bold">{{ __('Stupeň rozpracovanosti projektu') }}:</div>
             <div>{!! $subject_offer[$project->subject_offer] ?? $project->subject_offer !!}</div>
         </div>
         <div>
-            <div class="font-bold">Předmět nabídky:</div>
+            <div class="font-bold">{{ __('Předmět nabídky') }}:</div>
             <div>{!! $location_offer[$project->location_offer] ?? $project->location_offer !!}</div>
         </div>
         <div></div>
         <div></div>
 
         <div>
-            <div class="font-bold">Zadáno jako:</div>
-            <div>{{ $project->user_account_type === 'advertiser' ? 'Nabízející' : 'Realitní makléř' }}</div>
+            <div class="font-bold">{{ __('Zadáno jako') }}:</div>
+            <div>{{ $project->user_account_type === 'advertiser' ? __('Nabízející') : __('Realitní makléř') }}</div>
         </div>
         <div>
-            <div class="font-bold">Kategorie:</div>
+            <div class="font-bold">{{ __('Kategorie') }}:</div>
             <select class="bg-[#D9D9D9] text-[13px]" name="type" x-model="selectedCategory">
                 @empty(\App\Models\Category::CATEGORIES[$project->type])
-                    <option value="">!!! VYBERTE !!!</option>
+                    <option value="">{{ __('!!! VYBERTE !!!') }}</option>
                 @endempty
                 @foreach(\App\Models\Category::CATEGORIES as $category)
                     <option
@@ -48,11 +48,11 @@
         <div>
             <template x-if="selectedCategory !== null">
                 <div>
-                    <div class="font-bold">Subkategorie:</div>
+                    <div class="font-bold">{{ __('Subkategorie') }}:</div>
                     @foreach(\App\Models\Category::CATEGORIES as $category)
                         <template x-if="selectedCategory === @js($category['id'])">
                             <select class="bg-[#D9D9D9] text-[13px]" name="subcategory_id">
-                                <option value="">!!! BEZ SUBKATEGORIE !!!</option>
+                                <option value="">{{ __('!!! BEZ SUBKATEGORIE !!!') }}</option>
                                 @foreach(\App\Models\Category::where('category', $category['id'])->get() as $subcategory)
                                     <option
                                         value="{{ $subcategory->id }}" {{ $subcategory->id === $project->subcategory_id ? 'selected="selected"' : '' }}>{{ $subcategory->subcategory }}
@@ -86,19 +86,19 @@
 
         @if($project->user_account_type === 'real-estate-broker')
             <div>
-                <div class="font-bold">Zastoupení:</div>
+                <div class="font-bold">{{ __('Zastoupení') }}:</div>
                 <div>{{ $project->representation_type === 'exclusive' ? 'Výhradní' : 'Nevýhradní' }}</div>
             </div>
             <div>
-                <div class="font-bold">Smlouva platná do:</div>
+                <div class="font-bold">{{ __('Smlouva platná do') }}:</div>
                 @if($project->representation_indefinitely_date)
-                    <div>Smlouva je podepsána na neurčito</div>
+                    <div>{{ __('Smlouva je podepsána na neurčito') }}</div>
                 @else
                     <div>{{ (new DateTime($project->representation_end_date))->format('d.m.Y') }}</div>
                 @endif
             </div>
             <div>
-                <div class="font-bold">Možnost zrušení a výpovědní lhůta:</div>
+                <div class="font-bold">{{ __('Možnost zrušení a výpovědní lhůta') }}:</div>
                 <div>{!! $project->representation_may_be_cancelled ? '<span class="bg-app-orange p-[5px] rounded-[3px] text-white">Ano</span>' : '<span class="bg-gray-400 p-[5px] rounded-[3px] text-white">Ne</span>' !!}</div>
             </div>
         @endif
@@ -130,7 +130,7 @@
                         || $project->user->real_estate_broker_status !== 'verified')
                     ))
                 )
-                    <div class="p-[5px_15px] rounded-[3px] text-white bg-app-red">Zadavatel není ověřený</div>
+                    <div class="p-[5px_15px] rounded-[3px] text-white bg-app-red">{{ __('Zadavatel není ověřený') }}</div>
                 @endif
 
                 @if($project->status === 'publicated' || $project->publicated_at)
@@ -157,7 +157,7 @@
                             </div>
                             <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
                                  @click="publicated_at_edit = !publicated_at_edit">
-                                upravit datum publikování
+                                {{ __('upravit datum publikování') }}
                             </div>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
                              @click="indefinitelyDate = !indefinitelyDate">
-                            Projekt je vystavený na neurčito
+                            {{ __('Projekt je vystavený na neurčito') }}
                         </div>
                     </div>
                 </template>
@@ -212,7 +212,7 @@
                     <div class="border border-white p-[10px] rounded-[5px]">{!! $project->description !!}</div>
                     <button class="float-right text-gray-500 mt-[5px] text-[11px]" type="button"
                             @click="if(!confirm('Opravdu zkopírovat text?')) {return}; tinymce.get('about').setContent(description);">
-                        zkopírovat do pole "O projektu"
+                        {{ __('zkopírovat do pole "O projektu"') }}
                     </button>
                     <div class="clear-both"></div>
                 </div>

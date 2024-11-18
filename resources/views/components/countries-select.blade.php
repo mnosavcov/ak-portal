@@ -15,7 +15,7 @@
         <div
             class="relative rounded-[3px] font-Spartan-Regular text-[13px] text-[#414141]
          after:absolute after:bg-[url('/resources/images/dropdown-mark.svg')] after:w-[10px] after:h-[6px] after:right-[12px] after:top-[19px] after:transform after:transition pr-[40px]"
-        x-text="countries[data.country] ? countries[data.country] : 'Vyberte...'"
+        x-text="countries[data.country] ? countries[data.country] : @js(__('Vyberte...'))"
             @click="openSelectCountries = !openSelectCountries"
             :class="{'after:rotate-180': openSelectCountries}"
         >

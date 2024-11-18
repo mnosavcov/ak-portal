@@ -227,7 +227,7 @@ class ProfileController extends Controller
             return redirect()->route('homepage');
         }
 
-        $accountTitle = 'Přehled účtu';
+        $accountTitle = __('profil.Přehled_účtu');
         $accountSingle = false;
         $usersService = new UsersService();
         if ($usersService->isInvestorOnly()) {

@@ -10,28 +10,28 @@ class ProjectNotInvestorService
     public function overview($userAccountType, int $page = 0)
     {
         $ret = [
-            'Projekty v režimu přípravy před zveřejněním' => [
-                'selected' => 'Projekty ke schválení',
-                '__send__' => 'Projekty ke schválení',
-                '__draft__' => 'Rozpracované projekty',
+            __('Projekty v režimu přípravy před zveřejněním') => [
+                'selected' => __('Projekty ke schválení'),
+                '__send__' => __('Projekty ke schválení'),
+                '__draft__' => __('Rozpracované projekty'),
                 'data' => [
-                    'Projekty ke schválení' => $this->prepared($userAccountType, $page),
-                    'Rozpracované projekty' => $this->drafts($userAccountType, $page),
+                    __('Projekty ke schválení') => $this->prepared($userAccountType, $page),
+                    __('Rozpracované projekty') => $this->drafts($userAccountType, $page),
                 ],
             ],
-            'Mé projekty' => [
-                'selected' => 'Aktivní projekty',
+            __('Mé projekty') => [
+                'selected' => __('Aktivní projekty'),
                 'data' => [
-                    'Aktivní projekty' => $this->myProjectsActived($userAccountType, $page),
-                    'Ukončené' => $this->myProjectsNotActived($userAccountType, $page),
+                    __('Aktivní projekty') => $this->myProjectsActived($userAccountType, $page),
+                    __('Ukončené') => $this->myProjectsNotActived($userAccountType, $page),
                 ],
             ],
         ];
 
-        if (!$ret['Projekty v režimu přípravy před zveřejněním']['data']['Projekty ke schválení']->count()
-            && !$ret['Projekty v režimu přípravy před zveřejněním']['data']['Rozpracované projekty']->count()
+        if (!$ret[__('Projekty v režimu přípravy před zveřejněním')]['data'][__('Projekty ke schválení')]->count()
+            && !$ret[__('Projekty v režimu přípravy před zveřejněním')]['data'][__('Rozpracované projekty')]->count()
         ) {
-            unset($ret['Projekty v režimu přípravy před zveřejněním']);
+            unset($ret[__('Projekty v režimu přípravy před zveřejněním')]);
         }
 
         return $ret;

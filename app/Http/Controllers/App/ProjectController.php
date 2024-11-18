@@ -34,7 +34,7 @@ class ProjectController extends Controller
         $projectAll = Project::isPublicated()->forList();
         $description = '';
 
-        $title = 'Projekty';
+        $title = __('projekt.Projekty');
         $breadcrumbs = [
             'Projekty' => Route('projects.index')
         ];
@@ -114,7 +114,7 @@ class ProjectController extends Controller
         $uuid = Str::uuid();
 
         $data = $projectService->getProjectData($accountType);
-        $data['pageTitle'] = 'Přidání projektu';
+        $data['pageTitle'] = __('Přidání projektu');
         $data['route'] = route('projects.create', ['accountType' => $accountType]);
         $data['routeFetch'] = route('projects.store');
         $data['routeFetchFile'] = route('projects.store-temp-file', ['uuid' => $uuid]);

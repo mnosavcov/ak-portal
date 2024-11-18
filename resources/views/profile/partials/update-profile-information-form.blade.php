@@ -75,12 +75,12 @@
 
                 <div class="hidden laptop:block"></div>
 
-                <div class="col-span-full font-Spartan-Regular text-[20px] leading-[30px]">Heslo</div>
+                <div class="col-span-full font-Spartan-Regular text-[20px] leading-[30px]">{{ __('Heslo') }}</div>
 
                 <button type="button" @click="newPasswordOpen = !newPasswordOpen"
                         class="col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
                 >
-                    Nastavit nové heslo
+                    {{ __('Nastavit nové heslo') }}
                 </button>
             @endif
 
@@ -102,7 +102,7 @@
             <button type="submit" x-show="showSave()" x-cloak x-collapse
                     class="col-span-full leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
             >
-                Uložit změny
+                {{ __('Uložit změny') }}
             </button>
         </form>
 
@@ -113,13 +113,13 @@
                 @if(auth()->user()->deletable)
                     <button type="button" class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer"
                             @click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
-                        Zrušit celý účet
+                        {{ __('Zrušit celý účet') }}
                     </button>
                 @else
                     <button type="button"
                             class="font-Spartan-SemiBold text-app-red text-[13px] cursor-pointer grayscale"
-                            @click.prevent="alert('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt nebo máte nabídku u aktivního projektu.')">
-                        Zrušit celý účet
+                            @click.prevent="alert(@js(__('Omlouváme se, funkce smazání uživatelského účtu není dostupná, dokud máte aktivní projekt nebo máte nabídku u aktivního projektu.')))">
+                        {{ __('Zrušit celý účet') }}
                     </button>
                 @endif
 
@@ -158,7 +158,7 @@
                                 <button type="submit"
                                         class="col-span-full h-[50px] leading-[50px] w-full tablet:max-w-[250px] font-Spartan-Bold text-[18px] text-white bg-app-red rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block justify-self-start"
                                 >
-                                    Zrušit účet
+                                    {{ __('Zrušit účet') }}
                                 </button>
                             </div>
                         </form>

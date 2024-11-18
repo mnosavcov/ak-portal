@@ -61,7 +61,7 @@
                                     <div x-text="project.actual_state_text"
                                          class="p-[10px] font-Spartan-Regular text-[11px] leading-[18px] bg-[#F8F8F8] text-[#31363A] inline-block w-auto justify-self-start self-start max-tablet:ml-[25px] max-tablet:mt-[15px]"></div>
                                     <a :href="project.url_detail"
-                                       class="tablet:max-laptop:col-span-full font-Spartan-SemiBold text-[13px] leading-[22px] text-app-blue pr-[25px] max-laptop:mt-[15px] text-center">Zobrazit&nbsp;detail</a>
+                                       class="tablet:max-laptop:col-span-full font-Spartan-SemiBold text-[13px] leading-[22px] text-app-blue pr-[25px] max-laptop:mt-[15px] text-center">{!! __('Zobrazit&nbsp;detail') !!}</a>
                                 </div>
                             </template>
                         </div>
@@ -84,7 +84,7 @@
                                     <div x-text="project.title"
                                          class="pl-[25px] font-Spartan-SemiBold text-[13px] leading-[22px]"></div>
                                     <a :href="project.url_detail"
-                                       class="max-tablet:col-span-full font-Spartan-SemiBold text-[13px] leading-[22px] text-app-blue pr-[25px] max-tablet:mt-[15px] text-center">Zobrazit&nbsp;detail</a>
+                                       class="max-tablet:col-span-full font-Spartan-SemiBold text-[13px] leading-[22px] text-app-blue pr-[25px] max-tablet:mt-[15px] text-center">{!! __('Zobrazit&nbsp;detail') !!}</a>
                                 </div>
                             </template>
                         </div>

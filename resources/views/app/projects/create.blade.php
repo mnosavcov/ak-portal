@@ -1,5 +1,21 @@
 <x-app-layout>
-    <div x-data="projectEdit" x-init="data = @js($data)">
+    <div x-data="projectEdit" x-init="
+        lang.Pred_odeslanim_projektu_vyckejte_na_dokonceni_uploadu_souboru = @js(__('Před odesláním projektu vyčkejte na dokončení uploadu souborů.')),
+        lang.Vyberte_stupen_rozpracovanosti_projektu_a_stupen_rozpracovanosti_projektu = @js(__('Vyberte stupeň rozpracovanosti projektu a stupeň rozpracovanosti projektu.')),
+        lang.Vyplnte_nazev_projektu = @js(__('Vyplňte název projektu.')),
+        lang.Vyplnte_zemi_umisteni_projektu = @js(__('Vyplňte zemi umístění projektu.')),
+        lang.Vyplnte_podrobne_informace_o_projektu = @js(__('Vyplňte podrobné informace o projektu.')),
+        lang.Zvolte_preferovany_zpusob_prodeje_projektu = @js(__('Zvolte preferovaný způsob prodeje projektu.')),
+        lang.Zvolte_formu_zastoupeni_klienta = @js(__('Zvolte formu zastoupení klienta.')),
+        lang.Vyplnte_platnost_smlouvy = @js(__('Vyplňte platnost smlouvy.')),
+        lang.Zvolte_jestli_je_smlouva_podepsana_s_moznosti_zruseni_a_vypovedni_lhutou = @js(__('Zvolte jestli je smlouva podepsaná s možností zrušení a výpovědní lhůtou.')),
+        lang.Pred_ulozenim_projektu_jako_rozpracovany_vyckejte_na_dokonceni_uploadu_souboru = @js(__('Před uložením projektu jako rozpracovaný vyčkejte na dokončení uploadu souborů.')),
+        lang.Abyste_mohli_projekt_ulozit_jako_rozpracovany_vyplnte_alespon_nazev_projektu = @js(__('Abyste mohli projekt uložit jako rozpracovaný, vyplňte alespoň název projektu.')),
+        lang.Chyba_ulozeni = @js(__('Chyba uložení')),
+        lang.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna = @js(__('Opravdu si přejete smazat projekt? Tato akce je nevratná')),
+        lang.Chyba_smazani = @js(__('Chyba smazání')),
+        data = @js($data)
+    ">
         <div class="w-full max-w-[1230px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
             $data['pageTitle'] => $data['route']
@@ -18,10 +34,8 @@
                     text-[11px] leading-[20px]
                     tablet:text-[13px] tablet:leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[10px] tablet:after:left-[15px] after:top-[15px]">
-                        <div>V této fázi nevytváříte texty, které by byly bez dalšího zveřejněny. Nyní zasíláte pouze
-                            vstupní
-                            informace. Následně se s vámi spojí naši specialisté, kteří s vámi připraví konečnou podobu
-                            nabídky.
+                        <div>
+                            {{ __('V této fázi nevytváříte texty, které by byly bez dalšího zveřejněny. Nyní zasíláte pouze vstupní informace. Následně se s vámi spojí naši specialisté, kteří s vámi připraví konečnou podobu nabídky.') }}
                         </div>
                     </div>
 
@@ -29,12 +43,12 @@
                        class="inline-block relative font-Spartan-SemiBold text-[16px] leading-[58px] border-[2px] border-[#31363A] h-[58px] text-[#31363A] pl-[45px] pr-[30px]
                         after:absolute after:bg-[url('/resources/images/ico-button-arrow-left.svg')] after:w-[6px] after:h-[10px] after:left-[17px] after:top-[23px]
                         max-tablet:hidden
-                        ">Ukončit</a>
+                        ">{{ __('Ukončit') }}</a>
                 </div>
 
                 <div
                     class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
-                    <h2 class="mb-[25px] tablet:mb-[50px]">Zvolte stupeň rozpracovanosti projektu</h2>
+                    <h2 class="mb-[25px] tablet:mb-[50px]">{{ __('Zvolte stupeň rozpracovanosti projektu') }}</h2>
 
                     <div class="grid tablet:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[15px] tablet:gap-[20px]">
                         <template x-for="(subject, index) in data.subjectOffers" :key="index">
@@ -48,7 +62,7 @@
 
                 <div x-cloak x-show="showUpresneteUmisteniVyroby()" x-collapse
                      class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
-                    <h2 class="mb-[25px] tablet:mb-[50px]">Zvolte předmět nabídky</h2>
+                    <h2 class="mb-[25px] tablet:mb-[50px]">{{ __('Zvolte předmět nabídky') }}</h2>
 
                     <div class="grid tablet:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[15px] tablet:gap-[20px]">
                         <template x-for="(location, index) in data.locationOffers[data.subjectOffer]" :key="index">
@@ -63,7 +77,7 @@
                 <div x-cloak x-show="showSdelteViceInformaci()" x-collapse>
                     <div
                         class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
-                        <h2 class="mb-[25px] tablet:mb-[50px]">Sdělte nám co nejvíce informací o svém projektu</h2>
+                        <h2 class="mb-[25px] tablet:mb-[50px]">{{ __('Sdělte nám co nejvíce informací o svém projektu') }}</h2>
 
                         <div class="grid lg:grid-cols-[2fr_1fr] gap-y-[20px] tablet:gap-y-[25px]">
                             <div>
@@ -95,10 +109,12 @@
                             <div>
                                 <x-input-label for="fileElem" :value="__('Nahrajte soubory')" class="mb-[10px]"/>
                                 <div class="font-Spartan-Regular text-[13px] text-[#676464] mb-[10px]">
-                                    Maximální velikost jednoho souboru je
+                                    {{ __('Maximální velikost jednoho souboru je') }}
                                     {{ (new \App\Services\FileService())->getMaxUploadSizeFormated() }}.
-                                    Pokud máte nějaké soubory, které nelze zmenšit, kontaktujte nás na <a href="mailto:info@pvtrusted.cz" class="text-app-blue">info@pvtrusted.cz</a>
-                                    a domluvíme se na alternativním předání.
+                                    {{ __('Pokud máte nějaké soubory, které nelze zmenšit, kontaktujte nás na') }}
+                                    <a href="mailto:{{ __('info@pvtrusted_cz') }}"
+                                       class="text-app-blue">{{ __('info@pvtrusted_cz') }}'</a>
+                                    {{ __('a domluvíme se na alternativním předání.') }}
                                 </div>
 
                                 <div id="dropZone" class="bg-[#F8F8F8] p-[20px] cursor-pointer rounded-[3px]"
@@ -109,10 +125,10 @@
                                         <img src="{{ Vite::asset('resources/images/ico-upload.svg') }}"
                                              class="inline-block mb-[20px]">
                                         <div class="font-Spartan-Bold text-[#31363A] text-[15px] leading-[21px]">
-                                            Sem umístěte přílohy
+                                            {{ __('Sem umístěte přílohy') }}
                                         </div>
                                         <div class="font-Spartan-Regular text-[#31363A] text-[13px] leading-[21px]">
-                                            nebo kliknutím sem nahrajte
+                                            {{ __('nebo kliknutím sem nahrajte') }}
                                         </div>
                                     </div>
 
@@ -281,13 +297,12 @@
 
                     <div
                         class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[40px] tablet:mb-[50px] max-w-[1200px] mx-auto">
-                        <h2 class="mb-[25px]">Zvolte preferovaný způsob prodeje projektu</h2>
+                        <h2 class="mb-[25px]">{{ __('Zvolte preferovaný způsob prodeje projektu') }}</h2>
 
                         <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[25px] tablet:mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                 after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                            <div>Na našem portálu můžete projekty nabídnout třemi způsoby. V tuto chvíli vybíráte jen
-                                předběžně.
-                                Konečná volba budete realizovat až před zveřejněním projektu.
+                            <div>
+                                {{ __('Na našem portálu můžete projekty nabídnout třemi způsoby. V tuto chvíli vybíráte jen předběžně. Konečná volba budete realizovat až před zveřejněním projektu.') }}
                             </div>
                         </div>
 
@@ -322,12 +337,12 @@
                     @if($data['accountType'] === 'real-estate-broker')
                         <div
                             class="bg-white px-[15px] py-[25px] tablet:px-[30px] tablet:py-[50px] shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] mb-[50px] max-w-[1200px] mx-auto">
-                            <h2 class="mb-[25px]">Zvolte formu zastoupení klienta</h2>
+                            <h2 class="mb-[25px]">{{ __('Zvolte formu zastoupení klienta') }}</h2>
 
                             <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-[#F8F8F8] mb-[30px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
                     after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
-                                <div>Abychom mohli definovat odpovídající režim naší spolupráce, potřebujeme vědět, jaký
-                                    máte mandát k zastupování klienta a do kdy s ním máte platnou smlouvu.
+                                <div>
+                                    {{ __('Abychom mohli definovat odpovídající režim naší spolupráce, potřebujeme vědět, jaký máte mandát k zastupování klienta a do kdy s ním máte platnou smlouvu.') }}
                                 </div>
                             </div>
 
@@ -382,7 +397,7 @@
                                     <div
                                         class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
                                         @click="data.representation.indefinitelyDate = !data.representation.indefinitelyDate">
-                                        Smlouva je podepsána na neurčito
+                                        {{ __('Smlouva je podepsána na neurčito') }}
                                     </div>
                                 </div>
 
@@ -390,20 +405,22 @@
                                     class="w-full grid mobile:grid-cols-[8px_1fr_max-content] gap-y-[15px] gap-x-[15px] tablet:gap-x-[20px]">
                                     <div class="bg-app-blue h-full w-full"></div>
                                     <div class="font-Spartan-SemiBold text-[15px] text-[#414141] leading-[26px]">
-                                        Je smlouva podepsaná s možností zrušení a výpovědní lhůtou?
+                                        {{ __('Je smlouva podepsaná s možností zrušení a výpovědní lhůtou?') }}
                                     </div>
                                     <div class="grid tablet:grid-cols-[auto_auto] gap-x-[25px] gap-y-[15px]">
                                         <div
                                             class="cursor-pointer font-Spartan-SemiBold text-[15px] leading-[50px] h-[50px] text-app-orange border border-[2px] border-app-orange rounded-[10px] px-[30px]"
                                             :class="{ '!text-white bg-app-orange': data.representation.mayBeCancelled === 'yes' }"
                                             @click="data.representation.mayBeCancelled = 'yes'"
-                                        >Ano
+                                        >
+                                            {{ __('Ano') }}
                                         </div>
                                         <div
                                             class="cursor-pointer font-Spartan-SemiBold text-[15px] leading-[50px] h-[50px] text-app-orange border border-[2px] border-app-orange rounded-[10px] px-[30px]"
                                             :class="{ '!text-white bg-app-orange': data.representation.mayBeCancelled === 'no' }"
                                             @click="data.representation.mayBeCancelled = 'no'"
-                                        >Ne
+                                        >
+                                            {{ __('Ne') }}
                                         </div>
                                     </div>
                                 </div>
@@ -415,8 +432,7 @@
                         <div
                             class="w-full min-h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center p-[15px] mb-[30px]">
                             <div>
-                                Po odeslání projektu vás bude kontaktovat náš specialista. Společně připravíte finální
-                                zadání projektu.
+                                {{ __('Po odeslání projektu vás bude kontaktovat náš specialista. Společně připravíte finální zadání projektu.') }}
                             </div>
                         </div>
 
@@ -424,14 +440,14 @@
                                 class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]"
                                 @click="sendProject('send')"
                         >
-                            Odeslat projekt
+                            {{ __('Odeslat projekt') }}
                         </button>
                         <br>
                         <button type="button"
                                 class="font-Spartan-SemiBold text-[15px] text-app-blue mb-[70px]"
                                 @click="sendProject()"
                         >
-                            Uložit jako rozpracovaný projekt
+                            {{ __('Uložit jako rozpracovaný projekt') }}
                         </button>
 
                         <template x-if="data.id">
@@ -444,7 +460,7 @@
                                 </div>
                                 <button type="button" @click="deleteProject(data.id)"
                                         class="h-[50px] leading-[50px] tablet:h-[60px] tablet:leading-[60px] max-tablet:w-full max-tablet:text-center tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] disabled:grayscale mb-[70px]"
-                                        :disabled="!enable">Smazat&nbsp;projekt
+                                        :disabled="!enable">{!! __('Smazat&nbsp;projekt') !!}
                                 </button>
                             </div>
                         </template>
