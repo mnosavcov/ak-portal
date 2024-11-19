@@ -17,7 +17,7 @@
             </div>
 
             <div class="grid gap-y-[50px] mt-[50px]">
-                @foreach(\App\Models\Category::CATEGORIES as $index => $category)
+                @foreach(\App\Models\Category::getCATEGORIES() as $index => $category)
                     <div class="p-[20px] bg-white rounded-[7px]">
                         <div class="font-Spartan-Bold text-[15px]" title="{{ $category['description'] }}">
                             {{ __($category['title']) }}
@@ -50,11 +50,12 @@
                                         </div>
                                         <div>
                                             <x-input-label for="subcategory" :value="__('Titulek')"/>
-                                            <x-text-input id="subcategory" name="subcategory" class="block mt-1 w-full" type="text"
+                                            <x-text-input id="subcategory" name="subcategory" class="block mt-1 w-full"
+                                                          type="text"
                                                           x-model="subcategory.subcategory"/>
                                             <ul class="text-sm text-red-600 space-y-1">
                                                 <template
-                                                    x-for="(error) in errors['data.{{ $index }}.' + index + '.subcategory']">
+                                                        x-for="(error) in errors['data.{{ $index }}.' + index + '.subcategory']">
                                                     <li x-text="error"></li>
                                                 </template>
                                             </ul>
@@ -72,7 +73,7 @@
                                                           x-model="subcategory.url"/>
                                             <ul class="text-sm text-red-600 space-y-1">
                                                 <template
-                                                    x-for="(error) in errors['data.{{ $index }}.' + index + '.url']">
+                                                        x-for="(error) in errors['data.{{ $index }}.' + index + '.url']">
                                                     <li x-text="error"></li>
                                                 </template>
                                             </ul>
@@ -82,7 +83,7 @@
                                              x-show="subcategory.status !== 'NEW'"
                                              class="cursor-pointer float-right font-Spartan-Regular text-[13px] text-app-red"
                                              :class="{'!text-white': subcategory.status === 'DELETE'}"
-                                        x-text="subcategory.status === 'DELETE' ? 'obnovit subkategorii' : (
+                                             x-text="subcategory.status === 'DELETE' ? 'obnovit subkategorii' : (
                                                 subcategory.project_count ? 'smazat přiřazenou subkategorii' : 'smazat subkategorii'
                                             )">
                                         </div>

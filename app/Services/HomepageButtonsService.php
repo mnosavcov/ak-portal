@@ -28,8 +28,8 @@ class HomepageButtonsService
             return route('projects.index');
         }
 
-        return 'javascript:void(0);" @click.prevent="$dispatch(\'open-modal\', {name: \'hp-message\', message: `Nevystupujete v roli investora. V <a href=\'' .
-            route('profile.edit', ['add' => 'investor']) . '\' class=\'text-app-blue underline hover:no-underline\'>nastavení účtu</a> přidejte nový typ účtu`})';
+        return 'javascript:void(0);" @click.prevent="$dispatch(\'open-modal\', {name: \'hp-message\', message: `' . __('Nevystupujete v roli investora.') . ' ' . __('V') . ' <a href=\'' .
+            route('profile.edit', ['add' => 'investor']) . '\' class=\'text-app-blue underline hover:no-underline\'>' . __('nastavení účtu') . '</a> ' . __('přidejte nový typ účtu') . '`})';
     }
 
     public function getChciNabidnoutUrl()
@@ -69,7 +69,7 @@ class HomepageButtonsService
         }
 
 
-        return 'javascript:void(0);" @click.prevent="$dispatch(\'open-modal\', {name: \'hp-message\', message: `Nevystupujete v roli nabízejícího a ani realitního makléře. V <a href=\'' .
-            route('profile.edit', ['add' => 'no-investor']) . '\' class=\'text-app-blue underline hover:no-underline\'>nastavení účtu</a> přidejte nový typ účtu`})';
+        return 'javascript:void(0);" @click.prevent="$dispatch(\'open-modal\', {name: \'hp-message\', message: `' . __('Nevystupujete v roli nabízejícího a ani realitního makléře.') . ' ' . __('V') . ' <a href=\'' .
+    route('profile.edit', ['add' => 'no-investor']) . '\' class=\'text-app-blue underline hover:no-underline\'>' . __('nastavení účtu') . '</a> ' . __('přidejte nový typ účtu') . '`})';
     }
 }

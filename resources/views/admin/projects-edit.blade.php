@@ -32,7 +32,7 @@
                         }
                     }
                     if(selectedCategory === 'preliminary-interest' && exclusive !== 1) {
-                        alert('Pro typ prodeje `{{ __(\App\Models\Category::CATEGORIES['preliminary-interest']['title']) }}` je povinná `Exkluzivní smlouva`');
+                        alert('Pro typ prodeje `{{ __(\App\Models\Category::getCATEGORIES()['preliminary-interest']['title']) }}` je povinná `Exkluzivní smlouva`');
                         $event.preventDefault();
                         return;
                     }
@@ -90,10 +90,10 @@
                     <div>
                         <input type="hidden" x-model="exclusive" name="exclusive_contract">
                         <div
-                            @click="exclusive = (exclusive ? 0 : 1)"
-                            class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
-                            x-text="exclusive ? @js(__('Exkluzivní smlouva')) : @js(__('Neexkluzivní smlouva'))"
-                            :class="{
+                                @click="exclusive = (exclusive ? 0 : 1)"
+                                class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
+                                x-text="exclusive ? @js(__('Exkluzivní smlouva')) : @js(__('Neexkluzivní smlouva'))"
+                                :class="{
                             'bg-app-green': exclusive,
                             'bg-app-red': !exclusive,
                         }">
@@ -109,10 +109,10 @@
                     <div x-show="exclusive">
                         <input type="hidden" x-model="details_on_request" name="details_on_request">
                         <div
-                            @click="details_on_request = (details_on_request ? 0 : 1)"
-                            class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
-                            x-text="!details_on_request ? @js(__('Investor má přístup k detailu projektu')) : @js(__('Investor musí požádat o přístup k detailu projektu'))"
-                            :class="{
+                                @click="details_on_request = (details_on_request ? 0 : 1)"
+                                class="p-[15px_50px] inline-block max-tablet:text-center font-Spartan-Bold text-[18px] text-white bg-app-red whitespace-nowrap rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[10px] cursor-pointer"
+                                x-text="!details_on_request ? @js(__('Investor má přístup k detailu projektu')) : @js(__('Investor musí požádat o přístup k detailu projektu'))"
+                                :class="{
                             'bg-app-green': !details_on_request,
                             'bg-app-red': details_on_request,
                         }">
@@ -128,9 +128,9 @@
 
                 <div x-data="{ enable: false }" class="mt-[-15px]">
                     <div
-                        class="z-10 relative bg-white left-[20px] top-[35px] tablet:top-[40px] cursor-pointer w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
-                        :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': enable}"
-                        @click="enable = !enable"
+                            class="z-10 relative bg-white left-[20px] top-[35px] tablet:top-[40px] cursor-pointer w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                            :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': enable}"
+                            @click="enable = !enable"
                     >
                     </div>
                     <button type="button" @click="deleteProject({{ $project->id }})"

@@ -73,7 +73,7 @@ class HomepageController extends Controller
             $urls[] = ['loc' => route($route)];
         };
 
-        foreach (Category::CATEGORIES as $category) {
+        foreach (Category::getCATEGORIES() as $category) {
             $urls[] = ['loc' => route('projects.index.category', ['category' => $category['url']])];
             $subcategories = Category::where('category', $category['id'])->get();
             foreach ($subcategories as $subcategory) {

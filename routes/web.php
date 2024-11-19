@@ -222,7 +222,7 @@ Route::middleware('auth')->group(function () {
 Route::get('{category?}/{subcategory?}', [ProjectController::class, 'index'])
     ->where(
         'category',
-        implode('|', array_column(Category::CATEGORIES, 'url'))
+        implode('|', array_column(Category::getCATEGORIES(), 'url'))
     )->name('projects.index.category');
 Route::get('projekty', [ProjectController::class, 'index'])
     ->name('projects.index');

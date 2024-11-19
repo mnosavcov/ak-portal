@@ -2,7 +2,7 @@
     <div class="w-full bg-[#f8f8f8]">
         <div class="w-full max-w-[1230px] mx-auto mb-[10px] px-[15px]">
             <div
-                class="grid grid-1 tablet:grid-cols-2 mt-[25px] pb-[25px] border-b border-b-[#d9e9f2] mb-[50px] laptop:mb-[25px] justify-center gap-y-[50px]">
+                    class="grid grid-1 tablet:grid-cols-2 mt-[25px] pb-[25px] border-b border-b-[#d9e9f2] mb-[50px] laptop:mb-[25px] justify-center gap-y-[50px]">
                 <div>
                     <button x-data type="button" @click="$dispatch('open-modal', 'contact-form')"
                             class="inline-block bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] text-white font-Spartan-Regular
@@ -25,7 +25,7 @@
                     <div class="font-Spartan-Bold text-[13px] tablet:text-[18px] mb-[25px] laptop:mb-[40px]">
                         {{ __('Kategorie podle typu nabídky') }}
                     </div>
-                    @foreach(\App\Models\Category::CATEGORIES as $category)
+                    @foreach(\App\Models\Category::getCATEGORIES() as $category)
                         <div class="font-Spartan-Regular text-[12px] tablet:text-[15px] mb-[20px]">
                             <a href="{{ route('projects.index.category',
                                 ['category' => $category['url']]
@@ -107,7 +107,7 @@
     </div>
 
     <div
-        class="w-full bg-white text-center font-Spartan-Regular text-[13px] leading-[60px] h-[60px] px-[30px]">
+            class="w-full bg-white text-center font-Spartan-Regular text-[13px] leading-[60px] h-[60px] px-[30px]">
         &copy;{{ date('Y') }} <a href="{{ route('homepage') }}">{{ __('PVtrusted_cz') }}</a>
     </div>
 
@@ -132,7 +132,7 @@
 
                     <h3 class="mb-[15px]">{{ __('Zadejte své kontaktní údaje') }}</h3>
                     <div
-                        class="grid grid-cols-1 md:grid-cols-[repeat(2,_minmax(50px,1fr))] gap-[20px] md:gap-[25px_20px] mb-[25px] md:mb-[30px]">
+                            class="grid grid-cols-1 md:grid-cols-[repeat(2,_minmax(50px,1fr))] gap-[20px] md:gap-[25px_20px] mb-[25px] md:mb-[30px]">
                         <div class="ped-input-wrap">
                             <x-input-label for="kontakt-jmeno">{{ __('Jméno') }} *</x-input-label>
                             <x-text-input type="text" id="kontakt-jmeno" name="kontakt-jmeno" class="w-full"
@@ -162,19 +162,19 @@
                     </div>
 
                     <div
-                        class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] min-h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] py-[14px] mb-[30px]
+                            class="inline-grid grid-cols-[20px_1fr] gap-x-[15px] min-h-[50px] bg-app-blue text-white font-Spartan-SemiBold rounded-[7px] content-center px-[15px] py-[14px] mb-[30px]
                  text-[12px] tablet:text-[15px]
                  leading-[20px] tablet:leading-[24px]">
                         <div
-                            class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white"
-                            @click="souhlas = !souhlas; validate()">
+                                class="relative inline-block w-[20px] h-[20px] border border-[#e2e2e2] rounded-[3px] bg-white"
+                                @click="souhlas = !souhlas; validate()">
                             <div class="absolute top-[2px] left-[2px] w-[14px] h-[14px] rounded-[3px] bg-app-green"
                                  x-show="souhlas">
                             </div>
                         </div>
                         <div @click="souhlas = !souhlas; validate()">{{ __('Odesláním formuláře souhlasím se') }} <a
-                                href="{{ route('zasady-zpracovani-osobnich-udaju') }}" target="_blank"
-                                class="underline hover:no-underline">{{ __('Zásadami zpracování osobních údajů') }} </a>
+                                    href="{{ route('zasady-zpracovani-osobnich-udaju') }}" target="_blank"
+                                    class="underline hover:no-underline">{{ __('Zásadami zpracování osobních údajů') }} </a>
                         </div>
                     </div>
                     <div class="grayscale tranform-[filter] duration-[400ms]"

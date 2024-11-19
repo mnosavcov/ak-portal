@@ -21,7 +21,7 @@
 
         <div class="mx-auto max-w-[500px] min-[1100px]:max-w-[1080px] min-[1600px]:max-w-[1620px] relative">
             <div
-                class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
+                    class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
                      left-[0px]
                      min-[1100px]:left-[40px]">
                 <img src="{{ Vite::asset('resources/images/btn-slider-left.svg') }}" class="w-full h-full">
@@ -38,7 +38,7 @@
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="bg-white w-full mx-auto max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                    class="bg-white w-full mx-auto max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-kupujici.svg') }}"
                                      class="h-[100px] mx-auto
@@ -63,7 +63,7 @@
                                     {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;investoři_vám_neveřejně_zasílají_nabídky_s_částkou_dle_svých_možností') !!}
                                 </div>
 
-                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['offer-the-price']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::getCATEGORIES()['offer-the-price']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
@@ -91,7 +91,7 @@
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                    class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-aukce.svg') }}"
                                      class="h-[100px] mx-auto
@@ -116,7 +116,7 @@
                                     {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz-_Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou') !!}
                                 </div>
 
-                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['auction']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::getCATEGORIES()['auction']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
@@ -144,7 +144,7 @@
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                    class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-nabizejici.svg') }}"
                                      class="h-[100px] mx-auto
@@ -166,7 +166,7 @@
                         ">
                                     {!! __('homepage.Nastavíte_fixní_nabídkovou_cenu-_Na_ni_musí_investor,_pokud_má_o&nbsp;projekt_zájem,_přistoupit-_První_platná_nabídka_vyhrává') !!}
                                 </div>
-                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['fixed-price']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::getCATEGORIES()['fixed-price']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
@@ -196,7 +196,7 @@
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                    class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-projev-predbezneho-zajmu.svg') }}"
                                      class="h-[100px] mx-auto
@@ -218,7 +218,7 @@
                         ">
                                     {!! __('homepage.Máte_projekt_v_rané_fázi?_Informujte_o_něm_už_nyní-_Investoři_se_nezávazně_přihlásí_a_k_prodeji_dojde,_až_bude_projekt_připraven') !!}
                                 </div>
-                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::CATEGORIES['preliminary-interest']['url']]) }}"
+                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::getCATEGORIES()['preliminary-interest']['url']]) }}"
                                    class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat

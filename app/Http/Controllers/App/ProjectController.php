@@ -42,7 +42,7 @@ class ProjectController extends Controller
 
         if ($category) {
             $redirect = true;
-            foreach(Category::CATEGORIES as $categoryX) {
+            foreach(Category::getCATEGORIES() as $categoryX) {
                 if($categoryX['url'] === $category) {
                     $category = $categoryX['id'];
                     $redirect = false;
@@ -54,22 +54,22 @@ class ProjectController extends Controller
             }
 
             $projectAll = $projectAll->where('type', $category);
-            $description = Category::CATEGORIES[$category]['description'];
+            $description = Category::getCATEGORIES()[$category]['description'];
 
-            $title = __(Category::CATEGORIES[$category]['title']);
-            $breadcrumbs[$title] = route('projects.index.category', ['category' => Category::CATEGORIES[$category]['url']]);
+            $title = __(Category::getCATEGORIES()[$category]['title']);
+            $breadcrumbs[$title] = route('projects.index.category', ['category' => Category::getCATEGORIES()[$category]['url']]);
         }
 
         if ($subcategory) {
             $description = Category::where('category', $category)->where('url', $subcategory)->first();
             $projectAll = $projectAll->where('subcategory_id', $description->id);
             if (!$description) {
-                return redirect()->route('projects.index.category', ['category' => Category::CATEGORIES[$category]['url']]);
+                return redirect()->route('projects.index.category', ['category' => Category::getCATEGORIES()[$category]['url']]);
             }
 
             $title = $description->subcategory;
             $description = $description->description;
-            $breadcrumbs[$title] = route('projects.index.category', ['category' => Category::CATEGORIES[$category]['url'], 'subcategory' => $subcategory]);
+            $breadcrumbs[$title] = route('projects.index.category', ['category' => Category::getCATEGORIES()[$category]['url'], 'subcategory' => $subcategory]);
         }
 
         $data = [];

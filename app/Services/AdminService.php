@@ -35,7 +35,7 @@ class AdminService
 
     public function getProjectCategory()
     {
-        $default = array_keys(Category::CATEGORIES);
+        $default = array_keys(Category::getCATEGORIES());
         $default = array_flip($default);
         $default = array_map(function () {
             return [];

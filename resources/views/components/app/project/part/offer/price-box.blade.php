@@ -10,12 +10,12 @@
         laptop:flex laptop:flex-wrap laptop:gap-x-[50px]
         ">
             <div
-                class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]">
+                    class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:bg-[url('/resources/images/ico-status.svg')] after:w-[15px] after:h-[15px]">
                 {!! $project->status_text !!}
             </div>
 
             <div
-                class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:w-[15px] after:h-[15px]
+                    class="relative pl-[30px] font-Spartan-Regular text-[14px] text-[#31363A] after:absolute after:top-[3px] after:left-0 after:bg-no-repeat after:w-[15px] after:h-[15px]
                 @if($project->type === 'fixed-price')
                     after:bg-[url('/resources/images/ico-price_fix.svg')]
                 @elseif($project->type === 'offer-the-price')
@@ -26,7 +26,7 @@
                     after:bg-[url('/resources/images/ico-price_preliminary_interest.svg')]
                 @endif
                 ">
-                {{ strtolower(__(\App\Models\Category::CATEGORIES[$project->type]['title']  ?? '-')) }}
+                {{ strtolower(__(\App\Models\Category::getCATEGORIES()[$project->type]['title']  ?? '-')) }}
             </div>
         </div>
 
@@ -130,12 +130,12 @@
                 @endif
             </div>
             <div
-                class="font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
+                    class="font-Spartan-Regular text-[13px] leading-[29px] text-[#414141]
              justify-self-start
             laptop:justify-self-end
             "
-                x-init="actualValues.end_date_text_normal = @js($project->end_date_text_normal)"
-                x-text="actualValues.end_date_text_normal"></div>
+                    x-init="actualValues.end_date_text_normal = @js($project->end_date_text_normal)"
+                    x-text="actualValues.end_date_text_normal"></div>
 
             @if($project->type === 'offer-the-price')
                 <div class="font-Spartan-Bold text-[13px] leading-[29px] text-[#414141]">{{ __('Minimální nabídková cena') }}</div>
@@ -145,7 +145,7 @@
                     {!! $project->price_text_offer !!}
                     @if(!$project->isVerified())
                         <div
-                            class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
+                                class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left
                      laptop:left-auto laptop:right-[20px] laptop:bg-right">
                         </div>
@@ -177,7 +177,7 @@
                     {!! $project->minimum_principal_text !!}
                     @if(!$project->isVerified())
                         <div
-                            class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
+                                class="absolute bg-[url('/resources/images/ico-private.svg')] bg-no-repeat w-full h-full top-0
                      left-[20px] right-auto bg-left
                      laptop:left-auto laptop:right-[20px] laptop:bg-right">
                         </div>

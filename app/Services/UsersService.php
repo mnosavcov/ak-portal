@@ -113,8 +113,8 @@ class UsersService
 
         $user->update([
             'title_before' => null,
-            'name' => 'Smazaný',
-            'surname' => 'uživatel',
+            'name' => __('Smazaný'),
+            'surname' => __('uživatel'),
             'title_after' => null,
             'street' => null,
             'street_number' => null,

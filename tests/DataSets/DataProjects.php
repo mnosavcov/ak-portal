@@ -37,7 +37,7 @@ class DataProjects
         $projects = [];
         foreach ($accountTypes as $accountType) {
             foreach (array_keys(Project::getSTATUSES()) as $status) {
-                foreach (array_keys(Category::CATEGORIES) as $category) {
+                foreach (array_keys(Category::getCATEGORIES()) as $category) {
                     $projects[] = [
                         [
                             'accountType' => $accountType,

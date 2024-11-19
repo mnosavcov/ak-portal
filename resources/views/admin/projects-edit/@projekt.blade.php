@@ -36,12 +36,12 @@
         <div>
             <div class="font-bold">{{ __('Kategorie') }}:</div>
             <select class="bg-[#D9D9D9] text-[13px]" name="type" x-model="selectedCategory">
-                @empty(\App\Models\Category::CATEGORIES[$project->type])
+                @empty(\App\Models\Category::getCATEGORIES()[$project->type])
                     <option value="">{{ __('!!! VYBERTE !!!') }}</option>
                 @endempty
-                @foreach(\App\Models\Category::CATEGORIES as $category)
+                @foreach(\App\Models\Category::getCATEGORIES() as $category)
                     <option
-                        value="{{ $category['id'] }}" {{ $category['id'] === $project->type ? 'selected="selected"' : '' }}>{{ __($category['title']) }}</option>
+                            value="{{ $category['id'] }}" {{ $category['id'] === $project->type ? 'selected="selected"' : '' }}>{{ __($category['title']) }}</option>
                 @endforeach
             </select>
         </div>
@@ -49,13 +49,13 @@
             <template x-if="selectedCategory !== null">
                 <div>
                     <div class="font-bold">{{ __('Subkategorie') }}:</div>
-                    @foreach(\App\Models\Category::CATEGORIES as $category)
+                    @foreach(\App\Models\Category::getCATEGORIES() as $category)
                         <template x-if="selectedCategory === @js($category['id'])">
                             <select class="bg-[#D9D9D9] text-[13px]" name="subcategory_id">
                                 <option value="">{{ __('!!! BEZ SUBKATEGORIE !!!') }}</option>
                                 @foreach(\App\Models\Category::where('category', $category['id'])->get() as $subcategory)
                                     <option
-                                        value="{{ $subcategory->id }}" {{ $subcategory->id === $project->subcategory_id ? 'selected="selected"' : '' }}>{{ $subcategory->subcategory }}
+                                            value="{{ $subcategory->id }}" {{ $subcategory->id === $project->subcategory_id ? 'selected="selected"' : '' }}>{{ $subcategory->subcategory }}
                                     </option>
                                 @endforeach
                             </select>
@@ -150,9 +150,9 @@
 
                         <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
                             <div
-                                class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
-                                :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': publicated_at_edit}"
-                                @click="publicated_at_edit = !publicated_at_edit"
+                                    class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                                    :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': publicated_at_edit}"
+                                    @click="publicated_at_edit = !publicated_at_edit"
                             >
                             </div>
                             <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
@@ -180,9 +180,9 @@
                 <template x-if="selectedCategory === 'fixed-price'">
                     <div class="grid grid-cols-[20px_1fr] gap-x-[20px]">
                         <div
-                            class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
-                            :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
-                            @click="indefinitelyDate = !indefinitelyDate"
+                                class="cursor-pointer relative w-[20px] h-[20px] border border-[#E2E2E2] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.05)]"
+                                :class="{'after:absolute after:bg-app-green after:w-[14px] after:h-[14px] after:left-[2px] after:top-[2px] after:rounded-[3px]': indefinitelyDate}"
+                                @click="indefinitelyDate = !indefinitelyDate"
                         >
                         </div>
                         <div class="cursor-pointer font-Spartan-Regular text-[13px] text-[#414141] leading-[24px]"
