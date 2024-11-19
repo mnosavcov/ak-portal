@@ -21,6 +21,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -36,7 +37,7 @@ class ProjectController extends Controller
 
         $title = __('projekt.Projekty');
         $breadcrumbs = [
-            'Projekty' => Route('projects.index')
+            __('Projekty') => Route('projects.index')
         ];
 
         if ($category) {
@@ -302,9 +303,9 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|Application|Factory|View|RedirectResponse
      */
-    public function edit(ProjectService $projectService, Project $project)
+    public function edit(ProjectService $projectService, Project $project): \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
     {
         if ($project->user_id !== auth()->id()) {
             return redirect()->route('homepage');
@@ -318,7 +319,7 @@ class ProjectController extends Controller
 
         $data = $projectService->getProjectData($project->user_account_type);
         $data['id'] = $project->id;
-        $data['pageTitle'] = 'Úprava projektu';
+        $data['pageTitle'] = __('Úprava projektu');
         $data['route'] = route('projects.edit', ['project' => $project->url_part]);
         $data['routeFetch'] = route('projects.update', ['project' => $project->id]);
         $data['routeFetchFile'] = route('projects.store-temp-file', ['uuid' => $uuid]);

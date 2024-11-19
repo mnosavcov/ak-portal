@@ -62,11 +62,11 @@ class VerifyEmailAdmin extends Notification
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(Lang::get('Byli jste přidáni jako administrátor na PVtrusted.cz'))
-            ->line(Lang::get('Dobrý den,'))
-            ->line(Lang::get('na portálu www.pvtrusted.cz jste byli přidání do role administrátora. Prosím, potvrďte vlastnictví e-mailu a nastavte si nové heslo přes následující odkaz:'))
-            ->action(Lang::get('Vytvořit heslo'), $url)
-            ->line(Lang::get('Odkaz bude aktivní 7 dní.'))
+            ->subject(__('mail-added_admin.Byli_jste_přidáni_jako_administrátor_na_PVtrusted-cz'))
+            ->line(__('mail-added_admin.Dobrý_den,'))
+            ->line(__('mail-added_admin.na_portálu_www-pvtrusted-cz_jste_byli_přidáni_do_role_administrátora-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:'))
+            ->action(__('mail-added_admin.Vytvořit_heslo'), $url)
+            ->line(__('mail-added_admin.Odkaz_bude_aktivní_7_dní'))
             ->markdown('vendor.email');
     }
 

@@ -56,10 +56,10 @@ class NewPasswordController extends Controller
         );
 
         if ($status === 'passwords.user') {
-            $status = 'Zadanou e-mailovou adresu jsme v naší databázi nenalezli.';
+            $status = __('Zadanou e-mailovou adresu jsme v naší databázi nenalezli.');
         }
         if ($status === 'passwords.token') {
-            $status = 'Token pro obnovu hesla není platný.';
+            $status = __('Token pro obnovu hesla není platný.');
         }
 
         // If the password was successfully reset, we will redirect the user back to
