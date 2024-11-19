@@ -9,8 +9,9 @@
     @if($files->count() && $project->isVerified())
         <div class="col-span-full text-right">
             <a href="{{ $project->zip_url }}"
-               class="underline hover:no-underline font-WorkSans-Regular text-app-blue text-[15px] inline-block">Uložit
-                dokumentaci jako .zip</a>
+               class="underline hover:no-underline font-WorkSans-Regular text-app-blue text-[15px] inline-block">
+                {{ __('Uložit dokumentaci jako .zip') }}
+            </a>
         </div>
     @endif
     <div class="col-span-full" x-data="{folderOpen: []}">
@@ -27,7 +28,7 @@
         $classBackground = '__UNDEFINED__';
         if(!$project->isVerified()) {
             $actualFolderCount++;
-            $actualFolderText = 'Složka ' . $actualFolderCount;
+            $actualFolderText = __('Složka') . ' ' . $actualFolderCount;
         }
     @endphp
 
@@ -47,11 +48,11 @@
                     @endif
                     <div
                         class="font-Spartan-Bold text-[13px] bg-[#5E6468] text-white h-[50px] leading-[50px] {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
-                        Název&nbsp;souboru
+                        {!! __('Název&nbsp;souboru') !!}
                     </div>
                     <div
                         class="pr-[25px] font-Spartan-Bold text-[13px] bg-[#5E6468] text-white h-[50px] leading-[50px]">
-                        Datum&nbsp;nahrání
+                        {!! __('Datum&nbsp;nahrání') !!}
                     </div>
                     @endif
 
@@ -67,7 +68,7 @@
                             $filename = explode('.', $filename);
                             $actualFilenameCount++;
                             if(count($filename) > 1) {
-                                $filename = 'Dokument ' . $actualFilenameCount .  '.' . $filename[count($filename) - 1];
+                                $filename = __('Dokument') . ' ' . $actualFilenameCount .  '.' . $filename[count($filename) - 1];
                             }
                         }
                     @endphp

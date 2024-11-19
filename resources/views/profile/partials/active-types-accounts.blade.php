@@ -235,7 +235,7 @@
                             <div x-show="index === 'investor' && user.open_investor" class="contents">
                                 <x-input-label for="more_info_investor" class="col-span-full">
                                     {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }} <span
-                                        class="text-app-orange">investor</span>
+                                        class="text-app-orange">{{ __('investor') }}</span>
                                     {{ __('(jste zájemce o koupi, nebo ho zastupujete)? Upřesněte své záměry.') }}
                                 </x-input-label>
                                 <x-textarea-input class="col-span-full h-[7rem]"
@@ -255,7 +255,7 @@
                             <div x-show="index === 'advertiser' && user.open_advertiser" class="contents">
                                 <x-input-label for="more_info_advertiser" class="col-span-full">
                                     {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }} <span
-                                        class="text-app-orange">nabízející</span>
+                                        class="text-app-orange">{{ __('nabízející') }}</span>
                                     {{ __('(jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.') }}
                                 </x-input-label>
                                 <x-textarea-input class="col-span-full h-[7rem]"
@@ -276,7 +276,7 @@
                                  class="contents">
                                 <x-input-label for="more_info_real_estate_broker" class="col-span-full">
                                     {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }} <span
-                                        class="text-app-orange">realitní makléř</span>
+                                        class="text-app-orange">{{ __('realitní makléř') }}</span>
                                     {{ __('(zprostředkováváte prodej projektu například na základě smlouvy o realitním zprostředkování)? Upřesněte své záměry.') }}
                                 </x-input-label>
                                 <x-textarea-input class="col-span-full h-[7rem]"

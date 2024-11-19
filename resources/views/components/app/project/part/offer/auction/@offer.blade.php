@@ -35,13 +35,13 @@
     </div>
 
     <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Čas uskutečnění podání:</div>
+        <div class="font-Spartan-SemiBold text-[14px]">{{ __('Čas uskutečnění podání') }}:</div>
         <div
             class="font-Spartan-Regular text-[14px]">{{ \Carbon\Carbon::parse($offer->offer_time)->format('d.m.Y H:i:s') }}</div>
     </div>
 
     <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-        <div class="font-Spartan-SemiBold text-[14px]">Výše podání:</div>
+        <div class="font-Spartan-SemiBold text-[14px]">{{ __('Výše podání') }}:</div>
         <div
             class="font-Spartan-Regular text-[14px]">{{ $offer->offer_amount_text }}
         </div>
@@ -52,7 +52,7 @@
         || ($userType === 'investor' && $user)
     )
         <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[5px]">
-            <div class="font-Spartan-SemiBold text-[14px]">Složena jistota:</div>
+            <div class="font-Spartan-SemiBold text-[14px]">{{ __('Složena jistota') }}:</div>
             <div class="font-Spartan-Regular text-[14px]">
                 <span class="text-app-green" x-cloak x-show="principal_paid">ano</span>
                 <span class="text-app-red" x-cloak x-show="!principal_paid">ne</span>
@@ -66,10 +66,7 @@
                 class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px]">
                 <div
                     class="max-tablet:mb-[15px] font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black">
-                    Identifikace investora je dostupná jen klientům, kteří s provozovatelem portálu PVtrusted uzavřeli
-                    smlouvu o realitním zprostředkování v režimu výhradního zastoupení. Pro zobrazení těchto údajů nás
-                    kontaktujte s žádostí o podepsání dodatku smlouvy ve věci změny nevýhradního zastoupení na
-                    zastoupení výhradní.
+                    {{ __('Identifikace investora je dostupná jen klientům, kteří s provozovatelem portálu PVtrusted uzavřeli smlouvu o realitním zprostředkování v režimu výhradního zastoupení. Pro zobrazení těchto údajů nás kontaktujte s žádostí o podepsání dodatku smlouvy ve věci změny nevýhradního zastoupení na zastoupení výhradní.') }}
                 </div>
             </div>
         </div>

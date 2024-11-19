@@ -78,23 +78,21 @@
                         </svg>
                     </div>
 
-                    <h2 class="mb-0 max-tablet:text-center">Úprava nastavení cookies</h2>
+                    <h2 class="mb-0 max-tablet:text-center">{{ __('Úprava nastavení cookies') }}</h2>
 
                     <div class="grid">
                         <div class="grid gap-[20px] tablet:gap-[25px] py-[25px] tablet:py-[30px] border-b border-b-[#E1E1E1]">
                             <div class="text-[#31363A] font-Spartan-Bold leading-[26px]
                                  max-tablet:text-center text-[13px]
                                  tablet:text-[15px]
-                                 overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">Technické cookies</div>
+                                 overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">{{ __('Technické cookies') }}</div>
 
                             <div class="grid gap-[20px] tablet:gap-[100px] tablet:grid-cols-[1fr_max-content]">
                                 <div class="text-[#31363A] font-Spartan-Regular leading-[26px]
                                  max-tablet:text-center text-[12px]
                                  tablet:text-[13px]
                                  desktop:text-[15px] overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">
-                                    Cookies, bez kterých se neobejdeme. Díky nim náš web
-                                    správně
-                                    funguje. Jedná se o nezbytné cookies, které nelze odmítnout.
+                                    {{ __('Cookies, bez kterých se neobejdeme. Díky nim náš web správně funguje. Jedná se o nezbytné cookies, které nelze odmítnout.') }}
                                 </div>
                                 <div class="self-start justify-self-end"
                                 >
@@ -107,15 +105,14 @@
                             <div class="text-[#31363A] font-Spartan-Bold leading-[26px]
                                  max-tablet:text-center text-[12px]
                                  tablet:text-[15px]
-                                 overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">Analytické cookies</div>
+                                 overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">{{ __('Analytické cookies') }}</div>
 
                             <div class="grid gap-[20px] tablet:gap-[100px] tablet:grid-cols-[1fr_max-content]">
                                 <div class="text-[#31363A] font-Spartan-Regular leading-[26px]
                                  max-tablet:text-center justify-self-center text-[13px]
                                  tablet:text-[13px]
                                  desktop:text-[15px] overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">
-                                    Cookies, které nám pomáhají náš web vylepšovat a
-                                    poskytovat vám co nejlepší informace. S jejich pomocí sledujeme, jak web používáte.
+                                    {{ __('Cookies, které nám pomáhají náš web vylepšovat a poskytovat vám co nejlepší informace. S jejich pomocí sledujeme, jak web používáte.') }}
                                 </div>
                                 <div class="self-start justify-self-end"
                                      @click="selected.analytic = !selected.analytic"
@@ -129,15 +126,14 @@
                             <div class="text-[#31363A] font-Spartan-Bold leading-[26px]
                                  max-tablet:text-center text-[12px]
                                  tablet:text-[13px]
-                                 desktop:text-[15px] overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">Marketingové cookies</div>
+                                 desktop:text-[15px] overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">{{ __('Marketingové cookies') }}</div>
 
                             <div class="grid gap-[20px] tablet:gap-[100px] tablet:grid-cols-[1fr_max-content]">
                                 <div class="text-[#31363A] font-Spartan-Regular leading-[26px]
                                  max-tablet:text-center justify-self-center text-[13px]
                                  tablet:text-[15px]
                                  overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[5px]">
-                                    Cookies, díky kterým vám zobrazujeme reklamu,
-                                    která je relevantní a odpovídá vašim zájmům.
+                                    {{ __('Cookies, díky kterým vám zobrazujeme reklamu, která je relevantní a odpovídá vašim zájmům.') }}
                                 </div>
                                 <div class="self-start justify-self-end"
                                      @click="selected.marketing = !selected.marketing"
@@ -152,10 +148,11 @@
                      max-desktop:text-center justify-self-center text-[12px]
                      tablet:text-[13px]
                      desktop:text-[15px] overflow-y-auto max-tablet:max-h-[20vh] mb-0 pb-[30px] py-[25px] tablet:py-[30px]">
-                        Více informací o zpracování jednotlivých cookies naleznete v našich
+                        {{ __('Více informací o zpracování jednotlivých cookies naleznete v našich') }}
                         <a href="{{ route('zasady-zpracovani-osobnich-udaju') }}"
-                           class="text-app-blue underline hover:no-underline font-Spartan-SemiBold" target="_blank">Zásadách
-                            zpracování osobních údajů</a>
+                           class="text-app-blue underline hover:no-underline font-Spartan-SemiBold" target="_blank">
+                            {{ __('Zásadách zpracování osobních údajů') }}
+                        </a>
                     </div>
 
                     <div class="grid tablet:grid-cols-3 gap-[15px] tablet:gap-[25px]">
@@ -163,19 +160,19 @@
                             class="font-Spartan-SemiBold text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                             h-[50px] leading-[50px] w-full text-[14px] tablet:text-[16px]"
                             @click="setCookieOptions('all')">
-                            Povolit všechny
+                            {{ __('Povolit všechny') }}
                         </button>
                         <button
                             class="font-Spartan-Regular text-[#31363A] bg-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                             h-[50px] leading-[50px] w-full text-[14px] tablet:text-[16px]"
                             @click="setCookieOptions('selected')">
-                            Povolit vybrané
+                            {{ __('Povolit vybrané') }}
                         </button>
                         <button
                             class="font-Spartan-Regular text-[#31363A] bg-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]
                             h-[50px] leading-[50px] w-full text-[14px] tablet:text-[16px]"
                             @click="setCookieOptions('none')">
-                            Odmítnout všechny
+                            {{ __('Odmítnout všechny') }}
                         </button>
                     </div>
 

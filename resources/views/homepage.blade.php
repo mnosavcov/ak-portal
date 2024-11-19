@@ -73,7 +73,7 @@
             <button
                 @click="show = false;"
                 class="font-Spartan-Regular text-[12px] justify-self-center text-app-blue tablet:text-[15px] laptop:justify-self-start">
-                zavřít
+                {{ __('zavřít') }}
             </button>
         </div>
     </x-modal>

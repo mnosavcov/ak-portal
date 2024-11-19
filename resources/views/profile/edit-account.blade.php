@@ -268,7 +268,7 @@
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_advertiser">
                             {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }}
-                            <span class="text-app-orange">nabízející</span>
+                            <span class="text-app-orange">{{ __('nabízející') }}</span>
                             {{ __('(jste vlastník projektu, nebo jednáte jeho jménem)? Upřesněte své záměry.') }}
                         </x-input-label>
                         <x-textarea-input id="more_info_advertiser" name="more_info_advertiser"
@@ -283,7 +283,7 @@
                     <div class="mt-[10px] pt-[25px]">
                         <x-input-label for="more_info_real_estate_broker">
                             {{ __('Za jakým účelem či účely chcete náš portál využívat jako') }}
-                            <span class="text-app-orange">realitní makléř</span>
+                            <span class="text-app-orange">{{ __('realitní makléř') }}</span>
                             {{ __('(zprostředkováváte prodej projektu například na základě smlouvy o realitním zprostředkování)? Upřesněte své záměry.') }}
                         </x-input-label>
                         <x-textarea-input id="more_info_real_estate_broker" name="more_info_real_estate_broker"

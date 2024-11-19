@@ -2,7 +2,7 @@
 
 <template x-if="!data.list.length && @js(!($project->isMine() && !auth()->user()->isSuperadmin()))">
     <div class="mt-[30px]">
-        Zatím nejsou vložené žádné aktuality.
+        {{ __('Zatím nejsou vložené žádné aktuality.') }}
     </div>
 </template>
 <template x-if="data.list.length">

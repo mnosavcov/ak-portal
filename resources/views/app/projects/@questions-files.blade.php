@@ -66,7 +66,7 @@
             src="{{ Vite::asset('resources/images/ico-upload-file.svg') }}"
             class="inline-block mr-[12px]">
         <span
-            class="font-Spartan-Bold text-app-blue text-[13px]">Nahrajte soubory</span>
+            class="font-Spartan-Bold text-app-blue text-[13px]">{{ __('Nahrajte soubory') }}</span>
     </div>
 
     <input type="file" :id="'fileInput-' + formData.question.answer_file_uuid[itemAnswer.id]" name="files" multiple

@@ -44,7 +44,7 @@
                          laptop:text-[15px] laptop:mt-[20px] laptop:leading-[26px]
                             "
         >
-            zkontrolovat platbu
+            {{ __('zkontrolovat platbu') }}
             <span x-text="afterText()" class="block"></span>
         </button>
 
@@ -62,9 +62,9 @@
                          laptop:text-[15px] laptop:mt-[20px] laptop:leading-[26px]
                             "
     >
-        <span class="text-app-red">Jistota není uhrazena.</span>
+        <span class="text-app-red">{{ __('Jistota není uhrazena.') }}</span>
         <br>
-        Evidujeme zaplacenou
-        částku {{ number_format($project->myShow()->first()->principal_sum, 0, '.', ' ') }} Kč.
+        {{ __('Evidujeme zaplacenou částku') }}
+        {{ number_format($project->myShow()->first()->principal_sum, 0, '.', ' ') }} Kč.
     </div>
 @endif

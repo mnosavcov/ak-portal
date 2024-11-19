@@ -5,7 +5,7 @@
         <!-- Password Reset Token -->
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <h2 class="text-center mb-[25px]">Obnova hesla</h2>
+        <h2 class="text-center mb-[25px]">{{ __('Obnova hesla') }}</h2>
 
         <!-- Email Address -->
         <div>
@@ -39,7 +39,7 @@
                             h-[50px] leading-[50px] w-full text-[14px]
                             tablet:h-[60px] tablet:leading-[60px] tablet:text-[18px]
                             ">
-                Obnovit heslo
+                {{ __('Obnovit heslo') }}
             </button>
         </div>
     </form>

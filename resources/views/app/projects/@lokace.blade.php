@@ -47,11 +47,11 @@
         </div>
     @else
         @if(auth()->guest())
-            jen pro přihlášené
+            {{ __('jen pro přihlášené') }}
         @elseif (!auth()->user()->investor)
-            jen pro investory
+            {{ __('jen pro investory') }}
         @else
-            Lokalita není dostupná
+            {{ __('Lokalita není dostupná') }}
         @endif
     @endif
 </div>

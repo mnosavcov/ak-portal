@@ -4,7 +4,7 @@
              x-show="winner === @js($offer->id)">
                 <span
                     class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green mb-[15px] inline-block">
-                    Nabídka je zvolena jako vítězná
+                    {{ __('Nabídka je zvolena jako vítězná') }}
                 </span>
         </div>
 
@@ -48,7 +48,7 @@
                          "
                 @click="pickAWinner()"
             >
-                Akceptovat nabídku
+                {{ __('Akceptovat nabídku') }}
             </button>
         @endif
 

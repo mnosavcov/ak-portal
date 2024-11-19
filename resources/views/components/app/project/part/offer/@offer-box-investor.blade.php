@@ -9,7 +9,7 @@
                 @endif
             </div>
             <div class="font-Spartan-Regular text-[13px] leading-[22px] text-[#414141]">
-                Nemáte účet?
+                {{ __('Nemáte účet?') }}
                 <a href="{{ route('register') }}" class="font-Spartan-Bold text-app-blue">
                     {{ __('Registrujte se') }}
                 </a>

@@ -1,2 +1,2 @@
-S pozdravem,
-Tým PVtrusted.cz
+{{ __('S pozdravem,') }}
+{{ __('Tým') }} {{ __('PVtrusted_cz') }}

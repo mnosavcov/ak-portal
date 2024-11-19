@@ -15,7 +15,7 @@
         @if(auth()->user())
             <div x-show="itemActuality.id > maxActualityId && itemActuality.confirmed === 1"
                  class="inline-block ml-[20px] text-[13px] font-Spartan-Regular bg-app-red text-white p-[1px_8px] rounded-[3px] mt-[-4px]">
-                nové
+                {{ __('nové') }}
             </div>
         @endif
     </div>
@@ -84,7 +84,7 @@
                         class="bg-app-blue text-white p-[2px_5px] rounded-[3px] mt-[5px] justify-self-end"
                         @click="adminEdit(itemActuality)"
                     >
-                        uložit
+                        {{ __('uložit') }}
                     </button>
                 </div>
             </div>
@@ -143,14 +143,14 @@
                             <button
                                 class="bg-app-green/70 text-white hover:bg-app-green cursor-pointer p-[5px_10px] rounded-[3px]"
                                 @click="adminConfirm(itemActuality.id, true)">
-                                schválit
+                                {{ __('schválit') }}
                             </button>
                             <template x-if="itemActuality.confirmed === -1">
                                 <div
                                     class="grid grid-cols-[min-content_1fr] mt-[15px] mb-[10px] content-center gap-x-[5px]">
                                     <i class="fa-regular fa-pen-to-square cursor-pointer"
                                        @click="editNeschvalit = !editNeschvalit"></i>
-                                    <div class="font-Spartan-SemiBold text-[15px] mb-[5px]">Důvod neschválení:</div>
+                                    <div class="font-Spartan-SemiBold text-[15px] mb-[5px]">{{ __('Důvod neschváleníq') }}:</div>
                                 </div>
                             </template>
                             <div x-html="itemActuality.not_confirmed_reason_text" class="text-[13px]"></div>
@@ -162,7 +162,7 @@
                                     <button
                                         class="bg-app-red/70 text-white hover:bg-app-red cursor-pointer p-[5px_10px] rounded-[3px]"
                                         @click="adminConfirm(itemActuality.id, false, itemActuality.not_confirmed_reason); editNeschvalit = false;">
-                                        aktualizovat důvod neschválení
+                                        {{ __('aktualizovat důvod neschválení') }}'
                                     </button>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                 class="bg-app-red/70 text-white hover:bg-app-red cursor-pointer p-[5px_10px] rounded-[3px]"
                                 :class="{'mt-[5px]': itemActuality.confirmed === 0}"
                                 @click="openNeschvalit = !openNeschvalit">
-                                Uveďte důvod neschválení
+                                {{ __('Uveďte důvod neschválení') }}
                             </button>
 
                             <div x-show="openNeschvalit" x-cloak x-collapse>
@@ -184,7 +184,7 @@
                                     <button
                                         class="bg-app-blue/70 text-white hover:bg-app-blue cursor-pointer p-[5px_10px] rounded-[3px]"
                                         @click="adminConfirm(itemActuality.id, false, itemActuality.not_confirmed_reason)">
-                                        Potvrdit neschválení
+                                        {{ __('Potvrdit neschválení') }}
                                     </button>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                                 <div>
                                     <div
                                         class="bg-app-red/70 text-white p-[3px_5px_1px] rounded-[3px] inline-block text-[13px]">
-                                        neschváleno
+                                        {{ __('neschváleno') }}
                                     </div>
                                     <img src="{{ Vite::asset('resources/images/ico-question.svg') }}"
                                          class="inline-block w-[16px] h-[16px] p-0 !leading-[20px] cursor-pointer"
@@ -214,7 +214,7 @@
                                     >
                                 </div>
 
-                                <div class="font-Spartan-SemiBold mt-[15px] text-[15px] mb-[5px]">Důvod neschválení:
+                                <div class="font-Spartan-SemiBold mt-[15px] text-[15px] mb-[5px]">{{ __('Důvod neschválení') }}:
                                 </div>
                                 <div x-html="itemActuality.not_confirmed_reason_text" class="text-[13px]"></div>
                             </div>
@@ -223,7 +223,7 @@
                             <div>
                                 <div
                                     class="bg-[#888888]/70 text-white p-[3px_5px_1px] rounded-[3px] inline-block text-[13px]">
-                                    váše aktualita čeká na schválení administrátorem
+                                    {{ __('váše aktualita čeká na schválení administrátorem') }}
                                 </div>
                                 <img src="{{ Vite::asset('resources/images/ico-question.svg') }}"
                                      class="inline-block w-[16px] h-[16px] p-0 !leading-[20px] cursor-pointer"

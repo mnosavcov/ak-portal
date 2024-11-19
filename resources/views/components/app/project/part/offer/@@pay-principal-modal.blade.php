@@ -40,14 +40,14 @@
              class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
 
         <div class="text-center mb-[30px]">
-            <h1>Zaplacení jistoty</h1>
+            <h1>{{ __('Zaplacení jistoty') }}</h1>
         </div>
 
         <div
             class="p-[25px] rounded-[7px] bg-[#F4FAFE] text-[#414141] text-center tablet:text-left space-y-[15px] mb-[25px]">
             <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
                 <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
-                    Projekt:
+                    {{ __('Projekt') }}:
                 </div>
                 <div
                     class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]">
@@ -57,7 +57,7 @@
 
             <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
                 <div class="font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px]">
-                    Výše jistoty:
+                    {{ __('Výše jistoty') }}:
                 </div>
                 <div
                     class="font-Spartan-Regular text-[16px] tablet:text-[20px] leading-[30px]">
@@ -69,12 +69,12 @@
         <div
             class="p-[25px] rounded-[7px] bg-[#F8F8F8] text-[#414141] text-center tablet:text-left mb-[25px] tablet:mb-[50px] space-y-[15px]">
             <div class="col-span-full font-Spartan-Bold text-[16px] tablet:text-[20px] leading-[30px] mb-[20px]">
-                Zaplaťte jistotu
+                {{ __('Zaplaťte jistotu') }}
             </div>
 
             <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
                 <div class="font-Spartan-Bold text-[16px] tablet:text-[14px] leading-[30px]">
-                    Číslo bankovního účtu:
+                    {{ __('Číslo bankovního účtu') }}:
                 </div>
                 <div
                     class="font-Spartan-Regular text-[16px] tablet:text-[14px] leading-[30px]">
@@ -94,7 +94,7 @@
 
             <div class="grid tablet:grid-cols-[max-content_1fr] gap-x-[10px]">
                 <div class="font-Spartan-Bold text-[16px] tablet:text-[14px] leading-[30px]">
-                    Variabilní symbol:
+                    {{ __('Variabilní symbol') }}:
                 </div>
                 <div>
                     <div
@@ -125,7 +125,7 @@
                             "
                     :disabled="!loaded"
             >
-                Hotovo
+                {{ __('Hotovo') }}
             </button>
         </form>
 
