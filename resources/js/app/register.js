@@ -2,14 +2,14 @@ import Alpine from "alpinejs";
 
 Alpine.data('register', (id) => ({
     lang: {
-        'Zvolte_typ_sveho_uctu': 'Zvolte_typ_sveho_uctu',
-        'Zadejte_e_mail_ve_spravnem_formatu': 'Zadejte_e_mail_ve_spravnem_formatu',
-        'Zadejte_do_pole_telefonni_cislo_alespon_9_znaku': 'Zadejte_do_pole_telefonni_cislo_alespon_9_znaku',
-        'Zadejte_heslo': 'Zadejte_heslo',
-        'Zadejte_kontrolni_heslo': 'Zadejte_kontrolni_heslo',
-        'Hesla_se_neshoduji': 'Hesla_se_neshoduji',
-        'Potvrdte_souhlas_s_registraci': 'Potvrdte_souhlas_s_registraci',
-        'Chyba_registrace': 'Chyba_registrace',
+        'Zvolte_typ_sveho_uctu': 'Zvolte typ svého účtu.',
+        'Zadejte_e_mail_ve_spravnem_formatu': 'Zadejte e-mail ve správném formátu.',
+        'Zadejte_do_pole_telefonni_cislo_alespon_9_znaku': 'Zadejte do pole telefonní číslo alespoň 9 znaků.',
+        'Zadejte_heslo': 'Zadejte heslo.',
+        'Zadejte_kontrolni_heslo': 'Zadejte kontrolní heslo.',
+        'Hesla_se_neshoduji': 'Hesla se neshodují.',
+        'Potvrdte_souhlas_s_registraci': 'Potvrďte souhlas s registrací.',
+        'Chyba_registrace': 'Chyba registrace',
     },
     loaderShow: false,
     selectedOpen: false,
