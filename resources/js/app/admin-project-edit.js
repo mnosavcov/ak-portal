@@ -1,6 +1,10 @@
 import Alpine from "alpinejs";
 
 Alpine.data('adminProjectEdit', (id) => ({
+    lang: {
+        'admin.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna': 'Opravdu si přejete smazat projekt? Tato akce je nevratná',
+        'admin.Chyba_smazani': 'Chyba smazání',
+    },
     selectedCategory: null,
     tempFiles: {
         newFileId: 0,
@@ -82,7 +86,7 @@ Alpine.data('adminProjectEdit', (id) => ({
     },
 
     async deleteProject(id) {
-        if (!confirm('Opravdu si přejete smazat projekt? Tato akce je nevratná')) {
+        if (!confirm(this.lang['admin.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna'])) {
             return;
         }
 
@@ -97,11 +101,11 @@ Alpine.data('adminProjectEdit', (id) => ({
                     window.location.href = data.redirect;
                     return;
                 }
-                alert('Chyba smazání');
+                alert(this.lang['admin.Chyba_smazani']);
                 window.location.href = data.redirect;
             })
             .catch((error) => {
-                alert('Chyba smazání')
+                alert(this.lang['admin.Chyba_smazani']);
             });
     },
 }));

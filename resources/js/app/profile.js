@@ -1,6 +1,9 @@
 import Alpine from "alpinejs";
 
 Alpine.data('profile', (id) => ({
+    lang: {
+        'Chyba_registrace': 'Chyba registrace',
+    },
     data: {},
     async change(index) {
         this.data.notifications[index] = !this.data.notifications[index];
@@ -20,7 +23,7 @@ Alpine.data('profile', (id) => ({
                 this.data.notifications[index] = data;
             })
             .catch((error) => {
-                alert('Chyba registrace')
+                alert(this.lang['Chyba_registrace'])
             });
     },
 }));

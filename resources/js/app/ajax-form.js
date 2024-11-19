@@ -3,6 +3,11 @@
 import Alpine from "alpinejs";
 
 Alpine.data('ajaxForm', (id) => ({
+    lang: {
+        'Vyplnte_vsechna_povinna_pole': 'Vyplňte všechna povinná pole',
+        'Zprava_byla_uspesne_odeslana': 'Zpráva byla úspěšně odeslána',
+        'Chyba_odeslani_formulare': 'Chyba odeslání formuláře',
+    },
     open: false,
     souhlas: false,
     data: {
@@ -27,7 +32,7 @@ Alpine.data('ajaxForm', (id) => ({
 
     async postForm() {
         if (!this.data.confirm) {
-            alert('Vyplňte všechna povinná pole');
+            alert(this.lang['Vyplnte_vsechna_povinna_pole']);
             return;
         }
         this.loaderShow = true;
@@ -53,18 +58,18 @@ Alpine.data('ajaxForm', (id) => ({
         }).then((response) => response.json())
             .then((data) => {
                 if (data.status === 'success') {
-                    alert('Zpráva byla úspěšně odeslána.')
+                    alert(this.lang['Zprava_byla_uspesne_odeslana']);
                     this.loaderShow = false;
                     this.$dispatch('close-modal', 'contact-form')
                     this.setDefault();
                     return;
                 }
                 this.loaderShow = false;
-                alert('Chyba odeslání formuláře')
+                alert(this.lang['Chyba_odeslani_formulare']);
             })
             .catch((error) => {
                 this.loaderShow = false;
-                alert('Chyba odeslání formuláře')
+                alert(this.lang['Chyba_odeslani_formulare']);
             });
     },
 

@@ -1,6 +1,15 @@
 import Alpine from "alpinejs";
 
 Alpine.data('projectQuestion', (id) => ({
+    lang: {
+        'Vyplnte_text_otazky': 'Vyplňte text otázky',
+        'Chyba_vlozeni_otazky': 'Chyba vložení otázky',
+        'Vyplnte_text_odpovedi': 'Vyplňte text odpovědi',
+        'Chyba_vlozeni_odpovedi': 'Chyba vložení odpovědi',
+        'Chyba_potvrzeni_odpovedi': 'Chyba potvrzení odpovědi',
+        'Opravdu_si_prejete_editovat_obsah_otazky_nebo_odpovedi': 'Opravdu si přejete editovat obsah otázky nebo odpovědi?',
+        'Chyba_editace_obsahu': 'Chyba editace obsahu',
+    },
     loaderShow: false,
     maxQuestionId: 0,
     data: {
@@ -32,7 +41,7 @@ Alpine.data('projectQuestion', (id) => ({
     },
     async sendQuestion() {
         if (!this.stripTags(this.formData.question.question).trim().length) {
-            alert('Vyplňte text otázky');
+            alert(this.lang['Vyplnte_text_otazky']);
             return;
         }
 
@@ -67,17 +76,17 @@ Alpine.data('projectQuestion', (id) => ({
                     return;
                 }
 
-                alert('Chyba vložení otázky')
+                alert(this.lang['Chyba_vlozeni_otazky'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba vložení otázky')
+                alert(this.lang['Chyba_vlozeni_otazky'])
                 this.loaderShow = false;
             });
     },
     async sendAnswer(questionId) {
         if (!this.stripTags(this.formData.question.answer[questionId]).trim().length) {
-            alert('Vyplňte text odpovědi');
+            alert(this.lang['Vyplnte_text_odpovedi']);
             return;
         }
 
@@ -113,11 +122,11 @@ Alpine.data('projectQuestion', (id) => ({
                     return;
                 }
 
-                alert('Chyba vložení odpovědi')
+                alert(this.lang['Chyba_vlozeni_odpovedi'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba vložení odpovědi')
+                alert(this.lang['Chyba_vlozeni_odpovedi'])
                 this.loaderShow = false;
             });
     },
@@ -146,21 +155,21 @@ Alpine.data('projectQuestion', (id) => ({
                     return;
                 }
 
-                alert('Chyba potvrzení odpovědi')
+                alert(this.lang['Chyba_potvrzeni_odpovedi'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba potvrzení odpovědi')
+                alert(this.lang['Chyba_potvrzeni_odpovedi'])
                 this.loaderShow = false;
             });
     },
     async adminEdit(itemAnswer) {
         if (!this.stripTags(itemAnswer.content_text).trim().length) {
-            alert('Vyplňte text otázky');
+            alert(this.lang['Vyplnte_text_otazky']);
             return;
         }
 
-        if(!confirm('Opravdu si přejete editovat obsah otázky nebo odpovědi?')) {
+        if(!confirm(this.lang['Opravdu_si_prejete_editovat_obsah_otazky_nebo_odpovedi'])) {
             return;
         }
 
@@ -194,11 +203,11 @@ Alpine.data('projectQuestion', (id) => ({
                     return;
                 }
 
-                alert('Chyba editace obsahu')
+                alert(this.lang['Chyba_editace_obsahu'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba editace obsahu')
+                alert(this.lang['Chyba_editace_obsahu'])
                 this.loaderShow = false;
             });
     },

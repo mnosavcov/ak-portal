@@ -1,6 +1,9 @@
 import Alpine from "alpinejs";
 
 Alpine.data('auction', (id) => ({
+    lang: {
+        'Chyba_kontroly_aukce_provedte_prosim_rucni_obnovu_stranky': 'Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.',
+    },
     interval: null,
     auctionMaxBidId: null,
     projectId: null,
@@ -35,10 +38,10 @@ Alpine.data('auction', (id) => ({
                     return;
                 }
 
-                alert('Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.');
+                alert(this.lang['Chyba_kontroly_aukce_provedte_prosim_rucni_obnovu_stranky']);
             })
             .catch(error => {
-                alert('Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.');
+                alert(this.lang['Chyba_kontroly_aukce_provedte_prosim_rucni_obnovu_stranky']);
             });
     },
     async readActualData() {
@@ -58,10 +61,10 @@ Alpine.data('auction', (id) => ({
                     return;
                 }
 
-                alert('Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.');
+                alert(this.lang['Chyba_kontroly_aukce_provedte_prosim_rucni_obnovu_stranky']);
             })
             .catch(error => {
-                alert('Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.');
+                alert(this.lang['Chyba_kontroly_aukce_provedte_prosim_rucni_obnovu_stranky']);
             });
     }
 }));

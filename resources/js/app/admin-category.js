@@ -1,6 +1,10 @@
 import Alpine from "alpinejs";
 
 Alpine.data('adminCategory', (id) => ({
+    lang: {
+        'admin.Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie': 'Subkategorie je přiřazena k projektu nebo projektům. Opravdu si přejete kategorii smazat? Projektům bude nastaveno jako by byly bez podkategorie.',
+        'admin.Chyba_ulozeni_kategorii': 'Chyba uložení kategorií',
+    },
     loaderShow: false,
     newId: 0,
     errors: {},
@@ -41,7 +45,7 @@ Alpine.data('adminCategory', (id) => ({
             subcategory.status = 'EDIT'
         } else {
             if (existsProject > 0) {
-                if (confirm('Subkategorie je přiřazena k projektu nebo projektům. Opravdu si přejete kategorii smazat? Projektům bude nastaveno jako by byly bez podkategorie.')) {
+                if (confirm(this.lang['admin.Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie'])) {
                     subcategory.delete_exists = true;
                 } else {
                     return;
@@ -65,7 +69,7 @@ Alpine.data('adminCategory', (id) => ({
             .then((data) => {
                 if (data.errors) {
                     this.errors = data.errors;
-                    alert('Chyba uložení kategorií')
+                    alert(this.lang['admin.Chyba_ulozeni_kategorii'])
                     this.loaderShow = false;
                     return;
                 }
@@ -78,11 +82,11 @@ Alpine.data('adminCategory', (id) => ({
                     return;
                 }
 
-                alert('Chyba uložení kategorií')
+                alert(this.lang['admin.Chyba_ulozeni_kategorii'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba uložení kategorií')
+                alert(this.lang['admin.Chyba_ulozeni_kategorii'])
                 this.loaderShow = false;
             });
     },

@@ -1,6 +1,13 @@
 import Alpine from "alpinejs";
 
 Alpine.data('projectActuality', (id) => ({
+    lang: {
+        'Vyplnte_text_aktuality': 'Vyplňte text aktuality',
+        'Chyba_vlozeni_otazky': 'Chyba vložení otázky',
+        'Chyba_potvrzeni_odpovedi': 'Chyba potvrzení odpovědi',
+        'Opravdu_si_prejete_editovat_obsah_aktuality': 'Opravdu si přejete editovat obsah aktuality?',
+        'Chyba_editace_obsahu': 'Chyba editace obsahu',
+    },
     loaderShow: false,
     maxActualityId: 0,
     data: {
@@ -30,7 +37,7 @@ Alpine.data('projectActuality', (id) => ({
     },
     async sendActuality() {
         if (!this.stripTags(this.formData.actuality.actuality).trim().length) {
-            alert('Vyplňte text aktuality');
+            alert(this.lang['Vyplnte_text_aktuality']);
             return;
         }
 
@@ -66,11 +73,11 @@ Alpine.data('projectActuality', (id) => ({
                     return;
                 }
 
-                alert('Chyba vložení otázky')
+                alert(this.lang['Chyba_vlozeni_otazky'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba vložení otázky')
+                alert(this.lang['Chyba_vlozeni_otazky'])
                 this.loaderShow = false;
             });
     },
@@ -99,21 +106,21 @@ Alpine.data('projectActuality', (id) => ({
                     return;
                 }
 
-                alert('Chyba potvrzení odpovědi')
+                alert(this.lang['Chyba_potvrzeni_odpovedi'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba potvrzení odpovědi')
+                alert(this.lang['Chyba_potvrzeni_odpovedi'])
                 this.loaderShow = false;
             });
     },
     async adminEdit(itemActuality) {
         if (!this.stripTags(itemActuality.content_text).trim().length) {
-            alert('Vyplňte text aktuality');
+            alert(this.lang['Vyplnte_text_aktuality']);
             return;
         }
 
-        if(!confirm('Opravdu si přejete editovat obsah aktuality?')) {
+        if(!confirm(this.lang['Opravdu_si_prejete_editovat_obsah_aktuality'])) {
             return;
         }
 
@@ -147,11 +154,11 @@ Alpine.data('projectActuality', (id) => ({
                     return;
                 }
 
-                alert('Chyba editace obsahu')
+                alert(this.lang['Chyba_editace_obsahu'])
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba editace obsahu')
+                alert(this.lang['Chyba_editace_obsahu'])
                 this.loaderShow = false;
             });
     },

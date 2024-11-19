@@ -1,6 +1,27 @@
 import Alpine from "alpinejs";
 
 Alpine.data('adminUser', (id) => ({
+    lang: {
+        'admin.Vsichni': 'Všichni',
+        'admin.Neovereni': 'Neověření',
+        'admin.Investori': 'Investoři',
+        'admin.Nabizejici': 'Nabízející',
+        'admin.Realitni_makleri': 'Realitní makléři',
+        'admin.Administratori': 'Administrátoři',
+        'admin.Advisori': 'Advisoři',
+        'admin.Zabanovani': 'Zabanovaní',
+        'admin.Smazani': 'Smazaní',
+        'admin.Uzivatel_ma_aktivni_projekt': 'Uživatel má aktivní projekt',
+        'admin.Smazani_je_nevratne_opravu_smazat': 'Smazání je nevratné!!! opravu smazat?',
+        'admin.ZAMITNUTO': 'ZAMÍTNUTO',
+        'admin.CEKA_NA_OVERENI': 'ČEKÁ NA OVĚŘENÍ',
+        'admin.OVERENO': 'OVĚŘENO',
+        'admin.CEKA_NA_OPAKOVANE_OVERENI': 'ČEKÁ NA OPAKOVANÉ OVĚŘENÍ',
+        'admin.NEZADANE_OSOBNI_UDAJE': 'NEZADANÉ OSOBNÍ ÚDAJE',
+        'admin.neznamy_stav': 'neznámý stav',
+        'admin.Chyba': 'Chyba',
+        'admin.Chyba_ulozeni_uzivatele': 'Chyba uložení uživatele',
+    },
     actualTab: 'all',
     tabs: {
         all: 'Všichni',
@@ -48,6 +69,17 @@ Alpine.data('adminUser', (id) => ({
     proxyData: {
         users: [],
         usersOrigin: [],
+    },
+    init() {
+        this.tabs.all = this.lang['admin.Vsichni'];
+        this.tabs.not_verified = this.lang['admin.Neovereni'];
+        this.tabs.investor = this.lang['admin.Investori'];
+        this.tabs.advertiser = this.lang['admin.Nabizejici'];
+        this.tabs.real_estate_broker = this.lang['admin.Realitni_makleri'];
+        this.tabs.superadmin = this.lang['admin.Administratori'];
+        this.tabs.advisor = this.lang['admin.Advisori'];
+        this.tabs.banned = this.lang['admin.Zabanovani'];
+        this.tabs.deleted = this.lang['admin.Smazani'];
     },
     getDataFor(indexTab) {
         return Object.fromEntries(
@@ -126,11 +158,11 @@ Alpine.data('adminUser', (id) => ({
     },
     deleteUser(id) {
         if (!this.proxyData.users[id].deletable) {
-            alert('Uživatel má aktivní projekt');
+            alert(this.lang['admin.Uzivatel_ma_aktivni_projekt']);
             return;
         }
 
-        if (!confirm('Smazání je nevratné!!! opravu smazat?')) {
+        if (!confirm(this.lang['admin.Smazani_je_nevratne_opravu_smazat'])) {
             return;
         }
         this.proxyData.users[id].deleted_at = 'NEW';
@@ -169,33 +201,33 @@ Alpine.data('adminUser', (id) => ({
     },
     statusText(status) {
         if (status === 'denied') {
-            return 'ZAMÍTNUTO';
+            return this.lang['admin.ZAMITNUTO'];
         } else if (status === 'not_verified') {
-            return 'ČEKÁ NA OVĚŘENÍ';
+            return this.lang['admin.CEKA_NA_OVERENI'];
         } else if (status === 'waiting') {
-            return 'ČEKÁ NA OVĚŘENÍ';
+            return this.lang['admin.CEKA_NA_OVERENI'];
         } else if (status === 'verified') {
-            return 'OVĚŘENO';
+            return this.lang['admin.OVERENO'];
         } else if (status === 're_verified') {
-            return 'ČEKÁ NA OPAKOVANÉ OVĚŘENÍ';
+            return this.lang['admin.CEKA_NA_OPAKOVANE_OVERENI'];
         }
 
-        return 'neznámý stav: "' + status + '"'
+        return this.lang['admin.neznamy_stav'] + ': "' + status + '"'
     },
     statusTextOsobniUdaje(status) {
         if (status === 'denied') {
-            return 'NEZADANÉ OSOBNÍ ÚDAJE';
+            return this.lang['admin.NEZADANE_OSOBNI_UDAJE'];
         } else if (status === 'not_verified') {
-            return 'NEZADANÉ OSOBNÍ ÚDAJE';
+            return this.lang['admin.NEZADANE_OSOBNI_UDAJE'];
         } else if (status === 'waiting') {
-            return 'ČEKÁ NA OVĚŘENÍ';
+            return this.lang['admin.CEKA_NA_OVERENI'];
         } else if (status === 'verified') {
-            return 'OVĚŘENO';
+            return this.lang['admin.OVERENO'];
         } else if (status === 're_verified') {
-            return 'ČEKÁ NA OPAKOVANÉ OVĚŘENÍ';
+            return this.lang['admin.CEKA_NA_OPAKOVANE_OVERENI'];
         }
 
-        return 'neznámý stav: "' + status + '"'
+        return this.lang['admin.neznamy_stav'] + ': "' + status + '"'
     },
     statusColor(status) {
         if (status === 'denied') {
@@ -297,12 +329,12 @@ Alpine.data('adminUser', (id) => ({
                     });
                 }
                 if (data.status === 'error') {
-                    alert('Chyba: '.data.statusMessage)
+                    alert(this.lang['admin.Chyba'] + ': ' + data.statusMessage)
                 }
                 this.loaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba uložení uživatele')
+                alert(this.lang['admin.Chyba_ulozeni_uzivatele'])
                 this.loaderShow = false;
             });
     },
