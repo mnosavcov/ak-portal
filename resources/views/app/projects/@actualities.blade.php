@@ -4,6 +4,12 @@
 <div x-show="projectShow === 'actualities'" x-cloak class="col-span-full"
      x-data="projectActuality"
      x-init="
+            lang.Vyplnte_text_aktuality = @js(__('Vyplňte text aktuality'));
+            lang.Chyba_vlozeni_otazky = @js(__('Chyba vložení otázky'));
+            lang.Chyba_potvrzeni_odpovedi = @js(__('Chyba potvrzení odpovědi'));
+            lang.Opravdu_si_prejete_editovat_obsah_aktuality = @js(__('Opravdu si přejete editovat obsah aktuality?'));
+            lang.Chyba_editace_obsahu = @js(__('Chyba editace obsahu'));
+
             formData.actuality.actuality_file_uuid[0] = @js($projectFileUUID);
             formData.actuality.projectId = @js($project->id);
             data.list = @js($project->getActualities());

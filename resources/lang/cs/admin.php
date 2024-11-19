@@ -1,5 +1,28 @@
 <?php
 
 return [
+    'Administratori' => 'Administrátoři',
+    'Advisori' => 'Advisoři',
+    'CEKA_NA_OPAKOVANE_OVERENI' => 'ČEKÁ NA OPAKOVANÉ OVĚŘENÍ',
+    'CEKA_NA_OVERENI' => 'ČEKÁ NA OVĚŘENÍ',
+    'Chyba' => 'Chyba',
+    'Chyba_smazani' => 'Chyba smazání',
+    'Chyba_ulozeni_kategorii' => 'Chyba uložení kategorií',
+    'Chyba_ulozeni_uzivatele' => 'Chyba uložení uživatele',
+    'Investori' => 'Investoři',
+    'Nabizejici' => 'Nabízející',
+    'Neovereni' => 'Neověření',
+    'NEZADANE_OSOBNI_UDAJE' => 'NEZADANÉ OSOBNÍ ÚDAJE',
+    'neznamy_stav' => 'neznámý stav',
+    'Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna' => 'Opravdu si přejete smazat projekt? Tato akce je nevratná',
+    'OVERENO' => 'OVĚŘENO',
     'Projekty' => 'Projekty',
+    'Realitni_makleri' => 'Realitní makléři',
+    'Smazani' => 'Smazaní',
+    'Smazani_je_nevratne_opravu_smazat' => 'Smazání je nevratné!!! opravu smazat?',
+    'Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie' => 'Subkategorie je přiřazena k projektu nebo projektům. Opravdu si přejete kategorii smazat? Projektům bude nastaveno jako by byly bez podkategorie.',
+    'Uzivatel_ma_aktivni_projekt' => 'Uživatel má aktivní projekt',
+    'Vsichni' => 'Všichni',
+    'Zabanovani' => 'Zabanovaní',
+    'ZAMITNUTO' => 'ZAMÍTNUTO',
 ];

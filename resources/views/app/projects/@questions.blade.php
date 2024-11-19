@@ -4,6 +4,14 @@
 <div x-show="projectShow === 'questions'" x-cloak class="col-span-full"
      x-data="projectQuestion"
      x-init="
+        lang.Vyplnte_text_otazky = @js(__('Vyplňte text otázky'));
+        lang.Chyba_vlozeni_otazky = @js(__('Chyba vložení otázky'));
+        lang.Vyplnte_text_odpovedi = @js(__('Vyplňte text odpovědi'));
+        lang.Chyba_vlozeni_odpovedi = @js(__('Chyba vložení odpovědi'));
+        lang.Chyba_potvrzeni_odpovedi = @js(__('Chyba potvrzení odpovědi'));
+        lang.Opravdu_si_prejete_editovat_obsah_otazky_nebo_odpovedi = @js(__('Opravdu si přejete editovat obsah otázky nebo odpovědi?'));
+        lang.Chyba_editace_obsahu = @js(__('Chyba editace obsahu'));
+
             formData.question.answer_file_uuid[0] = @js($projectFileUUID);
             formData.question.projectId = @js($project->id);
             data.list = @js($project->getQuestionsWithAnswers());

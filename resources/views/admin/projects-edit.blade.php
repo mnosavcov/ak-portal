@@ -23,6 +23,10 @@
 
             <form method="post" action="{{ route('admin.projects.save', ['project' => $project]) }}"
                   x-data="adminProjectEdit" enctype="multipart/form-data"
+                  x-init="
+                        lang['admin.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna'] = @js(__('admin.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna'));
+                        lang['admin.Chyba_smazani'] = @js(__('admin.Chyba_smazani'));
+                    "
                   @submit="
                     if(selectedCategory !== 'fixed-price') {
                         if(!document.getElementById('end_date').value) {

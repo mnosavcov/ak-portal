@@ -1,5 +1,8 @@
 <x-app-layout>
-    <div x-data="profile" x-init="data = @js($data)">
+    <div x-data="profile" x-init="
+        lang.Chyba_registrace = @js(__('Chyba registrace'));
+    data = @js($data)
+    ">
         <div class="w-full max-w-[1230px] mx-auto">
             <x-app.breadcrumbs :breadcrumbs="[
             $title => $route

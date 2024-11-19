@@ -1,5 +1,28 @@
 <?php
 
 return [
+    'Administratori' => '',
+    'Advisori' => '',
+    'CEKA_NA_OPAKOVANE_OVERENI' => '',
+    'CEKA_NA_OVERENI' => '',
+    'Chyba' => '',
+    'Chyba_smazani' => '',
+    'Chyba_ulozeni_kategorii' => '',
+    'Chyba_ulozeni_uzivatele' => '',
+    'Investori' => '',
+    'Nabizejici' => '',
+    'Neovereni' => '',
+    'NEZADANE_OSOBNI_UDAJE' => '',
+    'neznamy_stav' => '',
+    'Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna' => '',
+    'OVERENO' => '',
     'Projekty' => '',
+    'Realitni_makleri' => '',
+    'Smazani' => '',
+    'Smazani_je_nevratne_opravu_smazat' => '',
+    'Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie' => '',
+    'Uzivatel_ma_aktivni_projekt' => '',
+    'Vsichni' => '',
+    'Zabanovani' => '',
+    'ZAMITNUTO' => '',
 ];

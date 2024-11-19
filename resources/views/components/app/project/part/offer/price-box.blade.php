@@ -1,5 +1,8 @@
 <div x-data="auction"
-     x-init="$store.app.projectPublicated = @js($project->status === \App\Models\Project::STATUS_PUBLIC[0])"
+     x-init="
+        lang.Chyba_kontroly_aukce_provedte_prosim_rucni_obnovu_stranky = @js(__('Chyba kontroly aukce, proveďte prosím ruční obnovu stránky.'));
+     $store.app.projectPublicated = @js($project->status === \App\Models\Project::STATUS_PUBLIC[0])
+     "
 >
     <div class="w-full border-[3px] border-[#2872B5] rounded-[3px]
     mt-[20px] p-[20px_10px]

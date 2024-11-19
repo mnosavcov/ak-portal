@@ -1,6 +1,10 @@
 <x-admin-layout>
     <main class="flex-1 h-screen overflow-y-scroll overflow-x-hidden" x-data="adminCategory"
-          x-init="setData(@js($categories))">
+          x-init="
+          lang['admin.Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie'] = @js(__('admin.Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie'));
+          lang['admin.Chyba_ulozeni_kategorii'] = @js(__('admin.Chyba_ulozeni_kategorii'));
+          setData(@js($categories))
+          ">
         <div class="md:hidden justify-between items-center bg-black text-white flex">
             <h1 class="text-2xl font-bold px-4">{{ env('APP_NAME') }}</h1>
             <button @click="navOpen = !navOpen" class="btn p-4 focus:outline-none hover:bg-gray-800">

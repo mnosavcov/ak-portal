@@ -3,7 +3,29 @@
         window.changedAll = false;
     </script>
     <main class="flex-1 h-screen overflow-y-scroll overflow-x-auto" x-data="adminUser"
-          x-init="setData(@js($users));
+          x-init="
+            lang['admin.Vsichni'] = @js(__('admin.Vsichni'));
+            lang['admin.Neovereni'] = @js(__('admin.Neovereni'));
+            lang['admin.Investori'] = @js(__('admin.Investori'));
+            lang['admin.Nabizejici'] = @js(__('admin.Nabizejici'));
+            lang['admin.Realitni_makleri'] = @js(__('admin.Realitni_makleri'));
+            lang['admin.Administratori'] = @js(__('admin.Administratori'));
+            lang['admin.Advisori'] = @js(__('admin.Advisori'));
+            lang['admin.Zabanovani'] = @js(__('admin.Zabanovani'));
+            lang['admin.Smazani'] = @js(__('admin.Smazani'));
+            lang['admin.Uzivatel_ma_aktivni_projekt'] = @js(__('admin.Uzivatel_ma_aktivni_projekt'));
+            lang['admin.Smazani_je_nevratne_opravu_smazat'] = @js(__('admin.Smazani_je_nevratne_opravu_smazat'));
+            lang['admin.ZAMITNUTO'] = @js(__('admin.ZAMITNUTO'));
+            lang['admin.CEKA_NA_OVERENI'] = @js(__('admin.CEKA_NA_OVERENI'));
+            lang['admin.OVERENO'] = @js(__('admin.OVERENO'));
+            lang['admin.CEKA_NA_OPAKOVANE_OVERENI'] = @js(__('admin.CEKA_NA_OPAKOVANE_OVERENI'));
+            lang['admin.NEZADANE_OSOBNI_UDAJE'] = @js(__('admin.NEZADANE_OSOBNI_UDAJE'));
+            lang['admin.neznamy_stav'] = @js(__('admin.neznamy_stav'));
+            lang['admin.Chyba'] = @js(__('admin.Chyba'));
+            lang['admin.Chyba_ulozeni_uzivatele'] = @js(__('admin.Chyba_ulozeni_uzivatele'));
+            init();
+
+          setData(@js($users));
             window.onload = function() {
                 window.addEventListener('beforeunload', function (event) {
                     if(window.changedAll > 0) {

@@ -111,7 +111,12 @@
         &copy;{{ date('Y') }} <a href="{{ route('homepage') }}">{{ __('PVtrusted_cz') }}</a>
     </div>
 
-    <div x-data="ajaxForm">
+    <div x-data="ajaxForm"
+    x-init="
+        lang.Vyplnte_vsechna_povinna_pole = @js(__('Vyplňte všechna povinná pole'));
+        lang.Zprava_byla_uspesne_odeslana = @js(__('Zpráva byla úspěšně odeslána'));
+        lang.Chyba_odeslani_formulare = @js(__('Chyba odeslání formuláře'));
+        ">
         <x-modal name="contact-form" :hidenable="false">
             <div class="p-[40px_10px] tablet:p-[50px_40px]">
 
