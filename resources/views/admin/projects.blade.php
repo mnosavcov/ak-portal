@@ -40,9 +40,9 @@
                         @endif
                         <div>
                             <a href="{{ $project->url_detail }}"
-                               class="text-app-orange underline hover:no-underline">Náhled projektu</a>
+                               class="text-app-orange underline hover:no-underline">{{ __('admin.Náhled_projektu') }}</a>
                             <a href="{{ route('admin.projects.edit', ['project' => $project]) }}"
-                               class="text-app-orange underline hover:no-underline">Editace projektu</a>
+                               class="text-app-orange underline hover:no-underline">{{ __('admin.Editace_projektu') }}</a>
                         </div>
                     </div>
                 @endforeach

@@ -2,7 +2,7 @@
     @if(count($payments['empty']))
         <div class="rounded-[7px] bg-white shadow-[0_3px_6px_rgba(0,0,0,0.16)] p-[20px]">
             <div>
-                <h2 class="text-app-red">Bez přiřazení k projektu</h2>
+                <h2 class="text-app-red">{{ __('admin.Bez_přiřazení_k_projektu') }}</h2>
             </div>
 
             <table class="w-full text-sm text-left text-gray-500 mt-[25px]">
@@ -12,25 +12,25 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Datum platby
+                        {{ __('admin.Datum_platby') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
                         VS
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Částka
+                        {{ __('admin.Částka') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Měna
+                        {{ __('admin.Měna') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Protiúčet
+                        {{ __('admin.Protiúčet') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Identifikace protiúčtu
+                        {{ __('admin.Identifikace_protiúčtu') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Zpráva pro příjemce
+                        {{ __('admin.Zpráva_pro_příjemce') }}
                     </th>
                 </tr>
                 </thead>
@@ -78,7 +78,7 @@
                 <h2><a href="{{ $project->url_detail }}" target="project-{{$project->id}}">
                         ({{ $project->id }}) {{ $project->title }}</a>
                 </h2>
-                <h3 class="mt-[5px]">požadovaná výše jistoty {{ $project->minimum_principal_text }}</h3>
+                <h3 class="mt-[5px]">{{ __('admin.požadovaná_výše_jistoty') }} {{ $project->minimum_principal_text }}</h3>
             </div>
 
             <table class="w-full text-sm text-left text-gray-500 mt-[25px]">
@@ -88,28 +88,28 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Stav
+                        {{ __('admin.Stav') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Datum platby
+                        {{ __('admin.Datum_platby') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
                         VS
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Částka
+                        {{ __('admin.Částka') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Měna
+                        {{ __('admin.Měna') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Protiúčet
+                        {{ __('admin.Protiúčet') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Identifikace protiúčtu
+                        {{ __('admin.Identifikace_protiúčtu') }}
                     </th>
                     <th scope="col" class="px-6 py-4">
-                        Zpráva pro příjemce
+                        {{ __('admin.Zpráva_pro_příjemce') }}
                     </th>
                 </tr>
                 </thead>
@@ -141,27 +141,27 @@
                             {{ $paymentX->count === 1 ? $paymentX->id : '' }}
                         </td>
                         <td class="px-6 py-1">
-                            @if(\App\Models\ProjectShow::where('variable_symbol', $paymentX->vs)->first()->principal_paid)
+                            @if(\App\Models\ProjectShow::where('variable_symbol', $paymentX->vs)?->first()?->principal_paid)
                                 <div class="bg-app-green rounded-[3px] text-white text-center p-[5px]">
-                                    Zaplaceno
+                                    {{ __('admin.Zaplaceno') }}
                                 </div>
                             @else
                                 <div class="bg-app-orange rounded-[3px] text-white text-center p-[5px]">
-                                    Nezaplaceno
+                                    {{ __('admin.Nezaplaceno') }}
                                 </div>
                             @endif
 
                             @if(
-                                !\App\Models\ProjectShow::where('variable_symbol', $paymentX->vs)->first()->principal_paid
+                                !\App\Models\ProjectShow::where('variable_symbol', $paymentX->vs)?->first()?->principal_paid
                                 || $paymentX->castka != $project->minimum_principal
                             )
                                 @if($paymentX->castka > $project->minimum_principal)
                                     <div class="font-normal text-xs text-app-blue text-center p-[5px]">
-                                        Uhrazeno {{ number_format($paymentX->castka, 2, ',', ' ') }} Kč
+                                        {{ __('admin.Uhrazeno') }} {{ number_format($paymentX->castka, 2, ',', ' ') }} Kč
                                     </div>
                                 @elseif($paymentX->castka < $project->minimum_principal)
                                     <div class="font-normal text-xs text-app-red text-center p-[5px]">
-                                        Uhrazeno {{ number_format($paymentX->castka, 2, ',', ' ') }} Kč
+                                        {{ __('admin.Uhrazeno') }} {{ number_format($paymentX->castka, 2, ',', ' ') }} Kč
                                     </div>
                                 @endif
                             @endif

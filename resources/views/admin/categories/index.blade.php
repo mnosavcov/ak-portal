@@ -17,7 +17,7 @@
         </div>
         <section class="max-w-7xl mx-auto py-4 px-5">
             <div class="flex justify-between items-center border-b border-gray-300">
-                <h1 class="text-2xl font-semibold pt-2 pb-6">Kategorie</h1>
+                <h1 class="text-2xl font-semibold pt-2 pb-6">{{ __('admin.Kategorie') }}</h1>
             </div>
 
             <div class="grid gap-y-[50px] mt-[50px]">
@@ -100,7 +100,7 @@
                         </div>
                         <button type="button"
                                 class="font-Spartan-Regular text-app-blue text-[15px] mt-[25px]"
-                                @click="add('{{ $index }}')">přidat
+                                @click="add('{{ $index }}')">{{ __('admin.přidat') }}
                         </button>
                     </div>
                 @endforeach

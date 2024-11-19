@@ -229,7 +229,7 @@
 
             <div class="mt-[10px] pt-[25px]" x-data x-show="selectedCategory !== 'preliminary-interest'">
                 <x-input-label for="price"
-                               :value="__($project->type === 'fixed-price' ? 'Pevná cena' : 'Minimální cena k nabídnutí')"/>
+                               :value="__($project->type === 'fixed-price' ? __('admin.Pevná_cena') : __('admin.Minimální_cena_k_nabídnutí'))"/>
                 <x-text-input id="price" name="price" class="block mt-1 w-full" type="text"
                               value="{{ $project->price }}" x-mask:dynamic="$money($input, '.', ' ', 0)"/>
             </div>

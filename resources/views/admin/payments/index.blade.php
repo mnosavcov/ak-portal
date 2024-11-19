@@ -12,8 +12,8 @@
         </div>
         <section class="mx-auto py-4 px-5">
             <div class="flex justify-between items-center border-b border-gray-300">
-                <h1 class="text-2xl font-semibold pt-2 pb-6">Platby</h1>
-                <a href="{{ route('admin.payments.fio-check') }}" class="float-right text-app-blue underline hover:no-underline">zkontrolovat platby FIO</a>
+                <h1 class="text-2xl font-semibold pt-2 pb-6">{{ __('admin.Platby') }}</h1>
+                <a href="{{ route('admin.payments.fio-check') }}" class="float-right text-app-blue underline hover:no-underline">{{ __('admin.zkontrolovat_platby_FIO') }}</a>
             </div>
 
             @include('admin.payments.@list-payments')

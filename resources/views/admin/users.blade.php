@@ -48,13 +48,13 @@
         </div>
         <section class="mx-auto py-4">
             <div class="flex justify-between items-center border-b border-gray-300 mb-[25px]">
-                <h1 class="text-2xl font-semibold pt-2 pb-6">Uživatelé</h1>
+                <h1 class="text-2xl font-semibold pt-2 pb-6">{{ __('admin.Uživatelé') }}</h1>
                 <a href="{{ route('admin.new-advisor') }}"
                    x-cloak x-show="actualTab === 'advisor'" target="_blank"
                    class="bg-[#d8d8d8] text-white p-[10px_15px] rounded-[3px] relative text-[15px] font-Spartan-SemiBold bg-app-red"
                    @click=""
                 >
-                    Přidat advisora
+                    {{ __('admin.Přidat_advisora') }}
                 </a>
                 @if(auth()->user()->isOwner())
                     <a href="{{ route('admin.new-admin') }}"
@@ -62,7 +62,7 @@
                        class="bg-[#d8d8d8] text-white p-[10px_15px] rounded-[3px] relative text-[15px] font-Spartan-SemiBold bg-app-red"
                        @click=""
                     >
-                        Přidat administrátora
+                        {{ __('admin.Přidat_administrátora') }}
                     </a>
                 @endif
             </div>
@@ -89,30 +89,30 @@
                     <tr class="font-Spartan-SemiBold text-[15px] text-left">
                         <th class="pr-[10px]">ID</th>
                         <th class="min-w-[400px] text-app-blue ">
-                            Poznámka ke kontaktu (interní informace, není vidět veřejně)
+                            {{ __('admin.Poznámka_ke_kontaktu_(interní_informace,_není_vidět_veřejně)') }}
                         </th>
-                        <th class="min-w-[400px] text-app-red" x-show="indexTab === 'banned'">Důvod</th>
-                        <th class="min-w-[200px]">E-mail</th>
-                        <th class="whitespace-nowrap">E-mail</th>
-                        <th class="whitespace-nowrap" x-show="indexTab === 'deleted'">Smazáno</th>
-                        <th class="whitespace-nowrap">Osobní údaje</th>
-                        <th class="whitespace-nowrap">Investor</th>
-                        <th class="whitespace-nowrap">Nabízející</th>
-                        <th class="whitespace-nowrap">Makléř</th>
-                        <th class="min-w-[100px]">Titul(y) před</th>
-                        <th class="min-w-[200px]">Jméno</th>
-                        <th class="min-w-[200px]">Příjmení</th>
-                        <th class="min-w-[100px]">Titul(y) za</th>
-                        <th class="min-w-[200px]">Ulice</th>
-                        <th class="min-w-[100px]">ČP</th>
-                        <th class="min-w-[200px]">Obec</th>
-                        <th class="min-w-[100px]">PSČ</th>
-                        <th class="min-w-[250px]">Občanství</th>
-                        <th class="min-w-[200px]">Telefon</th>
-                        <th class="min-w-[400px]">Informace o investorovi</th>
-                        <th class="min-w-[400px]">Účel investor</th>
-                        <th class="min-w-[400px]">Účel zadavatel</th>
-                        <th class="min-w-[400px]">Účel makléř</th>
+                        <th class="min-w-[400px] text-app-red" x-show="indexTab === 'banned'">{{ __('admin.Důvod') }}</th>
+                        <th class="min-w-[200px]">{{ __('admin.E-mail') }}</th>
+                        <th class="whitespace-nowrap">{{ __('admin.E-mail') }}</th>
+                        <th class="whitespace-nowrap" x-show="indexTab === 'deleted'">{{ __('admin.Smazáno') }}</th>
+                        <th class="whitespace-nowrap">{{ __('admin.Osobní_údaje') }}</th>
+                        <th class="whitespace-nowrap">{{ __('admin.Investor') }}</th>
+                        <th class="whitespace-nowrap">{{ __('admin.Nabízející') }}</th>
+                        <th class="whitespace-nowrap">{{ __('admin.Makléř') }}</th>
+                        <th class="min-w-[100px]">{{ __('admin.Titul(y)_před') }}</th>
+                        <th class="min-w-[200px]">{{ __('admin.Jméno') }}</th>
+                        <th class="min-w-[200px]">{{ __('admin.Příjmení') }}</th>
+                        <th class="min-w-[100px]">{{ __('admin.Titul(y)_za') }}</th>
+                        <th class="min-w-[200px]">{{ __('admin.Ulice') }}</th>
+                        <th class="min-w-[100px]">{{ __('admin.ČP') }}</th>
+                        <th class="min-w-[200px]">{{ __('admin.Obec') }}</th>
+                        <th class="min-w-[100px]">{{ __('admin.PSČ') }}</th>
+                        <th class="min-w-[250px]">{{ __('admin.Občanství') }}</th>
+                        <th class="min-w-[200px]">{{ __('admin.Telefon') }}</th>
+                        <th class="min-w-[400px]">{{ __('admin.Informace_o_investorovi') }}</th>
+                        <th class="min-w-[400px]">{{ __('admin.Účel_investor') }}</th>
+                        <th class="min-w-[400px]">{{ __('admin.Účel_zadavatel') }}</th>
+                        <th class="min-w-[400px]">{{ __('admin.Účel_makléř') }}</th>
                         <th class="whitespace-nowrap"></th>
                     </tr>
 
@@ -337,7 +337,7 @@
                     class="mt-[15px] text-center max-tablet:w-full leading-[60px] tablet:px-[100px] font-Spartan-Bold text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block disabled:grayscale"
                     :disabled="!isChangedTab('ultimate')"
             >
-                Uložit
+                {{ __('admin.Uložit') }}
             </button>
         </section>
 
@@ -385,7 +385,7 @@
                 class="mt-[15px] cursor-pointer text-center font-Spartan-Bold text-[18px] text-white h-[60px] leading-[60px] w-full max-w-[350px] bg-app-green rounded-[3px] disabled:grayscale"
                 :disabled="!banInfo.trim().length"
             >
-                Nastavit ban
+                {{ __('admin.Nastavit_ban') }}
             </button>
             <br>
 
@@ -397,7 +397,7 @@
                     "
                 class="mt-[13px] cursor-pointer text-center font-Spartan-Regular text-[15px] text-app-red"
             >
-                Zrušit ban
+                {{ __('admin.Zrušit_ban') }}
             </button>
         </div>
     </x-modal>

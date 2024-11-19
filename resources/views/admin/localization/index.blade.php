@@ -188,14 +188,14 @@
             <div class="flex flex-row items-center">
                 <div class="flex flex-row gap-x-6">
                     <h1 class="text-2xl font-semibold pt-2 pb-6">
-                        Lokalizace&nbsp;<i class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
+                        {{ __('admin.Lokalizace') }}&nbsp;<i class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
                                            @click="setSelectedLanguage('__info__')"></i>
                     </h1>
 
                     <template
                         x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
                         <div class="flex items-start pt-4">
-                            <label>z&nbsp;jazyka</label>
+                            <label>{!! __('admin.z&nbsp;jazyka') !!}</label>
                             <select @input="setFromLng($el.value)" class="float-right ml-[5px] py-[3px]"
                                     x-model="fromLanguage">
                                 <option value="__default__">---</option>
@@ -214,7 +214,7 @@
                             x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
                             <select @input="setTestLng($el.value)" class="float-right ml-[5px] py-[3px]"
                                     x-model="testLanguage">
-                                <option value="__default__" x-text="'[výchozí jazyk] ' + defaultLanguage"></option>
+                                <option value="__default__" x-text="'[' + @js(__('admin.výchozí_jazyk')) + '] ' + defaultLanguage"></option>
 
                                 <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
                                     <option :value="lngIndex" x-text="lngVal.title"
@@ -228,14 +228,14 @@
                                     class="bg-transparent border-gray-500 border-[2px] shadow rounded-[4px] py-0.5 px-1"
                                     :class="{'!bg-red-700 !text-white !border-red-700': isTest}"
                             >
-                                Testovací režim
+                                {{ __('admin.Testovací_režim') }}
                             </button>
                         </div>
 
                         @if(env('LANG_ADMIN_READONLY', true))
                             <div
                                 class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
-                                READONLY
+                                {{ __('admin.READONLY') }}
                             </div>
                         @endif
                     </div>
@@ -249,7 +249,7 @@
                         @if(env('LANG_ADMIN_READONLY', true))
                             <div
                                 class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
-                                READONLY
+                                {{ __('admin.READONLY') }}
                             </div>
                         @endif
                     </div>

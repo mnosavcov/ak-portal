@@ -52,12 +52,12 @@ class AdminController extends Controller
                 'projects' => $projects,
                 'statuses' => Project::getSTATUSES(),
                 'user_account_type' => [
-                    'advertiser' => 'Nabízející',
-                    'real-estate-broker' => 'Realitní makléř',
+                    'advertiser' => __('Nabízející'),
+                    'real-estate-broker' => __('Realitní makléř'),
                 ],
                 'type' => [
-                    'fixed-price' => 'Nabízející',
-                    'offer-the-price' => 'Realitní makléř',
+                    'fixed-price' => __('Nabízející'),
+                    'offer-the-price' => __('Realitní makléř'),
                 ],
             ]
         );
@@ -642,7 +642,7 @@ class AdminController extends Controller
                     if (!Project::where('subcategory_id', $subcategory['id'])->count()) {
                         Category::find($subcategory['id'])->delete();
                     } else {
-                        $message[] = 'Subkategorie "' . Category::find($subcategory['id'])->first()->subcategory . '" je přiřazená k projektu';
+                        $message[] = __('admin.Subkategorie') . ' "' . Category::find($subcategory['id'])->first()->subcategory . '" ' . __('admin.je_přiřazená_k_projektu');
                     }
                 } elseif (($subcategory['status'] ?? null) === 'NEW') {
                     Category::create($subcategory);
