@@ -31,11 +31,12 @@ class LocalizationController extends Controller
         );
     }
 
-    public function load(LocalizationService $localizationService, $lng): JsonResponse
+    public function load(LocalizationService $localizationService, $lng, int $meta = 0): JsonResponse
     {
         return response()->json([
             'status' => 'success',
             'translates' => $localizationService->load($lng),
+            'meta' => $localizationService->loadMeta((bool)$meta)
         ]);
     }
 

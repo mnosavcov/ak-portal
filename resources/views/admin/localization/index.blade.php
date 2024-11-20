@@ -21,6 +21,8 @@
                 defaultLanguage: @js($default_language),
                 testLanguage: @js($test_language),
                 fromLanguage: @js($from_language),
+                metaDataLoad: true,
+                languagesMeta: {},
                 setSelectedLanguage(language) {
                     this.selectedLanguage = language;
                     localStorage.setItem('admin.language.selected', language);
@@ -49,7 +51,9 @@
 
                     Alpine.store('app').appLoaderShow = true;
 
-                    await fetch('/admin/localization/load/' + loadLanguage, {
+                    let meta = this.metaDataLoad;
+                    this.metaDataLoad = false;
+                    await fetch('/admin/localization/load/' + loadLanguage + '/' + (meta ? 1 : 0), {
                                 method: 'GET',
                                 headers: {
                                     'Content-type': 'application/json; charset=UTF-8',
@@ -61,6 +65,10 @@
                                         this.translateData[loadLanguage] = data.translates;
                                         this.translateOriginData[loadLanguage] = JSON.parse(JSON.stringify(data.translates));
                                         Alpine.store('app').appLoaderShow = false;
+
+                                        if(data.meta) {
+                                            this.languagesMeta = data.meta;
+                                        }
                                         return;
                                     }
 
@@ -185,7 +193,7 @@
                  loadData(fromLanguage)
                  loadData()
             ">
-            <div class="sticky top-0 pt-4 bg-gray-100">
+            <div class="sticky top-0 pt-4 bg-gray-100 z-50">
                 <div class="flex flex-row items-center">
                     <div class="flex flex-row gap-x-6">
                         <h1 class="text-2xl font-semibold pt-2 pb-6">
@@ -282,7 +290,7 @@
                 <a href="https://github.com/amiranagram/localizator" class="text-blue-400" target="_blank">https://github.com/amiranagram/localizator</a>
                 <br>
                 <br>
-                <pre>php artisan localize &lt;lng&gt; --remove-missing</pre>
+                <pre>php artisan localize-x &lt;lng&gt; --remove-missing</pre>
                 <br>
                 <div>
                     pro možnost debugování překladů je potřeba nastavit v .env<br>
@@ -353,10 +361,10 @@
                                                         }
                                                      "
                                                 @endif
-                                            >
-                                                <div x-text="translateIndex"
-                                                     class="inline-block"
-                                                     :class="{
+                                                >
+                                                <div
+                                                    class="block relative w-auto z-0"
+                                                    :class="{
                                                         'bg-red-600 px-1 text-white rounded-[3px]': (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').trim() === '',
                                                         'opacity-30': (translateData[fromLanguage] ?
                                                                         (translateData[fromLanguage][selectedLanguageSub[languageIndex]] ?
@@ -366,6 +374,27 @@
                                                                         ) : ''
                                                                     ).trim().length > 0 && fromLanguage !== '__default__' && fromLanguage !== languageIndex
                                                      }">
+                                                    <span x-text="translateIndex" class="break-all"></span>
+                                                    <span
+                                                        class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer group absolute top-[5px] right-[5px]">
+                                                            <div
+                                                                class="leading-5 z-50 max-w-[500px] w-[100vw] cursor-default text-[13px] font-Spartan-Light text-gray-800 hidden group-hover:inline-block absolute top-[5px] right-[10px] bg-white p-2 border border-dashed border-app-red rounded-[5px]"
+                                                            >
+                                                                <div
+                                                                    x-text="(selectedLanguageSub[languageIndex] !== '__default__' ? selectedLanguageSub[languageIndex] + '.' : '') + translateIndex"
+                                                                    class="break-all font-Spartan-SemiBold leading-5"></div>
+                                                                <div
+                                                                    class="my-1 mb-2 border-b border-gray-500 border-dashed"></div>
+                                                                <template
+                                                                    x-for="(metaData, metaIndex) in languagesMeta[(selectedLanguageSub[languageIndex] !== '__default__' ? selectedLanguageSub[languageIndex] + '.' : '') + translateIndex]">
+                                                                    <div>
+                                                                    <span x-text="metaData.path" class="font-Spartan-Bold"></span>
+                                                                    <span class="text-gray-500">line:</span>
+                                                                    <span x-text="metaData.line" class="font-Spartan-SemiBold"></span>
+                                                                        </div>
+                                                                </template>
+                                                        </div>
+                                                        </span>
                                                 </div>
 
                                                 <template

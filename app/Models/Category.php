@@ -28,26 +28,26 @@ class Category extends Model
         return [
             'auction' => [
                 'id' => 'auction',
-                'title' => 'kategorie.Auction-Title',
-                'description' => 'kategorie.Auction-Description',
+                'title' => __('kategorie.Auction-Title'),
+                'description' => __('kategorie.Auction-Description'),
                 'url' => 'aukce',
             ],
             'fixed-price' => [
                 'id' => 'fixed-price',
-                'title' => 'kategorie.FixedPrice-Title',
-                'description' => 'kategorie.FixedPrice-Description',
+                'title' => __('kategorie.FixedPrice-Title'),
+                'description' => __('kategorie.FixedPrice-Description'),
                 'url' => 'cenu-navrhuje-nabizejici',
             ],
             'offer-the-price' => [
                 'id' => 'offer-the-price',
-                'title' => 'kategorie.OfferThePrice-Title',
-                'description' => 'kategorie.OfferThePrice-Description',
+                'title' => __('kategorie.OfferThePrice-Title'),
+                'description' => __('kategorie.OfferThePrice-Description'),
                 'url' => 'cenu-navrhuje-investor',
             ],
             'preliminary-interest' => [
                 'id' => 'preliminary-interest',
-                'title' => 'kategorie.PreliminaryInterest-Title',
-                'description' => 'kategorie.PreliminaryInterest-Description',
+                'title' => __('kategorie.PreliminaryInterest-Title'),
+                'description' => __('kategorie.PreliminaryInterest-Description'),
                 'url' => 'projev-predbezneho-zajmu',
             ],
         ];
