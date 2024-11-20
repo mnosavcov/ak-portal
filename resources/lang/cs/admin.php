@@ -81,6 +81,6 @@ return [
     'Účel_investor' => 'Účel investor',
     'Účel_makléř' => 'Účel makléř',
     'Účel_zadavatel' => 'Účel zadavatel',
-    'ČP' => '',
+    'ČP' => 'ČP',
     'Částka' => 'Částka',
 ];

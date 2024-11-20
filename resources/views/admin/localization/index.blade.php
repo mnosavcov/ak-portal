@@ -11,7 +11,7 @@
             </button>
         </div>
 
-        <section class="mx-auto py-4 px-0" x-data="{
+        <section class="mx-auto pb-4 px-0" x-data="{
                 selectedLanguage: localStorage.getItem('admin.language.selected') || '__info__',
                 selectedLanguageSub: {},
                 translateOriginData: [],
@@ -185,91 +185,96 @@
                  loadData(fromLanguage)
                  loadData()
             ">
-            <div class="flex flex-row items-center">
-                <div class="flex flex-row gap-x-6">
-                    <h1 class="text-2xl font-semibold pt-2 pb-6">
-                        {{ __('admin.Lokalizace') }}&nbsp;<i class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
-                                           @click="setSelectedLanguage('__info__')"></i>
-                    </h1>
+            <div class="sticky top-0 pt-4 bg-gray-100">
+                <div class="flex flex-row items-center">
+                    <div class="flex flex-row gap-x-6">
+                        <h1 class="text-2xl font-semibold pt-2 pb-6">
+                            {{ __('admin.Lokalizace') }}&nbsp;<i
+                                class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
+                                @click="setSelectedLanguage('__info__')"></i>
+                        </h1>
 
-                    <template
-                        x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
-                        <div class="flex items-start pt-4">
-                            <label>{!! __('admin.z&nbsp;jazyka') !!}</label>
-                            <select @input="setFromLng($el.value)" class="float-right ml-[5px] py-[3px]"
-                                    x-model="fromLanguage">
-                                <option value="__default__">---</option>
+                        <template
+                            x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
+                            <div class="flex items-start pt-4">
+                                <label>{!! __('admin.z&nbsp;jazyka') !!}</label>
+                                <select @input="setFromLng($el.value)" class="float-right ml-[5px] py-[3px]"
+                                        x-model="fromLanguage">
+                                    <option value="__default__">---</option>
 
-                                <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
-                                    <option :value="lngIndex" x-text="lngVal.title"
-                                            :selected="fromLanguage === lngIndex"></option>
-                                </template>
-                            </select>
+                                    <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
+                                        <option :value="lngIndex" x-text="lngVal.title"
+                                                :selected="fromLanguage === lngIndex"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </template>
+                    </div>
+                    <template x-if="@js(env('LANG_DEBUG'))">
+                        <div class="w-full">
+                            <template
+                                x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
+                                <select @input="setTestLng($el.value)" class="float-right ml-[5px] py-[3px]"
+                                        x-model="testLanguage">
+                                    <option value="__default__"
+                                            x-text="'[' + @js(__('admin.výchozí_jazyk')) + '] ' + defaultLanguage"></option>
+
+                                    <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
+                                        <option :value="lngIndex" x-text="lngVal.title"
+                                                :selected="testLanguage === lngIndex"></option>
+                                    </template>
+                                </select>
+                            </template>
+
+                            <div class="float-right ml-[5px]">
+                                <button @click="setTest()"
+                                        class="bg-transparent border-gray-500 border-[2px] shadow rounded-[4px] py-0.5 px-1"
+                                        :class="{'!bg-red-700 !text-white !border-red-700': isTest}"
+                                >
+                                    {{ __('admin.Testovací_režim') }}
+                                </button>
+                            </div>
+
+                            @if(env('LANG_ADMIN_READONLY', true))
+                                <div
+                                    class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
+                                    {{ __('admin.READONLY') }}
+                                </div>
+                            @endif
+                        </div>
+                    </template>
+                    <template x-if="@js(!env('LANG_DEBUG'))">
+                        <div class="w-full">
+                            <div x-text="'jazyk webu `' + defaultLanguage + '`'" class="float-right ml-[5px]"
+                                 x-show="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title"
+                                 x-cloak></div>
+
+                            @if(env('LANG_ADMIN_READONLY', true))
+                                <div
+                                    class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
+                                    {{ __('admin.READONLY') }}
+                                </div>
+                            @endif
                         </div>
                     </template>
                 </div>
-                <template x-if="@js(env('LANG_DEBUG'))">
-                    <div class="w-full">
-                        <template
-                            x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
-                            <select @input="setTestLng($el.value)" class="float-right ml-[5px] py-[3px]"
-                                    x-model="testLanguage">
-                                <option value="__default__" x-text="'[' + @js(__('admin.výchozí_jazyk')) + '] ' + defaultLanguage"></option>
 
-                                <template x-for="(lngVal, lngIndex) in languages" :key="lngIndex">
-                                    <option :value="lngIndex" x-text="lngVal.title"
-                                            :selected="testLanguage === lngIndex"></option>
-                                </template>
-                            </select>
-                        </template>
 
-                        <div class="float-right ml-[5px]">
-                            <button @click="setTest()"
-                                    class="bg-transparent border-gray-500 border-[2px] shadow rounded-[4px] py-0.5 px-1"
-                                    :class="{'!bg-red-700 !text-white !border-red-700': isTest}"
-                            >
-                                {{ __('admin.Testovací_režim') }}
-                            </button>
-                        </div>
-
-                        @if(env('LANG_ADMIN_READONLY', true))
-                            <div
-                                class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
-                                {{ __('admin.READONLY') }}
-                            </div>
-                        @endif
-                    </div>
-                </template>
-                <template x-if="@js(!env('LANG_DEBUG'))">
-                    <div class="w-full">
-                        <div x-text="'jazyk webu `' + defaultLanguage + '`'" class="float-right ml-[5px]"
-                             x-show="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title"
-                             x-cloak></div>
-
-                        @if(env('LANG_ADMIN_READONLY', true))
-                            <div
-                                class="inline-block rounded-[4px] py-0.5 px-2 bg-red-700 text-white float-right shadow border-[2px] border-red-700">
-                                {{ __('admin.READONLY') }}
-                            </div>
-                        @endif
-                    </div>
-                </template>
-            </div>
-
-            <div class="flex flex-row">
-                <div class="border border-transparent border-b-gray-900 shadow w-[5px]">&nbsp;</div>
-                <template x-for="(language, languageIndex) in languages" :key="languageIndex">
-                    <div @click="setSelectedLanguage(languageIndex)"
-                         x-init="selectedLanguageSub[languageIndex] = localStorage.getItem('admin.language.' + languageIndex + '.sub.selected') || '__default__'"
-                         class="min-w-[75px] cursor-pointer border border-gray-700 p-2 rounded-tl rounded-tr"
-                         :class="{
+                <div class="flex flex-row">
+                    <div class="border border-transparent border-b-gray-900 shadow w-[5px]">&nbsp;</div>
+                    <template x-for="(language, languageIndex) in languages" :key="languageIndex">
+                        <div @click="setSelectedLanguage(languageIndex)"
+                             x-init="selectedLanguageSub[languageIndex] = localStorage.getItem('admin.language.' + languageIndex + '.sub.selected') || '__default__'"
+                             class="min-w-[75px] cursor-pointer border border-gray-700 p-2 rounded-tl rounded-tr"
+                             :class="{
                                 '!border-b-transparent !bg-gray-500 !text-white': selectedLanguage === languageIndex,
                                 '!shadow': selectedLanguage !== languageIndex,
                             }">
-                        <div x-text="language.title"></div>
-                    </div>
-                </template>
-                <div class="border border-transparent border-b-gray-900 w-full shadow">&nbsp;</div>
+                            <div x-text="language.title"></div>
+                        </div>
+                    </template>
+                    <div class="border border-transparent border-b-gray-900 w-full shadow">&nbsp;</div>
+                </div>
             </div>
 
             <div x-cloak x-show="selectedLanguage === '__info__'">
@@ -378,7 +383,7 @@
 
                                                 <div>
                                                     <div
-                                                        x-html="(translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '')"
+                                                        x-html="(translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? '').replace(/&amp;nbsp;/g, '&amp;amp;nbsp;')"
                                                         class="text-blue-700 w-full"
                                                         x-show="selectedTranslate !== translateIndex" x-cloak
                                                     ></div>
@@ -390,7 +395,7 @@
                                                                 saveAction: false,
                                                                 translateDataInputX: (translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] ?? ''),
                                                                 replaceHtml() {
-                                                                    return (this.translateDataInputX ?? '').replace(/(:\w+)\b/g, '<span contenteditable=false class=\'bg-gray-400 rounded py-0.5\'>&nbsp;$1&nbsp;</span>');
+                                                                    return (this.translateDataInputX ?? '').replace(/&amp;nbsp;/g, '&amp;amp;nbsp;').replace(/(:\w+)\b/g, '<span contenteditable=false class=\'bg-gray-400 rounded py-0.5\'>&nbsp;$1&nbsp;</span>');
                                                                 },
                                                                 setValue(value) {
                                                                     translateData[languageIndex][selectedLanguageSub[languageIndex]][translateIndex] = value.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').replace(/ ,/g, ',').replace(/ \./g, '.');

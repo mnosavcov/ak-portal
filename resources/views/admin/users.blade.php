@@ -368,7 +368,7 @@
             <template x-if="typeof inputData.user !== 'undefined'">
                 <div>
                     <div class="text-left">
-                        <x-input-label for="ban_info" :value="__('Důvod:')"/>
+                        <x-input-label for="ban_info" :value="__('Důvod') . ':'"/>
                         <x-textarea-input id="ban_info" class="block mt-1 w-full" type="text" name="ban_info"
                                           x-model="banInfo"
                         />
