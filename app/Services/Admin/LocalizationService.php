@@ -50,7 +50,7 @@ class LocalizationService extends Controller
             $lng = explode('.', $file->getFilename())[0];
             $languages[$lng] = [
                 'title' => $lng,
-                'sub' => ['__default__' => ['title' => __('localization.Basic')]]
+                'category' => ['__default__' => ['title' => __('localization.Basic')]]
             ];
 
             if (!File::isDirectory(resource_path('lang/' . $lng))) {
@@ -64,7 +64,7 @@ class LocalizationService extends Controller
 
             foreach ($jsonSubFiles as $subFile) {
                 $subtitle = explode('.', $subFile->getFilename())[0];
-                $languages[$lng]['sub'][$subtitle] = ['title' => __('localization.' . $subtitle)];
+                $languages[$lng]['category'][$subtitle] = ['title' => __('localization.' . $subtitle)];
             }
         }
 
@@ -250,7 +250,7 @@ class LocalizationService extends Controller
                 $localizationData = require $filenameNew;
             }
 
-            foreach ($items['sub'] as $title => $item) {
+            foreach ($items['category'] as $title => $item) {
                 if ($title === 'localizationX') {
                     continue;
                 }

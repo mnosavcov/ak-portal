@@ -111,7 +111,6 @@
                     <div class="border border-transparent border-b-gray-900 shadow w-[5px]">&nbsp;</div>
                     <template x-for="(languageValue, languageIndex) in languages" :key="languageIndex">
                         <div @click="selectLanguage(languageIndex)"
-                             x-init="initSelectedLanguageCategory(languageIndex)"
                              class="min-w-[75px] cursor-pointer border border-gray-700 p-2 rounded-tl rounded-tr"
                              :class="{
                                 '!border-b-transparent !bg-gray-500 !text-white': isSelectedLanguage(languageIndex),

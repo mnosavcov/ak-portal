@@ -214,28 +214,6 @@ Route::middleware('auth')->group(function () {
                         Route::post('/set/from-lng/{lng}', [LocalizationController::class, 'setFromLng'])->name('set.from-lng');
                     });
                 });
-
-                Route::prefix('localization-old')->group(function () {
-                    Route::name('localization-old.')->group(function () {
-                        Route::get('/', function (\App\Services\Admin\LocalizationService $localizationService)
-                        {
-                            $defaultConfig = include config_path('app.php');
-                            $defaultLocale = $defaultConfig['locale'];
-
-                            $languages = $localizationService->getLanguages();
-                            return view(
-                                'admin.localization-old.index',
-                                [
-                                    'languages' => $languages,
-                                    'is_test' => \Illuminate\Support\Facades\File::isFile(resource_path('lang/.test')),
-                                    'default_language' => $defaultLocale,
-                                    'test_language' => $localizationService->getTestLng(),
-                                    'from_language' => $localizationService->getFromLng(),
-                                ]
-                            );
-                        })->name('index-old');
-                    });
-                });
             });
         });
     });
