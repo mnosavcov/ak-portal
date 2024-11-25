@@ -26,6 +26,7 @@ import './app/project-actuality.js';
 import './app/admin-project-edit.js';
 import './app/admin-category.js';
 import './app/admin-user.js';
+import './app/admin-localization.js';
 import './app/verify-user-account.js';
 import './app/ajax-form.js';
 import './app/scroller.js';

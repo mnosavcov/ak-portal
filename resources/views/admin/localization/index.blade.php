@@ -11,209 +11,19 @@
             </button>
         </div>
 
-        <section class="mx-auto pb-4 px-0" x-data="{
-                localizationTab: localStorage.getItem('admin.language.tab') || 'general',
-                selectedLanguage: localStorage.getItem('admin.language.selected') || '__info__',
-                selectedLanguageSub: {
-                    general: {},
-                    'email-basic': {},
-                    'long-text': {},
-                },
-                translateOriginData: [],
-                translateData: [],
-                languages: @js($languages),
-                isTest: @js($is_test),
-                defaultLanguage: @js($default_language),
-                testLanguage: @js($test_language),
-                fromLanguage: @js($from_language),
-                metaDataLoad: true,
-                languagesMeta: {},
-                setLocalizationTab(tab, language) {
-                    this.selectedLanguageSub[this.localizationTab][language] = this.selectedLanguageSub[this.localizationTab][this.selectedLanguage] || '__default__'
-                    this.localizationTab = tab;
-                    localStorage.setItem('admin.language.tab', tab);
-                },
-                setSelectedLanguage(language) {
-                    this.selectedLanguage = language;
-                    localStorage.setItem('admin.language.selected', language);
-                    this.loadData();
-                },
-                setSelectedSubLanguage(language, subLanguage) {
-                    this.selectedLanguageSub[this.localizationTab][language] = subLanguage;
-                    localStorage.setItem('admin.language.' + this.localizationTab + '.' + language + '.sub.selected', subLanguage)
-                },
-                async loadData(loadLanguage = null) {
-                    if (this.selectedLanguage === '__info__' && loadLanguage === null) {
-                        return;
-                    }
-
-                    if(loadLanguage === null) {
-                        loadLanguage = this.selectedLanguage;
-                    }
-
-                    if(loadLanguage === '__default__') {
-                        return;
-                    }
-
-                    if (this.translateData[loadLanguage]) {
-                        return;
-                    }
-
-                    Alpine.store('app').appLoaderShow = true;
-
-                    let meta = this.metaDataLoad;
-                    this.metaDataLoad = false;
-                    await fetch('/admin/localization/load/' + loadLanguage + '/' + (meta ? 1 : 0), {
-                                method: 'GET',
-                                headers: {
-                                    'Content-type': 'application/json; charset=UTF-8',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-                                },
-                            }).then((response) => response.json())
-                                .then((data) => {
-                                    if(data.status === 'success') {
-                                        this.translateData[loadLanguage] = data.translates;
-                                        this.translateOriginData[loadLanguage] = JSON.parse(JSON.stringify(data.translates));
-                                        Alpine.store('app').appLoaderShow = false;
-
-                                        if(data.meta) {
-                                            this.languagesMeta = data.meta;
-                                        }
-                                        return;
-                                    }
-
-                                    alert('Chyba načtení jazykového souboru')
-                                    Alpine.store('app').appLoaderShow = false;
-                                })
-                                .catch((error) => {
-                                    alert('Chyba načtení jazykového souboru')
-                                    Alpine.store('app').appLoaderShow = false;
-                                });
-                },
-                async saveData(index, translate, tab) {
-                    Alpine.store('app').appLoaderShow = true;
-
-                    await fetch('/admin/localization/save/' +
-                                    this.selectedLanguage + '/' +
-                                    this.selectedLanguageSub[tab][this.selectedLanguage], {
-                                method: 'POST',
-                                body: JSON.stringify({
-                                        index: index,
-                                        translate: translate
-                                    }),
-                                headers: {
-                                    'Content-type': 'application/json; charset=UTF-8',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-                                },
-                            }).then((response) => response.json())
-                                .then((data) => {
-                                    if(data.status === 'success') {
-                                        this.translateData[this.selectedLanguage] = data.translates;
-                                        this.translateOriginData[this.selectedLanguage] = JSON.parse(JSON.stringify(data.translates));
-                                        Alpine.store('app').appLoaderShow = false;
-                                        return;
-                                    }
-
-                                    alert('Chyba uložení překladu')
-                                    Alpine.store('app').appLoaderShow = false;
-                                })
-                                .catch((error) => {
-                                    alert('Chyba uložení překladu')
-                                    Alpine.store('app').appLoaderShow = false;
-                                });
-                },
-                async setTest() {
-                    Alpine.store('app').appLoaderShow = true;
-
-                    await fetch('/admin/localization/set/test/' + (this.isTest ? 0 : 1), {
-                                method: 'POST',
-                                headers: {
-                                    'Content-type': 'application/json; charset=UTF-8',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-                                },
-                            }).then((response) => response.json())
-                                .then((data) => {
-                                    if(data.status === 'success') {
-                                        this.isTest = data.is_test;
-                                        Alpine.store('app').appLoaderShow = false;
-                                        return;
-                                    }
-
-                                    alert('Chyba nastavení testovacího režimu')
-                                    Alpine.store('app').appLoaderShow = false;
-                                })
-                                .catch((error) => {
-                                    alert('Chyba nastavení testovacího režimu')
-                                    Alpine.store('app').appLoaderShow = false;
-                                });
-                },
-                async setTestLng(lng) {
-                    Alpine.store('app').appLoaderShow = true;
-
-                    await fetch('/admin/localization/set/test-lng/' + lng, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-type': 'application/json; charset=UTF-8',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-                                },
-                            }).then((response) => response.json())
-                                .then((data) => {
-                                    if(data.status === 'success') {
-                                        this.testLanguage = data.test_language;
-                                        Alpine.store('app').appLoaderShow = false;
-                                        return;
-                                    }
-
-                                    alert('Chyba nastavení testovacího jazyka')
-                                    Alpine.store('app').appLoaderShow = false;
-                                })
-                                .catch((error) => {
-                                    alert('Chyba nastavení testovacího jazyka')
-                                    Alpine.store('app').appLoaderShow = false;
-                                });
-                },
-                async setFromLng(lng) {
-                    Alpine.store('app').appLoaderShow = true;
-
-                    await fetch('/admin/localization/set/from-lng/' + lng, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-type': 'application/json; charset=UTF-8',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-                                },
-                            }).then((response) => response.json())
-                                .then((data) => {
-                                    if(data.status === 'success') {
-                                        this.loadData(data.from_language);
-                                        this.fromLanguage = data.from_language;
-                                        Alpine.store('app').appLoaderShow = false;
-                                        return;
-                                    }
-
-                                    alert('Chyba nastavení testovacího jazyka')
-                                    Alpine.store('app').appLoaderShow = false;
-                                })
-                                .catch((error) => {
-                                    alert('Chyba nastavení testovacího jazyka')
-                                    Alpine.store('app').appLoaderShow = false;
-                                });
-                }
-            }"
-                 x-init="
-                 loadData(fromLanguage)
-                 loadData()
-            ">
+        <section class="mx-auto pb-4 px-0"
+                 x-data="adminLocalization(@js($languages), @js($is_test), @js($from_language), @js($test_language), @js($default_language),)">
             <div class="sticky top-0 pt-4 bg-gray-100 z-50">
                 <div class="flex flex-row items-center">
                     <div class="flex flex-row gap-x-6">
                         <h1 class="text-2xl font-semibold pt-2 pb-6">
                             {{ __('admin.Lokalizace') }}&nbsp;<i
                                 class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer"
-                                @click="setSelectedLanguage('__info__')"></i>
+                                @click="selectLanguage('__info__')"></i>
                         </h1>
 
                         <template
-                            x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
+                            x-if="showIfMoreLanguages()">
                             <div class="flex items-start pt-4">
                                 <label>{!! __('admin.z&nbsp;jazyka') !!}</label>
                                 <select @input="setFromLng($el.value)" class="float-right ml-[5px] py-[3px]"
@@ -228,10 +38,11 @@
                             </div>
                         </template>
                     </div>
+
                     <template x-if="@js(env('LANG_DEBUG'))">
                         <div class="w-full">
                             <template
-                                x-if="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title">
+                                x-if="showIfMoreLanguages()">
                                 <select @input="setTestLng($el.value)" class="float-right ml-[5px] py-[3px]"
                                         x-model="testLanguage">
                                     <option value="__default__"
@@ -261,10 +72,11 @@
                             @endif
                         </div>
                     </template>
+
                     <template x-if="@js(!env('LANG_DEBUG'))">
                         <div class="w-full">
                             <div x-text="'jazyk webu `' + defaultLanguage + '`'" class="float-right ml-[5px]"
-                                 x-show="Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title"
+                                 x-show="showIfMoreLanguages()"
                                  x-cloak></div>
 
                             @if(env('LANG_ADMIN_READONLY', true))
@@ -279,66 +91,67 @@
 
                 <div class="inline-flex gap-x-[5px] pb-[15px]">
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
-                         :class="{'font-bold !bg-amber-500 !text-white': localizationTab === 'general'}"
-                         @click="setLocalizationTab('general')">
+                         :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('general')}"
+                         @click="selectTab('general')">
                         General
                     </div>
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
-                         :class="{'font-bold !bg-amber-500 !text-white': localizationTab === 'email-basic'}"
-                         @click="setLocalizationTab('email-basic')">
+                         :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('email-basic')}"
+                         @click="selectTab('email-basic')">
                         Emaily textové
                     </div>
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
-                         :class="{'font-bold !bg-amber-500 !text-white': localizationTab === 'long-text'}"
-                         @click="setLocalizationTab('long-text')">
+                         :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('long-text')}"
+                         @click="selectTab('long-text')">
                         Dlouhé texty + emaily šablonové
                     </div>
                 </div>
 
                 <div class="flex flex-row">
                     <div class="border border-transparent border-b-gray-900 shadow w-[5px]">&nbsp;</div>
-                    <template x-for="(language, languageIndex) in languages" :key="languageIndex">
-                        <div @click="setSelectedLanguage(languageIndex)"
-                             x-init="selectedLanguageSub[localizationTab][languageIndex] = localStorage.getItem('admin.language.' + localizationTab + '.' + languageIndex + '.sub.selected') || '__default__'"
+                    <template x-for="(languageValue, languageIndex) in languages" :key="languageIndex">
+                        <div @click="selectLanguage(languageIndex)"
+                             x-init="initSelectedLanguageCategory(languageIndex)"
                              class="min-w-[75px] cursor-pointer border border-gray-700 p-2 rounded-tl rounded-tr"
                              :class="{
-                                '!border-b-transparent !bg-gray-500 !text-white': selectedLanguage === languageIndex,
-                                '!shadow': selectedLanguage !== languageIndex,
+                                '!border-b-transparent !bg-gray-500 !text-white': isSelectedLanguage(languageIndex),
+                                '!shadow': !isSelectedLanguage(languageIndex),
                             }">
-                            <div x-text="language.title"></div>
+                            <div x-text="languageValue.title"></div>
                         </div>
                     </template>
                     <div class="border border-transparent border-b-gray-900 w-full shadow">&nbsp;</div>
                 </div>
             </div>
 
-            <div x-cloak x-show="selectedLanguage === '__info__'">
-                <br>
-                <a href="https://github.com/amiranagram/localizator" class="text-blue-400" target="_blank">https://github.com/amiranagram/localizator</a>
-                <br>
-                <br>
-                <pre>php artisan localize-x &lt;lng&gt; --remove-missing</pre>
-                <br>
+            <template x-if="selectedLanguage === '__info__'">
                 <div>
-                    pro možnost debugování překladů je potřeba nastavit v .env<br>
-                    LANG_DEBUG=true<br>
                     <br>
-                    pro možnost editování překladů je potřeba nastavit v .env<br>
-                    LANG_ADMIN_READONLY=false
+                    <a href="https://github.com/amiranagram/localizator" class="text-blue-400" target="_blank">https://github.com/amiranagram/localizator</a>
+                    <br>
+                    <br>
+                    <pre>php artisan localize-x &lt;lng&gt; --remove-missing</pre>
+                    <br>
+                    <div>
+                        pro možnost debugování překladů je potřeba nastavit v .env<br>
+                        LANG_DEBUG=true<br>
+                        <br>
+                        pro možnost editování překladů je potřeba nastavit v .env<br>
+                        LANG_ADMIN_READONLY=false
+                    </div>
                 </div>
-            </div>
+            </template>
 
-            <template x-if="localizationTab === 'general' || localizationTab === 'email-basic'">
+            <template x-if="isSelectedTab('general') || isSelectedTab('email-basic')">
                 <div>
                     @include('admin.localization.@general')
                 </div>
             </template>
-            <template x-if="localizationTab === 'long-text'">
+            <template x-if="isSelectedTab('long-text')">
                 <div>
                     @include('admin.localization.@long-text')
                 </div>
             </template>
-
         </section>
     </main>
 </x-admin-layout>
