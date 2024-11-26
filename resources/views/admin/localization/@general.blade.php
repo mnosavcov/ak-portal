@@ -30,7 +30,7 @@
                                     class="border-b border-b-gray-500 last:border-none pt-1 pb-1 hover:bg-gray-200 px-1 cursor-pointer"
                                     :data-translate-index="translateIndex"
                                     @if(!env('LANG_ADMIN_READONLY', true))
-                                        @click.prevent.stop="openCloseTranslate(translateIndex)"
+                                        @click.prevent.stop="toggleTranslate(translateIndex)"
                                     @endif
                                 >
                                     <div
@@ -87,126 +87,14 @@
                                         @if(!env('LANG_ADMIN_READONLY', true))
                                             <template x-if="selectedTranslate === translateIndex">
                                                 <div
-                                                    x-data="{
-                                                            saveAction: false,
-                                                            translateDataInputX: getTranslateData(translateIndex),
-                                                            replaceHtml() {
-                                                                return (this.translateDataInputX ?? '').replace(/&amp;nbsp;/g, '&amp;amp;nbsp;').replace(/(:\w+)\b/g, '<span contenteditable=false class=\'bg-gray-400 rounded py-0.5\'>&nbsp;$1&nbsp;</span>');
-                                                            },
-                                                            setValue(value) {
-                                                                setTranslateData(translateIndex, value.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').replace(/ ,/g, ',').replace(/ \./g, '.'));
-                                                            },
-                                                            clearChanges() {
-                                                                if(this.saveAction === true) {
-                                                                    this.saveAction = false;
-                                                                    return;
-                                                                }
-                                                                this.translateDataInputX = null;
-                                                                this.translateDataInputX = '';
-                                                                this.translateDataInputX = getTranslateOriginData(translateIndex)
-                                                                setTranslateData(translateIndex, this.translateDataInputX)
-
-                                                                this.$nextTick(() => {
-                                                                    translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + getSelectedLanguageCategory() + '-' + selectedTranslate)
-                                                                    if(!translateDivElement) {
-                                                                        return;
-                                                                    }
-                                                                    translateDivElement.focus();
-                                                                    const range = document.createRange();
-                                                                    const selection = window.getSelection();
-
-                                                                    range.selectNodeContents(translateDivElement);
-                                                                    range.collapse(false);
-                                                                    selection.removeAllRanges();
-                                                                    selection.addRange(range);
-                                                                })
-                                                            },
-                                                            init() {
-                                                                this.$nextTick(() => {
-                                                                    translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + getSelectedLanguageCategory() + '-' + selectedTranslate)
-                                                                    if(!translateDivElement) {
-                                                                        return;
-                                                                    }
-                                                                    translateDivElement.focus();
-                                                                    const range = document.createRange();
-                                                                    const selection = window.getSelection();
-
-                                                                    range.selectNodeContents(translateDivElement);
-                                                                    range.collapse(false);
-                                                                    selection.removeAllRanges();
-                                                                    selection.addRange(range);
-                                                                })
-
-                                                                this.clearChanges();
-                                                            },
-                                                            save(unselectTranslate = true) {
-                                                                if(getTranslateData(translateIndex) === getTranslateOriginData(translateIndex)) {
-                                                                    return;
-                                                                }
-                                                                saveData(translateIndex, getTranslateData(translateIndex), getSelectedTab());
-                                                                if(unselectTranslate) {
-                                                                    this.saveAction = true;
-                                                                    selectedTranslate = null;
-                                                                }
-                                                            },
-                                                            nextItem($el) {
-                                                                let wrap = $el.closest('[data-translate-index]');
-                                                                if(wrap.nextElementSibling && wrap.nextElementSibling.matches('[data-translate-index]')) {
-                                                                    if(!this.checkChangeTranslateIndex()) {
-                                                                        return;
-                                                                    }
-                                                                    selectedTranslate = wrap.nextElementSibling.dataset.translateIndex;
-                                                                    this.$nextTick(() => {
-                                                                        translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + getSelectedLanguageCategory() + '-' + selectedTranslate)
-                                                                        translateDivElement.focus();
-                                                                        const range = document.createRange();
-                                                                        const selection = window.getSelection();
-
-                                                                        range.selectNodeContents(translateDivElement);
-                                                                        range.collapse(false);
-                                                                        selection.removeAllRanges();
-                                                                        selection.addRange(range);
-                                                                    })
-                                                                }
-                                                            },
-                                                            prevItem($el) {
-                                                                let wrap = $el.closest('[data-translate-index]');
-                                                                if(wrap.previousElementSibling && wrap.previousElementSibling.matches('[data-translate-index]')) {
-                                                                    if(!this.checkChangeTranslateIndex()) {
-                                                                        return;
-                                                                    }
-                                                                    selectedTranslate = wrap.previousElementSibling.dataset.translateIndex;
-                                                                    this.$nextTick(() => {
-                                                                        translateDivElement = document.getElementById('lng-translate-' + languageIndex + '-' + getSelectedLanguageCategory() + '-' + selectedTranslate)
-                                                                        translateDivElement.focus();
-
-                                                                        const range = document.createRange();
-                                                                        const selection = window.getSelection();
-
-                                                                        range.selectNodeContents(translateDivElement);
-                                                                        range.collapse(false);
-                                                                        selection.removeAllRanges();
-                                                                        selection.addRange(range);
-                                                                    })
-                                                                }
-                                                            },
-                                                            checkChangeTranslateIndex() {
-                                                                if (getTranslateOriginData(selectedTranslate) !== getTranslateData(selectedTranslate)) {
-                                                                    if(confirm('Zahodit změny?')) {
-                                                                        setTranslateData(selectedTranslate, getTranslateOriginData(selectedTranslate));
-                                                                    } else {
-                                                                        return false;
-                                                                    }
-                                                                }
-
-                                                                return true;
-                                                            }
-                                                        }">
-
+                                                    x-init="
+                                                        shiftCursorOnEndOfText()
+                                                        clearChanges();
+                                                    ">
                                                     <div
                                                         x-data="{actualValue: null, actualUndeletableCount: null, actualUndeletableWords: null}"
-                                                        @keydown.enter.prevent.stop="save(); nextItem($el);"
-                                                        @keydown.ctrl.s.prevent.stop="save(false);"
+                                                        @keydown.enter.prevent.stop="save($el);"
+                                                        @keydown.ctrl.s.prevent.stop="save();"
                                                         @keydown.up.prevent.stop="prevItem($el);"
                                                         @keydown.down.prevent.stop="nextItem($el);"
                                                         @keydown.tab.prevent.stop="if(event.shiftKey) {prevItem($el);} else {nextItem($el);}"
@@ -214,39 +102,7 @@
                                                         @click.prevent.stop
                                                         contenteditable="true"
                                                         class="border border-gray-500 p-1 rounded bg-white mt-0.5"
-                                                        @input="
-                                                                const spans = Array.from($el.querySelectorAll('span[contenteditable=false]'));
-                                                                let undeletableCount = spans.length
-
-                                                                if(actualUndeletableCount > undeletableCount) {
-                                                                    let undeletableWords = new Map(spans.map((span) => [span.textContent, span.textContent]));
-
-                                                                    let missingInMap = [];
-
-                                                                    actualUndeletableWords.forEach((value, key) => {
-                                                                        if (!undeletableWords.has(key)) {
-                                                                            missingInMap.push(key);
-                                                                        }
-                                                                    });
-
-                                                                    missingInMap = missingInMap.join(', ');
-
-                                                                    if(!confirm('Opravdu si přejete smazat klíčové slovo `' + missingInMap.trim() + '`?')) {
-                                                                        setValue($el.textContent)
-                                                                        $el.innerHTML = actualValue;
-                                                                        const range = document.createRange();
-                                                                        const selection = window.getSelection();
-
-                                                                        range.selectNodeContents($el);
-                                                                        range.collapse(false);
-                                                                        selection.removeAllRanges();
-                                                                        selection.addRange(range);
-                                                                        return;
-                                                                    }
-                                                                }
-
-                                                                setValue($el.textContent)
-                                                             "
+                                                        @input="inputChange($el, actualUndeletableCount, actualUndeletableWords, actualValue)"
                                                         @keydown="
                                                                 actualValue = $el.innerHTML;
                                                                 const spans = Array.from($el.querySelectorAll('span[contenteditable=false]'));
@@ -264,7 +120,7 @@
                                                            :class="{'text-red-700': getTranslateData(translateIndex) !== getTranslateOriginData(translateIndex)}"></i>
                                                     </button>
                                                     <button
-                                                        @click.prevent.stop="save(false)">
+                                                        @click.prevent.stop="save()">
                                                         <i class="fa-solid fa-check text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded ml-0.25"
                                                            :class="{'text-green-700': getTranslateData(translateIndex) !== getTranslateOriginData(translateIndex)}"
                                                         ></i>

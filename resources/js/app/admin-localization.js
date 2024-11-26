@@ -145,7 +145,15 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 Alpine.store('app').appLoaderShow = false;
             });
     },
-    async saveData(index, translate, tab) {
+    save(nextEl = null) {
+        if (this.getTranslateData(this.selectedTranslate) === this.getTranslateOriginData(this.selectedTranslate)) {
+            this.nextItem(nextEl)
+            return;
+        }
+
+        this.saveData(this.selectedTranslate, this.getTranslateData(this.selectedTranslate), this.getSelectedTab(), nextEl);
+    },
+    async saveData(index, translate, tab, nextEl) {
         Alpine.store('app').appLoaderShow = true;
 
         await fetch('/admin/localization/save/' +
@@ -165,6 +173,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 if (data.status === 'success') {
                     this.translateData[this.getSelectedLanguage()] = data.translates;
                     this.translateOriginData[this.getSelectedLanguage()] = JSON.parse(JSON.stringify(data.translates));
+                    this.nextItem(nextEl)
                     Alpine.store('app').appLoaderShow = false;
                     return;
                 }
@@ -189,9 +198,39 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         }
         return Object.values(this.translateData[this.getSelectedLanguage()][languageCategory]).filter(value => (value ?? '').trim() === '').length
     },
+    replaceHtml() {
+        if (!this.selectedTranslate) {
+            return '';
+        }
+        return this.getTranslateOriginData(this.selectedTranslate).replace(/&nbsp;/g, '&amp;nbsp;').replace(/(:\w+)\b/g, '<span contenteditable=false class=\'bg-gray-400 rounded py-0.5\'>&nbsp;$1&nbsp;</span>');
+    },
+    setValue(value) {
+        this.setTranslateData(this.selectedTranslate, value.replace(/\s+/g, ' ').replace(/ ,/g, ',').replace(/ \./g, '.'));
+    },
+    clearChanges() {
+        this.resetTranslateData(this.selectedTranslate)
+        this.shiftCursorOnEndOfText()
+    },
 
     changeSelect() {
         this.selectedTranslate = null;
+    },
+
+    shiftCursorOnEndOfText() {
+        this.$nextTick(() => {
+            let translateDivElement = document.getElementById('lng-translate-' + this.getSelectedLanguage() + '-' + this.getSelectedLanguageCategory() + '-' + this.selectedTranslate)
+            if (!translateDivElement) {
+                return;
+            }
+            translateDivElement.focus();
+            const range = document.createRange();
+            const selection = window.getSelection();
+
+            range.selectNodeContents(translateDivElement);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        })
     },
 
     selectTab(tab) {
@@ -242,6 +281,14 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return this.getSelectedLanguageCategory() === languageCategory;
     },
 
+    resetTranslateData(translate) {
+        const original = this.getTranslateOriginData(translate);
+        this.translateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = original;
+        this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = null;
+        this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = '';
+        this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = original;
+
+    },
     setTranslateData(translate, value) {
         this.translateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = value;
     },
@@ -296,7 +343,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return (this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] ?? '').trim();
     },
 
-    openCloseTranslate(translateIndex) {
+    toggleTranslate(translateIndex) {
         if (
             this.selectedTranslate !== null
             && this.getTranslateOriginData(this.selectedTranslate) !== this.getTranslateData(this.selectedTranslate)
@@ -314,5 +361,74 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         }
 
         this.selectedTranslate = translateIndex
+    },
+
+    nextItem($el) {
+        if (!$el) {
+            return;
+        }
+        let wrap = $el.closest('[data-translate-index]');
+        if (wrap.nextElementSibling && wrap.nextElementSibling.matches('[data-translate-index]')) {
+            if (!this.checkChangeTranslateIndex()) {
+                return;
+            }
+            this.selectedTranslate = wrap.nextElementSibling.dataset.translateIndex;
+            this.shiftCursorOnEndOfText()
+        }
+    },
+    prevItem($el) {
+        let wrap = $el.closest('[data-translate-index]');
+        if (wrap.previousElementSibling && wrap.previousElementSibling.matches('[data-translate-index]')) {
+            if (!this.checkChangeTranslateIndex()) {
+                return;
+            }
+            this.selectedTranslate = wrap.previousElementSibling.dataset.translateIndex;
+            this.shiftCursorOnEndOfText()
+        }
+    },
+    checkChangeTranslateIndex() {
+        if (this.getTranslateOriginData(this.selectedTranslate) !== this.getTranslateData(this.selectedTranslate)) {
+            if (confirm('Zahodit změny?')) {
+                this.resetTranslateData(this.selectedTranslate);
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    },
+
+    inputChange($el, actualUndeletableCount, actualUndeletableWords, actualValue) {
+        const spans = Array.from($el.querySelectorAll('span[contenteditable=false]'));
+        let undeletableCount = spans.length
+
+        if (actualUndeletableCount > undeletableCount) {
+            let undeletableWords = new Map(spans.map((span) => [span.textContent, span.textContent]));
+
+            let missingInMap = [];
+
+            actualUndeletableWords.forEach((value, key) => {
+                if (!undeletableWords.has(key)) {
+                    missingInMap.push(key);
+                }
+            });
+
+            missingInMap = missingInMap.join(', ');
+
+            if (!confirm('Opravdu si přejete smazat klíčové slovo `' + missingInMap.trim() + '`?')) {
+                this.setValue($el.textContent)
+                $el.innerHTML = actualValue;
+                const range = document.createRange();
+                const selection = window.getSelection();
+
+                range.selectNodeContents($el);
+                range.collapse(false);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                return;
+            }
+        }
+
+        this.setValue($el.textContent)
     }
 }));
