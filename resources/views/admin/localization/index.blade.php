@@ -116,7 +116,13 @@
                                 '!border-b-transparent !bg-gray-500 !text-white': isSelectedLanguage(languageIndex),
                                 '!shadow': !isSelectedLanguage(languageIndex),
                             }">
-                            <div x-text="languageValue.title"></div>
+                            <div>
+                                <span x-text="languageValue.title"></span>&nbsp;<template
+                                    x-if="getCountNeprelozenoLanguageTab(languageIndex)">
+                                    <span x-text="getCountNeprelozenoLanguageTab(languageIndex)"
+                                          class="bg-red-600 text-white text-[13px] p-1 rounded-full"></span>
+                                </template>
+                            </div>
                         </div>
                     </template>
                     <div class="border border-transparent border-b-gray-900 w-full shadow">&nbsp;</div>

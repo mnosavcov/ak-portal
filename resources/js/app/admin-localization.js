@@ -189,7 +189,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     showIfMoreLanguages() {
         return (Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title);
     },
-    getCountNeprelozeno(languageCategory) {
+    getCountNeprelozenoTranslate(languageCategory) {
         if (typeof (this.translateData[this.getSelectedLanguage()]) === 'undefined') {
             return 0;
         }
@@ -197,6 +197,32 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
             return 0;
         }
         return Object.values(this.translateData[this.getSelectedLanguage()][languageCategory]).filter(value => (value ?? '').trim() === '').length
+    },
+    getCountNeprelozenoLanguageTab(language) {
+        let count = 0;
+        if (typeof (this.translateData[language]) === 'undefined') {
+            if (typeof (this.languages[language]) === 'undefined') {
+                return 0;
+            }
+
+            for (const [categoryKey, categoryValue] of Object.entries(this.languages[language].category)) {
+                if (!this.selectionCategory(categoryKey)) {
+                    continue;
+                }
+                count += categoryValue.countNeprelozeno;
+            }
+
+            return count;
+        }
+
+        for (const [categoryKey, categoryValue] of Object.entries(this.translateData[language])) {
+            if (!this.selectionCategory(categoryKey)) {
+                continue;
+            }
+            count += Object.values(categoryValue).filter(value => (value ?? '').trim() === '').length;
+        }
+
+        return count;
     },
     replaceHtml() {
         if (!this.selectedTranslate) {
@@ -441,7 +467,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     },
 
     getMetadata(translate) {
-        if(this.isSelectedLanguageCategory('__default__')) {
+        if (this.isSelectedLanguageCategory('__default__')) {
             return this.languagesMeta[translate]
         }
 

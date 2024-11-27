@@ -34,7 +34,7 @@ class LocalizationService extends Controller
         'auth.throttle',
     ];
 
-    public function getLanguages(): array
+    public function getLanguages($readCountNeprelozeno = true): array
     {
         if (!File::isDirectory(resource_path('lang'))) {
             return [];
@@ -49,9 +49,18 @@ class LocalizationService extends Controller
         $languages = [];
         foreach ($jsonFiles as $file) {
             $lng = explode('.', $file->getFilename())[0];
+            if($readCountNeprelozeno) {
+                $data = $this->load($lng);
+            }
+
             $languages[$lng] = [
                 'title' => $lng,
-                'category' => ['__default__' => ['title' => __('localization.Basic')]]
+                'category' => [
+                    '__default__' => [
+                        'title' => __('localization.Basic'),
+                        'countNeprelozeno' => $this->countNeprelozenoKategorie($data['__default__'] ?? []),
+                    ]
+                ]
             ];
 
             if (!File::isDirectory(resource_path('lang/' . $lng))) {
@@ -65,7 +74,10 @@ class LocalizationService extends Controller
 
             foreach ($jsonSubFiles as $subFile) {
                 $subtitle = explode('.', $subFile->getFilename())[0];
-                $languages[$lng]['category'][$subtitle] = ['title' => __('localization.' . $subtitle)];
+                $languages[$lng]['category'][$subtitle] = [
+                    'title' => __('localization.' . $subtitle),
+                    'countNeprelozeno' => $this->countNeprelozenoKategorie($data[$subtitle] ?? []),
+                ];
             }
         }
 
@@ -215,7 +227,7 @@ class LocalizationService extends Controller
 
     public function clearBkps()
     {
-        $languages = $this->getLanguages();
+        $languages = $this->getLanguages(false);
 
         foreach ($languages as $lng => $items) {
             $filename = resource_path('lang/' . $lng . '/localization.php');
@@ -239,7 +251,7 @@ class LocalizationService extends Controller
 
     public function setLocalizationLangs()
     {
-        $languages = $this->getLanguages();
+        $languages = $this->getLanguages(false);
 
         foreach ($languages as $lng => $items) {
             $localizationData = [];
@@ -370,5 +382,17 @@ class LocalizationService extends Controller
         }
 
         return $finded;
+    }
+
+    private function countNeprelozenoKategorie($data)
+    {
+        $count = 0;
+
+        foreach ($data as $key => $value) {
+            if (empty(trim($value ?? ''))) {
+                $count++;
+            }
+        }
+        return $count;
     }
 }

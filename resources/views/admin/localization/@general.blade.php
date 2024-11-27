@@ -11,10 +11,10 @@
                             :class="{'bg-gray-500 text-white shadow': isSelectedLanguageCategory(languageCategoryIndex)}"
                         >
                             <span x-text="languageCategoryValue.title"></span>
-                            <template x-if="getCountNeprelozeno(languageCategoryIndex)">
+                            <template x-if="getCountNeprelozenoTranslate(languageCategoryIndex)">
                             <span
                                 class="bg-red-600 text-white text-[13px] p-1 rounded-full"
-                                x-text="getCountNeprelozeno(languageCategoryIndex)"></span>
+                                x-text="getCountNeprelozenoTranslate(languageCategoryIndex)"></span>
                             </template>
                         </div>
                     </template>
