@@ -212,6 +212,9 @@ Route::middleware('auth')->group(function () {
                         Route::post('/set/test/{bool}', [LocalizationController::class, 'setTest'])->name('set.test');
                         Route::post('/set/test-lng/{lng}', [LocalizationController::class, 'setTestLng'])->name('set.test-lng');
                         Route::post('/set/from-lng/{lng}', [LocalizationController::class, 'setFromLng'])->name('set.from-lng');
+
+                        Route::get('email/preview/{lng}/{template}', [LocalizationController::class, 'preview'])->name('email.preview');
+                        Route::get('email/send-test/{lng}/{template}', [LocalizationController::class, 'sendTest'])->name('email.send-test');
                     });
                 });
             });

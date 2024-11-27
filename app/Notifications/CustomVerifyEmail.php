@@ -39,14 +39,14 @@ class CustomVerifyEmail extends VerifyEmailNotification
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-            ->subject(__('mail-verify.Ověřte_svůj_e-mail_na_PVtrusted-cz'))
-            ->line(__('mail-verify.Dobrý_den,'))
-            ->line(__('mail-verify.děkujeme_Vám_za_zájem_o_služby_na_našem_portálu-_Abyste_mohli_svůj_účet_využívat,_ověřte_svůj_e-mail'))
-            ->action(__('mail-verify.Ověřit_e-mail'), $verificationUrl)
-            ->line(__('mail-verify.Pokud_nelze_na_odkaz_kliknout,_nebo_jste_zaznamenali_jiné_technické_problémy,_zkopírujte_následující_odkaz'))
+            ->subject(__('mail-CustomVerifyEmail.Ověřte_svůj_e-mail_na_PVtrusted-cz'))
+            ->line(__('mail-CustomVerifyEmail.Dobrý_den,'))
+            ->line(__('mail-CustomVerifyEmail.děkujeme_Vám_za_zájem_o_služby_na_našem_portálu-_Abyste_mohli_svůj_účet_využívat,_ověřte_svůj_e-mail'))
+            ->action(__('mail-CustomVerifyEmail.Ověřit_e-mail'), $verificationUrl)
+            ->line(__('mail-CustomVerifyEmail.Pokud_nelze_na_odkaz_kliknout,_nebo_jste_zaznamenali_jiné_technické_problémy,_zkopírujte_následující_odkaz'))
             ->line($verificationUrl)
-            ->line(__('mail-verify.Následně_ho_vložte_do_adresního_řádku_webového_prohlížeče_a_potvrďte_ho'))
-            ->line(__('mail-verify.V_případě_jakýchkoliv_problémů,_požadavků_či_dotazů_se_nás_neváhejte_kontaktovat-_A_to_buď_odpovědí_přímo_na_tento_e-mail,_nebo_skrze_některou_z_možností_v_kontaktech_na_našem_portálu'))
+            ->line(__('mail-CustomVerifyEmail.Následně_ho_vložte_do_adresního_řádku_webového_prohlížeče_a_potvrďte_ho'))
+            ->line(__('mail-CustomVerifyEmail.V_případě_jakýchkoliv_problémů,_požadavků_či_dotazů_se_nás_neváhejte_kontaktovat-_A_to_buď_odpovědí_přímo_na_tento_e-mail,_nebo_skrze_některou_z_možností_v_kontaktech_na_našem_portálu'))
             ->markdown('vendor.email');
     }
 }

@@ -430,5 +430,46 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         }
 
         this.setValue($el.textContent)
+    },
+
+    selectionCategory(category) {
+        if (this.isSelectedTab('email-basic')) {
+            return category.startsWith('mail-');
+        }
+
+        return !category.startsWith('mail-');
+    },
+
+    getMetadata(translate) {
+        if(this.isSelectedLanguageCategory('__default__')) {
+            return this.languagesMeta[translate]
+        }
+
+        return this.languagesMeta[this.getSelectedLanguageCategory() + '.' + translate];
+    },
+
+    async sendTestMail(url) {
+        Alpine.store('app').appLoaderShow = true;
+
+        await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.status === 'success') {
+                    alert('Email byl úspěšně odeslán')
+                    Alpine.store('app').appLoaderShow = false;
+                    return;
+                }
+
+                alert('Chyba odeslání emailu')
+                Alpine.store('app').appLoaderShow = false;
+            })
+            .catch((error) => {
+                alert('Chyba odeslání emailu')
+                Alpine.store('app').appLoaderShow = false;
+            });
     }
 }));

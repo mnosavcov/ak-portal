@@ -4,18 +4,20 @@
             <div>
                 <template x-for="(languageCategoryValue, languageCategoryIndex) in language.category"
                           :key="languageCategoryIndex">
-                    <div
-                        @click="selectLanguageCategory(languageCategoryIndex)"
-                        class="cursor-pointer p-2 border-b border-b-gray-300 last:border-none rounded-sm"
-                        :class="{'bg-gray-500 text-white shadow': isSelectedLanguageCategory(languageCategoryIndex)}"
-                    >
-                        <span x-text="languageCategoryValue.title"></span>
-                        <template x-if="getCountNeprelozeno(languageCategoryIndex)">
+                    <template x-if="selectionCategory(languageCategoryIndex)">
+                        <div
+                            @click="selectLanguageCategory(languageCategoryIndex)"
+                            class="cursor-pointer p-2 border-b border-b-gray-300 last:border-none rounded-sm"
+                            :class="{'bg-gray-500 text-white shadow': isSelectedLanguageCategory(languageCategoryIndex)}"
+                        >
+                            <span x-text="languageCategoryValue.title"></span>
+                            <template x-if="getCountNeprelozeno(languageCategoryIndex)">
                             <span
                                 class="bg-red-600 text-white text-[13px] p-1 rounded-full"
                                 x-text="getCountNeprelozeno(languageCategoryIndex)"></span>
-                        </template>
-                    </div>
+                            </template>
+                        </div>
+                    </template>
                 </template>
             </div>
 
@@ -43,7 +45,7 @@
                                         <span
                                             class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer group absolute top-[5px] right-[5px]">
                                             <div
-                                                class="leading-5 z-50 max-w-[500px] w-[100vw] cursor-default text-[13px] font-Spartan-Light text-gray-800 hidden group-hover:inline-block absolute top-[5px] right-[10px] bg-white p-2 border border-dashed border-app-red rounded-[5px]">
+                                                class="leading-5 z-50 max-w-[500px] w-[100vw] cursor-default text-[13px] font-Spartan-Light text-gray-800 hidden group-hover:inline-block absolute top-[5px] right-[10px] p-2 border border-dashed border-app-red rounded-[5px] bg-amber-50">
                                                 <div
                                                     x-text="(getSelectedLanguageCategory() !== '__default__' ? getSelectedLanguageCategory() + '.' : '') + translateIndex"
                                                     class="break-all font-Spartan-SemiBold leading-5">
@@ -51,7 +53,7 @@
                                                 <div class="my-1 mb-2 border-b border-gray-500 border-dashed">
                                                 </div>
                                                 <template
-                                                    x-for="(metaData, metaIndex) in languagesMeta[(getSelectedLanguageCategory() !== '__default__' ? getSelectedLanguageCategory() + '.' : '') + translateIndex]">
+                                                    x-for="(metaData, metaIndex) in getMetadata(translateIndex)">
                                                     <div>
                                                         <span
                                                             x-text="metaData.path"
@@ -129,6 +131,19 @@
                                             </template>
                                         @endif
                                     </div>
+                                </div>
+                            </template>
+
+                            <template x-if="isSelectedTab('email-basic')">
+                                <div class="mt-[15px]">
+                                    <a :href="'/admin/localization/email/preview/' + getSelectedLanguage() + '/' + getSelectedLanguageCategory()" :target="getSelectedLanguage() + '-' + getSelectedLanguageCategory()"
+                                       class="text-center leading-[50px] px-[15px] font-Spartan-Regular text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
+                                        zobrazit náhled
+                                    </a>
+                                    <button
+                                        @click="sendTestMail('/admin/localization/email/send-test/' + getSelectedLanguage() + '/' + getSelectedLanguageCategory())"
+                                        class="text-center leading-[50px] px-[15px] font-Spartan-Regular text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
+                                    >odeslat testovací email</button>
                                 </div>
                             </template>
                         </div>

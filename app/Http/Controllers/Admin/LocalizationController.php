@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 
 class LocalizationController extends Controller
@@ -96,5 +97,33 @@ class LocalizationController extends Controller
             'status' => 'success',
             'from_language' => $localizationService->getFromLng(),
         ]);
+    }
+
+    public function preview(LocalizationService $localizationService, $lng, $template)
+    {
+        App::setLocale($lng);
+
+        $findClass = $localizationService->findMailClassByTemplate($template);
+        $className = $findClass['className'];
+
+        $user = auth()->user();
+
+        $notification = new $className();
+        $mailMessage = $notification->toMail($user)->markdown('vendor.email');
+
+        echo '<h2 style="color: #000000; font-weight: normal; padding-top: 15px;"><span style="color: #888888; font-weight: bold;">Subject: </span>' . $mailMessage->subject . '</h2>';
+        echo $mailMessage->render();
+    }
+
+    public function sendTest(LocalizationService $localizationService, $lng, $template)
+    {
+        App::setLocale($lng);
+
+        $findClass = $localizationService->findMailClassByTemplate($template);
+        $className = $findClass['className'];
+
+        auth()->user()->notify(new $className());
+
+        return response()->json(['status' => 'success']);
     }
 }

@@ -3,8 +3,9 @@
 namespace App\Services\Admin;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class LocalizationService extends Controller
 {
@@ -318,7 +319,7 @@ class LocalizationService extends Controller
             dump($checks);
         }
 
-        File::replace(resource_path('data/localization-meta.php'), "<?php\n\nreturn " . str_replace(['array (', ')', '  \''], ['[', ']', '    \''], var_export($results, true)) . ";\n");
+        File::replace(resource_path('data/localization-meta.php'), "<?php\n\nreturn " . var_export($results, true) . ";\n");
 
         return $results;
     }
@@ -341,5 +342,33 @@ class LocalizationService extends Controller
         }
 
         return $findItemAll;
+    }
+
+    public function findMailClassByTemplate($template)
+    {
+        $finded = [];
+
+        $allClasses = require base_path('vendor/composer/autoload_classmap.php');
+        $findTemplate = '/' . Str::replaceFirst('mail-', '', $template) . '.php';
+        foreach ($allClasses as $className => $path) {
+            if (Str::endsWith($path, $findTemplate)) {
+                $content = File::get($path);
+                if (!Str::contains($content, $template)) {
+                    continue;
+                }
+
+                $finded = [
+                    'path' => $path,
+                    'className' => $className,
+                ];
+                break;
+            }
+        }
+
+        if (empty($finded)) {
+            throw new Exception('Mail class "' . Str::replaceFirst('mail-', '', $template) . '" not found');
+        }
+
+        return $finded;
     }
 }
