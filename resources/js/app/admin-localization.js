@@ -264,8 +264,14 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         this.shiftCursorOnEndOfText()
     },
 
-    changeSelect() {
+    async changeSelectBegin() {
+        Alpine.store('app').appLoaderShow = true;
+        await new Promise(resolve => setTimeout(resolve, 1));
         this.selectedTranslate = null;
+    },
+    async changeSelectEnd() {
+        await new Promise(resolve => setTimeout(resolve, 1));
+        Alpine.store('app').appLoaderShow = false;
     },
 
     shiftCursorOnEndOfText() {
@@ -285,10 +291,16 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         })
     },
 
-    selectTab(tab) {
-        this.changeSelect();
+    async selectTab(tab) {
+        if (tab === this.getSelectedTab()) {
+            return;
+        }
+        await this.changeSelectBegin();
+
         this.selectedTab = tab;
         localStorage.setItem('admin.language.tab', this.selectedTab);
+
+        await this.changeSelectEnd();
     },
     getSelectedTab() {
         return this.selectedTab;
@@ -301,11 +313,17 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return this.selectedTab === value;
     },
 
-    selectLanguage(language) {
-        this.changeSelect();
+    async selectLanguage(language) {
+        if (language === this.getSelectedLanguage()) {
+            return;
+        }
+        await this.changeSelectBegin();
+
         this.selectedLanguage = language;
         localStorage.setItem('admin.language.selected', language);
-        this.loadData();
+        await this.loadData();
+
+        await this.changeSelectEnd();
     },
     getSelectedLanguage() {
         return this.selectedLanguage;
@@ -322,11 +340,17 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
             this.selectedLanguageCategory[this.getSelectedTab()][this.getSelectedLanguage()] = localStorage.getItem('admin.language.' + this.getSelectedTab() + '.' + this.getSelectedLanguage() + '.category.selected') || '__default__'
         }
     },
-    selectLanguageCategory(languageCategory) {
-        this.changeSelect();
+    async selectLanguageCategory(languageCategory) {
+        if (languageCategory === this.getSelectedLanguageCategory()) {
+            return;
+        }
+        await this.changeSelectBegin();
+
         this.initLanguageCategory();
         this.selectedLanguageCategory[this.getSelectedTab()][this.getSelectedLanguage()] = languageCategory;
         localStorage.setItem('admin.language.' + this.getSelectedTab() + '.' + this.getSelectedLanguage() + '.category.selected', languageCategory)
+
+        await this.changeSelectEnd();
     },
     getSelectedLanguageCategory() {
         this.initLanguageCategory();
@@ -343,7 +367,6 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = null;
         this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = '';
         this.translateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = original;
-
     },
     setTranslateData(translate, value) {
         this.translateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()][translate] = value;
