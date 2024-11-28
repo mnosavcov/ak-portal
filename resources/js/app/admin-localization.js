@@ -224,6 +224,32 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
 
         return count;
     },
+    getCountNeprelozenoTab(tab) {
+        let count = 0;
+        for (const [languageIndex, languageValue] of Object.entries(this.languages)) {
+            if (typeof (this.translateData[languageIndex]) === 'undefined') {
+                if (typeof (this.languages[languageIndex]) === 'undefined') {
+                    return 0;
+                }
+
+                for (const [categoryKey, categoryValue] of Object.entries(this.languages[languageIndex].category)) {
+                    if (!this.selectionCategory(categoryKey, tab)) {
+                        continue;
+                    }
+                    count += categoryValue.countNeprelozeno;
+                }
+            } else {
+                for (const [categoryKey, categoryValue] of Object.entries(this.translateData[languageIndex])) {
+                    if (!this.selectionCategory(categoryKey, tab)) {
+                        continue;
+                    }
+                    count += Object.values(categoryValue).filter(value => (value ?? '').trim() === '').length;
+                }
+            }
+        }
+
+        return count;
+    },
     replaceHtml() {
         if (!this.selectedTranslate) {
             return '';
@@ -267,7 +293,11 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     getSelectedTab() {
         return this.selectedTab;
     },
-    isSelectedTab(value) {
+    isSelectedTab(value, tab = null) {
+        if (tab !== null) {
+            return tab === value;
+        }
+
         return this.selectedTab === value;
     },
 
@@ -458,8 +488,12 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         this.setValue($el.textContent)
     },
 
-    selectionCategory(category) {
-        if (this.isSelectedTab('email-basic')) {
+    selectionCategory(category, tab = null) {
+        if (this.isSelectedTab('long-text', tab)) {
+            return false;
+        }
+
+        if (this.isSelectedTab('email-basic', tab)) {
             return category.startsWith('mail-');
         }
 

@@ -93,17 +93,29 @@
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
                          :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('general')}"
                          @click="selectTab('general')">
-                        General
+                        General&nbsp;<template
+                            x-if="getCountNeprelozenoTab('general')">
+                                    <span x-text="getCountNeprelozenoTab('general')"
+                                          class="bg-red-600 text-white text-[13px] p-1 rounded-full"></span>
+                        </template>
                     </div>
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
                          :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('email-basic')}"
                          @click="selectTab('email-basic')">
-                        Emaily textové
+                        Emaily textové&nbsp;<template
+                            x-if="getCountNeprelozenoTab('email-basic')">
+                                    <span x-text="getCountNeprelozenoTab('email-basic')"
+                                          class="bg-red-600 text-white text-[13px] p-1 rounded-full"></span>
+                        </template>
                     </div>
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
                          :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('long-text')}"
                          @click="selectTab('long-text')">
-                        Dlouhé texty + emaily šablonové
+                        Dlouhé texty + emaily šablonové&nbsp;<template
+                            x-if="getCountNeprelozenoTab('long-text')">
+                                    <span x-text="getCountNeprelozenoTab('long-text')"
+                                          class="bg-red-600 text-white text-[13px] p-1 rounded-full"></span>
+                        </template>
                     </div>
                 </div>
 
