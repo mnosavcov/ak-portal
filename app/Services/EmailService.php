@@ -56,8 +56,8 @@ class EmailService
                 $user['email'],
                 $toName,
                 'Váš účet investora byl ověřen',
-                'emails.user-verify-investor-verified',
-                'emails.user-verify-investor-verified-text',
+                'lang.' . app()->getLocale() . '.emails.user-verify-investor-verified',
+                'lang.' . app()->getLocale() . '.emails.user-verify-investor-verified-text',
             );
         }
 
@@ -66,8 +66,8 @@ class EmailService
                 $user['email'],
                 $toName,
                 'Váš účet investora nebyl ověřen',
-                'emails.user-verify-investor-not_verified',
-                'emails.user-verify-investor-not_verified-text',
+                'lang.' . app()->getLocale() . '.emails.user-verify-investor-not_verified',
+                'lang.' . app()->getLocale() . '.emails.user-verify-investor-not_verified-text',
             );
         }
     }
@@ -85,8 +85,8 @@ class EmailService
                 $user['email'],
                 $toName,
                 'Váš účet nabízejícího byl ověřen',
-                'emails.user-verify-advertiser-verified',
-                'emails.user-verify-advertiser-verified-text',
+                'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-verified',
+                'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-verified-text',
             );
         }
 
@@ -95,8 +95,8 @@ class EmailService
                 $user['email'],
                 $toName,
                 'Váš účet nabízejícího nebyl ověřen',
-                'emails.user-verify-advertiser-not_verified',
-                'emails.user-verify-advertiser-not_verified-text',
+                'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-not_verified',
+                'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-not_verified-text',
             );
         }
     }
@@ -114,8 +114,8 @@ class EmailService
                 $user['email'],
                 $toName,
                 'Váš účet realitního makléře byl ověřen',
-                'emails.user-verify-real_estate_broker-verified',
-                'emails.user-verify-real_estate_broker-verified-text',
+                'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-verified',
+                'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-verified-text',
             );
         }
 
@@ -124,8 +124,8 @@ class EmailService
                 $user['email'],
                 $toName,
                 'Váš účet realitního makléře nebyl ověřen',
-                'emails.user-verify-real_estate_broker-not_verified',
-                'emails.user-verify-real_estate_broker-not_verified-text',
+                'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-not_verified',
+                'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-not_verified-text',
             );
         }
     }

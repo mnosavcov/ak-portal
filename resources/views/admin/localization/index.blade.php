@@ -100,6 +100,15 @@
                         </template>
                     </div>
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
+                         :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('long-text')}"
+                         @click="selectTab('long-text')">
+                        Dlouhé texty&nbsp;<template
+                            x-if="getCountNeprelozenoTab('long-text')">
+                                    <span x-text="getCountNeprelozenoTab('long-text')"
+                                          class="bg-red-600 text-white text-[13px] p-1 rounded-full"></span>
+                        </template>
+                    </div>
+                    <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
                          :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('email-basic')}"
                          @click="selectTab('email-basic')">
                         Emaily textové&nbsp;<template
@@ -109,11 +118,11 @@
                         </template>
                     </div>
                     <div class="p-2 border border-gray-500 bg-white cursor-pointer rounded-[5px]"
-                         :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('long-text')}"
-                         @click="selectTab('long-text')">
-                        Dlouhé texty + emaily šablonové&nbsp;<template
-                            x-if="getCountNeprelozenoTab('long-text')">
-                                    <span x-text="getCountNeprelozenoTab('long-text')"
+                         :class="{'font-bold !bg-amber-500 !text-white': isSelectedTab('email-template')}"
+                         @click="selectTab('email-template')">
+                        Emaily šablonové&nbsp;<template
+                            x-if="getCountNeprelozenoTab('email-template')">
+                                    <span x-text="getCountNeprelozenoTab('email-template')"
                                           class="bg-red-600 text-white text-[13px] p-1 rounded-full"></span>
                         </template>
                     </div>
@@ -164,7 +173,7 @@
                     @include('admin.localization.@general')
                 </div>
             </template>
-            <template x-if="isSelectedTab('long-text')">
+            <template x-if="isSelectedTab('long-text') || isSelectedTab('email-template')">
                 <div>
                     @include('admin.localization.@long-text')
                 </div>

@@ -17,9 +17,12 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     translateOriginData: [],
     translateData: [],
     languagesMeta: {},
+
+    longTextTranslateData: {},
     init() {
         this.loadData(this.fromLanguage)
         this.loadData()
+        this.loadLongTextData()
     },
     async loadData(loadLanguage = null) {
         if (this.getSelectedLanguage() === '__info__' && loadLanguage === null) {
@@ -62,11 +65,60 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                     return;
                 }
 
-                alert('Chyba načtení jazykového souboru')
+                alert('Chyba načtení jazykových dat')
                 Alpine.store('app').appLoaderShow = false;
             })
             .catch((error) => {
-                alert('Chyba načtení jazykového souboru')
+                alert('Chyba načtení jazykových dat')
+                Alpine.store('app').appLoaderShow = false;
+            });
+    },
+    async loadLongTextData(force = false) {
+        if (!this.isSelectedTab('long-text') && !this.isSelectedTab('email-template')) {
+            return;
+        }
+
+        if (this.getSelectedLanguage() === '__info__' || this.getSelectedLanguage() === null) {
+            return;
+        }
+
+        if (this.getSelectedLanguageCategory() === '__default__') {
+            return;
+        }
+
+        if (
+            !force
+            && typeof this.longTextTranslateData[this.getSelectedLanguage()] !== 'undefined'
+            && typeof this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] !== 'undefined'
+        ) {
+            return;
+        }
+
+        let pathname = this.languages[this.getSelectedLanguage()]['category'][this.getSelectedLanguageCategory()]['pathname'];
+
+        Alpine.store('app').appLoaderShow = true;
+        await fetch('/admin/localization/load-long/' + this.getSelectedLanguage() + '/' + pathname, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+            },
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.status === 'success') {
+                    if(typeof (this.longTextTranslateData[this.getSelectedLanguage()]) === 'undefined') {
+                        this.longTextTranslateData[this.getSelectedLanguage()] = {};
+                    }
+                    this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
+                    Alpine.store('app').appLoaderShow = false;
+                    return;
+                }
+
+                alert('Chyba načtení jazykových dat')
+                Alpine.store('app').appLoaderShow = false;
+            })
+            .catch((error) => {
+                alert('Chyba načtení jazykových dat')
                 Alpine.store('app').appLoaderShow = false;
             });
     },
@@ -94,7 +146,8 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 alert('Chyba nastavení testovacího režimu')
                 Alpine.store('app').appLoaderShow = false;
             });
-    }, async setFromLng(lng) {
+    },
+    async setFromLng(lng) {
         Alpine.store('app').appLoaderShow = true;
 
         await fetch('/admin/localization/set/from-lng/' + lng, {
@@ -270,6 +323,8 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         this.selectedTranslate = null;
     },
     async changeSelectEnd() {
+        this.loadLongTextData()
+
         await new Promise(resolve => setTimeout(resolve, 1));
         Alpine.store('app').appLoaderShow = false;
     },
@@ -357,6 +412,9 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return this.selectedLanguageCategory[this.getSelectedTab()][this.getSelectedLanguage()];
     },
     isSelectedLanguageCategory(languageCategory) {
+        if (!this.selectionCategory(languageCategory)) {
+            return false;
+        }
         this.initLanguageCategory();
         return this.getSelectedLanguageCategory() === languageCategory;
     },
@@ -513,14 +571,18 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
 
     selectionCategory(category, tab = null) {
         if (this.isSelectedTab('long-text', tab)) {
-            return false;
+            return category.startsWith('long-text-');
         }
 
         if (this.isSelectedTab('email-basic', tab)) {
             return category.startsWith('mail-');
         }
 
-        return !category.startsWith('mail-');
+        if (this.isSelectedTab('email-template', tab)) {
+            return category.startsWith('template-mail-');
+        }
+
+        return !category.startsWith('mail-') && !category.startsWith('long-text-') && !category.startsWith('template-mail-');
     },
 
     getMetadata(translate) {

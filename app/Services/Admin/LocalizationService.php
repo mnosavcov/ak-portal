@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -49,7 +50,7 @@ class LocalizationService extends Controller
         $languages = [];
         foreach ($jsonFiles as $file) {
             $lng = explode('.', $file->getFilename())[0];
-            if($readCountNeprelozeno) {
+            if ($readCountNeprelozeno) {
                 $data = $this->load($lng);
             }
 
@@ -79,6 +80,24 @@ class LocalizationService extends Controller
                     'countNeprelozeno' => $this->countNeprelozenoKategorie($data[$subtitle] ?? []),
                 ];
             }
+
+            $longTexts = $this->searchLongText($lng, 'long-text-');
+            foreach ($longTexts as $longText) {
+                $languages[$lng]['category'][$longText['category']] = [
+                    'title' => __('localization.' . $longText['category']),
+                    'pathname' => $longText['pathname'],
+                    'countNeprelozeno' => 0,
+                ];
+            }
+
+            $templateEmail = $this->searchLongText($lng, 'template-mail-', '/emails');
+            foreach ($templateEmail as $longText) {
+                $languages[$lng]['category'][$longText['category']] = [
+                    'title' => __('localization.' . $longText['category']),
+                    'pathname' => $longText['pathname'],
+                    'countNeprelozeno' => 0,
+                ];
+            }
         }
 
         return $languages;
@@ -99,6 +118,17 @@ class LocalizationService extends Controller
         }
 
         return require_once resource_path('data/localization-meta.php');
+    }
+
+    public function loadLong($path)
+    {
+        [$type, $filepath] = explode(':', Crypt::decryptString(base64_decode($path)), 2);
+        $filepath = realpath($filepath);
+        if (!File::isFile($filepath)) {
+            return '';
+        }
+
+        return File::get($filepath);
     }
 
     private function loadDefault($lng)
@@ -280,7 +310,7 @@ class LocalizationService extends Controller
         }
     }
 
-    function searchFilesForText()
+    private function searchFilesForText()
     {
         $findItemAll = $this->findAllTranslatesPlaces();
 
@@ -336,7 +366,7 @@ class LocalizationService extends Controller
         return $results;
     }
 
-    public function findAllTranslatesPlaces()
+    private function findAllTranslatesPlaces()
     {
         $findItemAll = [];
 
@@ -394,5 +424,25 @@ class LocalizationService extends Controller
             }
         }
         return $count;
+    }
+
+    private function searchLongText($lng, $categoryPrefix, $subDir = '')
+    {
+        $ret = [];
+        $files = File::files(resource_path('views/lang/' . $lng . $subDir));
+        foreach ($files as $file) {
+            if ($categoryPrefix === 'template-mail-') {
+                if (!Str::endsWith($file->getFilename(), '-text.blade.php')) {
+                    continue;
+                }
+            }
+
+            $ret[] = [
+                'category' => $categoryPrefix . Str::replaceLast('-text', '', explode('.', $file->getFilename())[0]),
+                'pathname' => base64_encode(Crypt::encryptString(Str::replaceLast('-', ':', $categoryPrefix) . $file->getPathname())),
+            ];
+        }
+
+        return $ret;
     }
 }

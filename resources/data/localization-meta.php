@@ -5051,7 +5051,12 @@ return array (
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\app\\vseobecne-obchodni-podminky.blade.php',
+      'path' => 'resources\\views\\lang\\cs\\vseobecne-obchodni-podminky.blade.php',
+      'line' => 4,
+    ),
+    2 => 
+    array (
+      'path' => 'resources\\views\\lang\\en\\vseobecne-obchodni-podminky.blade.php',
       'line' => 4,
     ),
   ),
@@ -5929,6 +5934,16 @@ return array (
     array (
       'path' => 'resources\\views\\app\\@footer.blade.php',
       'line' => 92,
+    ),
+    1 => 
+    array (
+      'path' => 'resources\\views\\lang\\cs\\zasady-zpracovani-osobnich-udaju.blade.php',
+      'line' => 4,
+    ),
+    2 => 
+    array (
+      'path' => 'resources\\views\\lang\\en\\zasady-zpracovani-osobnich-udaju.blade.php',
+      'line' => 4,
     ),
   ),
   'Zásadách zpracování osobních údajů' => 
@@ -7221,7 +7236,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\Admin\\LocalizationService.php',
-      'line' => 60,
+      'line' => 61,
     ),
   ),
   'localization.admin' => 
@@ -7273,6 +7288,48 @@ return array (
   array (
   ),
   'localization.validation' => 
+  array (
+  ),
+  'localization.long-text-identifikujeme-a-overujeme-kazdeho-uzivatele' => 
+  array (
+  ),
+  'localization.long-text-moznost-vyzadovat-vyssi-stupen-overeni' => 
+  array (
+  ),
+  'localization.long-text-odbornost-a-zkusenosti-z-oboru' => 
+  array (
+  ),
+  'localization.long-text-profesionalni-priprava-projektu-ke-zverejneni' => 
+  array (
+  ),
+  'localization.long-text-projekty-a-investori-z-celeho-sveta' => 
+  array (
+  ),
+  'localization.long-text-proverujeme-kazdy-projekt' => 
+  array (
+  ),
+  'localization.long-text-vseobecne-obchodni-podminky' => 
+  array (
+  ),
+  'localization.long-text-zasady-zpracovani-osobnich-udaju' => 
+  array (
+  ),
+  'localization.template-mail-user-verify-advertiser-not_verified' => 
+  array (
+  ),
+  'localization.template-mail-user-verify-advertiser-verified' => 
+  array (
+  ),
+  'localization.template-mail-user-verify-investor-not_verified' => 
+  array (
+  ),
+  'localization.template-mail-user-verify-investor-verified' => 
+  array (
+  ),
+  'localization.template-mail-user-verify-real_estate_broker-not_verified' => 
+  array (
+  ),
+  'localization.template-mail-user-verify-real_estate_broker-verified' => 
   array (
   ),
   'mail-CustomAfterVerifyEmail.Abyste_mohli_využívat_náš_portál_naplno_a_mít_přístup_ke_všem_funkcím_a_informacím,_musíte' => 

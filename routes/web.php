@@ -82,9 +82,9 @@ Route::get('project-tags/image/{project}/{project_tag}/{hash}/{filename}', [Proj
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
 Route::get('zip/{project}/{hash}/{filename}', [ProjectController::class, 'zip'])->name('zip');
-Route::view('zasady-zpracovani-osobnich-udaju', 'app.zasady-zpracovani-osobnich-udaju')->name('zasady-zpracovani-osobnich-udaju');
+Route::view('zasady-zpracovani-osobnich-udaju', 'lang.' . app()->getLocale() . '.zasady-zpracovani-osobnich-udaju')->name('zasady-zpracovani-osobnich-udaju');
 Route::get('vseobecne-obchodni-podminky', function () {
-    return view('app.vseobecne-obchodni-podminky');
+    return view('lang.' . app()->getLocale() . '.vseobecne-obchodni-podminky');
 })->name('vseobecne-obchodni-podminky');
 
 Route::middleware('auth')->group(function () {
@@ -215,6 +215,8 @@ Route::middleware('auth')->group(function () {
 
                         Route::get('email/preview/{lng}/{template}', [LocalizationController::class, 'preview'])->name('email.preview');
                         Route::get('email/send-test/{lng}/{template}', [LocalizationController::class, 'sendTest'])->name('email.send-test');
+
+                        Route::get('/load-long/{lng}/{path}', [LocalizationController::class, 'loadLong'])->name('load-long');
                     });
                 });
             });
@@ -255,6 +257,7 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
     });
 });
 
+// crons
 Route::get('backup/dujslP5khfi3mmgGtigEiyTaqVqCyfsA', BackupController::class)->name('backup');
 Route::get('send-mail/SpACoO3DPrLH0a3vs20t1o7zqbHyYTPw', [EmailController::class, 'sendFromQueue'])->name('send-mail-queue');
 Route::get('payment/fio-check/tsGkskqWZcmVsZIYJAn7qUQb0Xowe7pF', function () {

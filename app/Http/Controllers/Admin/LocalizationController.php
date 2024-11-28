@@ -41,6 +41,14 @@ class LocalizationController extends Controller
         ]);
     }
 
+    public function loadLong(LocalizationService $localizationService, $lng, $path): JsonResponse
+    {
+        return response()->json([
+            'status' => 'success',
+            'translate' => htmlspecialchars($localizationService->loadLong($path))
+        ]);
+    }
+
     public function save(Request $request, LocalizationService $localizationService, $lng, $sub): JsonResponse
     {
         $localizationService->save($request, $lng, $sub);

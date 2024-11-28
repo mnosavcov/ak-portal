@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="w-full max-w-[1230px] mx-auto">
         <x-app.breadcrumbs :breadcrumbs="[
-            'Zásady zpracování osobních údajů' => route('zasady-zpracovani-osobnich-udaju'),
+            __('Zásady zpracování osobních údajů') => route('zasady-zpracovani-osobnich-udaju'),
         ]"></x-app.breadcrumbs>
     </div>
 
