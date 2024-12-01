@@ -4,7 +4,7 @@ Váš zájem o ověření účtu nabízejícího na našem portálu jsme vyhodno
 
 O přesných důvodech jsme Vás nejspíš již v rámci přímé komunikace informovali.
 
-Vůči tomuto rozhodnutí se můžete kdykoliv, pokud to považujete za důvodné, na kterémkoliv z našich kontaktů ({{ route('kontakt') }}) odvolat. Samozřejmě se může stát, že mylně vyhodnotíme oprávněnost Vašeho zájmu o ověření účtu nabízejícího. Můžete nás kontaktovat i v případech, kdy se situace změní a budete již schopni doložit, že máte profil skutečného nabízejícího, nebo takový subjekt prokazatelně zastupujete.
+Vůči tomuto rozhodnutí se můžete kdykoliv, pokud to považujete za důvodné, na kterémkoliv z našich [[kontaktů, {{ route('kontakt') }}]] odvolat. Samozřejmě se může stát, že mylně vyhodnotíme oprávněnost Vašeho zájmu o ověření účtu nabízejícího. Můžete nás kontaktovat i v případech, kdy se situace změní a budete již schopni doložit, že máte profil skutečného nabízejícího, nebo takový subjekt prokazatelně zastupujete.
 
 S pozdravem,
 Tým PVtrusted.cz

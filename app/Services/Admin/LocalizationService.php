@@ -191,6 +191,24 @@ class LocalizationService extends Controller
         $this->saveSub($request, $lng, $sub);
     }
 
+    public function saveLong($request, $lng, $path, $filepath = null)
+    {
+        if (env('LANG_ADMIN_READONLY', true)) {
+            return;
+        }
+
+        if($filepath === null) {
+            [$type, $filepath] = explode(':', Crypt::decryptString(base64_decode($path)), 2);
+            $filepath = realpath($filepath);
+        }
+        $filepathTemplate = Str::replaceLast('-text.blade.php', '.blade.php', $filepath);
+
+        File::replace($filepath, $request->post('translateText') . "\n");
+        File::replace($filepathTemplate, '<x-email-layout>' . "\n" . $request->post('translateHtml') . "\n" . '</x-email-layout>' . "\n");
+
+        return true;
+    }
+
     private function saveDefault($request, $lng)
     {
         $filename = resource_path('lang/' . $lng . '.json');
@@ -435,6 +453,10 @@ class LocalizationService extends Controller
                 if (!Str::endsWith($file->getFilename(), '-text.blade.php')) {
                     continue;
                 }
+            }
+
+            if (!Str::endsWith($file->getFilename(), '.blade.php')) {
+                continue;
             }
 
             $ret[] = [

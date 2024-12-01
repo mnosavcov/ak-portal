@@ -1,4 +1,4 @@
-<?php return '<p style="margin-bottom: 15px;">V&nbsp;oboru obnovitelných zdrojů energie jsme respektovanými odborníky. Náš tým disponuje
+<p style="margin-bottom: 15px;">V&nbsp;oboru obnovitelných zdrojů energie jsme respektovanými odborníky. Náš tým disponuje
     více než 25 lety praxe v&nbsp;oblasti projekce a realizace liniových staveb, přes 30 let zkušeností
     se stavbou střešních konstrukcí a od roku 2005 s&nbsp;projekcí a výstavbou fotovoltaických
     elektráren.</p>
@@ -14,4 +14,4 @@
     obnovitelných zdrojů energie.</p>
 
 <p>Naše zkušenosti a odbornost nám pomohly portál funkčně a procesně přizpůsobit potřebám
-    všech interesovaných subjektů.</p>';
+    všech interesovaných subjektů.</p>

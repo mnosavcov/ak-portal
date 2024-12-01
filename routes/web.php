@@ -82,10 +82,20 @@ Route::get('project-tags/image/{project}/{project_tag}/{hash}/{filename}', [Proj
 Route::get('gallery/{project}/{project_gallery}/{hash}/{filename}', [ProjectController::class, 'gallery'])->name('gallery');
 Route::get('image/{project}/{project_image}/{hash}/{filename}', [ProjectController::class, 'image'])->name('image');
 Route::get('zip/{project}/{hash}/{filename}', [ProjectController::class, 'zip'])->name('zip');
-Route::view('zasady-zpracovani-osobnich-udaju', 'lang.' . app()->getLocale() . '.zasady-zpracovani-osobnich-udaju')->name('zasady-zpracovani-osobnich-udaju');
-Route::get('vseobecne-obchodni-podminky', function () {
-    return view('lang.' . app()->getLocale() . '.vseobecne-obchodni-podminky');
-})->name('vseobecne-obchodni-podminky');
+Route::view('zasady-zpracovani-osobnich-udaju',
+    'app.long-text', [
+        'include' => 'lang.' . app()->getLocale() . '.zasady-zpracovani-osobnich-udaju',
+        'breadText' => __('Zásady zpracování osobních údajů'),
+        'breadUrl' => '/zasady-zpracovani-osobnich-udaju',
+    ]
+)->name('zasady-zpracovani-osobnich-udaju');
+Route::view('vseobecne-obchodni-podminky',
+    'app.long-text', [
+        'include' => 'lang.' . app()->getLocale() . '.vseobecne-obchodni-podminky',
+        'breadText' => __('Všeobecné obchodní podmínky'),
+        'breadUrl' => '/vseobecne-obchodni-podminky',
+    ]
+)->name('vseobecne-obchodni-podminky');
 
 Route::middleware('auth')->group(function () {
     Route::get('file/{project}/{project_file}/{hash}/{filename}', [ProjectController::class, 'file'])->name('file');
@@ -217,6 +227,8 @@ Route::middleware('auth')->group(function () {
                         Route::get('email/send-test/{lng}/{template}', [LocalizationController::class, 'sendTest'])->name('email.send-test');
 
                         Route::get('/load-long/{lng}/{path}', [LocalizationController::class, 'loadLong'])->name('load-long');
+                        Route::post('/save-long/{lng}/{path}', [LocalizationController::class, 'saveLong'])->name('save-long');
+                        Route::post('email/send-template-test', [LocalizationController::class, 'sendTemplateTest'])->name('email.send-template-test');
                     });
                 });
             });

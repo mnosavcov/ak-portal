@@ -1,4 +1,4 @@
-<?php return '<p style="margin-bottom: 15px;">Pokud projekt vyhodnotíme jako způsobilý ke zveřejnění a s nabízejícím nebo realitním
+<p style="margin-bottom: 15px;">Pokud projekt vyhodnotíme jako způsobilý ke zveřejnění a s nabízejícím nebo realitním
     makléřem uzavřeme příslušnou smlouvu, vyžádáme si veškeré relevantní informace a
     dokumentaci k&nbsp;záměru.</p>
 
@@ -12,4 +12,4 @@
     v&nbsp;dostupných materiálech snadno a rychle zorientovat.</p>
 
 <p style="margin-bottom: 15px;">Výsledná forma, ve které je projekt zveřejněný, je pro investory přehledná a šetří jejich čas
-    při posuzování investičních příležitostí.</p>';
+    při posuzování investičních příležitostí.</p>

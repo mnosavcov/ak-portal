@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\QueuedEmail;
 use App\Services\Admin\LocalizationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 class LocalizationController extends Controller
 {
@@ -45,7 +47,7 @@ class LocalizationController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'translate' => htmlspecialchars($localizationService->loadLong($path))
+            'translate' => $localizationService->loadLong($path)
         ]);
     }
 
@@ -56,6 +58,16 @@ class LocalizationController extends Controller
         return response()->json([
             'status' => 'success',
             'translates' => $localizationService->load($lng),
+        ]);
+    }
+
+    public function saveLong(Request $request, LocalizationService $localizationService, $lng, $path): JsonResponse
+    {
+        $localizationService->saveLong($request, $lng, $path);
+
+        return response()->json([
+            'status' => 'success',
+            'translate' => $localizationService->loadLong($path),
         ]);
     }
 
@@ -131,6 +143,20 @@ class LocalizationController extends Controller
         $className = $findClass['className'];
 
         auth()->user()->notify(new $className());
+
+        return response()->json(['status' => 'success']);
+    }
+
+    public function sendTemplateTest(Request $request, LocalizationService $localizationService)
+    {
+        $localizationService->saveLong($request, null, null, resource_path('views/app/temp/test-mail-text.blade.php'));
+
+        $data = [];
+        $data['subject'] = 'testovací email';
+        $data['view'] = 'app.temp.test-mail';
+        $data['text'] = 'app.temp.test-mail-text';
+
+        Mail::to(auth()->user()->email, trim(auth()->user()->username))->send(new QueuedEmail($data));
 
         return response()->json(['status' => 'success']);
     }

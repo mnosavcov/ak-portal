@@ -10,7 +10,7 @@ Důvodem může být, že nejste způsobilí k výkonu realitní činnosti (pro 
 
 O přesných důvodech jsme Vás nejspíš již v rámci přímé komunikace informovali.
 
-Vůči tomuto rozhodnutí se můžete kdykoliv, pokud to považujete za důvodné, na kterémkoliv z našich kontaktů ({{ route('kontakt') }}) odvolat. Samozřejmě se může stát, že mylně vyhodnotíme oprávněnost Vašeho zájmu o ověření účtu realitního makléře. Můžete nás kontaktovat i v případech, kdy se situace změní a budete již schopni doložit, že splňujete podmínky pro ověření účtu realitního makléře.
+Vůči tomuto rozhodnutí se můžete kdykoliv, pokud to považujete za důvodné, na kterémkoliv z našich [[kontaktů, {{ route('kontakt') }}]] odvolat. Samozřejmě se může stát, že mylně vyhodnotíme oprávněnost Vašeho zájmu o ověření účtu realitního makléře. Můžete nás kontaktovat i v případech, kdy se situace změní a budete již schopni doložit, že splňujete podmínky pro ověření účtu realitního makléře.
 
 S pozdravem,
 Tým PVtrusted.cz

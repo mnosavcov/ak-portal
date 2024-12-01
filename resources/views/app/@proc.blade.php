@@ -1,55 +1,54 @@
 @php
-    $homeUrl = url('/');
-        $procItems = [
-            [
-                'id' => 'proverujeme-kazdy-projekt',
-                'title' => __('proc.Prověřujeme_každý_projekt'),
-                'description' => __('proc.Na_portál_zalistujeme_jen_projekty,_které_úspěšně_projdou_detailní_rešerší'),
-                'anchorTitle' => __('proc.Náš_check-list_projektů'),
-                'anchorContent' => require(resource_path('views/lang/' . app()->getLocale() . '/proverujeme-kazdy-projekt.php')),
-                'ico' => Vite::asset('resources/images/ico-proverujeme-kazdy-projekt.svg'),
-            ],
-            [
-                'id' => 'identifikujeme-a-overujeme-kazdeho-uzivatele',
-                'title' => __('proc.Identifikujeme_a_ověřujeme_každého_uživatele'),
-                'description' => __('proc.Vlastníci,_zájemci_i_realitní_makléři_musí_doložit_svou_totožnost_a_oprávněnost_zájmu_na_používání_portálu'),
-                'anchorTitle' => __('proc.Náš_check-list_uživatelů'),
-                'anchorContent' => require(resource_path('views/lang/' . app()->getLocale() . '/identifikujeme-a-overujeme-kazdeho-uzivatele.php')),
-                'ico' => Vite::asset('resources/images/ico-identifikujeme-a-overujeme-kazdeho-uzivatele.svg'),
-            ],
-            [
-                'id' => 'odbornost-a-zkusenosti-z-oboru',
-                'title' => __('proc.Odbornost_a_zkušenosti_z&nbsp;oboru'),
-                'description' => __('proc.Jsme_součástí_skupiny_firem,_které_po_celém_světě_vyprojektovaly_solární_parky_s_celkovým_výkonem_přes_1_000_MWp'),
-                'anchorTitle' => __('proc.Naše_zkušenosti'),
-                'anchorContent' => require(resource_path('views/lang/' . app()->getLocale() . '/odbornost-a-zkusenosti-z-oboru.php')),
-                'ico' => Vite::asset('resources/images/ico-odbornost-a-zkusenosti-z-oboru.svg'),
-            ],
-            [
-                'id' => 'projekty-a-investori-z-celeho-sveta',
-                'title' => __('proc.Projekty_a_investoři_z_celého_světa'),
-                'description' => __('proc.Propojujeme_projekty_a_investory_bez_ohledu_na_hranice__Zvyšujeme_šance_na_úspěšné_uzavření_obchodu'),
-                'anchorTitle' => __('proc.O_působnosti_portálu'),
-                'anchorContent' => require(resource_path('views/lang/' . app()->getLocale() . '/projekty-a-investori-z-celeho-sveta.php')),
-                'ico' => Vite::asset('resources/images/ico-projekty-a-investori-z-celeho-sveta.svg'),
-            ],
-            [
-                'id' => 'moznost-vyzadovat-vyssi-stupen-overeni',
-                'title' => __('proc.Možnost_vyžadovat_vyšší_stupeň_ověření'),
-                'description' => __('proc.Nabízející_projektu_může_neveřejné_informace_zpřístupnit_jen_jím_vybranému_okruhu_investorů'),
-                'anchorTitle' => __('proc.O_vyšším_stupni_ověření'),
-                'anchorContent' => require(resource_path('views/lang/' . app()->getLocale() . '/moznost-vyzadovat-vyssi-stupen-overeni.php')),
-                'ico' => Vite::asset('resources/images/ico-moznost-vyzadovat-vyssi-stupen-overeni.svg'),
-            ],
-            [
-                'id' => 'profesionalni-priprava-projektu-ke-zverejneni',
-                'title' => __('proc.Profesionální_příprava_projektu_ke_zveřejnění'),
-                'description' => __('proc.Popis_projektu_a_dokumentaci_připravíme_do_standardizovaného_a_investičně_uchopitelného_formátu'),
-                'anchorTitle' => __('proc.Jak_probíhá_příprava'),
-                'anchorContent' => require(resource_path('views/lang/' . app()->getLocale() . '/profesionalni-priprava-projektu-ke-zverejneni.php')),
-                'ico' => Vite::asset('resources/images/ico-profesionalni-priprava-projektu-ke-zverejneni.svg'),
-            ],
-        ];
+    $procItems = [
+        [
+            'id' => 'proverujeme-kazdy-projekt',
+            'title' => __('proc.Prověřujeme_každý_projekt'),
+            'description' => __('proc.Na_portál_zalistujeme_jen_projekty,_které_úspěšně_projdou_detailní_rešerší'),
+            'anchorTitle' => __('proc.Náš_check-list_projektů'),
+            'anchorContent' => View::make('lang.' . app()->getLocale() . '.proverujeme-kazdy-projekt')->render(),
+            'ico' => Vite::asset('resources/images/ico-proverujeme-kazdy-projekt.svg'),
+        ],
+        [
+            'id' => 'identifikujeme-a-overujeme-kazdeho-uzivatele',
+            'title' => __('proc.Identifikujeme_a_ověřujeme_každého_uživatele'),
+            'description' => __('proc.Vlastníci,_zájemci_i_realitní_makléři_musí_doložit_svou_totožnost_a_oprávněnost_zájmu_na_používání_portálu'),
+            'anchorTitle' => __('proc.Náš_check-list_uživatelů'),
+            'anchorContent' => View::make('lang.' . app()->getLocale() . '.identifikujeme-a-overujeme-kazdeho-uzivatele')->render(),
+            'ico' => Vite::asset('resources/images/ico-identifikujeme-a-overujeme-kazdeho-uzivatele.svg'),
+        ],
+        [
+            'id' => 'odbornost-a-zkusenosti-z-oboru',
+            'title' => __('proc.Odbornost_a_zkušenosti_z&nbsp;oboru'),
+            'description' => __('proc.Jsme_součástí_skupiny_firem,_které_po_celém_světě_vyprojektovaly_solární_parky_s_celkovým_výkonem_přes_1_000_MWp'),
+            'anchorTitle' => __('proc.Naše_zkušenosti'),
+            'anchorContent' => View::make('lang.' . app()->getLocale() . '.odbornost-a-zkusenosti-z-oboru')->render(),
+            'ico' => Vite::asset('resources/images/ico-odbornost-a-zkusenosti-z-oboru.svg'),
+        ],
+        [
+            'id' => 'projekty-a-investori-z-celeho-sveta',
+            'title' => __('proc.Projekty_a_investoři_z_celého_světa'),
+            'description' => __('proc.Propojujeme_projekty_a_investory_bez_ohledu_na_hranice__Zvyšujeme_šance_na_úspěšné_uzavření_obchodu'),
+            'anchorTitle' => __('proc.O_působnosti_portálu'),
+            'anchorContent' => View::make('lang.' . app()->getLocale() . '.projekty-a-investori-z-celeho-sveta')->render(),
+            'ico' => Vite::asset('resources/images/ico-projekty-a-investori-z-celeho-sveta.svg'),
+        ],
+        [
+            'id' => 'moznost-vyzadovat-vyssi-stupen-overeni',
+            'title' => __('proc.Možnost_vyžadovat_vyšší_stupeň_ověření'),
+            'description' => __('proc.Nabízející_projektu_může_neveřejné_informace_zpřístupnit_jen_jím_vybranému_okruhu_investorů'),
+            'anchorTitle' => __('proc.O_vyšším_stupni_ověření'),
+            'anchorContent' => View::make('lang.' . app()->getLocale() . '.moznost-vyzadovat-vyssi-stupen-overeni')->render(),
+            'ico' => Vite::asset('resources/images/ico-moznost-vyzadovat-vyssi-stupen-overeni.svg'),
+        ],
+        [
+            'id' => 'profesionalni-priprava-projektu-ke-zverejneni',
+            'title' => __('proc.Profesionální_příprava_projektu_ke_zveřejnění'),
+            'description' => __('proc.Popis_projektu_a_dokumentaci_připravíme_do_standardizovaného_a_investičně_uchopitelného_formátu'),
+            'anchorTitle' => __('proc.Jak_probíhá_příprava'),
+            'anchorContent' => View::make('lang.' . app()->getLocale() . '.profesionalni-priprava-projektu-ke-zverejneni')->render(),
+            'ico' => Vite::asset('resources/images/ico-profesionalni-priprava-projektu-ke-zverejneni.svg'),
+        ],
+    ];
 @endphp
 
 <div class="bg-white pt-[70px] pb-[100px] w-full">

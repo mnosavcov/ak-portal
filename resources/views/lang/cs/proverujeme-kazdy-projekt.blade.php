@@ -1,4 +1,4 @@
-<?php return '<p style="margin-bottom: 15px;">Na naší platformě lze nabízet projekty či jejich části převážně z&nbsp;oblasti výstavby
+<p style="margin-bottom: 15px;">Na naší platformě lze nabízet projekty či jejich části převážně z&nbsp;oblasti výstavby
     a provozu
     obnovitelných zdrojů energie v&nbsp;různých stupních rozpracovanosti. Tomu odpovídá i šíře a
     výčet bodů, které před zveřejněním jejich nabídky prověřujeme. Projekty, které jsou v&nbsp;rané
@@ -69,4 +69,4 @@
     usnadnit prvotní seznámení s&nbsp;projektem. Každý investor si musí před finálním rozhodnutím o
     nákupu projektu realizovat vlastní rešerši a ověřit předložené informace dle vlastních
     procesů. V&nbsp;případě, že investor požaduje vyšší stupeň ověření poskytovaných informací o
-    projektu i s&nbsp;garancemi, nabízíme služby nezávislých advisorských společností</p>';
+    projektu i s&nbsp;garancemi, nabízíme služby nezávislých advisorských společností</p>

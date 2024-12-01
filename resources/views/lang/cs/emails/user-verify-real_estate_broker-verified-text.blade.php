@@ -8,7 +8,7 @@ Zároveň jste doložili, že jste způsobilí k výkonu realitní činnosti (pr
 
 Tím jste splnili některé z podstatných podmínek pro zveřejnění projektu.
 
-Upozorňujeme, že ověření účtu realitního makléře není podmínkou dostatečnou pro zveřejnění projektu. Na portál můžete přidat neomezený počet projektů ({{ route('projects.create.select') }}), a to dokonce i jako neověřený realitní makléř.
+Upozorňujeme, že ověření účtu realitního makléře není podmínkou dostatečnou pro zveřejnění projektu. Na portál můžete [[přidat neomezený počet projektů, {{ route('projects.create.select') }}]], a to dokonce i jako neověřený realitní makléř.
 
 Zveřejnění však není nárokové. Pokud jste ověřený realitní makléř, zahájíme po přidání projektu (zašlete nám základní popis projektu skrze internetový formulář) proces přípravy projektu (do finální podoby pro zobrazení investorům). Příprava projektu započne, jakmile dojde k uzavření mandátní smlouvy – v ní jsou mimo jiné sjednány jak podmínky prodeje vůči potenciálním investorům, tak i výše provize portálu za zprostředkování prodeje. Pokud nedisponujete výhradní smlouvou o zprostředkování prodeje projektu, je zveřejnění projektu podmíněno úhradou inzertního poplatku na základě smlouvy o poskytování služeb, kterou s portálem uzavřete.
 
@@ -21,9 +21,9 @@ Jako realitní makléř můžete u projektu zvolit vyšší stupeň ověření i
 
 Plné znění projektu připravujeme my na základě dodaných informací, jako součást poskytovaných služeb. Jakmile ho budeme považovat za finální, vyzveme vás k potvrzení správnosti a úplnosti.
 
-Po zveřejnění projektu mohou investoři učinit nabídku. Aby prokázali vážnost svého zájmu, musí složit jistotu ve výši, která je u projektu zveřejněna – volíte ji v rámci procesu přípravy projektu. Investor s vítěznou nabídkou bude vyzván k podpisu rezervační smlouvy a následné úhradě rezervačního poplatku do advokátní či notářské úschovy. K převodu projektu dojde až po podpisu kupní smlouvy. Celý proces zobchodování je detailně popsán ve Všeobecných obchodních podmínkách ({{ route('vseobecne-obchodni-podminky') }}).
+Po zveřejnění projektu mohou investoři učinit nabídku. Aby prokázali vážnost svého zájmu, musí složit jistotu ve výši, která je u projektu zveřejněna – volíte ji v rámci procesu přípravy projektu. Investor s vítěznou nabídkou bude vyzván k podpisu rezervační smlouvy a následné úhradě rezervačního poplatku do advokátní či notářské úschovy. K převodu projektu dojde až po podpisu kupní smlouvy. Celý proces zobchodování je detailně popsán ve [[Všeobecných obchodních podmínkách, {{ route('vseobecne-obchodni-podminky') }}]].
 
-V případě jakýchkoliv dotazů a připomínek nás kontaktujte ({{ route('kontakt') }}).
+V případě jakýchkoliv dotazů a připomínek nás [[kontaktujte, {{ route('kontakt') }}]].
 
 S pozdravem,
 Tým PVtrusted.cz

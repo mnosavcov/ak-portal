@@ -1,4 +1,4 @@
-<?php return '<p style="margin-bottom: 15px;">Zejména nabídka projektů, které se na naší platformě prodávají, není určena pro širokou
+<p style="margin-bottom: 15px;">Zejména nabídka projektů, které se na naší platformě prodávají, není určena pro širokou
     veřejnost. Veřejně jsou viditelné jen základní údaje, podle kterých prakticky nelze projekt
     konkrétně identifikovat.</p>
 
@@ -31,4 +31,4 @@
     mohou využít doplňkové nastavení nazvané vyšší stupeň ověření investorů. Při něm vlastník,
     nebo subjekt, který ho zastupuje, nejdříve obdrží žádost o zpřístupnění informací od námi
     identifikovaného investora. A mohou rozhodnout na základě vlastních parametrů a
-    požadavků, zda tak učiní.</p>';
+    požadavků, zda tak učiní.</p>

@@ -13,7 +13,7 @@
 
         <section class="mx-auto pb-4 px-0"
                  x-data="adminLocalization(@js($languages), @js($is_test), @js($from_language), @js($test_language), @js($default_language),)">
-            <div class="sticky top-0 pt-4 bg-gray-100 z-50">
+            <div class="sticky top-0 pt-4 bg-gray-100 z-50" x-ref="language-header-content">
                 <div class="flex flex-row items-center">
                     <div class="flex flex-row gap-x-6">
                         <h1 class="text-2xl font-semibold pt-2 pb-6">

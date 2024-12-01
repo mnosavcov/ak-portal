@@ -19,6 +19,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     languagesMeta: {},
 
     longTextTranslateData: {},
+    longTextTranslateOriginData: {},
     init() {
         this.loadData(this.fromLanguage)
         this.loadData()
@@ -94,6 +95,10 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
             return;
         }
 
+        if (force && !confirm('Opravdu chcete zrušit změny?')) {
+            return;
+        }
+
         let pathname = this.languages[this.getSelectedLanguage()]['category'][this.getSelectedLanguageCategory()]['pathname'];
 
         Alpine.store('app').appLoaderShow = true;
@@ -106,10 +111,12 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         }).then((response) => response.json())
             .then((data) => {
                 if (data.status === 'success') {
-                    if(typeof (this.longTextTranslateData[this.getSelectedLanguage()]) === 'undefined') {
+                    if (typeof (this.longTextTranslateData[this.getSelectedLanguage()]) === 'undefined') {
                         this.longTextTranslateData[this.getSelectedLanguage()] = {};
+                        this.longTextTranslateOriginData[this.getSelectedLanguage()] = {};
                     }
                     this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
+                    this.longTextTranslateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
                     Alpine.store('app').appLoaderShow = false;
                     return;
                 }
@@ -227,6 +234,40 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                     this.translateData[this.getSelectedLanguage()] = data.translates;
                     this.translateOriginData[this.getSelectedLanguage()] = JSON.parse(JSON.stringify(data.translates));
                     this.nextItem(nextEl)
+                    Alpine.store('app').appLoaderShow = false;
+                    return;
+                }
+
+                alert('Chyba uložení překladu')
+                Alpine.store('app').appLoaderShow = false;
+            })
+            .catch((error) => {
+                alert('Chyba uložení překladu')
+                Alpine.store('app').appLoaderShow = false;
+            });
+    },
+    async saveLongData(translate) {
+        let pathname = this.languages[this.getSelectedLanguage()]['category'][this.getSelectedLanguageCategory()]['pathname'];
+
+        Alpine.store('app').appLoaderShow = true;
+
+        await fetch('/admin/localization/save-long/'
+            + this.getSelectedLanguage() + '/'
+            + pathname, {
+            method: 'POST',
+            body: JSON.stringify({
+                translateText: translate,
+                translateHtml: this.translateTemplateEmail(translate),
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+            },
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.status === 'success') {
+                    this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
+                    this.longTextTranslateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
                     Alpine.store('app').appLoaderShow = false;
                     return;
                 }
@@ -616,5 +657,58 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 alert('Chyba odeslání emailu')
                 Alpine.store('app').appLoaderShow = false;
             });
+    },
+    async sendTestTemplateMail(url, translate) {
+        Alpine.store('app').appLoaderShow = true;
+
+        await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                translateText: translate,
+                translateHtml: this.translateTemplateEmail(translate),
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+            },
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.status === 'success') {
+                    alert('Email byl úspěšně odeslán')
+                    Alpine.store('app').appLoaderShow = false;
+                    return;
+                }
+
+                alert('Chyba odeslání emailu')
+                Alpine.store('app').appLoaderShow = false;
+            })
+            .catch((error) => {
+                alert('Chyba odeslání emailu')
+                Alpine.store('app').appLoaderShow = false;
+            });
+    },
+    translateTemplateEmail(textData) {
+        if (!this.isSelectedTab('email-template')) {
+            return textData;
+        }
+
+        textData = textData.trim();
+        textData = textData.replace(/\n/g, '<br>\n');
+        let regex = /\[\[(.+?),\s*\{\{\s*(.+?)\s*\}\}\]\]/g;
+        textData = textData.replace(regex, (_, linkText, route) => {
+            return `<a href="{{ ${route} }}">${linkText}</a>`;
+        });
+
+        regex = /(?:^|\n)\s*- ([^\n]*(?:\n\s*- [^\n]*)*)/g;
+        textData = textData.replace(regex, match => {
+            // Rozdělení bloku na jednotlivé položky
+            let items = match.trim().split("\n").map(line => line.replace(/^\s*- /, '').trim());
+
+            // Převod na HTML seznam
+            let listHtml = '\n<ul>\n' + items.map(item => `<li>${item}</li>`).join("\n") + '\n</ul>';
+            return listHtml;
+        });
+        textData = textData.replace(/<br><\/li>/g, '</li>');
+        return textData;
     }
 }));
