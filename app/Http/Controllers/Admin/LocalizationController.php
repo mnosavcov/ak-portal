@@ -11,6 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
@@ -149,7 +150,12 @@ class LocalizationController extends Controller
 
     public function sendTemplateTest(Request $request, LocalizationService $localizationService)
     {
-        $localizationService->saveLong($request, null, null, resource_path('views/app/temp/test-mail-text.blade.php'));
+        $localizationService->saveLong(
+            $request,
+            null,
+            base64_encode(Crypt::encryptString('template-mail:' . resource_path('views/app/temp/test-mail-text.blade.php'))),
+            false
+        );
 
         $data = [];
         $data['subject'] = 'testovací email';

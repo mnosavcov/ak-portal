@@ -191,20 +191,19 @@ class LocalizationService extends Controller
         $this->saveSub($request, $lng, $sub);
     }
 
-    public function saveLong($request, $lng, $path, $filepath = null)
+    public function saveLong($request, $lng, $path, $translateRealPath = true)
     {
         if (env('LANG_ADMIN_READONLY', true)) {
             return;
         }
 
-        if($filepath === null) {
-            [$type, $filepath] = explode(':', Crypt::decryptString(base64_decode($path)), 2);
+        [$type, $filepath] = explode(':', Crypt::decryptString(base64_decode($path)), 2);
+        if ($translateRealPath) {
             $filepath = realpath($filepath);
         }
-
         File::replace($filepath, $request->post('translateText') . "\n");
 
-        if($type === 'template-mail') {
+        if ($type === 'template-mail') {
             $filepathTemplate = Str::replaceLast('-text.blade.php', '.blade.php', $filepath);
             File::replace($filepathTemplate, '<x-email-layout>' . "\n" . $request->post('translateHtml') . "\n" . '</x-email-layout>' . "\n");
         }
