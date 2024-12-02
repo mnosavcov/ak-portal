@@ -86,7 +86,7 @@ class LocalizationService extends Controller
                 $languages[$lng]['category'][$longText['category']] = [
                     'title' => __('localization.' . $longText['category']),
                     'pathname' => $longText['pathname'],
-                    'countNeprelozeno' => 0,
+                    'countNeprelozeno' => Str::length(trim($this->loadLong($longText['pathname']))) > 0 ? 0 : 1,
                 ];
             }
 
@@ -95,7 +95,7 @@ class LocalizationService extends Controller
                 $languages[$lng]['category'][$longText['category']] = [
                     'title' => __('localization.' . $longText['category']),
                     'pathname' => $longText['pathname'],
-                    'countNeprelozeno' => 0,
+                    'countNeprelozeno' => Str::length(trim($this->loadLong($longText['pathname']))) > 0 ? 0 : 1,
                 ];
             }
         }

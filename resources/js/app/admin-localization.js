@@ -284,6 +284,17 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return (Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title);
     },
     getCountNeprelozenoTranslate(languageCategory) {
+        if (languageCategory.startsWith('long-text-') || languageCategory.startsWith('template-mail-')) {
+            if (
+                typeof this.longTextTranslateData[this.getSelectedLanguage()] === 'undefined'
+                || typeof this.longTextTranslateData[this.getSelectedLanguage()][languageCategory] === 'undefined'
+            ) {
+                return this.languages[this.getSelectedLanguage()]['category'][languageCategory].countNeprelozeno;
+            }
+
+            return this.longTextTranslateData[this.getSelectedLanguage()][languageCategory].trim().length > 0 ? 0 : 1;
+        }
+
         if (typeof (this.translateData[this.getSelectedLanguage()]) === 'undefined') {
             return 0;
         }
@@ -293,14 +304,22 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return Object.values(this.translateData[this.getSelectedLanguage()][languageCategory]).filter(value => (value ?? '').trim() === '').length
     },
     getCountNeprelozenoLanguageTab(language) {
-        let count = 0;
-        if (typeof (this.translateData[language]) === 'undefined') {
-            if (typeof (this.languages[language]) === 'undefined') {
-                return 0;
-            }
+        if (typeof (this.languages[language]) === 'undefined') {
+            return 0;
+        }
 
+        let count = 0;
+
+        if (this.isSelectedTab('long-text') || this.isSelectedTab('email-template')) {
             for (const [categoryKey, categoryValue] of Object.entries(this.languages[language].category)) {
                 if (!this.selectionCategory(categoryKey)) {
+                    continue;
+                }
+                if (
+                    typeof this.longTextTranslateData[language] !== 'undefined'
+                    && typeof this.longTextTranslateData[language][categoryKey] !== 'undefined'
+                ) {
+                    count += this.longTextTranslateData[language][categoryKey].trim().length > 0 ? 0 : 1;
                     continue;
                 }
                 count += categoryValue.countNeprelozeno;
@@ -309,11 +328,22 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
             return count;
         }
 
-        for (const [categoryKey, categoryValue] of Object.entries(this.translateData[language])) {
+        if (typeof (this.translateData[language]) !== 'undefined') {
+            for (const [categoryKey, categoryValue] of Object.entries(this.translateData[language])) {
+                if (!this.selectionCategory(categoryKey)) {
+                    continue;
+                }
+                count += Object.values(categoryValue).filter(value => (value ?? '').trim() === '').length;
+            }
+
+            return count;
+        }
+
+        for (const [categoryKey, categoryValue] of Object.entries(this.languages[language].category)) {
             if (!this.selectionCategory(categoryKey)) {
                 continue;
             }
-            count += Object.values(categoryValue).filter(value => (value ?? '').trim() === '').length;
+            count += categoryValue.countNeprelozeno;
         }
 
         return count;
@@ -321,12 +351,27 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     getCountNeprelozenoTab(tab) {
         let count = 0;
         for (const [languageIndex, languageValue] of Object.entries(this.languages)) {
-            if (typeof (this.translateData[languageIndex]) === 'undefined') {
-                if (typeof (this.languages[languageIndex]) === 'undefined') {
-                    return 0;
+            if (this.isSelectedTab('long-text', tab) || this.isSelectedTab('email-template', tab)) {
+                for (const [categoryKey, categoryValue] of Object.entries(languageValue.category)) {
+                    if (!this.selectionCategory(categoryKey, tab)) {
+                        continue;
+                    }
+
+                    if (
+                        typeof this.longTextTranslateData[languageIndex] !== 'undefined'
+                        && typeof this.longTextTranslateData[languageIndex][categoryKey] !== 'undefined'
+                    ) {
+                        count += this.longTextTranslateData[languageIndex][categoryKey].trim().length > 0 ? 0 : 1;
+                        continue;
+                    }
+                    count += categoryValue.countNeprelozeno;
                 }
 
-                for (const [categoryKey, categoryValue] of Object.entries(this.languages[languageIndex].category)) {
+                continue;
+            }
+
+            if (typeof (this.translateData[languageIndex]) === 'undefined') {
+                for (const [categoryKey, categoryValue] of Object.entries(languageValue.category)) {
                     if (!this.selectionCategory(categoryKey, tab)) {
                         continue;
                     }
@@ -689,6 +734,10 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     },
     translateTemplateEmail(textData) {
         if (!this.isSelectedTab('email-template')) {
+            return textData;
+        }
+
+        if (typeof textData === 'undefined') {
             return textData;
         }
 
