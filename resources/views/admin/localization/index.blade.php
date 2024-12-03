@@ -168,16 +168,16 @@
                 </div>
             </template>
 
-            <template x-if="isSelectedTab('general') || isSelectedTab('email-basic')">
+            <div x-show="isSelectedTab('general') || isSelectedTab('email-basic')" x-cloak>
                 <div>
                     @include('admin.localization.@general')
                 </div>
-            </template>
-            <template x-if="isSelectedTab('long-text') || isSelectedTab('email-template')">
+            </div>
+            <div x-show="isSelectedTab('long-text') || isSelectedTab('email-template')" x-cloak>
                 <div>
                     @include('admin.localization.@long-text')
                 </div>
-            </template>
+            </div>
         </section>
     </main>
 </x-admin-layout>

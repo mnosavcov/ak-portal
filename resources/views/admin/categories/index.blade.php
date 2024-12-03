@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="grid gap-y-[15px] mt-[15px]" x-init="data.categories">
-                            <template x-for="(subcategory, index) in data.categories['{{ $index }}']">
+                            <template x-for="(subcategory, index) in data.categories['{{ $index }}']" :key="index">
                                 <div>
                                     <div x-show="!subcategory.edit"
                                          class="cursor-pointer inline-block">
@@ -59,7 +59,7 @@
                                                           x-model="subcategory.subcategory"/>
                                             <ul class="text-sm text-red-600 space-y-1">
                                                 <template
-                                                        x-for="(error) in errors['data.{{ $index }}.' + index + '.subcategory']">
+                                                        x-for="(error, index) in errors['data.{{ $index }}.' + index + '.subcategory']" :key="index">
                                                     <li x-text="error"></li>
                                                 </template>
                                             </ul>
@@ -77,7 +77,7 @@
                                                           x-model="subcategory.url"/>
                                             <ul class="text-sm text-red-600 space-y-1">
                                                 <template
-                                                        x-for="(error) in errors['data.{{ $index }}.' + index + '.url']">
+                                                        x-for="(error, index) in errors['data.{{ $index }}.' + index + '.url']" :key="index">
                                                     <li x-text="error"></li>
                                                 </template>
                                             </ul>

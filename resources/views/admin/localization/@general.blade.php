@@ -1,5 +1,5 @@
 <template x-for="(language, languageIndex) in languages" :key="languageIndex">
-    <template x-if="selectedLanguage === languageIndex">
+    <div x-show="selectedLanguage === languageIndex" x-cloak>
         <div class="grid grid-cols-[200px_1fr] gap-x-3">
             <div>
                 <template x-for="(languageCategoryValue, languageCategoryIndex) in language.category"
@@ -53,7 +53,7 @@
                                                 <div class="my-1 mb-2 border-b border-gray-500 border-dashed">
                                                 </div>
                                                 <template
-                                                    x-for="(metaData, metaIndex) in getMetadata(translateIndex)">
+                                                    x-for="(metaData, metaIndex) in getMetadata(translateIndex)" :key="metaIndex">
                                                     <div>
                                                         <span
                                                             x-text="metaData.path"
@@ -151,5 +151,5 @@
                 </template>
             </div>
         </div>
-    </template>
+    </div>
 </template>

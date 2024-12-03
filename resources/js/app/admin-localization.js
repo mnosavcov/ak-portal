@@ -20,10 +20,12 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
 
     longTextTranslateData: {},
     longTextTranslateOriginData: {},
-    init() {
-        this.loadData(this.fromLanguage)
-        this.loadData()
-        this.loadLongTextData()
+    async init() {
+        await Promise.all([
+            this.loadData(this.fromLanguage),
+            this.loadData(),
+            this.loadLongTextData()
+        ]);
     },
     async loadData(loadLanguage = null) {
         if (this.getSelectedLanguage() === '__info__' && loadLanguage === null) {
@@ -84,6 +86,13 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         }
 
         if (this.getSelectedLanguageCategory() === '__default__') {
+            return;
+        }
+
+        if (
+            typeof this.languages[this.getSelectedLanguage()] === 'undefined'
+            || typeof this.languages[this.getSelectedLanguage()]['category'][this.getSelectedLanguageCategory()] === 'undefined'
+        ) {
             return;
         }
 
@@ -164,9 +173,9 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
             },
         }).then((response) => response.json())
-            .then((data) => {
+            .then(async (data) => {
                 if (data.status === 'success') {
-                    this.loadData(data.from_language);
+                    await this.loadData(data.from_language);
                     this.fromLanguage = data.from_language;
                     Alpine.store('app').appLoaderShow = false;
                     return;
@@ -409,7 +418,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         this.selectedTranslate = null;
     },
     async changeSelectEnd() {
-        this.loadLongTextData()
+        await this.loadLongTextData()
 
         await new Promise(resolve => setTimeout(resolve, 1));
         Alpine.store('app').appLoaderShow = false;
@@ -460,9 +469,9 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         }
         await this.changeSelectBegin();
 
+        await this.loadData(language);
         this.selectedLanguage = language;
         localStorage.setItem('admin.language.selected', language);
-        await this.loadData();
 
         await this.changeSelectEnd();
     },
@@ -672,7 +681,7 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     },
 
     getMetadata(translate) {
-        if (this.isSelectedLanguageCategory('__default__')) {
+        if (this.getSelectedLanguageCategory() === '__default__') {
             return this.languagesMeta[translate]
         }
 
@@ -759,5 +768,16 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         });
         textData = textData.replace(/<br><\/li>/g, '</li>');
         return textData;
+    },
+
+    getLongTextTranslateData() {
+        if (
+            typeof this.longTextTranslateData[this.getSelectedLanguage()] === 'undefined'
+            || typeof this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] === 'undefined'
+        ) {
+            return '';
+        }
+
+        return this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()]
     }
 }));

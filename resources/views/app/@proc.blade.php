@@ -150,6 +150,6 @@
             <h2 x-html="inputData.title" class="mb-[25px]"></h2>
         </template>
 
-        <div x-html="inputData.message" class="text-left mb-[30px] font-Spartan-Regular text-[16px]"></div>
+        <div x-html="inputData.message" class="text-left font-Spartan-Regular text-[16px]"></div>
     </div>
 </x-modal>

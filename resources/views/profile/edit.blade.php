@@ -409,7 +409,7 @@
                     </div>
                 </div>
 
-                <div x-show="newEmailOpen" x-collapse x-cloak="">
+                <div x-show="newEmailOpen" x-collapse x-cloak>
                     <div class="pb-[10px]">
                         <div class="text-center font-Spartan-Bold text-[13px] leading-[29px] text-[#676464]">
                             {{ __('Zadejte správný kontaktní e-mail') }} *
