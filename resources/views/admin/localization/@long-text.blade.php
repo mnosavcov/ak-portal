@@ -23,7 +23,7 @@
 
             <div x-data="{
                     preview: localStorage.getItem('admin.language.long-text.preview') === 'true',
-                    headerHeight: $refs['language-header-content'] ? $refs['language-header-content'].getBoundingClientRect().height : 0,
+                    get headerHeight() {return $refs['language-header-content']?.getBoundingClientRect().height ?? 0;},
                     buttonsHeight: 0,
                     margins: 60,
                     marginsNoPreview: 46,
@@ -67,7 +67,7 @@
                             >
                                     <textarea
                                         class="bg-white border border-gray-300 mt-[15px] p-[30px] px-[45px] rounded-[3px] shadow font-mono whitespace-pre-line w-full resize-none"
-                                        x-model="getLongTextTranslateData()"
+                                        x-model="selectedLongTextData"
                                         :style="{
                                             height: preview
                                                 ? `calc(50vh - ${calcHeight}px)`
@@ -96,7 +96,10 @@
                             <div class="mt-[15px]"
                                  x-init="
                                      $nextTick(() => {
-                                         buttonsHeight = $el.getBoundingClientRect().height,
+                                         buttonsHeight = $el.getBoundingClientRect().height;
+                                         if (buttonsHeight === 0) {
+                                            buttonsHeight = 50;
+                                         }
                                          calcHeight2 = parseInt(headerHeight) + parseInt(buttonsHeight) + parseInt(marginsNoPreview)
                                          calcHeight = Math.ceil((parseInt(headerHeight) + parseInt(buttonsHeight) + parseInt(margins)) / 2)
                                      })">

@@ -770,14 +770,20 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         return textData;
     },
 
-    getLongTextTranslateData() {
+    get selectedLongTextData() {
         if (
             typeof this.longTextTranslateData[this.getSelectedLanguage()] === 'undefined'
             || typeof this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] === 'undefined'
         ) {
             return '';
         }
+        return this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()];
+    },
 
-        return this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()]
+    set selectedLongTextData(value) {
+        if (typeof this.longTextTranslateData[this.getSelectedLanguage()] === 'undefined') {
+            this.longTextTranslateData[this.getSelectedLanguage()] = {};
+        }
+        this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = value;
     }
 }));
