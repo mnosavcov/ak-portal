@@ -29,70 +29,84 @@
                             <template
                                 x-for="(translate, translateIndex) in getTranslateData()" :key="translateIndex">
                                 <div
-                                    class="border-b border-b-gray-500 last:border-none pt-1 pb-1 hover:bg-gray-200 px-1 cursor-pointer"
+                                    class="grid grid-cols-[min-content_1fr] gap-x-[5px] border-b border-b-gray-500 last:border-none pt-1 pb-1 hover:bg-gray-200 px-1 cursor-pointer"
                                     :data-translate-index="translateIndex"
                                     @if(!env('LANG_ADMIN_READONLY', true))
                                         @click.prevent.stop="toggleTranslate(translateIndex)"
                                     @endif
                                 >
                                     <div
-                                        class="block relative w-auto z-0"
-                                        :class="{
+                                        class="contents">
+                                        <div :class="{
                                                 'bg-red-600 px-1 text-white rounded-[3px]': getTranslateData(translateIndex) === '',
                                                 'opacity-30': getTranslateDataFromLanguage(translateIndex) !== ''
-                                             }">
-                                        <span x-text="translateIndex" class="break-all"></span>
-                                        <span
-                                            class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer group absolute top-[5px] right-[5px]">
+                                             }">sys
+                                        </div>
+                                        <div class="relative">
+                                            <div x-text="translateIndex" class="break-all" :class="{
+                                                'bg-red-600 px-1 text-white rounded-[3px]': getTranslateData(translateIndex) === '',
+                                                'opacity-30': getTranslateDataFromLanguage(translateIndex) !== ''
+                                             }"></div>
+
                                             <div
-                                                class="leading-5 z-50 max-w-[500px] w-[100vw] cursor-default text-[13px] font-Spartan-Light text-gray-800 hidden group-hover:inline-block absolute top-[5px] right-[10px] p-2 border border-dashed border-app-red rounded-[5px] bg-amber-50">
+                                                class="fa-solid fa-circle-info text-[15px] text-blue-600 cursor-pointer group absolute top-[5px] right-[5px]">
                                                 <div
-                                                    x-text="(getSelectedLanguageCategory() !== '__default__' ? getSelectedLanguageCategory() + '.' : '') + translateIndex"
-                                                    class="break-all font-Spartan-SemiBold leading-5">
-                                                </div>
-                                                <div class="my-1 mb-2 border-b border-gray-500 border-dashed">
-                                                </div>
-                                                <template
-                                                    x-for="(metaData, metaIndex) in getMetadata(translateIndex)" :key="metaIndex">
-                                                    <div>
+                                                    class="leading-5 z-50 max-w-[500px] w-[100vw] cursor-default text-[13px] font-Spartan-Light text-gray-800 hidden group-hover:inline-block absolute top-[5px] right-[10px] p-2 border border-dashed border-app-red rounded-[5px] bg-amber-50">
+                                                    <div
+                                                        x-text="(getSelectedLanguageCategory() !== '__default__' ? getSelectedLanguageCategory() + '.' : '') + translateIndex"
+                                                        class="break-all font-Spartan-SemiBold leading-5">
+                                                    </div>
+                                                    <div class="my-1 mb-2 border-b border-gray-500 border-dashed">
+                                                    </div>
+                                                    <template
+                                                        x-for="(metaData, metaIndex) in getMetadata(translateIndex)"
+                                                        :key="metaIndex">
+                                                        <div>
                                                         <span
                                                             x-text="metaData.path"
                                                             class="font-Spartan-Bold">
                                                         </span>
-                                                        <span
-                                                            class="text-gray-500">
+                                                            <span
+                                                                class="text-gray-500">
                                                             line:
                                                         </span>
-                                                        <span
-                                                            x-text="metaData.line"
-                                                            class="font-Spartan-SemiBold">
+                                                            <span
+                                                                x-text="metaData.line"
+                                                                class="font-Spartan-SemiBold">
                                                         </span>
-                                                    </div>
-                                                </template>
+                                                        </div>
+                                                    </template>
+                                                </div>
                                             </div>
-                                        </span>
+                                        </div>
                                     </div>
 
                                     <template x-if="getTranslateDataFromLanguage(translateIndex)">
-                                        <div>
+                                        <div class="contents">
+                                            <div x-text="fromLanguage"></div>
                                             <div x-text="getTranslateDataFromLanguage(translateIndex)"></div>
                                         </div>
                                     </template>
 
-                                    <div>
-                                        <div
-                                            x-html="getTranslateData(translateIndex).replace(/&amp;nbsp;/g, '&amp;amp;nbsp;')"
-                                            class="text-blue-700 w-full"
-                                            x-show="selectedTranslate !== translateIndex" x-cloak
-                                        ></div>
+                                    <template x-if="selectedTranslate !== translateIndex">
+                                        <div class="contents">
+                                            <div x-text="languageIndex"></div>
+                                            <div
+                                                x-html="getTranslateData(translateIndex).replace(/&amp;nbsp;/g, '&amp;amp;nbsp;')"
+                                                class="text-blue-700 w-full"
+                                            ></div>
+                                        </div>
+                                    </template>
 
-                                        @if(!env('LANG_ADMIN_READONLY', true))
-                                            <template x-if="selectedTranslate === translateIndex">
+                                    @if(!env('LANG_ADMIN_READONLY', true))
+                                        <template x-if="selectedTranslate === translateIndex">
+                                            <div class="contents">
+                                                <div x-text="languageIndex"></div>
                                                 <div
                                                     x-init="
                                                         shiftCursorOnEndOfText()
                                                         clearChanges();
-                                                    ">
+                                                        ">
                                                     <div
                                                         x-data="{actualValue: null, actualUndeletableCount: null, actualUndeletableWords: null}"
                                                         @keydown.enter.prevent.stop="save($el);"
@@ -115,7 +129,9 @@
                                                         :id="'lng-translate-' + languageIndex + '-' + getSelectedLanguageCategory() + '-' + translateIndex"
                                                     >
                                                     </div>
+                                                </div>
 
+                                                <div class="col-span-full">
                                                     <button
                                                         @click.prevent.stop="clearChanges()">
                                                         <i class="fa-solid fa-xmark text-gray-400/75 p-2 mt-0.5 hover:bg-gray-300 rounded"
@@ -128,22 +144,24 @@
                                                         ></i>
                                                     </button>
                                                 </div>
-                                            </template>
-                                        @endif
-                                    </div>
+                                            </div>
+                                        </template>
+                                    @endif
                                 </div>
                             </template>
 
                             <template x-if="isSelectedTab('email-basic')">
                                 <div class="mt-[15px]">
-                                    <a :href="'/admin/localization/email/preview/' + getSelectedLanguage() + '/' + getSelectedLanguageCategory()" :target="getSelectedLanguage() + '-' + getSelectedLanguageCategory()"
+                                    <a :href="'/admin/localization/email/preview/' + getSelectedLanguage() + '/' + getSelectedLanguageCategory()"
+                                       :target="getSelectedLanguage() + '-' + getSelectedLanguageCategory()"
                                        class="text-center leading-[50px] px-[15px] font-Spartan-Regular text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
                                         zobrazit náhled
                                     </a>
                                     <button
                                         @click="sendTestMail('/admin/localization/email/send-test/' + getSelectedLanguage() + '/' + getSelectedLanguageCategory())"
                                         class="text-center leading-[50px] px-[15px] font-Spartan-Regular text-[18px] text-white bg-app-green rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block"
-                                    >odeslat testovací email</button>
+                                    >odeslat testovací email
+                                    </button>
                                 </div>
                             </template>
                         </div>

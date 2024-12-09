@@ -46,7 +46,7 @@
     @else
         <div class="pt-[10px]">
             <div
-                class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10x]">
+                class="p-[20px_15px] bg-[#F8F8F8] rounded-[3px] grid mobile:grid-cols-[max-content_1fr] gap-x-[35px] mobile:gap-y-[10px]">
                 <div
                     class="font-Spartan-SemiBold text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2 mb-[5px]">
                     {{ __('Kontaktní osoba') }}
@@ -80,7 +80,7 @@
                     {{ __('Investor') }}
                 </div>
                 <div
-                    class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile: col-span-2">
+                    class="font-Spartan-Regular text-[11px] tablet:text-[13px] leading-[24px] text-black mobile:col-span-2">
                     {!! nl2br($user->investor_info) !!}
                 </div>
 

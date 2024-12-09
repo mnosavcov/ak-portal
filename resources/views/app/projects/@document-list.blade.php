@@ -44,14 +44,14 @@
         <div x-show="folderOpen['{{ \Illuminate\Support\Str::slug($file->folder) }}']"
              class="grid grid-cols-[1fr_min-content]" x-cloak x-collapse>
             @else
-                <div class="grid grid-cols-[1fr_min-content]">
+                <div class="grid mobile:grid-cols-[1fr_min-content]">
                     @endif
                     <div
-                        class="font-Spartan-Bold text-[13px] bg-[#5E6468] text-white h-[50px] leading-[50px] {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
+                        class="font-Spartan-Bold text-[13px] bg-[#5E6468] text-white h-[30px] leading-[35px] mobile:h-[50px] mobile:leading-[50px] {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
                         {!! __('Název&nbsp;souboru') !!}
                     </div>
                     <div
-                        class="pr-[25px] font-Spartan-Bold text-[13px] bg-[#5E6468] text-white h-[50px] leading-[50px]">
+                        class="mobile:pr-[25px] pl-[25px] mobile:pl-0 font-Spartan-Bold text-[13px] bg-[#5E6468] text-white h-[35px] leading-[35px] mobile:h-[50px] mobile:leading-[50px]">
                         {!! __('Datum&nbsp;nahrání') !!}
                     </div>
                     @endif
@@ -75,23 +75,23 @@
 
                     @if($project->isVerified())
                         <a href="{{ $file->url }}"
-                           class="{{ $classBackground }} pr-[20px] underline hover:no-underline font-WorkSans-Regular text-app-blue text-[15px] py-[10px] inline-block  {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
+                           class="{{ $classBackground }} pr-[20px] underline hover:no-underline font-WorkSans-Regular text-app-blue text-[15px] pt-[10px] mobile:py-[10px] inline-block break-all {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
                             {{ $file->filename }}
                         </a>
                     @else
                         <div
-                            class="{{ $classBackground }} font-WorkSans-Regular text-[#414141] text-[15px] py-[10px] inline-block  {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
+                            class="{{ $classBackground }} font-WorkSans-Regular text-[#414141] text-[15px] pt-[10px] mobile:py-[10px] inline-block  {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
                             {{ $filename }}
                         </div>
                     @endif
                     <div
-                        class="{{ $classBackground }} pr-[20px] font-WorkSans-Regular text-[#414141] text-[15px] py-[10px] inline-block whitespace-nowrap">
+                        class="{{ $classBackground }} mobile:pr-[20px] pl-[25px] mobile:pl-0 font-WorkSans-Regular text-[#414141] text-[15px] mobile:py-[10px] inline-block whitespace-nowrap">
                         {!! $filetime->format('d. m. Y H:i:s') !!}
                     </div>
 
                     @if($project->isVerified() && !empty(trim($file->description)))
                         <div
-                            class="{{ $classBackground }} mt-[-10px] col-span-full font-WorkSans-Regular text-[#414141] text-[15px] py-[10px] inline-block  {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
+                            class="{{ $classBackground }} mobile:mt-[-10px] col-span-full font-WorkSans-Regular text-[#414141] text-[15px] py-[10px] inline-block  {{ strlen($actualFolder ?? '') ? 'pl-[80px]' : 'pl-[25px]' }}">
                             {{ $file->description }}
                         </div>
                     @endif
