@@ -14,6 +14,7 @@ return [
     'mail-ResetPassword' => '',
     'mail-VerifyEmailAdmin' => '',
     'mail-VerifyEmailAdvisor' => '',
+    'mail-VerifyEmailTranslator' => '',
     'menu' => '',
     'proc' => '',
     'profil' => '',

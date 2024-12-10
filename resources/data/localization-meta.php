@@ -928,7 +928,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 371,
+      'line' => 381,
     ),
   ),
   'Důvod neschválení' => 
@@ -1909,12 +1909,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\AdminController.php',
-      'line' => 55,
+      'line' => 56,
     ),
     1 => 
     array (
       'path' => 'app\\Http\\Controllers\\AdminController.php',
-      'line' => 59,
+      'line' => 60,
     ),
     2 => 
     array (
@@ -2518,7 +2518,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 421,
+      'line' => 427,
     ),
   ),
   'Opravdu si přejete editovat obsah aktuality?' => 
@@ -3950,12 +3950,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\AdminController.php',
-      'line' => 56,
+      'line' => 57,
     ),
     1 => 
     array (
       'path' => 'app\\Http\\Controllers\\AdminController.php',
-      'line' => 60,
+      'line' => 61,
     ),
     2 => 
     array (
@@ -5051,13 +5051,8 @@ return array (
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\lang\\cs\\vseobecne-obchodni-podminky.blade.php',
-      'line' => 4,
-    ),
-    2 => 
-    array (
-      'path' => 'resources\\views\\lang\\en\\vseobecne-obchodni-podminky.blade.php',
-      'line' => 4,
+      'path' => 'routes\\web.php',
+      'line' => 95,
     ),
   ),
   'Všeobecnými obchodními podmínkami' => 
@@ -5937,13 +5932,8 @@ return array (
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\lang\\cs\\zasady-zpracovani-osobnich-udaju.blade.php',
-      'line' => 4,
-    ),
-    2 => 
-    array (
-      'path' => 'resources\\views\\lang\\en\\zasady-zpracovani-osobnich-udaju.blade.php',
-      'line' => 4,
+      'path' => 'routes\\web.php',
+      'line' => 88,
     ),
   ),
   'Zásadách zpracování osobních údajů' => 
@@ -6173,7 +6163,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 21,
+      'line' => 22,
     ),
   ),
   'admin.CEKA_NA_OVERENI' => 
@@ -6181,7 +6171,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 19,
+      'line' => 20,
     ),
   ),
   'admin.Chyba' => 
@@ -6189,7 +6179,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 24,
+      'line' => 25,
     ),
   ),
   'admin.Chyba_smazani' => 
@@ -6213,7 +6203,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 25,
+      'line' => 26,
     ),
   ),
   'admin.Dashboard' => 
@@ -6242,7 +6232,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 94,
+      'line' => 104,
     ),
   ),
   'admin.E-mail' => 
@@ -6250,12 +6240,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 95,
+      'line' => 105,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 96,
+      'line' => 106,
     ),
   ),
   'admin.Editace_projektu' => 
@@ -6292,7 +6282,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 112,
+      'line' => 122,
     ),
   ),
   'admin.Investor' => 
@@ -6300,7 +6290,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 99,
+      'line' => 109,
     ),
   ),
   'admin.Investori' => 
@@ -6316,7 +6306,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\AdminController.php',
-      'line' => 645,
+      'line' => 668,
     ),
   ),
   'admin.Jméno' => 
@@ -6324,7 +6314,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 103,
+      'line' => 113,
     ),
   ),
   'admin.Kategorie' => 
@@ -6352,13 +6342,18 @@ return array (
       'path' => 'resources\\views\\layouts\\admin-navigation.blade.php',
       'line' => 87,
     ),
+    2 => 
+    array (
+      'path' => 'resources\\views\\layouts\\translator-navigation.blade.php',
+      'line' => 38,
+    ),
   ),
   'admin.Makléř' => 
   array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 101,
+      'line' => 111,
     ),
   ),
   'admin.Minimální_cena_k_nabídnutí' => 
@@ -6395,7 +6390,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 100,
+      'line' => 110,
     ),
   ),
   'admin.Nastavit_ban' => 
@@ -6403,7 +6398,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 388,
+      'line' => 398,
     ),
   ),
   'admin.Neovereni' => 
@@ -6419,7 +6414,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 22,
+      'line' => 23,
     ),
   ),
   'admin.Nezaplaceno' => 
@@ -6435,7 +6430,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 23,
+      'line' => 24,
     ),
   ),
   'admin.Náhled_projektu' => 
@@ -6451,7 +6446,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 108,
+      'line' => 118,
     ),
   ),
   'admin.Občanství' => 
@@ -6459,7 +6454,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 110,
+      'line' => 120,
     ),
   ),
   'admin.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna' => 
@@ -6475,7 +6470,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 98,
+      'line' => 108,
     ),
   ),
   'admin.OVERENO' => 
@@ -6483,7 +6478,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 20,
+      'line' => 21,
     ),
   ),
   'admin.Pevná_cena' => 
@@ -6512,7 +6507,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 92,
+      'line' => 102,
     ),
   ),
   'admin.požadovaná_výše_jistoty' => 
@@ -6554,7 +6549,15 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 109,
+      'line' => 119,
+    ),
+  ),
+  'admin.Překladatelé' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\admin\\users.blade.php',
+      'line' => 14,
     ),
   ),
   'admin.přidat' => 
@@ -6570,7 +6573,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 65,
+      'line' => 75,
     ),
   ),
   'admin.Přidat_advisora' => 
@@ -6578,7 +6581,15 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 57,
+      'line' => 58,
+    ),
+  ),
+  'admin.Přidat_překladatele' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\admin\\users.blade.php',
+      'line' => 66,
     ),
   ),
   'admin.Příjmení' => 
@@ -6586,7 +6597,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 104,
+      'line' => 114,
     ),
   ),
   'admin.READONLY' => 
@@ -6617,13 +6628,18 @@ return array (
       'path' => 'resources\\views\\layouts\\admin-navigation.blade.php',
       'line' => 24,
     ),
+    1 => 
+    array (
+      'path' => 'resources\\views\\layouts\\translator-navigation.blade.php',
+      'line' => 24,
+    ),
   ),
   'admin.Smazani' => 
   array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 15,
+      'line' => 16,
     ),
   ),
   'admin.Smazani_je_nevratne_opravu_smazat' => 
@@ -6631,7 +6647,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 17,
+      'line' => 18,
     ),
   ),
   'admin.Smazáno' => 
@@ -6639,7 +6655,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 97,
+      'line' => 107,
     ),
   ),
   'admin.Stav' => 
@@ -6655,7 +6671,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\AdminController.php',
-      'line' => 645,
+      'line' => 668,
     ),
   ),
   'admin.Subkategorie_je_prirazena_k_projektu_nebo_projektum_Opravdu_si_prejete_kategorii_smazat_Projektum_bude_nastaveno_jako_by_byly_bez_podkategorie' => 
@@ -6671,7 +6687,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 111,
+      'line' => 121,
     ),
   ),
   'admin.Testovací_režim' => 
@@ -6687,7 +6703,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 102,
+      'line' => 112,
     ),
   ),
   'admin.Titul(y)_za' => 
@@ -6695,7 +6711,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 105,
+      'line' => 115,
     ),
   ),
   'admin.Uhrazeno' => 
@@ -6716,7 +6732,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 106,
+      'line' => 116,
     ),
   ),
   'admin.Uložit' => 
@@ -6724,7 +6740,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 340,
+      'line' => 350,
     ),
   ),
   'admin.Uzivatel_ma_aktivni_projekt' => 
@@ -6732,7 +6748,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 16,
+      'line' => 17,
     ),
   ),
   'admin.Uživatelé' => 
@@ -6740,7 +6756,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 51,
+      'line' => 52,
     ),
     1 => 
     array (
@@ -6777,7 +6793,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 14,
+      'line' => 15,
     ),
   ),
   'admin.ZAMITNUTO' => 
@@ -6785,7 +6801,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 18,
+      'line' => 19,
     ),
   ),
   'admin.Zaplaceno' => 
@@ -6822,7 +6838,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 400,
+      'line' => 410,
     ),
   ),
   'admin.Účel_investor' => 
@@ -6830,7 +6846,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 113,
+      'line' => 123,
     ),
   ),
   'admin.Účel_makléř' => 
@@ -6838,7 +6854,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 115,
+      'line' => 125,
     ),
   ),
   'admin.Účel_zadavatel' => 
@@ -6846,7 +6862,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 114,
+      'line' => 124,
     ),
   ),
   'admin.ČP' => 
@@ -6854,7 +6870,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 107,
+      'line' => 117,
     ),
   ),
   'admin.Částka' => 
@@ -7024,7 +7040,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 118,
+      'line' => 117,
     ),
   ),
   'homepage.Prodej_a&nbsp;nákup_projektů_v&nbsp;provozu' => 
@@ -7056,7 +7072,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 128,
+      'line' => 127,
     ),
   ),
   'homepage.Zobrazit_projekty' => 
@@ -7273,6 +7289,9 @@ return array (
   array (
   ),
   'localization.mail-VerifyEmailAdvisor' => 
+  array (
+  ),
+  'localization.mail-VerifyEmailTranslator' => 
   array (
   ),
   'localization.menu' => 
@@ -7596,6 +7615,46 @@ return array (
       'line' => 68,
     ),
   ),
+  'mail-VerifyEmailTranslator.Byli_jste_zaregistrováni_na_PVtrusted-cz' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
+      'line' => 65,
+    ),
+  ),
+  'mail-VerifyEmailTranslator.Dobrý_den,' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
+      'line' => 66,
+    ),
+  ),
+  'mail-VerifyEmailTranslator.na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet_překladatele-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
+      'line' => 67,
+    ),
+  ),
+  'mail-VerifyEmailTranslator.Odkaz_bude_aktivní_7_dní' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
+      'line' => 69,
+    ),
+  ),
+  'mail-VerifyEmailTranslator.Vytvořit_heslo' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
+      'line' => 68,
+    ),
+  ),
   'menu.Administrace' => 
   array (
     0 => 
@@ -7606,7 +7665,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 312,
+      'line' => 318,
     ),
   ),
   'menu.Jak_to_funguje' => 
@@ -7619,7 +7678,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 414,
+      'line' => 420,
     ),
   ),
   'menu.Kontakt' => 
@@ -7632,7 +7691,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 428,
+      'line' => 434,
     ),
   ),
   'menu.Nastavení_účtu' => 
@@ -7640,12 +7699,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 188,
+      'line' => 194,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 348,
+      'line' => 354,
     ),
   ),
   'menu.Odhlásit_Se' => 
@@ -7653,12 +7712,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 205,
+      'line' => 211,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 299,
+      'line' => 305,
     ),
   ),
   'menu.Profil_investora' => 
@@ -7666,12 +7725,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 167,
+      'line' => 173,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 327,
+      'line' => 333,
     ),
   ),
   'menu.Profil_nabízejícího' => 
@@ -7679,12 +7738,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 174,
+      'line' => 180,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 334,
+      'line' => 340,
     ),
   ),
   'menu.Profil_realitního_makléře' => 
@@ -7692,12 +7751,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 181,
+      'line' => 187,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 341,
+      'line' => 347,
     ),
   ),
   'menu.Projekty' => 
@@ -7710,7 +7769,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 363,
+      'line' => 369,
     ),
   ),
   'menu.Přehled_investora' => 
@@ -7737,17 +7796,25 @@ return array (
       'line' => 12,
     ),
   ),
+  'menu.Překlady' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
+      'line' => 154,
+    ),
+  ),
   'menu.PřihlásitSe' => 
   array (
     0 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 232,
+      'line' => 238,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 281,
+      'line' => 287,
     ),
   ),
   'menu.Váš_účet' => 
@@ -7768,7 +7835,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\layouts\\app-navigation.blade.php',
-      'line' => 402,
+      'line' => 408,
     ),
   ),
   'proc.Identifikujeme_a_ověřujeme_každého_uživatele' => 
@@ -7776,7 +7843,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 14,
+      'line' => 13,
     ),
   ),
   'proc.Jak_probíhá_příprava' => 
@@ -7784,7 +7851,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 48,
+      'line' => 47,
     ),
   ),
   'proc.Jsme_součástí_skupiny_firem,_které_po_celém_světě_vyprojektovaly_solární_parky_s_celkovým_výkonem_přes_1_000_MWp' => 
@@ -7792,7 +7859,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 23,
+      'line' => 22,
     ),
   ),
   'proc.Možnost_vyžadovat_vyšší_stupeň_ověření' => 
@@ -7800,7 +7867,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 38,
+      'line' => 37,
     ),
   ),
   'proc.Nabízející_projektu_může_neveřejné_informace_zpřístupnit_jen_jím_vybranému_okruhu_investorů' => 
@@ -7808,7 +7875,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 39,
+      'line' => 38,
     ),
   ),
   'proc.Na_portál_zalistujeme_jen_projekty,_které_úspěšně_projdou_detailní_rešerší' => 
@@ -7816,7 +7883,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 7,
+      'line' => 6,
     ),
   ),
   'proc.Naše_zkušenosti' => 
@@ -7824,7 +7891,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 24,
+      'line' => 23,
     ),
   ),
   'proc.Náš_check-list_projektů' => 
@@ -7832,7 +7899,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 8,
+      'line' => 7,
     ),
   ),
   'proc.Náš_check-list_uživatelů' => 
@@ -7840,7 +7907,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 16,
+      'line' => 15,
     ),
   ),
   'proc.Odbornost_a_zkušenosti_z&nbsp;oboru' => 
@@ -7848,7 +7915,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 22,
+      'line' => 21,
     ),
   ),
   'proc.O_působnosti_portálu' => 
@@ -7856,7 +7923,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 32,
+      'line' => 31,
     ),
   ),
   'proc.O_vyšším_stupni_ověření' => 
@@ -7864,7 +7931,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 40,
+      'line' => 39,
     ),
   ),
   'proc.Popis_projektu_a_dokumentaci_připravíme_do_standardizovaného_a_investičně_uchopitelného_formátu' => 
@@ -7872,7 +7939,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 47,
+      'line' => 46,
     ),
   ),
   'proc.Profesionální_příprava_projektu_ke_zveřejnění' => 
@@ -7880,7 +7947,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 46,
+      'line' => 45,
     ),
   ),
   'proc.Projekty_a_investoři_z_celého_světa' => 
@@ -7888,7 +7955,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 30,
+      'line' => 29,
     ),
   ),
   'proc.Propojujeme_projekty_a_investory_bez_ohledu_na_hranice__Zvyšujeme_šance_na_úspěšné_uzavření_obchodu' => 
@@ -7896,7 +7963,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 31,
+      'line' => 30,
     ),
   ),
   'proc.Prověřujeme_každý_projekt' => 
@@ -7904,7 +7971,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 6,
+      'line' => 5,
     ),
   ),
   'proc.Proč_PVtrusted-cz?' => 
@@ -7912,7 +7979,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 57,
+      'line' => 56,
     ),
   ),
   'proc.Vlastníci,_zájemci_i_realitní_makléři_musí_doložit_svou_totožnost_a_oprávněnost_zájmu_na_používání_portálu' => 
@@ -7920,7 +7987,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\@proc.blade.php',
-      'line' => 15,
+      'line' => 14,
     ),
   ),
   'profil.E-mail_byl_již_úspěšně_verifikován' => 

@@ -161,6 +161,30 @@ Route::middleware('auth')->group(function () {
     Route::post('profil/hide-verify-info/{type}', [ProfileController::class, 'hideVerifyInfo'])->name('profile.hide-verify-info');
     Route::post('profil/set-account-types', [ProfileController::class, 'setAccountTypes'])->name('profile.set-account-types');
 
+    Route::middleware('user.translator')->group(function () {
+        Route::name('admin.')->group(function () {
+            Route::prefix('admin')->group(function () {
+                Route::prefix('localization')->group(function () {
+                    Route::name('localization.')->group(function () {
+                        Route::get('/', [LocalizationController::class, 'index'])->name('index');
+                        Route::get('/load/{lng}/{meta}', [LocalizationController::class, 'load'])->name('load');
+                        Route::post('/save/{lng}/{sub}', [LocalizationController::class, 'save'])->name('save');
+                        Route::post('/set/test/{bool}', [LocalizationController::class, 'setTest'])->name('set.test');
+                        Route::post('/set/test-lng/{lng}', [LocalizationController::class, 'setTestLng'])->name('set.test-lng');
+                        Route::post('/set/from-lng/{lng}', [LocalizationController::class, 'setFromLng'])->name('set.from-lng');
+
+                        Route::get('email/preview/{lng}/{template}', [LocalizationController::class, 'preview'])->name('email.preview');
+                        Route::get('email/send-test/{lng}/{template}', [LocalizationController::class, 'sendTest'])->name('email.send-test');
+
+                        Route::get('/load-long/{lng}/{path}', [LocalizationController::class, 'loadLong'])->name('load-long');
+                        Route::post('/save-long/{lng}/{path}', [LocalizationController::class, 'saveLong'])->name('save-long');
+                        Route::post('email/send-template-test', [LocalizationController::class, 'sendTemplateTest'])->name('email.send-template-test');
+                    });
+                });
+            });
+        });
+    });
+
     Route::middleware('user.superadmin')->group(function () {
         Route::name('admin.')->group(function () {
             Route::prefix('admin')->group(function () {
@@ -221,25 +245,7 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('/error', [ErrorController::class, 'index'])->name('error.index');
                 Route::get('/error/load/{filename}', [ErrorController::class, 'load'])->name('error.load');
-                Route::delete('/error/archive', [ErrorController::class, 'archive'])->name('error.archive');
-
-                Route::prefix('localization')->group(function () {
-                    Route::name('localization.')->group(function () {
-                        Route::get('/', [LocalizationController::class, 'index'])->name('index');
-                        Route::get('/load/{lng}/{meta}', [LocalizationController::class, 'load'])->name('load');
-                        Route::post('/save/{lng}/{sub}', [LocalizationController::class, 'save'])->name('save');
-                        Route::post('/set/test/{bool}', [LocalizationController::class, 'setTest'])->name('set.test');
-                        Route::post('/set/test-lng/{lng}', [LocalizationController::class, 'setTestLng'])->name('set.test-lng');
-                        Route::post('/set/from-lng/{lng}', [LocalizationController::class, 'setFromLng'])->name('set.from-lng');
-
-                        Route::get('email/preview/{lng}/{template}', [LocalizationController::class, 'preview'])->name('email.preview');
-                        Route::get('email/send-test/{lng}/{template}', [LocalizationController::class, 'sendTest'])->name('email.send-test');
-
-                        Route::get('/load-long/{lng}/{path}', [LocalizationController::class, 'loadLong'])->name('load-long');
-                        Route::post('/save-long/{lng}/{path}', [LocalizationController::class, 'saveLong'])->name('save-long');
-                        Route::post('email/send-template-test', [LocalizationController::class, 'sendTemplateTest'])->name('email.send-template-test');
-                    });
-                });
+                Route::delete('/error/archive', [ErrorController::class, 'archive'])->name('error.archive');;
             });
         });
     });

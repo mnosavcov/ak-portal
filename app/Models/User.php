@@ -118,6 +118,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->owner;
     }
 
+    public function isTranslator(): bool
+    {
+        return $this->translator || $this->superadmin || $this->owner;
+    }
+
     public function isVerified()
     {
         if ($this->isSuperadmin()) {

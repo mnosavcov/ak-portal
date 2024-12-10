@@ -12,7 +12,7 @@
             $overviewTitle = __('menu.Přehled_realitního_makléře');
         }
     @endphp
-            <!-- Primary Navigation Menu -->
+        <!-- Primary Navigation Menu -->
     <div class="max-w-[1230px] mx-auto px-[15px] relative z-50 bg-white">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -38,7 +38,7 @@
                     <x-dropdown align="left-185" width="">
                         <x-slot name="trigger">
                             <button
-                                    class="{{ $classes }}">
+                                class="{{ $classes }}">
                                 <div>{{ __('menu.Projekty') }}</div>
 
                                 <div class="ml-1">
@@ -54,8 +54,8 @@
 
                         <x-slot name="content">
                             <div
-                                    class="px-[35px] pt-[15px] pb-[40px] grid gap-x-[24px] min-[1120px]:gap-x-[49px] min-[1200px]:gap-x-[69px]"
-                                    style="grid-template-columns: repeat({{ count(\App\Models\Category::getCATEGORIES()) }}, max-content)"
+                                class="px-[35px] pt-[15px] pb-[40px] grid gap-x-[24px] min-[1120px]:gap-x-[49px] min-[1200px]:gap-x-[69px]"
+                                style="grid-template-columns: repeat({{ count(\App\Models\Category::getCATEGORIES()) }}, max-content)"
                             >
 
                                 @foreach(\App\Models\Category::getCATEGORIES() as $category)
@@ -123,7 +123,7 @@
                     <x-dropdown align="right" width="56" :contentClasses="'py-[10px] bg-white'">
                         <x-slot name="trigger">
                             <button
-                                    class="{{ $classes }}">
+                                class="{{ $classes }}">
                                 <div class="grid grid-cols-[30px_1fr] gap-x-[15px]">
                                     <div class="self-center">
                                         <img src="{{ Vite::asset('resources/images/ico-avatar.svg') }}">
@@ -146,6 +146,12 @@
                             @if(auth()->user()->superadmin)
                                 <x-dropdown-link :href="route('admin.projects')" class="px-[30px]">
                                     {{ __('menu.Administrace') }}
+                                </x-dropdown-link>
+                            @endif
+
+                            @if(auth()->user()->translator)
+                                <x-dropdown-link :href="route('admin.localization.index')" class="px-[30px]">
+                                    {{ __('menu.Překlady') }}
                                 </x-dropdown-link>
                             @endif
 

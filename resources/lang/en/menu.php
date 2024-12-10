@@ -13,6 +13,7 @@ return [
     'Přehled_investora' => '',
     'Přehled_nabízejícího' => '',
     'Přehled_realitního_makléře' => '',
+    'Překlady' => '',
     'PřihlásitSe' => '',
     'Váš_účet' => '',
     'ZobrazitVšechnyKategorie' => '',

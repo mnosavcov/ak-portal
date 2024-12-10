@@ -56,7 +56,7 @@
                                 });
                         },
                         async archive(index) {
-                            if(!confirm('Opravdu si přejete archovovat tuto chybu?\n\nPo archivaci se nebude možné dostat k chybě z administrace.')) {
+                            if(!confirm('Opravdu si přejete archivovat tuto chybu?\n\nPo archivaci se nebude možné dostat k chybě z administrace.')) {
                                 return;
                             }
 

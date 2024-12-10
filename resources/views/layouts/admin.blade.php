@@ -14,7 +14,11 @@
 <body class="antialiased bg-gray-100">
 <div class="flex relative" x-data="{navOpen: false}">
     <!-- NAV -->
-    @include('layouts.admin-navigation')
+    @if(auth()->user()->isSuperadmin()):
+        @include('layouts.admin-navigation')
+    @else
+        @include('layouts.translator-navigation')
+    @endif
     <!-- END OF NAV -->
 
     <!-- PAGE CONTENT -->
