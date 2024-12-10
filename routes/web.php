@@ -186,6 +186,10 @@ Route::middleware('auth')->group(function () {
                     'title' => 'Vytvořit administrátora',
                     'url' => url('admin/user-new-admin'),
                 ])->name('new-admin');
+                Route::view('new-translator', 'admin.register', [
+                    'title' => 'Vytvořit překladatele',
+                    'url' => url('admin/user-new-translator'),
+                ])->name('new-translator');
 
                 Route::view('advisor-ok', 'admin.register-ok', [
                     'title' => 'Účet advisora',
@@ -195,9 +199,14 @@ Route::middleware('auth')->group(function () {
                     'title' => 'Účet administrátora',
                     'url' => url('admin/new-admin'),
                 ])->name('admin-ok');
+                Route::view('translator-ok', 'admin.register-ok', [
+                    'title' => 'Účet překladatele',
+                    'url' => url('admin/new-translator'),
+                ])->name('translator-ok');
 
                 Route::post('user-new-advisor', [AdminController::class, 'addAdvisor'])->name('user.new-advisor');
                 Route::post('user-new-admin', [AdminController::class, 'addAdmin'])->name('user.new-admin');
+                Route::post('user-new-translator', [AdminController::class, 'addTranslator'])->name('user.new-translator');
 
                 Route::post('project-question/confirm/{project_question}', [AdminController::class, 'adminQuestionConfirm'])->name('project-question.confirm');
                 Route::post('project-question/update/{project_question}', [AdminController::class, 'adminQuestionUpdate'])->name('project-question.update');

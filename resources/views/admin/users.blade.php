@@ -11,6 +11,7 @@
             lang['admin.Realitni_makleri'] = @js(__('admin.Realitni_makleri'));
             lang['admin.Administratori'] = @js(__('admin.Administratori'));
             lang['admin.Advisori'] = @js(__('admin.Advisori'));
+            lang['admin.Prekladatele'] = @js(__('admin.Překladatelé'));
             lang['admin.Zabanovani'] = @js(__('admin.Zabanovani'));
             lang['admin.Smazani'] = @js(__('admin.Smazani'));
             lang['admin.Uzivatel_ma_aktivni_projekt'] = @js(__('admin.Uzivatel_ma_aktivni_projekt'));
@@ -56,6 +57,15 @@
                 >
                     {{ __('admin.Přidat_advisora') }}
                 </a>
+
+                <a href="{{ route('admin.new-translator') }}"
+                   x-cloak x-show="actualTab === 'translator'" target="_blank"
+                   class="bg-[#d8d8d8] text-white p-[10px_15px] rounded-[3px] relative text-[15px] font-Spartan-SemiBold bg-app-red"
+                   @click=""
+                >
+                    {{ __('admin.Přidat_překladatele') }}
+                </a>
+
                 @if(auth()->user()->isOwner())
                     <a href="{{ route('admin.new-admin') }}"
                        x-cloak x-show="actualTab === 'superadmin'" target="_blank"

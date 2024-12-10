@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\RegisteredTranslator;
 use App\Listeners\AfterUserRegistered;
 use App\Listeners\AfterUserVerified;
 use App\Listeners\LogErrorListener;
@@ -12,6 +13,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use App\Listeners\SendEmailVerificationNotificationAdmin;
 use App\Listeners\SendEmailVerificationNotificationAdvisor;
+use App\Listeners\SendEmailVerificationNotificationTranslator;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Support\Facades\Event;
@@ -36,6 +38,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         RegisteredAdvisor::class => [
             SendEmailVerificationNotificationAdvisor::class,
+        ],
+        RegisteredTranslator::class => [
+            SendEmailVerificationNotificationTranslator::class,
         ],
         MessageLogged::class => [
             LogErrorListener::class,

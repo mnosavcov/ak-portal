@@ -9,6 +9,7 @@ Alpine.data('adminUser', (id) => ({
         'admin.Realitni_makleri': 'Realitní makléři',
         'admin.Administratori': 'Administrátoři',
         'admin.Advisori': 'Advisoři',
+        'admin.Prekladatele': 'Překladatelé',
         'admin.Zabanovani': 'Zabanovaní',
         'admin.Smazani': 'Smazaní',
         'admin.Uzivatel_ma_aktivni_projekt': 'Uživatel má aktivní projekt',
@@ -31,6 +32,7 @@ Alpine.data('adminUser', (id) => ({
         real_estate_broker: 'Realitní makléři',
         superadmin: 'Administrátoři',
         advisor: 'Advisoři',
+        translator: 'Překladatelé',
         banned: 'Zabanovaní',
         deleted: 'Smazaní',
     },
@@ -78,6 +80,7 @@ Alpine.data('adminUser', (id) => ({
         this.tabs.real_estate_broker = this.lang['admin.Realitni_makleri'];
         this.tabs.superadmin = this.lang['admin.Administratori'];
         this.tabs.advisor = this.lang['admin.Advisori'];
+        this.tabs.translator = this.lang['admin.Prekladatele'];
         this.tabs.banned = this.lang['admin.Zabanovani'];
         this.tabs.deleted = this.lang['admin.Smazani'];
     },
@@ -96,6 +99,7 @@ Alpine.data('adminUser', (id) => ({
                         || indexTab === 'real_estate_broker'
                         || indexTab === 'superadmin'
                         || indexTab === 'advisor'
+                        || indexTab === 'translator'
                     )
                     && this.proxyData.usersOrigin[obj.id].deleted_at == null
                     && this.proxyData.usersOrigin[obj.id].banned_at == null

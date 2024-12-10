@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('phone_number_2')->nullable()->after('phone_number');
 
             $table->boolean('advisor')->default(false);
+            $table->boolean('translator')->default(false);
 
             $table->boolean('investor')->default(false);
             $table->enum('investor_status', ['not_verified', 'waiting', 're_verified', 'verified', 'denied'])->default('not_verified');

@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailAdminController;
 use App\Http\Controllers\Auth\VerifyEmailAdvisorController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\VerifyEmailTranslatorController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -43,6 +44,10 @@ Route::get('verify-admin/{id}/{hash}', VerifyEmailAdminController::class)
 Route::get('verify-advisor/{id}/{hash}', VerifyEmailAdvisorController::class)
     ->middleware(['signed', 'throttle:6,1'])
     ->name('advisor.verify');
+
+Route::get('verify-translator/{id}/{hash}', VerifyEmailTranslatorController::class)
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('translator.verify');
 
 Route::post('/create-password/{id}/{hash}', [AdminController::class, 'createPassword'])
     ->name('admin.profile.update');

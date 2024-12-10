@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\RegisteredAdmin;
 use App\Events\RegisteredAdvisor;
+use App\Events\RegisteredTranslator;
 use App\Http\Requests\StoreMultipleRecordsRequest;
 use App\Models\Category;
 use App\Models\Project;
@@ -566,6 +567,28 @@ class AdminController extends Controller
         event(new RegisteredAdvisor($user));
 
         return redirect()->route('admin.advisor-ok');
+    }
+
+    public function addTranslator(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'password' => Str::random(40),
+        ]);
+
+        $user->translator = true;
+        $user->save();
+
+        event(new RegisteredTranslator($user));
+
+        return redirect()->route('admin.translator-ok');
     }
 
     public function addAdmin(Request $request)
