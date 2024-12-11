@@ -92,255 +92,251 @@
                 </template>
             </div>
 
-            <template x-for="(tab, indexTab) in tabs" :key="indexTab">
-                <table x-show="actualTab === indexTab" x-cloak
-                       class="table w-auto"
-                >
-                    <tr class="font-Spartan-SemiBold text-[15px] text-left">
-                        <th class="pr-[10px]">ID</th>
-                        <th class="min-w-[400px] text-app-blue ">
-                            {{ __('admin.Poznámka_ke_kontaktu_(interní_informace,_není_vidět_veřejně)') }}
-                        </th>
-                        <th class="min-w-[400px] text-app-red" x-show="indexTab === 'banned'">{{ __('admin.Důvod') }}</th>
-                        <th class="min-w-[200px]">{{ __('admin.E-mail') }}</th>
-                        <th class="whitespace-nowrap">{{ __('admin.E-mail') }}</th>
-                        <th class="whitespace-nowrap" x-show="indexTab === 'deleted'">{{ __('admin.Smazáno') }}</th>
-                        <th class="whitespace-nowrap">{{ __('admin.Osobní_údaje') }}</th>
-                        <th class="whitespace-nowrap">{{ __('admin.Investor') }}</th>
-                        <th class="whitespace-nowrap">{{ __('admin.Nabízející') }}</th>
-                        <th class="whitespace-nowrap">{{ __('admin.Makléř') }}</th>
-                        <th class="min-w-[100px]">{{ __('admin.Titul(y)_před') }}</th>
-                        <th class="min-w-[200px]">{{ __('admin.Jméno') }}</th>
-                        <th class="min-w-[200px]">{{ __('admin.Příjmení') }}</th>
-                        <th class="min-w-[100px]">{{ __('admin.Titul(y)_za') }}</th>
-                        <th class="min-w-[200px]">{{ __('admin.Ulice') }}</th>
-                        <th class="min-w-[100px]">{{ __('admin.ČP') }}</th>
-                        <th class="min-w-[200px]">{{ __('admin.Obec') }}</th>
-                        <th class="min-w-[100px]">{{ __('admin.PSČ') }}</th>
-                        <th class="min-w-[250px]">{{ __('admin.Občanství') }}</th>
-                        <th class="min-w-[200px]">{{ __('admin.Telefon') }}</th>
-                        <th class="min-w-[400px]">{{ __('admin.Informace_o_investorovi') }}</th>
-                        <th class="min-w-[400px]">{{ __('admin.Účel_investor') }}</th>
-                        <th class="min-w-[400px]">{{ __('admin.Účel_zadavatel') }}</th>
-                        <th class="min-w-[400px]">{{ __('admin.Účel_makléř') }}</th>
-                        <th class="whitespace-nowrap"></th>
-                    </tr>
+            <div class="grid grid-cols-[repeat(23,auto)] font-Spartan-SemiBold text-[15px]"
+                :class="{'grid-cols-[repeat(24,auto)]': actualTab === 'banned' || actualTab === 'deleted'}">
+                <div class="pr-[10px]">ID</div>
+                <div class="min-w-[400px] text-app-blue">
+                    {{ __('admin.Poznámka_ke_kontaktu_(interní_informace,_není_vidět_veřejně)') }}
+                </div>
+                <div class="min-w-[400px] text-app-red" x-show="actualTab === 'banned'"
+                     x-cloak>{{ __('admin.Důvod') }}</div>
+                <div class="min-w-[200px]">{{ __('admin.E-mail') }}</div>
+                <div class="whitespace-nowrap">{{ __('admin.E-mail') }}</div>
+                <div class="whitespace-nowrap" x-show="actualTab === 'deleted'" x-cloak>{{ __('admin.Smazáno') }}</div>
+                <div class="whitespace-nowrap">{{ __('admin.Osobní_údaje') }}</div>
+                <div class="whitespace-nowrap">{{ __('admin.Investor') }}</div>
+                <div class="whitespace-nowrap">{{ __('admin.Nabízející') }}</div>
+                <div class="whitespace-nowrap">{{ __('admin.Makléř') }}</div>
+                <div class="min-w-[100px]">{{ __('admin.Titul(y)_před') }}</div>
+                <div class="min-w-[200px]">{{ __('admin.Jméno') }}</div>
+                <div class="min-w-[200px]">{{ __('admin.Příjmení') }}</div>
+                <div class="min-w-[100px]">{{ __('admin.Titul(y)_za') }}</div>
+                <div class="min-w-[200px]">{{ __('admin.Ulice') }}</div>
+                <div class="min-w-[100px]">{{ __('admin.ČP') }}</div>
+                <div class="min-w-[200px]">{{ __('admin.Obec') }}</div>
+                <div class="min-w-[100px]">{{ __('admin.PSČ') }}</div>
+                <div class="min-w-[250px]">{{ __('admin.Občanství') }}</div>
+                <div class="min-w-[200px]">{{ __('admin.Telefon') }}</div>
+                <div class="min-w-[400px]">{{ __('admin.Informace_o_investorovi') }}</div>
+                <div class="min-w-[400px]">{{ __('admin.Účel_investor') }}</div>
+                <div class="min-w-[400px]">{{ __('admin.Účel_zadavatel') }}</div>
+                <div class="min-w-[400px]">{{ __('admin.Účel_makléř') }}</div>
+                <div class="whitespace-nowrap"></div>
 
-                    <template x-for="(user, index) in getDataFor(indexTab)"
-                              :key="index">
-                        <tr class="group hover:bg-gray-300" x-data="{data: {country: null}}"
-                            :class="{'bg-app-red/50 hover:bg-app-red': isChanged(user.id)}"
-                            x-modelable="data.country" x-model="user.country"
-                        >
-                            <td class="align-top">
-                                <div x-text="user.id"
-                                     class="self-center font-semibold pr-[10px] leading-[50px]"></div>
-                            </td>
-                            <td class="align-top">
-                                <x-textarea-input id="notice"
-                                                  class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
-                                                  x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.notice !== null && user.notice.trim()}"
-                                                  type="text"
-                                                  x-model="user.notice"/>
-                            </td>
-                            <td class="align-top" x-show="indexTab === 'banned'">
-                                <x-textarea-input id="ban_info"
-                                                  class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
-                                                  x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.ban_info !== null && user.ban_info.trim()}"
-                                                  type="text"
-                                                  x-model="user.ban_info"/>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="email" class="block group-hover:bg-gray-200" type="text"
-                                              x-model="user.email" required/>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block"
-                                    :class="{'!bg-app-green': user.email_verified_at}"
-                                    x-text="user.email_verified_at ? 'OK' : 'Neověřený'">
-                                </div>
-                            </td>
-                            <td class="align-top" x-show="indexTab === 'deleted'">
-                                <div
-                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block whitespace-nowrap text-center"
-                                    :class="{'!bg-app-green': !user.deleted_at}"
-                                    x-html="user.deleted_at ? user.deleted_at.replace(/ /g, '<br>') : 'NE'">
-                                </div>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
-                                    x-text="statusTextOsobniUdaje(user.check_status)"
-                                    :class="statusColorOsobniUdaje(user.check_status)"
-                                    @click="changeStatusOsobniUdaje(user.id, 'check_status')">
-                                </div>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
-                                    :class="{'!bg-app-green': (parseInt(user.investor) === 1)}"
-                                    @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0"
-                                    x-text="user.investor ? 'ANO' : 'NE'"
-                                >
-                                </div>
-                                <div x-show="user.investor"
-                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
-                                    x-text="statusText(user.investor_status)"
-                                    :class="statusColor(user.investor_status)"
-                                    @click="changeStatus(user.id, 'investor_status')">
-                                </div>
-                                <x-revalidate-column column="investor" :yesNo="true"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
-                                    :class="{'!bg-app-green': (parseInt(user.advertiser) === 1)}"
-                                    @click="user.advertiser = (!(parseInt(user.advertiser) === 1)) ? 1 : 0"
-                                    x-text="user.advertiser ? 'ANO' : 'NE'"
-                                >
-                                </div>
-                                <div x-show="user.advertiser"
-                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
-                                    x-text="statusText(user.advertiser_status)"
-                                    :class="statusColor(user.advertiser_status)"
-                                    @click="changeStatus(user.id, 'advertiser_status')">
-                                </div>
-                                <x-revalidate-column column="advertiser" :yesNo="true"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
-                                    :class="{'!bg-app-green': (parseInt(user.real_estate_broker) === 1)}"
-                                    @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0"
-                                    x-text="user.real_estate_broker ? 'ANO' : 'NE'"
-                                >
-                                </div>
-                                <div x-show="user.real_estate_broker"
-                                    class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
-                                    x-text="statusText(user.real_estate_broker_status)"
-                                    :class="statusColor(user.real_estate_broker_status)"
-                                    @click="changeStatus(user.id, 'real_estate_broker_status')">
-                                </div>
-                                <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="title_before" class="block w-full group-hover:bg-gray-200"
+                <template x-for="(user, index) in getDataFor(actualTab)"
+                          :key="index">
+                    <div class="group hover:bg-gray-300 contents" x-data="{data: {country: null}}"
+                         :class="{'bg-app-red/50': isChanged(user.id)}"
+                         x-modelable="data.country" x-model="user.country"
+                    >
+                        <div class="align-top" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div x-text="user.id"
+                                 class="self-center font-semibold pr-[10px] leading-[50px]"></div>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-textarea-input id="notice"
+                                              class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
+                                              x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.notice !== null && user.notice.trim()}"
                                               type="text"
-                                              x-model="user.title_before" required/>
-                                <x-revalidate-column column="title_before"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="name" class="block w-full group-hover:bg-gray-200" type="text"
-                                              x-model="user.name" required/>
-                                <x-revalidate-column column="name"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="surname" class="block w-full group-hover:bg-gray-200" type="text"
-                                              x-model="user.surname" required/>
-                                <x-revalidate-column column="surname"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="title_after" class="block w-full group-hover:bg-gray-200"
+                                              x-model="user.notice"/>
+                        </div>
+                        <div class="align-top pl-[2px]" x-show="actualTab === 'banned'" x-cloak x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-textarea-input id="ban_info"
+                                              class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
+                                              x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.ban_info !== null && user.ban_info.trim()}"
                                               type="text"
-                                              x-model="user.title_after" required/>
-                                <x-revalidate-column column="title_after"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="street" class="block w-full group-hover:bg-gray-200" type="text"
-                                              x-model="user.street" required/>
-                                <x-revalidate-column column="street"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="street_number" class="block w-full group-hover:bg-gray-200"
+                                              x-model="user.ban_info"/>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="email" class="block group-hover:bg-gray-200" type="text"
+                                          x-model="user.email" required/>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block"
+                                :class="{'!bg-app-green': user.email_verified_at}"
+                                x-text="user.email_verified_at ? 'OK' : 'Neověřený'">
+                            </div>
+                        </div>
+                        <div class="align-top pl-[2px]" x-show="actualTab === 'deleted'" x-cloak x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block whitespace-nowrap text-center"
+                                :class="{'!bg-app-green': !user.deleted_at}"
+                                x-html="user.deleted_at ? user.deleted_at.replace(/ /g, '<br>') : 'NE'">
+                            </div>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                x-text="statusTextOsobniUdaje(user.check_status)"
+                                :class="statusColorOsobniUdaje(user.check_status)"
+                                @click="changeStatusOsobniUdaje(user.id, 'check_status')">
+                            </div>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
+                                :class="{'!bg-app-green': (parseInt(user.investor) === 1)}"
+                                @click="user.investor = (!(parseInt(user.investor) === 1)) ? 1 : 0"
+                                x-text="user.investor ? 'ANO' : 'NE'"
+                            >
+                            </div>
+                            <div x-show="user.investor"
+                                 class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                 x-text="statusText(user.investor_status)"
+                                 :class="statusColor(user.investor_status)"
+                                 @click="changeStatus(user.id, 'investor_status')">
+                            </div>
+                            <x-revalidate-column column="investor" :yesNo="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
+                                :class="{'!bg-app-green': (parseInt(user.advertiser) === 1)}"
+                                @click="user.advertiser = (!(parseInt(user.advertiser) === 1)) ? 1 : 0"
+                                x-text="user.advertiser ? 'ANO' : 'NE'"
+                            >
+                            </div>
+                            <div x-show="user.advertiser"
+                                 class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                 x-text="statusText(user.advertiser_status)"
+                                 :class="statusColor(user.advertiser_status)"
+                                 @click="changeStatus(user.id, 'advertiser_status')">
+                            </div>
+                            <x-revalidate-column column="advertiser" :yesNo="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer inline-block text-[13px] select-none"
+                                :class="{'!bg-app-green': (parseInt(user.real_estate_broker) === 1)}"
+                                @click="user.real_estate_broker = (!(parseInt(user.real_estate_broker) === 1)) ? 1 : 0"
+                                x-text="user.real_estate_broker ? 'ANO' : 'NE'"
+                            >
+                            </div>
+                            <div x-show="user.real_estate_broker"
+                                 class="col-span-4 bg-[#F8F8F8] rounded-[5px] p-[5px_10px] mb-[15px] cursor-pointer text-[13px] select-none inline-block text-center"
+                                 x-text="statusText(user.real_estate_broker_status)"
+                                 :class="statusColor(user.real_estate_broker_status)"
+                                 @click="changeStatus(user.id, 'real_estate_broker_status')">
+                            </div>
+                            <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="title_before" class="block w-full group-hover:bg-gray-200"
+                                          type="text"
+                                          x-model="user.title_before" required/>
+                            <x-revalidate-column column="title_before"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="name" class="block w-full group-hover:bg-gray-200" type="text"
+                                          x-model="user.name" required/>
+                            <x-revalidate-column column="name"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="surname" class="block w-full group-hover:bg-gray-200" type="text"
+                                          x-model="user.surname" required/>
+                            <x-revalidate-column column="surname"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="title_after" class="block w-full group-hover:bg-gray-200"
+                                          type="text"
+                                          x-model="user.title_after" required/>
+                            <x-revalidate-column column="title_after"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="street" class="block w-full group-hover:bg-gray-200" type="text"
+                                          x-model="user.street" required/>
+                            <x-revalidate-column column="street"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="street_number" class="block w-full group-hover:bg-gray-200"
+                                          type="text"
+                                          x-model="user.street_number" required/>
+                            <x-revalidate-column column="street_number"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="city" class="block w-full group-hover:bg-gray-200" type="text"
+                                          x-model="user.city" required/>
+                            <x-revalidate-column column="city"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="psc" class="block w-full group-hover:bg-gray-200" type="text"
+                                          x-model="user.psc" required/>
+                            <x-revalidate-column column="psc"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div class="bg-white group-hover:bg-gray-200 min-w-[235px]">
+                                <x-countries-select id="country"
+                                                    class="block mt-1 w-full group-hover:bg-gray-200"
+                                                    type="text"/>
+                            </div>
+                            <x-revalidate-column column="country"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-text-input id="phone_number"
+                                          class="block x-full group-hover:bg-gray-200"
+                                          type="text"
+                                          x-model="user.phone_number" required/>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <x-textarea-input id="investor_info"
+                                              class="block w-full h-[6rem] leading-[1.45] min-w-[250px] group-hover:bg-gray-200"
                                               type="text"
-                                              x-model="user.street_number" required/>
-                                <x-revalidate-column column="street_number"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="city" class="block w-full group-hover:bg-gray-200" type="text"
-                                              x-model="user.city" required/>
-                                <x-revalidate-column column="city"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="psc" class="block w-full group-hover:bg-gray-200" type="text"
-                                              x-model="user.psc" required/>
-                                <x-revalidate-column column="psc"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <div class="bg-white group-hover:bg-gray-200 min-w-[235px]">
-                                    <x-countries-select id="country"
-                                                        class="block mt-1 w-full group-hover:bg-gray-200"
-                                                        type="text"/>
-                                </div>
-                                <x-revalidate-column column="country"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <x-text-input id="phone_number"
-                                              class="block x-full group-hover:bg-gray-200"
-                                              type="text"
-                                              x-model="user.phone_number" required/>
-                            </td>
-                            <td class="align-top">
-                                <x-textarea-input id="investor_info"
-                                                  class="block w-full h-[6rem] leading-[1.45] min-w-[250px] group-hover:bg-gray-200"
-                                                  type="text"
-                                                  x-model="user.investor_info"/>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
-                                    x-html="user.more_info_investor === null ? '' : user.more_info_investor.trim().replace(/\n/g, '<br>')">
-                                </div>
-                                <x-revalidate-column column="more_info_investor" :br="true"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
-                                    x-html="user.more_info_advertiser === null ? '' : user.more_info_advertiser.trim().replace(/\n/g, '<br>')">
-                                </div>
-                                <x-revalidate-column column="more_info_advertiser" :br="true"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <div
-                                    class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
-                                    x-html="user.more_info_real_estate_broker === null ? '' : user.more_info_real_estate_broker.trim().replace(/\n/g, '<br>')">
-                                </div>
-                                <x-revalidate-column column="more_info_real_estate_broker" :br="true"></x-revalidate-column>
-                            </td>
-                            <td class="align-top">
-                                <button type="button" x-show="indexTab !== 'deleted'"
-                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
-                                        :disabled="!user.deletable"
-                                        @click="deleteUser(user.id)"
-                                >
-                                    smazat
-                                </button>
-                                <button type="button"
-                                        x-show="(indexTab !== 'deleted' && indexTab !== 'banned') || (indexTab === 'banned' && user.banned_at === 'NEW')"
-                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px]"
-                                        @click="$dispatch('open-modal', {name: 'set-ban', user: user})"
-                                >
-                                    BAN
-                                </button>
-                                <button type="button"
-                                        x-show="(indexTab === 'banned' || (indexTab !== 'banned' && user.banned_at === 'NEW'))"
-                                        class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px]"
-                                        @click="user.banned_at = 'REMOVE'; user.ban_info = '';"
-                                >
-                                    ZRUŠIT BAN
-                                </button>
-                                <button type="button" x-show="isChanged(user.id)"
-                                        class="font-Spartan-SemiBold text-[15px] text-app-red bg-white p-[5px] rounded-[3px]"
-                                        @click="removeChanges(user.id)"
-                                >
-                                    zrušit&nbsp;změny
-                                </button>
-                            </td>
-                        </tr>
-                    </template>
-                </table>
-            </template>
+                                              x-model="user.investor_info"/>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                x-html="user.more_info_investor === null ? '' : user.more_info_investor.trim().replace(/\n/g, '<br>')">
+                            </div>
+                            <x-revalidate-column column="more_info_investor" :br="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                x-html="user.more_info_advertiser === null ? '' : user.more_info_advertiser.trim().replace(/\n/g, '<br>')">
+                            </div>
+                            <x-revalidate-column column="more_info_advertiser" :br="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                x-html="user.more_info_real_estate_broker === null ? '' : user.more_info_real_estate_broker.trim().replace(/\n/g, '<br>')">
+                            </div>
+                            <x-revalidate-column column="more_info_real_estate_broker" :br="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px] ">
+                            <button type="button" x-show="actualTab !== 'deleted'" x-cloak
+                                    class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px] disabled:grayscale"
+                                    :disabled="!user.deletable"
+                                    @click="deleteUser(user.id)"
+                            >
+                                smazat
+                            </button>
+                            <button type="button" x-cloak
+                                    x-show="(actualTab !== 'deleted' && actualTab !== 'banned') || (actualTab === 'banned' && user.banned_at === 'NEW')"
+                                    class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px]"
+                                    @click="$dispatch('open-modal', {name: 'set-ban', user: user})"
+                            >
+                                BAN
+                            </button>
+                            <button type="button" x-cloak
+                                    x-show="(actualTab === 'banned' || (actualTab !== 'banned' && user.banned_at === 'NEW'))"
+                                    class="font-Spartan-SemiBold text-[15px] text-white bg-app-red p-[5px] rounded-[3px]"
+                                    @click="user.banned_at = 'REMOVE'; user.ban_info = '';"
+                            >
+                                ZRUŠIT BAN
+                            </button>
+                            <button type="button" x-show="isChanged(user.id)"
+                                    class="font-Spartan-SemiBold text-[15px] text-app-red bg-white p-[5px] rounded-[3px]"
+                                    @click="removeChanges(user.id)"
+                            >
+                                zrušit&nbsp;změny
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
 
             <button type="button"
                     @click.prevent="saveUsers();"
