@@ -62,11 +62,11 @@ class VerifyEmailAdmin extends Notification
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(__('mail-VerifyEmailAdmin.Byli_jste_přidáni_jako_administrátor_na_PVtrusted-cz'))
-            ->line(__('mail-VerifyEmailAdmin.Dobrý_den,'))
-            ->line(__('mail-VerifyEmailAdmin.na_portálu_www-pvtrusted-cz_jste_byli_přidáni_do_role_administrátora-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:'))
-            ->action(__('mail-VerifyEmailAdmin.Vytvořit_heslo'), $url)
-            ->line(__('mail-VerifyEmailAdmin.Odkaz_bude_aktivní_7_dní'))
+            ->subject(__('mail-VerifyEmailAdmin.~00~Subject:Byli_jste_přidáni_jako_administrátor_na_PVtrusted-cz'))
+            ->line(__('mail-VerifyEmailAdmin.~01~Dobrý_den,'))
+            ->line(__('mail-VerifyEmailAdmin.~02~na_portálu_www-pvtrusted-cz_jste_byli_přidáni_do_role_administrátora-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:'))
+            ->action(__('mail-VerifyEmailAdmin.~03~Vytvořit_heslo'), $url)
+            ->line(__('mail-VerifyEmailAdmin.~04~Odkaz_bude_aktivní_7_dní'))
             ->markdown('vendor.email');
     }
 

@@ -265,6 +265,10 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
             + pathname, {
             method: 'POST',
             body: JSON.stringify({
+                template: this.getSelectedLanguageCategory(),
+                subject: this.selectedTemplateEmailSubject,
+                index: this.getSelectedLanguageCategory().replace('template-mail-', ''),
+                translate: this.selectedTemplateEmailSubject,
                 translateText: translate,
                 translateHtml: this.translateTemplateEmail(translate),
             }),
@@ -277,6 +281,10 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 if (data.status === 'success') {
                     this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
                     this.longTextTranslateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = data.translate;
+                    if (this.getSelectedLanguageCategory().startsWith('template-mail-')) {
+                        this.translateData[this.getSelectedLanguage()]['template-mail-subject'][this.getSelectedLanguageCategory().replace('template-mail-', '')] = data.translateSubject;
+                        this.translateOriginData[this.getSelectedLanguage()]['template-mail-subject'][this.getSelectedLanguageCategory().replace('template-mail-', '')] = data.translateSubject;
+                    }
                     Alpine.store('app').appLoaderShow = false;
                     return;
                 }
@@ -292,6 +300,21 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
     showIfMoreLanguages() {
         return (Object.keys(languages).length > 1 || defaultLanguage !== languages[Object.keys(languages)[0]].title);
     },
+    isTemplateEmailSubjectEmpty(languageCategory) {
+        if (!languageCategory.startsWith('template-mail-')) {
+            return false;
+        }
+        const categorySubject = languageCategory.replace('template-mail-', '');
+
+        if (typeof this.translateData[this.getSelectedLanguage()]['template-mail-subject'] === 'undefined') {
+            return true;
+        }
+        if (typeof this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] === 'undefined') {
+            return true;
+        }
+
+        return (this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] ?? '').trim().length === 0;
+    },
     getCountNeprelozenoTranslate(languageCategory) {
         if (languageCategory.startsWith('long-text-') || languageCategory.startsWith('template-mail-')) {
             if (
@@ -301,7 +324,16 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                 return this.languages[this.getSelectedLanguage()]['category'][languageCategory].countNeprelozeno;
             }
 
-            return this.longTextTranslateData[this.getSelectedLanguage()][languageCategory].trim().length > 0 ? 0 : 1;
+            const categorySubject = languageCategory.replace('template-mail-', '');
+            let countSubject = 0;
+            if (
+                typeof this.translateData[this.getSelectedLanguage()]['template-mail-subject'] !== 'undefined'
+                && typeof this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] !== 'undefined'
+            ) {
+                countSubject = (this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] ?? '').trim().length > 0 ? 0 : 1
+            }
+
+            return (this.longTextTranslateData[this.getSelectedLanguage()][languageCategory].trim().length > 0 ? 0 : 1) + countSubject;
         }
 
         if (typeof (this.translateData[this.getSelectedLanguage()]) === 'undefined') {
@@ -328,7 +360,15 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                     typeof this.longTextTranslateData[language] !== 'undefined'
                     && typeof this.longTextTranslateData[language][categoryKey] !== 'undefined'
                 ) {
+                    const categorySubject = categoryKey.replace('template-mail-', '');
                     count += this.longTextTranslateData[language][categoryKey].trim().length > 0 ? 0 : 1;
+                    if (
+                        this.isSelectedTab('email-template')
+                        && typeof this.translateData[language]['template-mail-subject'] !== 'undefined'
+                        && typeof this.translateData[language]['template-mail-subject'][categorySubject] !== 'undefined'
+                    ) {
+                        count += (this.translateData[language]['template-mail-subject'][categorySubject] ?? '').trim().length > 0 ? 0 : 1;
+                    }
                     continue;
                 }
                 count += categoryValue.countNeprelozeno;
@@ -370,7 +410,15 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
                         typeof this.longTextTranslateData[languageIndex] !== 'undefined'
                         && typeof this.longTextTranslateData[languageIndex][categoryKey] !== 'undefined'
                     ) {
+                        const categorySubject = categoryKey.replace('template-mail-', '');
                         count += this.longTextTranslateData[languageIndex][categoryKey].trim().length > 0 ? 0 : 1;
+                        if (
+                            this.isSelectedTab('email-template', tab)
+                            && typeof this.translateData[languageIndex]['template-mail-subject'] !== 'undefined'
+                            && typeof this.translateData[languageIndex]['template-mail-subject'][categorySubject] !== 'undefined'
+                        ) {
+                            count += (this.translateData[languageIndex]['template-mail-subject'][categorySubject] ?? '').trim().length > 0 ? 0 : 1;
+                        }
                         continue;
                     }
                     count += categoryValue.countNeprelozeno;
@@ -718,6 +766,8 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
         await fetch(url, {
             method: 'POST',
             body: JSON.stringify({
+                template: this.getSelectedLanguageCategory(),
+                subject: this.selectedTemplateEmailSubject,
                 translateText: translate,
                 translateHtml: this.translateTemplateEmail(translate),
             }),
@@ -785,5 +835,44 @@ Alpine.data('adminLocalization', (languages, isTest, fromLanguage, testLanguage,
             this.longTextTranslateData[this.getSelectedLanguage()] = {};
         }
         this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] = value;
+    },
+
+    get selectedTemplateEmailSubject() {
+        const categorySubject = this.getSelectedLanguageCategory().replace('template-mail-', '');
+        if (
+            typeof this.translateData[this.getSelectedLanguage()]['template-mail-subject'] === 'undefined'
+            || typeof this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] === 'undefined'
+        ) {
+            return '';
+        }
+        return this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject];
+    },
+
+    get selectedTemplateEmailSubjectOrigin() {
+        const categorySubject = this.getSelectedLanguageCategory().replace('template-mail-', '');
+        if (
+            typeof this.translateOriginData[this.getSelectedLanguage()] === 'undefined'
+            || typeof this.translateOriginData[this.getSelectedLanguage()]['template-mail-subject'] === 'undefined'
+            || typeof this.translateOriginData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] === 'undefined'
+        ) {
+            return '';
+        }
+        return this.translateOriginData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject];
+    },
+
+    set selectedTemplateEmailSubject(value) {
+        const categorySubject = this.getSelectedLanguageCategory().replace('template-mail-', '');
+        this.translateData[this.getSelectedLanguage()]['template-mail-subject'][categorySubject] = value;
+    },
+
+    isLongTextChanged() {
+        return (
+            (
+                typeof this.longTextTranslateData[this.getSelectedLanguage()] !== 'undefined'
+                && typeof this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] !== 'undefined'
+            ) && this.longTextTranslateData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()] !== this.longTextTranslateOriginData[this.getSelectedLanguage()][this.getSelectedLanguageCategory()]
+        ) || (
+            this.selectedTemplateEmailSubject !== this.selectedTemplateEmailSubjectOrigin
+        )
     }
 }));

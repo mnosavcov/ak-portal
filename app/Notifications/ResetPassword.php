@@ -75,13 +75,13 @@ class ResetPassword extends Notification
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(__('mail-ResetPassword.Obnova_zapomenutého_hesla'))
-            ->line(__('mail-ResetPassword.Dobrý_den,'))
-            ->line(__('mail-ResetPassword.tento_e-mail_jsme_vám_zaslali,_jelikož_jsme_obdrželi_žádost_o_obnovu_hesla_u_vašeho_účtu_na_PVtrusted-cz'))
-            ->action(__('mail-ResetPassword.Obnovit_heslo'), $url)
-            ->line(__('mail-ResetPassword.Odkaz_na_obnovu_hesla_je_platný_po_dobu_:count_minut', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
-            ->line(__('mail-ResetPassword.Pokud_máte_problém_kliknout_na_tlačítko_“Obnovit_heslo”,_zkopírujte_následující_URL_adresu_a_vložte_ji_do_adresního_řádku_ve_svém_internetovém_prohlížeči_a_potvrďte_ji:') . ' ' . $url)
-            ->line(__('mail-ResetPassword.Pokud_jste_o_obnovu_hesla_nežádali,_nemusíte_na_tento_e-mail_reagovat-_V_případě,_že_byste_nevyžádané_výzvy_k_obnově_hesla_obdrželi_opakovaně,_kontaktujte_nás'))
+            ->subject(__('mail-ResetPassword.~00~Subject:Obnova_zapomenutého_hesla'))
+            ->line(__('mail-ResetPassword.~01~Dobrý_den,'))
+            ->line(__('mail-ResetPassword.~02~tento_e-mail_jsme_vám_zaslali,_jelikož_jsme_obdrželi_žádost_o_obnovu_hesla_u_vašeho_účtu_na_PVtrusted-cz'))
+            ->action(__('mail-ResetPassword.~03~Obnovit_heslo'), $url)
+            ->line(__('mail-ResetPassword.~04~Odkaz_na_obnovu_hesla_je_platný_po_dobu_:count_minut', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
+            ->line(__('mail-ResetPassword.~05~Pokud_máte_problém_kliknout_na_tlačítko_“Obnovit_heslo”,_zkopírujte_následující_URL_adresu_a_vložte_ji_do_adresního_řádku_ve_svém_internetovém_prohlížeči_a_potvrďte_ji:') . ' ' . $url)
+            ->line(__('mail-ResetPassword.~06~Pokud_jste_o_obnovu_hesla_nežádali,_nemusíte_na_tento_e-mail_reagovat-_V_případě,_že_byste_nevyžádané_výzvy_k_obnově_hesla_obdrželi_opakovaně,_kontaktujte_nás'))
             ->markdown('vendor.email');
     }
 

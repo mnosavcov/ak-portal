@@ -62,11 +62,11 @@ class VerifyEmailTranslator extends Notification
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(__('mail-VerifyEmailTranslator.Byli_jste_zaregistrováni_na_PVtrusted-cz'))
-            ->line(__('mail-VerifyEmailTranslator.Dobrý_den,'))
-            ->line(__('mail-VerifyEmailTranslator.na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet_překladatele-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:'))
-            ->action(__('mail-VerifyEmailTranslator.Vytvořit_heslo'), $url)
-            ->line(__('mail-VerifyEmailTranslator.Odkaz_bude_aktivní_7_dní'))
+            ->subject(__('mail-VerifyEmailTranslator.~00~Subject:Byli_jste_zaregistrováni_na_PVtrusted-cz'))
+            ->line(__('mail-VerifyEmailTranslator.~01~Dobrý_den,'))
+            ->line(__('mail-VerifyEmailTranslator.~02~na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet_překladatele-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:'))
+            ->action(__('mail-VerifyEmailTranslator.~03~Vytvořit_heslo'), $url)
+            ->line(__('mail-VerifyEmailTranslator.~04~Odkaz_bude_aktivní_7_dní'))
             ->markdown('vendor.email');
     }
 

@@ -55,7 +55,7 @@ class EmailService
             $this->addEmailToQueue(
                 $user['email'],
                 $toName,
-                'Váš účet investora byl ověřen',
+                __('template-mail-subject.user-verify-investor-verified'),
                 'lang.' . app()->getLocale() . '.emails.user-verify-investor-verified',
                 'lang.' . app()->getLocale() . '.emails.user-verify-investor-verified-text',
             );
@@ -65,7 +65,7 @@ class EmailService
             $this->addEmailToQueue(
                 $user['email'],
                 $toName,
-                'Váš účet investora nebyl ověřen',
+                __('template-mail-subject.user-verify-investor-not_verified'),
                 'lang.' . app()->getLocale() . '.emails.user-verify-investor-not_verified',
                 'lang.' . app()->getLocale() . '.emails.user-verify-investor-not_verified-text',
             );
@@ -84,7 +84,7 @@ class EmailService
             $this->addEmailToQueue(
                 $user['email'],
                 $toName,
-                'Váš účet nabízejícího byl ověřen',
+                __('template-mail-subject.user-verify-advertiser-verified'),
                 'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-verified',
                 'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-verified-text',
             );
@@ -94,7 +94,7 @@ class EmailService
             $this->addEmailToQueue(
                 $user['email'],
                 $toName,
-                'Váš účet nabízejícího nebyl ověřen',
+                __('template-mail-subject.user-verify-advertiser-not_verified'),
                 'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-not_verified',
                 'lang.' . app()->getLocale() . '.emails.user-verify-advertiser-not_verified-text',
             );
@@ -113,7 +113,7 @@ class EmailService
             $this->addEmailToQueue(
                 $user['email'],
                 $toName,
-                'Váš účet realitního makléře byl ověřen',
+                __('template-mail-subject.user-verify-real_estate_broker-verified'),
                 'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-verified',
                 'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-verified-text',
             );
@@ -123,7 +123,7 @@ class EmailService
             $this->addEmailToQueue(
                 $user['email'],
                 $toName,
-                'Váš účet realitního makléře nebyl ověřen',
+                __('template-mail-subject.user-verify-real_estate_broker-not_verified'),
                 'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-not_verified',
                 'lang.' . app()->getLocale() . '.emails.user-verify-real_estate_broker-not_verified-text',
             );

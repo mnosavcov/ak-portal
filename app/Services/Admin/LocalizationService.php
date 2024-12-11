@@ -35,6 +35,11 @@ class LocalizationService extends Controller
         'auth.throttle',
     ];
 
+    private const EXCEPT_PATTH_TOL_LOCALIZATION_JS = [
+        'template-mail-subject',
+        'localizationX'
+    ];
+
     public function getLanguages($readCountNeprelozeno = true): array
     {
         if (!File::isDirectory(resource_path('lang'))) {
@@ -75,6 +80,9 @@ class LocalizationService extends Controller
 
             foreach ($jsonSubFiles as $subFile) {
                 $subtitle = explode('.', $subFile->getFilename())[0];
+                if (in_array($subtitle, self::EXCEPT_PATTH_TOL_LOCALIZATION_JS)) {
+                    continue;
+                }
                 $languages[$lng]['category'][$subtitle] = [
                     'title' => __('localization.' . $subtitle),
                     'countNeprelozeno' => $this->countNeprelozenoKategorie($data[$subtitle] ?? []),
@@ -95,7 +103,10 @@ class LocalizationService extends Controller
                 $languages[$lng]['category'][$longText['category']] = [
                     'title' => __('localization.' . $longText['category']),
                     'pathname' => $longText['pathname'],
-                    'countNeprelozeno' => Str::length(trim($this->loadLong($longText['pathname']))) > 0 ? 0 : 1,
+                    'countNeprelozeno' =>
+                        (Str::length(trim($this->loadLong($longText['pathname']))) > 0 ? 0 : 1)
+                        + (Str::length(trim($data['template-mail-subject'][Str::replaceStart('template-mail-', '', $longText['category'])] ?? '')) > 0 ? 0 : 1)
+                    ,
                 ];
             }
         }
@@ -128,7 +139,24 @@ class LocalizationService extends Controller
             return '';
         }
 
-        return File::get($filepath);
+        return trim(File::get($filepath));
+    }
+
+    public function loadLongEmailSubject($path, $lng)
+    {
+        [$type, $filepath] = explode(':', Crypt::decryptString(base64_decode($path)), 2);
+        if($type !== 'template-mail') {
+            return null;
+        }
+        $template = Str::replaceEnd('-text.blade.php', '', $filepath);
+        $template = explode('/', $template);
+        $template = $template[count($template) - 1];
+        $template = explode('\\', $template);
+        $template = $template[count($template) - 1];
+
+        $data = $this->load($lng);
+
+        return $data['template-mail-subject'][$template] ?? '';
     }
 
     private function loadDefault($lng)
@@ -206,6 +234,7 @@ class LocalizationService extends Controller
         if ($type === 'template-mail') {
             $filepathTemplate = Str::replaceLast('-text.blade.php', '.blade.php', $filepath);
             File::replace($filepathTemplate, '<x-email-layout>' . "\n" . $request->post('translateHtml') . "\n" . '</x-email-layout>' . "\n");
+            $this->saveSub($request, $lng, 'template-mail-subject');
         }
 
         return true;
@@ -314,7 +343,7 @@ class LocalizationService extends Controller
             }
 
             foreach ($items['category'] as $title => $item) {
-                if ($title === 'localizationX') {
+                if (in_array($title, self::EXCEPT_PATTH_TOL_LOCALIZATION_JS)) {
                     continue;
                 }
 

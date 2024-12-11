@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class LocalizationController extends Controller
 {
@@ -48,7 +49,8 @@ class LocalizationController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'translate' => $localizationService->loadLong($path)
+            'translate' => $localizationService->loadLong($path),
+            'translateSubject' => $localizationService->loadLongEmailSubject($path, $lng)
         ]);
     }
 
@@ -69,6 +71,7 @@ class LocalizationController extends Controller
         return response()->json([
             'status' => 'success',
             'translate' => $localizationService->loadLong($path),
+            'translateSubject' => $localizationService->loadLongEmailSubject($path, $lng)
         ]);
     }
 
@@ -158,7 +161,7 @@ class LocalizationController extends Controller
         );
 
         $data = [];
-        $data['subject'] = 'testovací email';
+        $data['subject'] = $request->post('subject');
         $data['view'] = 'app.temp.test-mail';
         $data['text'] = 'app.temp.test-mail-text';
 

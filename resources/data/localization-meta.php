@@ -928,7 +928,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 381,
+      'line' => 377,
     ),
   ),
   'Důvod neschválení' => 
@@ -6232,7 +6232,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 104,
+      'line' => 102,
     ),
   ),
   'admin.E-mail' => 
@@ -6240,12 +6240,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 105,
+      'line' => 103,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 106,
+      'line' => 104,
     ),
   ),
   'admin.Editace_projektu' => 
@@ -6282,7 +6282,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 122,
+      'line' => 120,
     ),
   ),
   'admin.Investor' => 
@@ -6290,7 +6290,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 109,
+      'line' => 107,
     ),
   ),
   'admin.Investori' => 
@@ -6314,7 +6314,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 113,
+      'line' => 111,
     ),
   ),
   'admin.Kategorie' => 
@@ -6353,7 +6353,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 111,
+      'line' => 109,
     ),
   ),
   'admin.Minimální_cena_k_nabídnutí' => 
@@ -6390,7 +6390,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 110,
+      'line' => 108,
     ),
   ),
   'admin.Nastavit_ban' => 
@@ -6398,7 +6398,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 398,
+      'line' => 394,
     ),
   ),
   'admin.Neovereni' => 
@@ -6446,7 +6446,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 118,
+      'line' => 116,
     ),
   ),
   'admin.Občanství' => 
@@ -6454,7 +6454,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 120,
+      'line' => 118,
     ),
   ),
   'admin.Opravdu_si_prejete_smazat_projekt_Tato_akce_je_nevratna' => 
@@ -6470,7 +6470,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 108,
+      'line' => 106,
     ),
   ),
   'admin.OVERENO' => 
@@ -6507,7 +6507,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 102,
+      'line' => 99,
     ),
   ),
   'admin.požadovaná_výše_jistoty' => 
@@ -6549,7 +6549,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 119,
+      'line' => 117,
     ),
   ),
   'admin.Překladatelé' => 
@@ -6597,7 +6597,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 114,
+      'line' => 112,
     ),
   ),
   'admin.READONLY' => 
@@ -6655,7 +6655,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 107,
+      'line' => 105,
     ),
   ),
   'admin.Stav' => 
@@ -6687,7 +6687,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 121,
+      'line' => 119,
     ),
   ),
   'admin.Testovací_režim' => 
@@ -6703,7 +6703,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 112,
+      'line' => 110,
     ),
   ),
   'admin.Titul(y)_za' => 
@@ -6711,7 +6711,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 115,
+      'line' => 113,
     ),
   ),
   'admin.Uhrazeno' => 
@@ -6732,7 +6732,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 116,
+      'line' => 114,
     ),
   ),
   'admin.Uložit' => 
@@ -6740,7 +6740,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 350,
+      'line' => 346,
     ),
   ),
   'admin.Uzivatel_ma_aktivni_projekt' => 
@@ -6838,7 +6838,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 410,
+      'line' => 406,
     ),
   ),
   'admin.Účel_investor' => 
@@ -6846,7 +6846,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 123,
+      'line' => 121,
     ),
   ),
   'admin.Účel_makléř' => 
@@ -6854,7 +6854,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 125,
+      'line' => 123,
     ),
   ),
   'admin.Účel_zadavatel' => 
@@ -6862,7 +6862,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 124,
+      'line' => 122,
     ),
   ),
   'admin.ČP' => 
@@ -6870,7 +6870,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\admin\\users.blade.php',
-      'line' => 117,
+      'line' => 115,
     ),
   ),
   'admin.Částka' => 
@@ -7252,7 +7252,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\Admin\\LocalizationService.php',
-      'line' => 61,
+      'line' => 66,
     ),
   ),
   'localization.admin' => 
@@ -7351,23 +7351,7 @@ return array (
   'localization.template-mail-user-verify-real_estate_broker-verified' => 
   array (
   ),
-  'mail-CustomAfterVerifyEmail.Abyste_mohli_využívat_náš_portál_naplno_a_mít_přístup_ke_všem_funkcím_a_informacím,_musíte' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomAfterVerifyEmail.php',
-      'line' => 26,
-    ),
-  ),
-  'mail-CustomAfterVerifyEmail.Dobrý_den,' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomAfterVerifyEmail.php',
-      'line' => 23,
-    ),
-  ),
-  'mail-CustomAfterVerifyEmail.Dokončená_registrace_na_PVtrusted-cz' => 
+  'mail-CustomAfterVerifyEmail.~00~Subject:Dokončená_registrace_na_PVtrusted-cz' => 
   array (
     0 => 
     array (
@@ -7375,7 +7359,15 @@ return array (
       'line' => 22,
     ),
   ),
-  'mail-CustomAfterVerifyEmail.děkujeme_za_ověření_e-mailu-_Potvrzujeme,_že_Vaše_registrace_byla_úspěšně_dokončena' => 
+  'mail-CustomAfterVerifyEmail.~01~Dobrý_den,' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomAfterVerifyEmail.php',
+      'line' => 23,
+    ),
+  ),
+  'mail-CustomAfterVerifyEmail.~02~děkujeme_za_ověření_e-mailu-_Potvrzujeme,_že_Vaše_registrace_byla_úspěšně_dokončena' => 
   array (
     0 => 
     array (
@@ -7383,15 +7375,7 @@ return array (
       'line' => 24,
     ),
   ),
-  'mail-CustomAfterVerifyEmail.ověřit_svůj_účet' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomAfterVerifyEmail.php',
-      'line' => 26,
-    ),
-  ),
-  'mail-CustomAfterVerifyEmail.pomocí_svého_e-mailu_a_zvoleného_hesla' => 
+  'mail-CustomAfterVerifyEmail.~03~Přihlašovat_se_můžete_na_následující_stránce:' => 
   array (
     0 => 
     array (
@@ -7399,7 +7383,7 @@ return array (
       'line' => 25,
     ),
   ),
-  'mail-CustomAfterVerifyEmail.Přihlašovat_se_můžete_na_následující_stránce:' => 
+  'mail-CustomAfterVerifyEmail.~04~pomocí_svého_e-mailu_a_zvoleného_hesla' => 
   array (
     0 => 
     array (
@@ -7407,7 +7391,7 @@ return array (
       'line' => 25,
     ),
   ),
-  'mail-CustomAfterVerifyEmail.Tento_proces_můžete_realizovat_v_“Nastavení_účtu”_po_přihlášení' => 
+  'mail-CustomAfterVerifyEmail.~05~Abyste_mohli_využívat_náš_portál_naplno_a_mít_přístup_ke_všem_funkcím_a_informacím,_musíte' => 
   array (
     0 => 
     array (
@@ -7415,7 +7399,23 @@ return array (
       'line' => 26,
     ),
   ),
-  'mail-CustomAfterVerifyEmail.V_případě_jakýchkoliv_problémů,_požadavků_či_dotazů_se_nás_neváhejte_kontaktovat-_A_to_buď_odpovědí_přímo_na_tento_e-mail,_nebo_skrze_některou_z_možností_v_kontaktech_na_našem_portálu' => 
+  'mail-CustomAfterVerifyEmail.~06~ověřit_svůj_účet' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomAfterVerifyEmail.php',
+      'line' => 26,
+    ),
+  ),
+  'mail-CustomAfterVerifyEmail.~07~Tento_proces_můžete_realizovat_v_“Nastavení_účtu”_po_přihlášení' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomAfterVerifyEmail.php',
+      'line' => 26,
+    ),
+  ),
+  'mail-CustomAfterVerifyEmail.~08~V_případě_jakýchkoliv_problémů,_požadavků_či_dotazů_se_nás_neváhejte_kontaktovat-_A_to_buď_odpovědí_přímo_na_tento_e-mail,_nebo_skrze_některou_z_možností_v_kontaktech_na_našem_portálu' => 
   array (
     0 => 
     array (
@@ -7423,39 +7423,7 @@ return array (
       'line' => 27,
     ),
   ),
-  'mail-CustomVerifyEmail.Dobrý_den,' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
-      'line' => 43,
-    ),
-  ),
-  'mail-CustomVerifyEmail.děkujeme_Vám_za_zájem_o_služby_na_našem_portálu-_Abyste_mohli_svůj_účet_využívat,_ověřte_svůj_e-mail' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
-      'line' => 44,
-    ),
-  ),
-  'mail-CustomVerifyEmail.Následně_ho_vložte_do_adresního_řádku_webového_prohlížeče_a_potvrďte_ho' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
-      'line' => 48,
-    ),
-  ),
-  'mail-CustomVerifyEmail.Ověřit_e-mail' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
-      'line' => 45,
-    ),
-  ),
-  'mail-CustomVerifyEmail.Ověřte_svůj_e-mail_na_PVtrusted-cz' => 
+  'mail-CustomVerifyEmail.~00~Subject:Ověřte_svůj_e-mail_na_PVtrusted-cz' => 
   array (
     0 => 
     array (
@@ -7463,7 +7431,31 @@ return array (
       'line' => 42,
     ),
   ),
-  'mail-CustomVerifyEmail.Pokud_nelze_na_odkaz_kliknout,_nebo_jste_zaznamenali_jiné_technické_problémy,_zkopírujte_následující_odkaz' => 
+  'mail-CustomVerifyEmail.~01~Dobrý_den,' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
+      'line' => 43,
+    ),
+  ),
+  'mail-CustomVerifyEmail.~02~děkujeme_Vám_za_zájem_o_služby_na_našem_portálu-_Abyste_mohli_svůj_účet_využívat,_ověřte_svůj_e-mail' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
+      'line' => 44,
+    ),
+  ),
+  'mail-CustomVerifyEmail.~03~Ověřit_e-mail' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
+      'line' => 45,
+    ),
+  ),
+  'mail-CustomVerifyEmail.~04~Pokud_nelze_na_odkaz_kliknout,_nebo_jste_zaznamenali_jiné_technické_problémy,_zkopírujte_následující_odkaz' => 
   array (
     0 => 
     array (
@@ -7471,7 +7463,15 @@ return array (
       'line' => 46,
     ),
   ),
-  'mail-CustomVerifyEmail.V_případě_jakýchkoliv_problémů,_požadavků_či_dotazů_se_nás_neváhejte_kontaktovat-_A_to_buď_odpovědí_přímo_na_tento_e-mail,_nebo_skrze_některou_z_možností_v_kontaktech_na_našem_portálu' => 
+  'mail-CustomVerifyEmail.~05~Následně_ho_vložte_do_adresního_řádku_webového_prohlížeče_a_potvrďte_ho' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\CustomVerifyEmail.php',
+      'line' => 48,
+    ),
+  ),
+  'mail-CustomVerifyEmail.~06~V_případě_jakýchkoliv_problémů,_požadavků_či_dotazů_se_nás_neváhejte_kontaktovat-_A_to_buď_odpovědí_přímo_na_tento_e-mail,_nebo_skrze_některou_z_možností_v_kontaktech_na_našem_portálu' => 
   array (
     0 => 
     array (
@@ -7479,15 +7479,7 @@ return array (
       'line' => 49,
     ),
   ),
-  'mail-ResetPassword.Dobrý_den,' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\ResetPassword.php',
-      'line' => 79,
-    ),
-  ),
-  'mail-ResetPassword.Obnova_zapomenutého_hesla' => 
+  'mail-ResetPassword.~00~Subject:Obnova_zapomenutého_hesla' => 
   array (
     0 => 
     array (
@@ -7495,39 +7487,15 @@ return array (
       'line' => 78,
     ),
   ),
-  'mail-ResetPassword.Obnovit_heslo' => 
+  'mail-ResetPassword.~01~Dobrý_den,' => 
   array (
     0 => 
     array (
       'path' => 'app\\Notifications\\ResetPassword.php',
-      'line' => 81,
+      'line' => 79,
     ),
   ),
-  'mail-ResetPassword.Odkaz_na_obnovu_hesla_je_platný_po_dobu_:count_minut' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\ResetPassword.php',
-      'line' => 82,
-    ),
-  ),
-  'mail-ResetPassword.Pokud_jste_o_obnovu_hesla_nežádali,_nemusíte_na_tento_e-mail_reagovat-_V_případě,_že_byste_nevyžádané_výzvy_k_obnově_hesla_obdrželi_opakovaně,_kontaktujte_nás' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\ResetPassword.php',
-      'line' => 84,
-    ),
-  ),
-  'mail-ResetPassword.Pokud_máte_problém_kliknout_na_tlačítko_“Obnovit_heslo”,_zkopírujte_následující_URL_adresu_a_vložte_ji_do_adresního_řádku_ve_svém_internetovém_prohlížeči_a_potvrďte_ji:' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Notifications\\ResetPassword.php',
-      'line' => 83,
-    ),
-  ),
-  'mail-ResetPassword.tento_e-mail_jsme_vám_zaslali,_jelikož_jsme_obdrželi_žádost_o_obnovu_hesla_u_vašeho_účtu_na_PVtrusted-cz' => 
+  'mail-ResetPassword.~02~tento_e-mail_jsme_vám_zaslali,_jelikož_jsme_obdrželi_žádost_o_obnovu_hesla_u_vašeho_účtu_na_PVtrusted-cz' => 
   array (
     0 => 
     array (
@@ -7535,7 +7503,39 @@ return array (
       'line' => 80,
     ),
   ),
-  'mail-VerifyEmailAdmin.Byli_jste_přidáni_jako_administrátor_na_PVtrusted-cz' => 
+  'mail-ResetPassword.~03~Obnovit_heslo' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\ResetPassword.php',
+      'line' => 81,
+    ),
+  ),
+  'mail-ResetPassword.~04~Odkaz_na_obnovu_hesla_je_platný_po_dobu_:count_minut' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\ResetPassword.php',
+      'line' => 82,
+    ),
+  ),
+  'mail-ResetPassword.~05~Pokud_máte_problém_kliknout_na_tlačítko_“Obnovit_heslo”,_zkopírujte_následující_URL_adresu_a_vložte_ji_do_adresního_řádku_ve_svém_internetovém_prohlížeči_a_potvrďte_ji:' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\ResetPassword.php',
+      'line' => 83,
+    ),
+  ),
+  'mail-ResetPassword.~06~Pokud_jste_o_obnovu_hesla_nežádali,_nemusíte_na_tento_e-mail_reagovat-_V_případě,_že_byste_nevyžádané_výzvy_k_obnově_hesla_obdrželi_opakovaně,_kontaktujte_nás' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Notifications\\ResetPassword.php',
+      'line' => 84,
+    ),
+  ),
+  'mail-VerifyEmailAdmin.~00~Subject:Byli_jste_přidáni_jako_administrátor_na_PVtrusted-cz' => 
   array (
     0 => 
     array (
@@ -7543,7 +7543,7 @@ return array (
       'line' => 65,
     ),
   ),
-  'mail-VerifyEmailAdmin.Dobrý_den,' => 
+  'mail-VerifyEmailAdmin.~01~Dobrý_den,' => 
   array (
     0 => 
     array (
@@ -7551,7 +7551,7 @@ return array (
       'line' => 66,
     ),
   ),
-  'mail-VerifyEmailAdmin.na_portálu_www-pvtrusted-cz_jste_byli_přidáni_do_role_administrátora-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
+  'mail-VerifyEmailAdmin.~02~na_portálu_www-pvtrusted-cz_jste_byli_přidáni_do_role_administrátora-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
   array (
     0 => 
     array (
@@ -7559,15 +7559,7 @@ return array (
       'line' => 67,
     ),
   ),
-  'mail-VerifyEmailAdmin.Odkaz_bude_aktivní_7_dní' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Listeners\\Notifications\\VerifyEmailAdmin.php',
-      'line' => 69,
-    ),
-  ),
-  'mail-VerifyEmailAdmin.Vytvořit_heslo' => 
+  'mail-VerifyEmailAdmin.~03~Vytvořit_heslo' => 
   array (
     0 => 
     array (
@@ -7575,7 +7567,15 @@ return array (
       'line' => 68,
     ),
   ),
-  'mail-VerifyEmailAdvisor.Byli_jste_zaregistrováni_na_PVtrusted-cz' => 
+  'mail-VerifyEmailAdmin.~04~Odkaz_bude_aktivní_7_dní' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailAdmin.php',
+      'line' => 69,
+    ),
+  ),
+  'mail-VerifyEmailAdvisor.~00~Subject:Byli_jste_zaregistrováni_na_PVtrusted-cz' => 
   array (
     0 => 
     array (
@@ -7583,7 +7583,7 @@ return array (
       'line' => 65,
     ),
   ),
-  'mail-VerifyEmailAdvisor.Dobrý_den,' => 
+  'mail-VerifyEmailAdvisor.~01~Dobrý_den,' => 
   array (
     0 => 
     array (
@@ -7591,7 +7591,7 @@ return array (
       'line' => 66,
     ),
   ),
-  'mail-VerifyEmailAdvisor.na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
+  'mail-VerifyEmailAdvisor.~02~na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
   array (
     0 => 
     array (
@@ -7599,15 +7599,7 @@ return array (
       'line' => 67,
     ),
   ),
-  'mail-VerifyEmailAdvisor.Odkaz_bude_aktivní_7_dní' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Listeners\\Notifications\\VerifyEmailAdvisor.php',
-      'line' => 69,
-    ),
-  ),
-  'mail-VerifyEmailAdvisor.Vytvořit_heslo' => 
+  'mail-VerifyEmailAdvisor.~03~Vytvořit_heslo' => 
   array (
     0 => 
     array (
@@ -7615,7 +7607,15 @@ return array (
       'line' => 68,
     ),
   ),
-  'mail-VerifyEmailTranslator.Byli_jste_zaregistrováni_na_PVtrusted-cz' => 
+  'mail-VerifyEmailAdvisor.~04~Odkaz_bude_aktivní_7_dní' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailAdvisor.php',
+      'line' => 69,
+    ),
+  ),
+  'mail-VerifyEmailTranslator.~00~Subject:Byli_jste_zaregistrováni_na_PVtrusted-cz' => 
   array (
     0 => 
     array (
@@ -7623,7 +7623,7 @@ return array (
       'line' => 65,
     ),
   ),
-  'mail-VerifyEmailTranslator.Dobrý_den,' => 
+  'mail-VerifyEmailTranslator.~01~Dobrý_den,' => 
   array (
     0 => 
     array (
@@ -7631,7 +7631,7 @@ return array (
       'line' => 66,
     ),
   ),
-  'mail-VerifyEmailTranslator.na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet_překladatele-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
+  'mail-VerifyEmailTranslator.~02~na_portálu_http://www-pvtrusted-cz_jsme_Vám_vytvořili_nový_účet_překladatele-_Prosím,_potvrďte_vlastnictví_e-mailu_a_nastavte_si_nové_heslo_přes_následující_odkaz:' => 
   array (
     0 => 
     array (
@@ -7639,20 +7639,20 @@ return array (
       'line' => 67,
     ),
   ),
-  'mail-VerifyEmailTranslator.Odkaz_bude_aktivní_7_dní' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
-      'line' => 69,
-    ),
-  ),
-  'mail-VerifyEmailTranslator.Vytvořit_heslo' => 
+  'mail-VerifyEmailTranslator.~03~Vytvořit_heslo' => 
   array (
     0 => 
     array (
       'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
       'line' => 68,
+    ),
+  ),
+  'mail-VerifyEmailTranslator.~04~Odkaz_bude_aktivní_7_dní' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Listeners\\Notifications\\VerifyEmailTranslator.php',
+      'line' => 69,
     ),
   ),
   'menu.Administrace' => 
@@ -8727,6 +8727,54 @@ return array (
     array (
       'path' => 'app\\Models\\Project.php',
       'line' => 493,
+    ),
+  ),
+  'template-mail-subject.user-verify-advertiser-not_verified' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 97,
+    ),
+  ),
+  'template-mail-subject.user-verify-advertiser-verified' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 87,
+    ),
+  ),
+  'template-mail-subject.user-verify-investor-not_verified' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 68,
+    ),
+  ),
+  'template-mail-subject.user-verify-investor-verified' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 58,
+    ),
+  ),
+  'template-mail-subject.user-verify-real_estate_broker-not_verified' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 126,
+    ),
+  ),
+  'template-mail-subject.user-verify-real_estate_broker-verified' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 116,
     ),
   ),
   'validation.accepted' => 

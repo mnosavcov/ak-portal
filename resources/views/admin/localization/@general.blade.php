@@ -43,7 +43,7 @@
                                              }">sys
                                         </div>
                                         <div class="relative">
-                                            <div x-text="translateIndex" class="break-all" :class="{
+                                            <div x-text="translateIndex.replace(/^~\d{2}~\s*/, '')" class="break-all" :class="{
                                                 'bg-red-600 px-1 text-white rounded-[3px]': getTranslateData(translateIndex) === '',
                                                 'opacity-30': getTranslateDataFromLanguage(translateIndex) !== ''
                                              }"></div>
