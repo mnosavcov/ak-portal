@@ -7333,6 +7333,33 @@ return array (
   'localization.long-text-zasady-zpracovani-osobnich-udaju' => 
   array (
   ),
+  'localization.template-mail-investor-project-actuality-new' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-auction-bid-new' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-comment-new' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-created' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-document-new' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-finished' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-fixed-price-principal-pay-no-first' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-offer-the-price-bids-end' => 
+  array (
+  ),
+  'localization.template-mail-investor-project-preliminary-interest-bids-end' => 
+  array (
+  ),
   'localization.template-mail-user-verify-advertiser-not_verified' => 
   array (
   ),
@@ -8729,12 +8756,84 @@ return array (
       'line' => 493,
     ),
   ),
+  'template-mail-subject.investor-project-actuality-new' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 194,
+    ),
+  ),
+  'template-mail-subject.investor-project-auction-bid-new' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 210,
+    ),
+  ),
+  'template-mail-subject.investor-project-comment-new' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 178,
+    ),
+  ),
+  'template-mail-subject.investor-project-created' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 146,
+    ),
+  ),
+  'template-mail-subject.investor-project-document-new' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 162,
+    ),
+  ),
+  'template-mail-subject.investor-project-finished' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 274,
+    ),
+  ),
+  'template-mail-subject.investor-project-fixed-price-principal-pay-no-first' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 258,
+    ),
+  ),
+  'template-mail-subject.investor-project-offer-the-price-bids-end' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 226,
+    ),
+  ),
+  'template-mail-subject.investor-project-preliminary-interest-bids-end' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 242,
+    ),
+  ),
   'template-mail-subject.user-verify-advertiser-not_verified' => 
   array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 97,
+      'line' => 100,
     ),
   ),
   'template-mail-subject.user-verify-advertiser-verified' => 
@@ -8742,7 +8841,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 87,
+      'line' => 90,
     ),
   ),
   'template-mail-subject.user-verify-investor-not_verified' => 
@@ -8750,7 +8849,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 68,
+      'line' => 71,
     ),
   ),
   'template-mail-subject.user-verify-investor-verified' => 
@@ -8758,7 +8857,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 58,
+      'line' => 61,
     ),
   ),
   'template-mail-subject.user-verify-real_estate_broker-not_verified' => 
@@ -8766,7 +8865,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 126,
+      'line' => 129,
     ),
   ),
   'template-mail-subject.user-verify-real_estate_broker-verified' => 
@@ -8774,7 +8873,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 116,
+      'line' => 119,
     ),
   ),
   'validation.accepted' => 

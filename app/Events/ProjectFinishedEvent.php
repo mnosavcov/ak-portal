@@ -2,27 +2,28 @@
 
 namespace App\Events;
 
+use App\Models\Project;
 use Illuminate\Queue\SerializesModels;
 
-class RegisteredTranslator
+class ProjectFinishedEvent
 {
     use SerializesModels;
 
     /**
      * The authenticated user.
      *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
+     * @var Project
      */
-    public $user;
+    public $project;
 
     /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  Project  $project
      * @return void
      */
-    public function __construct($user)
+    public function __construct($project)
     {
-        $this->user = $user;
+        $this->project = $project;
     }
 }

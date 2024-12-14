@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ProjectService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -27,6 +28,10 @@ class Project extends Model
         'minimum_principal_text',
         'url_part',
         'url_detail',
+        'tag_list',
+        'type_text',
+        'category_text',
+        'short',
         'short_info_strip',
         'actual_state_text',
         'status_text',
@@ -520,6 +525,13 @@ class Project extends Model
         );
     }
 
+    public function short(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $this->short_info_strip
+        );
+    }
+
     public function shortInfoStrip(): Attribute
     {
         $short_info = strip_tags($this->short_info ?? '');
@@ -1008,6 +1020,34 @@ class Project extends Model
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $count
+        );
+    }
+
+    public function typeText(): Attribute
+    {
+        $type = Category::getCATEGORIES()[$this->type]['title'];
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $type
+        );
+    }
+
+    public function categoryText(): Attribute
+    {
+        $subject = ProjectService::getSUBJECT_OFFERS_ALL_VERSIONS()[$this->subject_offer] ?? $this->subject_offer;
+        $location = ProjectService::getLOCATION_OFFERS_ALL_VERSIONS()[$this->location_offer] ?? $this->location_offer;
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $subject . ' / ' . $location
+        );
+    }
+
+    public function tagList(): Attribute
+    {
+        $tagList = $this->tags->pluck('title')->implode(', ');
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $tagList
         );
     }
 }

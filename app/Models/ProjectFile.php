@@ -22,6 +22,7 @@ class ProjectFile extends Model
 
     protected $appends = [
         'url',
+        'filefolder',
     ];
 
     public function project()
@@ -50,4 +51,18 @@ class ProjectFile extends Model
             ])
         );
     }
+
+    public function filefolder(): Attribute
+    {
+        if(empty($this->folder)) {
+            return Attribute::make(
+                get: fn(mixed $value, array $attributes) => 'Hlavní adresář'
+            );
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $this->folder
+        );
+    }
+
 }

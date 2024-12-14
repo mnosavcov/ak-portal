@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\QueuedEmail;
+use App\Models\Category;
+use App\Models\Project;
+use App\Models\ProjectFile;
+use App\Models\ProjectTag;
 use App\Services\Admin\LocalizationService;
+use App\Services\ProjectService;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -165,7 +171,29 @@ class LocalizationController extends Controller
         $data['view'] = 'app.temp.test-mail';
         $data['text'] = 'app.temp.test-mail-text';
 
-        Mail::to(auth()->user()->email, trim(auth()->user()->username))->send(new QueuedEmail($data));
+        $project = new Project();
+        $project->title = 'Název projektu (test)';
+        $project->short_info = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+        $project->type = array_keys(Category::getCATEGORIES())[0];
+        $project->subject_offer = array_keys(ProjectService::getSUBJECT_OFFERS())[0];
+        $project->location_offer = array_keys(ProjectService::getLOCATION_OFFERS()[$project->subject_offer])[0];
+        $project->end_date = Carbon::now()->addDays(7);
+        $tags = collect([
+            new ProjectTag(['title' => 'Tag 1']),
+            new ProjectTag(['title' => 'Tag 2']),
+            new ProjectTag(['title' => 'Tag 3']),
+        ]);
+        $project->setRelation('tags', $tags);
+
+        $document = new ProjectFile();
+        $document->filename = 'new-file.pdf';
+
+        $data['subject'] = Str::replace('{{ $project->title }}', $project->title, $data['subject']);
+
+        Mail::to(auth()->user()->email, trim(auth()->user()->username))->send(new QueuedEmail($data, [
+            'project' => $project,
+            'document' => $document,
+        ]));
 
         return response()->json(['status' => 'success']);
     }

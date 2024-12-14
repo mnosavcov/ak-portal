@@ -4,7 +4,7 @@ namespace App\Events;
 
 use Illuminate\Queue\SerializesModels;
 
-class RegisteredAdvisor
+class RegisteredAdminEvent
 {
     use SerializesModels;
 

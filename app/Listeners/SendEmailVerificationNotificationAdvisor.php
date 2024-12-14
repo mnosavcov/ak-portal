@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\RegisteredAdvisor;
+use App\Events\RegisteredAdvisorEvent;
 use App\Listeners\Notifications\VerifyEmailAdvisor;
 
 
@@ -14,7 +14,7 @@ class SendEmailVerificationNotificationAdvisor
      * @param \Illuminate\Auth\Events\Registered $event
      * @return void
      */
-    public function handle(RegisteredAdvisor $event)
+    public function handle(RegisteredAdvisorEvent $event)
     {
         $event->user->notify(new VerifyEmailAdvisor);
     }

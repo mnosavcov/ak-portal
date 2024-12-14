@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\RegisteredTranslator;
+use App\Events\RegisteredTranslatorEvent;
 use App\Listeners\Notifications\VerifyEmailTranslator;
 
 
@@ -14,7 +14,7 @@ class SendEmailVerificationNotificationTranslator
      * @param \Illuminate\Auth\Events\Registered $event
      * @return void
      */
-    public function handle(RegisteredTranslator $event)
+    public function handle(RegisteredTranslatorEvent $event)
     {
         $event->user->notify(new VerifyEmailTranslator);
     }

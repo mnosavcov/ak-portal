@@ -3,9 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\RegisteredAdminEvent;
-use App\Listeners\Notifications\VerifyEmailAdmin;
 
-class SendEmailVerificationNotificationAdmin
+class ProjectDocumentAddedListener
 {
     /**
      * Handle the event.
@@ -15,6 +14,6 @@ class SendEmailVerificationNotificationAdmin
      */
     public function handle(RegisteredAdminEvent $event)
     {
-        $event->user->notify(new VerifyEmailAdmin);
+        //
     }
 }

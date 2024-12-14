@@ -14,18 +14,20 @@ class QueuedEmail extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $params;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct($data, $params = [])
     {
         $this->data = $data;
+        $this->params = $params;
     }
 
     public function build()
     {
-        return $this->view($this->data['view'])
+        return $this->view($this->data['view'], $this->params)
             ->text($this->data['text'])
             ->subject($this->data['subject'])
             ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\RegisteredAdmin;
-use App\Events\RegisteredAdvisor;
-use App\Events\RegisteredTranslator;
+use App\Events\RegisteredAdminEvent;
+use App\Events\RegisteredAdvisorEvent;
+use App\Events\RegisteredTranslatorEvent;
 use App\Http\Requests\StoreMultipleRecordsRequest;
 use App\Models\Category;
 use App\Models\Project;
@@ -564,7 +564,7 @@ class AdminController extends Controller
         $user->advisor = true;
         $user->save();
 
-        event(new RegisteredAdvisor($user));
+        event(new RegisteredAdvisorEvent($user));
 
         return redirect()->route('admin.advisor-ok');
     }
@@ -586,7 +586,7 @@ class AdminController extends Controller
         $user->translator = true;
         $user->save();
 
-        event(new RegisteredTranslator($user));
+        event(new RegisteredTranslatorEvent($user));
 
         return redirect()->route('admin.translator-ok');
     }
@@ -612,7 +612,7 @@ class AdminController extends Controller
         $user->superadmin = true;
         $user->save();
 
-        event(new RegisteredAdmin($user));
+        event(new RegisteredAdminEvent($user));
 
         return redirect()->route('admin.admin-ok');
     }
