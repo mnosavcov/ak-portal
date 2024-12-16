@@ -397,7 +397,7 @@ class Project extends Model
             }
         } elseif ($type === 'offer-the-price') {
             if ($this->isVerified()) {
-                $priceText = number_format($price, 0, '.', ' ') . __('projekt._Kč');
+                $priceText = number_format($price ?? 0, 0, '.', ' ') . __('projekt._Kč');
             } else {
                 if ($offer) {
                     $priceText = '<span style="background-color: #EBE9E9; overflow: hidden">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>';
