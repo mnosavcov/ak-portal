@@ -7,6 +7,7 @@ use App\Mail\QueuedEmail;
 use App\Models\Category;
 use App\Models\Project;
 use App\Models\ProjectFile;
+use App\Models\ProjectQuestion;
 use App\Models\ProjectTag;
 use App\Services\Admin\LocalizationService;
 use App\Services\ProjectService;
@@ -172,6 +173,7 @@ class LocalizationController extends Controller
         $data['text'] = 'app.temp.test-mail-text';
 
         $project = new Project();
+        $project->page_url = 'test-project-url';
         $project->title = 'Název projektu (test)';
         $project->short_info = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
         $project->type = array_keys(Category::getCATEGORIES())[0];
@@ -190,9 +192,16 @@ class LocalizationController extends Controller
 
         $data['subject'] = Str::replace('{{ $project->title }}', $project->title, $data['subject']);
 
+        $projectAnswer = new ProjectQuestion([
+            'content' => '...',
+        ]);
+        $projectAnswer->user_id = auth()->id();
+        $projectAnswer->project_id = Project::first()->id;
+
         Mail::to(auth()->user()->email, trim(auth()->user()->username))->send(new QueuedEmail($data, [
             'project' => $project,
             'document' => $document,
+            'comment' => $projectAnswer,
         ]));
 
         return response()->json(['status' => 'success']);

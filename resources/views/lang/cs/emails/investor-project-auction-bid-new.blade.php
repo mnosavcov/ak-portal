@@ -1,7 +1,7 @@
 <x-email-layout>
 Dobrý den,<br>
 <br>
-u projektu {{ $project->title }} na PVtrusted.cz, který sledujete, byl učiněn nový příhoz v aukci.<br>
+u projektu <a href="{{ $project->url_detail }}">{{ $project->title }}</a> na PVtrusted.cz, který sledujete, byl učiněn nový příhoz v aukci.<br>
 <br>
 Pro zobrazení příhozu se přihlaste do svého účtu investora a jděte do detailu projektu.<br>
 <br>

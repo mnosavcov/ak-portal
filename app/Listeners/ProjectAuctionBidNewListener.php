@@ -2,7 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\RegisteredAdminEvent;
+use App\Events\ProjectAuctionBidNewEvent;
+use App\Services\EmailService;
 
 class ProjectAuctionBidNewListener
 {
@@ -12,8 +13,8 @@ class ProjectAuctionBidNewListener
      * @param \Illuminate\Auth\Events\Registered $event
      * @return void
      */
-    public function handle(RegisteredAdminEvent $event)
+    public function handle(ProjectAuctionBidNewEvent $event)
     {
-        //
+        (new EmailService())->investorProjectAuctionBidNew($event);
     }
 }

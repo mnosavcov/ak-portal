@@ -56,6 +56,12 @@
             <button
                 x-data="{
                         async setPrincipalPaid() {
+                            @if($project->type !== 'preliminary-interest')
+                                if(!confirm(@js(__('V případě nastavení zaplacení jistoty bude ukončen sběr nabídek a to i v případě, že se nejedná o projekt, který není na dobu dneurčitou. Opravdu si přejete nastavit jistotu?')))) {
+                                    return;
+                                }
+                            @endif
+
                             await fetch('/admin/projekty/{{ $offer->id }}/set-principal-paid', {
                                 method: 'POST',
                                 body: JSON.stringify({
@@ -69,6 +75,9 @@
                                 .then((data) => {
                                     if(data.status === 'success') {
                                         principal_paid = (data.value ? true : false)
+                                        if(principal_paid) {
+                                            window.location.reload();
+                                        }
                                         return;
                                     }
 

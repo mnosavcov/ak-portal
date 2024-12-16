@@ -35,18 +35,17 @@ class ProjectAuctionOffer extends Model
     public function offerAmountText(): Attribute
     {
         $price = $this->offer_amount;
-            if (auth()->guest()) {
-                $priceText = 'jen pro přihlášené';
-            } elseif (!$this->project->isMine() && !auth()->user()->investor) {
-                $priceText = 'jen pro investory';
-            } elseif (!$this->project->isVerified()) {
-                $priceText = 'jen s ověřeným účtem';
-            } elseif (empty($price)) {
-                $priceText = 'cena není zadaná';
-            } else {
-                $priceText = number_format($price, 0, '.', ' ') . ' Kč';
-            }
-
+        if (auth()->guest()) {
+            $priceText = 'jen pro přihlášené';
+        } elseif (!$this->project->isMine() && !auth()->user()->investor) {
+            $priceText = 'jen pro investory';
+        } elseif (!$this->project->isVerified()) {
+            $priceText = 'jen s ověřeným účtem';
+        } elseif (empty($price)) {
+            $priceText = 'cena není zadaná';
+        } else {
+            $priceText = number_format($price, 0, '.', ' ') . ' Kč';
+        }
 
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $priceText

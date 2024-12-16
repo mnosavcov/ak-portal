@@ -1,16 +1,16 @@
 Dobrý den,
 
-na portálu PVtrusted.cz byl zveřejněn nový projekt {{ $project->title }}.
+na portálu PVtrusted.cz byl zveřejněn nový projekt [[{{ $project->title }}, {{ $project->url_detail }}]].
 
-Úvodní informace: {{ $project->short }}
+<strong>Úvodní informace:</strong> {!! $project->short !!}
 
-Typ prodeje projektu: {{ $project->type_text }}
+<strong>Typ prodeje projektu:</strong> {{ $project->type_text }}
 
-Kategorie: {{ $project->category_text }}
+<strong>Kategorie:</strong> {{ $project->category_text }}
 
-Termín ukončení sběru nabídek: {{ $project->end_date_text_normal }}
+<strong>Termín ukončení sběru nabídek:</strong> {{ $project->end_date_text_normal }}
 
-Projekt v bodech: {{ $project->tag_list }}
+<strong>Projekt v bodech:</strong> {{ $project->tag_list }}
 
 Pro zobrazení plného znění projektu se přihlaste do svého účtu investora.
 

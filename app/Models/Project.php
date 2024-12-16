@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\NotificationEventService;
 use App\Services\ProjectService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -197,6 +198,10 @@ class Project extends Model
         static::creating(function ($model) {
             $model->user_id = auth()->id();
         });
+
+        static::updated(function ($model) {
+            (new NotificationEventService())->ProjectChange($model->getOriginal(), $model->getChanges());
+        });
     }
 
 //    public function getRouteKeyName()
@@ -267,6 +272,11 @@ class Project extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function notificationevents()
+    {
+        return $this->belongsTo(NotificationEvent::class);
     }
 
     public function commonImg(): Attribute
@@ -932,7 +942,7 @@ class Project extends Model
             return [];
         }
 
-        return $this->shows()->where('offer', 1)->get();
+        return $this->shows()->where('offer', 1)->orderBy('offer_time', 'asc')->get();
     }
 
     public function offersCountAll()

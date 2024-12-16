@@ -595,7 +595,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 121,
+      'line' => 127,
     ),
   ),
   'Cenu stanoví zájemce o projekt (investor)' => 
@@ -603,7 +603,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 126,
+      'line' => 132,
     ),
   ),
   'Chci&nbsp;zobrazit&nbsp;detaily' => 
@@ -637,7 +637,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 136,
+      'line' => 142,
     ),
   ),
   'Chyba editace obsahu' => 
@@ -1525,7 +1525,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 148,
+      'line' => 154,
     ),
   ),
   'Kombinace pozemní FVE a FVE na střeše' => 
@@ -1734,7 +1734,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 137,
+      'line' => 143,
     ),
   ),
   'Mé investice' => 
@@ -2084,7 +2084,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 132,
+      'line' => 138,
     ),
   ),
   'Na váš e-mail' => 
@@ -2148,7 +2148,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 153,
+      'line' => 159,
     ),
   ),
   'Nemáte účet?' => 
@@ -2211,7 +2211,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 152,
+      'line' => 158,
     ),
   ),
   'nové' => 
@@ -2428,7 +2428,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 85,
+      'line' => 91,
     ),
   ),
   'Odeslání kontaktního formuláře' => 
@@ -2973,7 +2973,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 93,
+      'line' => 99,
     ),
   ),
   'Potvrzením podání závazně projevujete zájem o koupi projektu.' => 
@@ -3079,7 +3079,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 131,
+      'line' => 137,
     ),
   ),
   'Prodej práv k projektu na výstavbu FVE' => 
@@ -3151,7 +3151,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 110,
+      'line' => 116,
     ),
   ),
   'Projekt bude nastaven na čeká na vyhodnocení, ale bude veřejně viditelný se stavem "Vyhodnocování"' => 
@@ -3159,7 +3159,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 106,
+      'line' => 112,
     ),
   ),
   'Projekt bude vypublikován a bude veřejně přístupný' => 
@@ -3167,7 +3167,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 102,
+      'line' => 108,
     ),
   ),
   'Projekt je připravený k vypublikování' => 
@@ -3659,7 +3659,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 101,
+      'line' => 107,
     ),
   ),
   'Publikované (dokončené)' => 
@@ -3667,7 +3667,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 109,
+      'line' => 115,
     ),
   ),
   'Publikované (čeká na vyhodnocení)' => 
@@ -3675,7 +3675,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 105,
+      'line' => 111,
     ),
   ),
   'PVtrusted' => 
@@ -3921,7 +3921,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 89,
+      'line' => 95,
     ),
   ),
   'Příjmení' => 
@@ -4059,7 +4059,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 81,
+      'line' => 87,
     ),
   ),
   'schválit' => 
@@ -4244,7 +4244,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 82,
+      'line' => 88,
     ),
   ),
   'Stupeň&nbsp;rozpracovanosti&nbsp;projektu' => 
@@ -4728,7 +4728,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 122,
+      'line' => 128,
     ),
   ),
   'V případě, že od záměru ustoupíte z důvodů na své straně, dojde k propadnutí vámi zaplacené jistoty ve prospěch provozovatele.' => 
@@ -5015,7 +5015,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 147,
+      'line' => 153,
     ),
   ),
   'Výše jistoty' => 
@@ -5097,7 +5097,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 97,
+      'line' => 103,
     ),
   ),
   'Zadavatel má připomínky ke správnosti projektu' => 
@@ -5105,7 +5105,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 98,
+      'line' => 104,
     ),
   ),
   'Zadavatel není ověřený' => 
@@ -5121,7 +5121,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 86,
+      'line' => 92,
     ),
   ),
   'Zadavatel potvrdil správnost projektu' => 
@@ -5129,7 +5129,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 94,
+      'line' => 100,
     ),
   ),
   'Zadejte do pole telefonní číslo alespoň 9 znaků.' => 
@@ -5630,7 +5630,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 90,
+      'line' => 96,
     ),
   ),
   'zprostředkovávám prodej projektu na základě smlouvy o realitním zprostředkování)' => 
@@ -5881,7 +5881,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 127,
+      'line' => 133,
     ),
   ),
   'zájemců' => 
@@ -8128,20 +8128,12 @@ return array (
     1 => 
     array (
       'path' => 'app\\Services\\InvestorService.php',
-      'line' => 23,
+      'line' => 30,
     ),
     2 => 
     array (
       'path' => 'app\\Services\\RealEstateBrokerService.php',
       'line' => 14,
-    ),
-  ),
-  'profil.Nastavení_e-mailových_notifikací' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 11,
     ),
   ),
   'profil.Nastavení_newsletterů' => 
@@ -8154,12 +8146,28 @@ return array (
     1 => 
     array (
       'path' => 'app\\Services\\InvestorService.php',
-      'line' => 21,
+      'line' => 28,
     ),
     2 => 
     array (
       'path' => 'app\\Services\\RealEstateBrokerService.php',
       'line' => 12,
+    ),
+  ),
+  'profil.Nastavení_upozornění_na_nové_projekty' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 11,
+    ),
+  ),
+  'profil.Nastavení_upozornění_u_projektů' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 17,
     ),
   ),
   'profil.Nejsou_žádné_nové_projekty_k_zobrazení' => 
@@ -8170,12 +8178,36 @@ return array (
       'line' => 251,
     ),
   ),
-  'profil.Pozemky_k_výstavbě' => 
+  'profil.Nová_aktualita_u_projektu' => 
   array (
     0 => 
     array (
       'path' => 'app\\Services\\InvestorService.php',
-      'line' => 14,
+      'line' => 22,
+    ),
+  ),
+  'profil.Nová_příloha_u_projektu' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 20,
+    ),
+  ),
+  'profil.Nový_komentář_u_projektu' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 21,
+    ),
+  ),
+  'profil.Nový_příhoz_v_aukci' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 23,
     ),
   ),
   'profil.Profil_investora' => 
@@ -8200,14 +8232,6 @@ return array (
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
       'line' => 175,
-    ),
-  ),
-  'profil.Projekt_se_stavebním_povolením' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 16,
     ),
   ),
   'profil.Přehled_investora' => 
@@ -8262,14 +8286,6 @@ return array (
       'line' => 5,
     ),
   ),
-  'profil.Rezervovaná_kapacita_v_síti_distributora' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 15,
-    ),
-  ),
   'profil.Telefonní__číslo_musí_mít_alespoň_9_znaků' => 
   array (
     0 => 
@@ -8286,43 +8302,20 @@ return array (
       'line' => 68,
     ),
   ),
-  'profil.V_kategorii' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 14,
-    ),
-    1 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 15,
-    ),
-    2 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 16,
-    ),
-    3 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 17,
-    ),
-  ),
-  'profil.Výrobny_v_provozu' => 
-  array (
-    0 => 
-    array (
-      'path' => 'app\\Services\\InvestorService.php',
-      'line' => 17,
-    ),
-  ),
   'profil.Zasílat_na_kontaktní_e-mail_upozornění_na_nové_projekty' => 
   array (
     0 => 
     array (
       'path' => 'app\\Services\\InvestorService.php',
-      'line' => 12,
+      'line' => 13,
+    ),
+  ),
+  'profil.Zasílat_na_kontaktní_e-mail_upozornění_z_projektů,_které_sleduji' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 18,
     ),
   ),
   'profil.Zasílat_novinky_z_oblasti_investic_do_obnovitelných_zdrojů_energie,_notifikace_o_nových_funkcích_a_službách_na_portálu_a_další_související_informace,' => 
@@ -8335,12 +8328,20 @@ return array (
     1 => 
     array (
       'path' => 'app\\Services\\InvestorService.php',
-      'line' => 23,
+      'line' => 30,
     ),
     2 => 
     array (
       'path' => 'app\\Services\\RealEstateBrokerService.php',
       'line' => 14,
+    ),
+  ),
+  'profil.Změna_stavu_projektu' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\InvestorService.php',
+      'line' => 24,
     ),
   ),
   'profil.Zpráva_s_aktivačním_odkazem_byla_úspěšně_odeslána' => 
@@ -8356,7 +8357,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 294,
+      'line' => 311,
     ),
   ),
   'projekt.Aktivní' => 
@@ -8364,7 +8365,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 555,
+      'line' => 579,
     ),
   ),
   'projekt.Aktuální_stav' => 
@@ -8406,12 +8407,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 374,
+      'line' => 391,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 389,
+      'line' => 406,
     ),
   ),
   'projekt.cenu_navrhuje_investor' => 
@@ -8443,12 +8444,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 314,
+      'line' => 331,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 353,
+      'line' => 370,
     ),
   ),
   'projekt.jen_pro_investory' => 
@@ -8456,22 +8457,22 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 370,
+      'line' => 387,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 385,
+      'line' => 402,
     ),
     2 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 416,
+      'line' => 433,
     ),
     3 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 446,
+      'line' => 463,
     ),
   ),
   'projekt.jen_pro_přihlášené' => 
@@ -8479,22 +8480,22 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 368,
+      'line' => 385,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 383,
+      'line' => 400,
     ),
     2 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 414,
+      'line' => 431,
     ),
     3 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 444,
+      'line' => 461,
     ),
   ),
   'projekt.jen_s_ověřeným_účtem' => 
@@ -8502,22 +8503,22 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 372,
+      'line' => 389,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 387,
+      'line' => 404,
     ),
     2 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 418,
+      'line' => 435,
     ),
     3 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 448,
+      'line' => 465,
     ),
   ),
   'projekt.navrhne_investor' => 
@@ -8525,7 +8526,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 400,
+      'line' => 417,
     ),
     1 => 
     array (
@@ -8538,12 +8539,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 280,
+      'line' => 297,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 347,
+      'line' => 364,
     ),
   ),
   'projekt.Nejnovější_projekty' => 
@@ -8596,12 +8597,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 536,
+      'line' => 560,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 538,
+      'line' => 562,
     ),
   ),
   'projekt.projev_předběžného_zájmu' => 
@@ -8617,7 +8618,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 553,
+      'line' => 577,
     ),
   ),
   'projekt.Ukončeno' => 
@@ -8625,7 +8626,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 560,
+      'line' => 584,
     ),
   ),
   'projekt.vyhodnocování' => 
@@ -8633,7 +8634,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 312,
+      'line' => 329,
     ),
   ),
   'projekt.Vyhodnocování' => 
@@ -8641,7 +8642,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 558,
+      'line' => 582,
     ),
   ),
   'projekt.výše_není_zadaná' => 
@@ -8649,17 +8650,17 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 420,
+      'line' => 437,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 450,
+      'line' => 467,
     ),
     2 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 491,
+      'line' => 508,
     ),
   ),
   'projekt.Zobrazit&nbsp;detail' => 
@@ -8688,7 +8689,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 302,
+      'line' => 319,
     ),
   ),
   'projekt._dny' => 
@@ -8696,7 +8697,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 296,
+      'line' => 313,
     ),
   ),
   'projekt._dní' => 
@@ -8704,7 +8705,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 298,
+      'line' => 315,
     ),
   ),
   'projekt._hodin' => 
@@ -8712,7 +8713,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 306,
+      'line' => 323,
     ),
   ),
   'projekt._hodiny' => 
@@ -8720,7 +8721,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 304,
+      'line' => 321,
     ),
   ),
   'projekt._Kč' => 
@@ -8728,32 +8729,32 @@ return array (
     0 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 376,
+      'line' => 393,
     ),
     1 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 391,
+      'line' => 408,
     ),
     2 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 395,
+      'line' => 412,
     ),
     3 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 422,
+      'line' => 439,
     ),
     4 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 452,
+      'line' => 469,
     ),
     5 => 
     array (
       'path' => 'app\\Models\\Project.php',
-      'line' => 493,
+      'line' => 510,
     ),
   ),
   'template-mail-subject.investor-project-actuality-new' => 
@@ -8761,7 +8762,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 194,
+      'line' => 265,
     ),
   ),
   'template-mail-subject.investor-project-auction-bid-new' => 
@@ -8769,7 +8770,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 210,
+      'line' => 285,
     ),
   ),
   'template-mail-subject.investor-project-comment-new' => 
@@ -8777,7 +8778,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 178,
+      'line' => 245,
     ),
   ),
   'template-mail-subject.investor-project-created' => 
@@ -8785,7 +8786,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 146,
+      'line' => 201,
     ),
   ),
   'template-mail-subject.investor-project-document-new' => 
@@ -8793,7 +8794,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 162,
+      'line' => 222,
     ),
   ),
   'template-mail-subject.investor-project-finished' => 
@@ -8801,7 +8802,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 274,
+      'line' => 365,
     ),
   ),
   'template-mail-subject.investor-project-fixed-price-principal-pay-no-first' => 
@@ -8809,7 +8810,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 258,
+      'line' => 345,
     ),
   ),
   'template-mail-subject.investor-project-offer-the-price-bids-end' => 
@@ -8817,7 +8818,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 226,
+      'line' => 305,
     ),
   ),
   'template-mail-subject.investor-project-preliminary-interest-bids-end' => 
@@ -8825,7 +8826,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 242,
+      'line' => 325,
     ),
   ),
   'template-mail-subject.user-verify-advertiser-not_verified' => 
@@ -8833,7 +8834,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 100,
+      'line' => 109,
     ),
   ),
   'template-mail-subject.user-verify-advertiser-verified' => 
@@ -8841,7 +8842,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 90,
+      'line' => 99,
     ),
   ),
   'template-mail-subject.user-verify-investor-not_verified' => 
@@ -8849,7 +8850,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 71,
+      'line' => 80,
     ),
   ),
   'template-mail-subject.user-verify-investor-verified' => 
@@ -8857,7 +8858,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 61,
+      'line' => 70,
     ),
   ),
   'template-mail-subject.user-verify-real_estate_broker-not_verified' => 
@@ -8865,7 +8866,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 129,
+      'line' => 138,
     ),
   ),
   'template-mail-subject.user-verify-real_estate_broker-verified' => 
@@ -8873,7 +8874,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 119,
+      'line' => 128,
     ),
   ),
   'validation.accepted' => 

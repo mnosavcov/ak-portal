@@ -25,6 +25,7 @@ class ProjectActuality extends Model
         'date_text',
         'file_uuid',
         'temp_file_url',
+        'user_name',
         'user_name_text',
         'content_text',
         'verified',
@@ -135,6 +136,23 @@ class ProjectActuality extends Model
     {
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $this->isVerified()
+        );
+    }
+
+    public function userName(): Attribute
+    {
+        $actualityUserId = $this->user_id;
+        $projectUserId = $this->project->user_id;
+
+        $userName = 'Investor ' . $this->user->crypt;
+        if ($this->user->owner === 1 || $this->user->superadmin === 1) {
+            $userName = 'Administrátor';
+        } elseif ($actualityUserId === $projectUserId) {
+            $userName = 'Zadavatel';
+        }
+
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $userName
         );
     }
 

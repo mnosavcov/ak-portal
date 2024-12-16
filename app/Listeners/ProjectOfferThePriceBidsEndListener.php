@@ -2,7 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\RegisteredAdminEvent;
+use App\Events\ProjectOfferThePriceBidsEndEvent;
+use App\Services\EmailService;
 
 class ProjectOfferThePriceBidsEndListener
 {
@@ -12,8 +13,8 @@ class ProjectOfferThePriceBidsEndListener
      * @param \Illuminate\Auth\Events\Registered $event
      * @return void
      */
-    public function handle(RegisteredAdminEvent $event)
+    public function handle(ProjectOfferThePriceBidsEndEvent $event)
     {
-        //
+        (new EmailService())->investorProjectOfferThePriceBidsEnd($event);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Events\ProjectCommentAddedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectQuestion;
@@ -57,6 +58,10 @@ class ProjectQuestionController extends Controller
             }
 
             $projectQuestion->answers()->save($projectAnswer);
+
+            if (auth()->user()->isSuperadmin()) {
+                event(new ProjectCommentAddedEvent($projectAnswer->project, $projectAnswer));
+            }
         }
 
         $images = TempProjectFile::where('temp_project_id', $request->post('data')['uuid'])

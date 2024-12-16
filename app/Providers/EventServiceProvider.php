@@ -8,7 +8,7 @@ use App\Events\ProjectCommentAddedEvent;
 use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectDocumentAddedEvent;
 use App\Events\ProjectFinishedEvent;
-use App\Events\ProjectFixedPricePrincipalPayNoFirstEvent;
+use App\Events\ProjectFixedPriceBidsEndEvent;
 use App\Events\ProjectOfferThePriceBidsEndEvent;
 use App\Events\ProjectPreliminaryInterestBidsEndEvent;
 use App\Events\RegisteredTranslatorEvent;
@@ -21,7 +21,7 @@ use App\Listeners\ProjectCommentAddedListener;
 use App\Listeners\ProjectCreatedListener;
 use App\Listeners\ProjectDocumentAddedListener;
 use App\Listeners\ProjectFinishedListener;
-use App\Listeners\ProjectFixedPricePrincipalPayNoFirstListener;
+use App\Listeners\ProjectFixedPriceBidsEndListener;
 use App\Listeners\ProjectOfferThePriceBidsEndListener;
 use App\Listeners\ProjectPreliminaryInterestBidsEndListener;
 use Illuminate\Auth\Events\Registered;
@@ -78,11 +78,11 @@ class EventServiceProvider extends ServiceProvider
         ProjectOfferThePriceBidsEndEvent::class => [
             ProjectOfferThePriceBidsEndListener::class,
         ],
+        ProjectFixedPriceBidsEndEvent::class => [
+            ProjectFixedPriceBidsEndListener::class,
+        ],
         ProjectPreliminaryInterestBidsEndEvent::class => [
             ProjectPreliminaryInterestBidsEndListener::class,
-        ],
-        ProjectFixedPricePrincipalPayNoFirstEvent::class => [
-            ProjectFixedPricePrincipalPayNoFirstListener::class,
         ],
         ProjectFinishedEvent::class => [
             ProjectFinishedListener::class,

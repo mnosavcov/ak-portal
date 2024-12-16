@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\EmailNotification;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -246,5 +247,27 @@ class UsersService
         }
 
         return auth()->user()->investor && auth()->user()->advertiser && auth()->user()->real_estate_broker;
+    }
+
+    public function setNotifications($user): void
+    {
+        $listInvestor = (new InvestorService())->getList();
+        $listAdvertiser = (new AdvertiserService())->getList();
+        $listRealEstateBroker = (new RealEstateBrokerService())->getList();
+
+        $keys = collect($listInvestor)->pluck('items')->filter()->flatMap(fn($items) => array_keys($items))->all();
+        $keys = array_merge($keys, collect($listAdvertiser)->pluck('items')->filter()->flatMap(fn($items) => array_keys($items))->all());
+        $keys = array_merge($keys, collect($listRealEstateBroker)->pluck('items')->filter()->flatMap(fn($items) => array_keys($items))->all());
+
+        foreach ($keys as $key) {
+            if(EmailNotification::where('user_id', $user->id)->where('notify', $key)->withoutGlobalScope('user_id')->count()) {
+                continue;
+            }
+
+            $emailNotification = new EmailNotification();
+            $emailNotification->user_id = $user->id;
+            $emailNotification->notify = $key;
+            $emailNotification->save();
+        }
     }
 }

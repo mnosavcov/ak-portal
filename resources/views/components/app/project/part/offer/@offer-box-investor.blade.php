@@ -213,7 +213,7 @@
                                         let offer = parseInt(String(offerPrice).replace(/\s+/g, ''))
                                         let offerFormated = offerPrice
                                         if(Number.isNaN(offer) || offer < actualValues.minPrice) {
-                                            alert(@js(__('Nabídněte cenu minimálně')) + ' ' + actualValues.actual_min_bid_amount_text2')
+                                            alert(@js(__('Nabídněte cenu minimálně')) + ' ' + actualValues.actual_min_bid_amount_text2)
                                             return;
                                         }
                                     $dispatch('open-modal', {name: 'send-offer', offer: offer, offerFormated: formatMoney(offerPrice)})

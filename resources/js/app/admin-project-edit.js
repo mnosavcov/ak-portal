@@ -6,6 +6,8 @@ Alpine.data('adminProjectEdit', (id) => ({
         'admin.Chyba_smazani': 'Chyba smazání',
     },
     selectedCategory: null,
+    statusSelected: null,
+    statusSelectedX: null,
     tempFiles: {
         newFileId: 0,
         fileList: {},

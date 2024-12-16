@@ -15,6 +15,7 @@ class ProjectActualityAddedEvent
      * @var Project
      */
     public $project;
+    public $projectActuality;
 
     /**
      * Create a new event instance.
@@ -22,8 +23,9 @@ class ProjectActualityAddedEvent
      * @param  Project  $project
      * @return void
      */
-    public function __construct($project)
+    public function __construct($project, $projectActuality)
     {
         $this->project = $project;
+        $this->projectActuality = $projectActuality;
     }
 }

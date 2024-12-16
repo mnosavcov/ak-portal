@@ -110,6 +110,17 @@
 
         <template x-for="(fileData, index) in tempFiles.fileList['{{$uuid}}']" :key="index">
             <div class="contents">
+                <div class="col-span-full">
+                    <select x-model="fileData.folder"
+                            @change="if($el.value === '__NEW__') {newFolderFile = fileData; $dispatch('open-modal', 'new-folder')}">
+                        <option value="">kořenová složka</option>
+                        <template x-for="(folder, index) in projectFolders" :key="index">
+                            <option :value="folder" x-text="folder" :selected="$el.value === fileData.folder"></option>
+                        </template>
+                        <option value="__NEW__">+ vytvořit novou složku</option>
+                    </select>
+                </div>
+
                 <div x-text="fileData.filename" :title="fileData.filename"
                      class="bg-[#5E6468] text-white h-[30px] leading-[30px] rounded-[3px] text-ellipsis overflow-hidden font-Spartan-Regular text-[13px] px-[25px]"></div>
                 <div class="cursor-pointer flex items-center">

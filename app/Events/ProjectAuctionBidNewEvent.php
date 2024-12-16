@@ -15,6 +15,7 @@ class ProjectAuctionBidNewEvent
      * @var Project
      */
     public $project;
+    public $projectAuctionOffer;
 
     /**
      * Create a new event instance.
@@ -22,8 +23,9 @@ class ProjectAuctionBidNewEvent
      * @param  Project  $project
      * @return void
      */
-    public function __construct($project)
+    public function __construct($project, $projectAuctionOffer)
     {
         $this->project = $project;
+        $this->projectAuctionOffer = $projectAuctionOffer;
     }
 }

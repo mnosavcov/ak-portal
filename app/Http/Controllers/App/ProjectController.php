@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Events\ProjectAuctionBidNewEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Project;
@@ -21,7 +22,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -622,6 +622,8 @@ class ProjectController extends Controller
                 $project->end_date = $currentDate;
                 $project->save();
             }
+
+            event(new ProjectAuctionBidNewEvent($project, $projectAuctionOffer));
         }
 
         return response()->json([

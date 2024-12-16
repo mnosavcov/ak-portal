@@ -110,8 +110,8 @@
                               value="{{ $project->title }}"/>
             </div>
 
-            <div x-data="{ data: {}, statusSelected: null }"
-                 x-init="data = @js($statuses); statusSelected = '{{ $project->status }}'"
+            <div x-data="{ data: {} }"
+                 x-init="data = @js($statuses); statusSelected = @js($project->status); statusSelectedX = @js($project->status)"
                  class="max-w-[500px] mt-[10px] pt-[25px]">
                 <x-input-label for="status" :value="__('Status')"/>
                 <x-select-input id="status" name="status" class="block mt-1 w-full" type="text" :options="$statuses"

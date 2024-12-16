@@ -15,7 +15,9 @@ use App\Http\Controllers\TestController;
 use App\Models\Category;
 use App\Models\FormContact;
 use App\Models\Project;
+use App\Models\User;
 use App\Services\PaymentService;
+use App\Services\UsersService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -189,6 +191,13 @@ Route::middleware('auth')->group(function () {
         Route::name('admin.')->group(function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('index');
+                Route::get('set-user-all-notify/{user}', function (User $user) {
+                    if(empty($user)) {
+                        abort(404);
+                    }
+                    (new UsersService())->setNotifications($user);
+                    echo 'ok...';
+                });
 
                 Route::get('projekty', [AdminController::class, 'projects'])->name('projects');
                 Route::post('projekty/{offer_id}/set-principal-paid', [AdminController::class, 'setPrincipalPaid'])->name('projects.set-principal-paid');

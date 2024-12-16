@@ -2,7 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\RegisteredAdminEvent;
+use App\Events\ProjectFinishedEvent;
+use App\Services\EmailService;
 
 class ProjectFinishedListener
 {
@@ -12,8 +13,8 @@ class ProjectFinishedListener
      * @param \Illuminate\Auth\Events\Registered $event
      * @return void
      */
-    public function handle(RegisteredAdminEvent $event)
+    public function handle(ProjectFinishedEvent $event)
     {
-        //
+        (new EmailService())->investorProjectFinished($event);
     }
 }

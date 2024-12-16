@@ -24,7 +24,9 @@ class EmailNotification extends Model
         });
 
         static::creating(function ($model) {
-            $model->user_id = auth()->id();
+            if(empty($model->user_id)) {
+                $model->user_id = auth()->id();
+            }
         });
     }
 }

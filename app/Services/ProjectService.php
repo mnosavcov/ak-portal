@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Project;
+use App\Models\ProjectShow;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\Writer\PngWriter;
@@ -218,5 +219,29 @@ class ProjectService
                 'actual_state_text',
             ]);
         });
+    }
+
+    public function afterProncipalPayment($projectShow)
+    {
+        if ($projectShow->project->type === 'fixed-price' && $projectShow->principal_paid) {
+            $showsFirstId = ProjectShow::where('project_id', $projectShow->project->id)
+                ->where('offer', true)
+                ->orderBy('offer_time', 'asc')
+                ->first()->id;
+
+            if($showsFirstId === $projectShow->id) {
+                $winners = ProjectShow::where('project_id', $projectShow->project->id)->where('winner', 1)->get()->count();
+                if (!$winners) {
+                    $projectShow->update(['winner' => 1]);
+                }
+                if($projectShow->project->status === 'publicated' || $projectShow->project->status === 'evaluation') {
+                    $projectShow->project->update(['status' => 'finished']);
+                }
+            } else {
+                if($projectShow->project->status === 'publicated') {
+                    $projectShow->project->update(['status' => 'evaluation']);
+                }
+            }
+        }
     }
 }

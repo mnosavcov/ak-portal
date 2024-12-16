@@ -13,7 +13,7 @@
                     {{ __('Investor zaplatil jistotu a jeho nabídka byla akceptována') }}
                 @endif
             </span>
-        @elseif($offer->principal_paid && $project->isStateEvaluation())
+        @elseif($project->type === 'offer-the-price' && $offer->principal_paid && $project->isStateEvaluation())
             <span class="font-Spartan-SemiBold text-[15px] tablet:text-[18px] text-app-green" x-cloak
                   x-show="winner === @js($offer->id)">{{ __('Nabídku jste zvolili jako vítěznou') }}</span>
             <button
@@ -57,7 +57,7 @@
             >
                 {{ __('Akceptovat nabídku') }}
             </button>
-        @elseif($project->isStateEvaluation())
+        @elseif($project->type === 'offer-the-price' && $project->isStateEvaluation())
             <button class="cursor-text font-Spartan-Regular bg-[#ACACAC] text-white rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mt-[-10px]
                              text-[14px] h-[50px] leading-[50px] w-full max-w-[350px] justify-self-center
                              tablet:text-[16px] tablet:h-[55px] tablet:leading-[55px] tablet:justify-self-end
@@ -67,6 +67,10 @@
             </button>
             <div class="font-Spartan-Regular text-[11px] text-app-orange mt-[20px]">
                 {{ __('Nabídku bude možné akceptovat, až investor složí jistotu.') }}
+            </div>
+        @elseif($project->type === 'fixed-price' && $project->isStateEvaluation() && !$offer->principal_paid)
+            <div class="font-Spartan-Regular text-[11px] text-app-orange mt-[20px]">
+                {{ __('Čeká na zaplacení jistoty.') }}
             </div>
         @endif
     </div>

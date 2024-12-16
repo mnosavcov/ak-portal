@@ -275,7 +275,7 @@ class LocalizationService extends Controller
         $translations = json_decode(File::get($filename . '.json'), true);
         $translations[$request->index] = $request->translate;
 
-        $content = "<?php\n\nreturn " . str_replace(['array (', ')', '  \''], ['[', ']', '    \''], var_export($translations, true)) . ";\n";
+        $content = "<?php\n\nreturn " . var_export($translations, true) . ";\n";
 
         File::replace($filename . '.json', json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         File::replace($filename . '.bkp', $content);
@@ -351,7 +351,7 @@ class LocalizationService extends Controller
                 $localizationDataNew[$use] = $localizationData[$use] ?? '';
             }
 
-            $content = "<?php\n\nreturn " . str_replace(['array (', ')', '  \''], ['[', ']', '    \''], var_export($localizationDataNew, true)) . ";\n";
+            $content = "<?php\n\nreturn " . var_export($localizationDataNew, true) . ";\n";
             File::replace($filename, $content);
             File::delete($filenameNew);
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProjectActualityAddedEvent;
+use App\Events\ProjectCommentAddedEvent;
+use App\Events\ProjectDocumentAddedEvent;
 use App\Events\RegisteredAdminEvent;
 use App\Events\RegisteredAdvisorEvent;
 use App\Events\RegisteredTranslatorEvent;
@@ -246,6 +249,7 @@ class AdminController extends Controller
         }
 
         // files
+        $fileData = json_decode($request->post('fileData'), true)[$request->post('fileUUID')];
         $files = TempProjectFile::where('temp_project_id', $request->post('fileUUID'))
             ->whereIn('id', explode(',', $request->post('fileIds')))->get();
         foreach ($files as $file) {
@@ -261,10 +265,12 @@ class AdminController extends Controller
                 'filepath' => $path,
                 'filename' => $file->filename,
                 'order' => 0,
+                'folder' => strlen($fileData[$file->id]['folder'] ?? '') ? $fileData[$file->id]['folder'] : null,
                 'public' => true,
             ]);
 
             $project->files()->save($projectFile);
+            event(new ProjectDocumentAddedEvent($project, $projectFile));
         }
 
         $fileData = json_decode($request->post('file_data'));
@@ -526,7 +532,7 @@ class AdminController extends Controller
         return (new ProjectService())->destroy($project);
     }
 
-    public function setPrincipalPaid(Request $request)
+    public function setPrincipalPaid(Request $request, ProjectService $projectService)
     {
         if (!auth()->user()->isSuperadmin()) {
             return response()->json(
@@ -538,6 +544,8 @@ class AdminController extends Controller
 
         $projectShow = ProjectShow::find($request->post('offerId'));
         $projectShow->update(['principal_paid' => ($projectShow->principal_paid ? 0 : 1)]);
+
+        $projectService->afterProncipalPayment($projectShow);
 
         return response()->json(
             [
@@ -721,10 +729,14 @@ class AdminController extends Controller
     public function adminQuestionConfirm(Request $request, ProjectQuestion $projectQuestion)
     {
         $projectQuestion->confirmed = $request->post('data')['confirm'] ? 1 : -1;
-        if($projectQuestion->confirmed === -1) {
+        if ($projectQuestion->confirmed === -1) {
             $projectQuestion->not_confirmed_reason = $request->post('data')['reason'];
-}
+        }
         $projectQuestion->save();
+
+        if ($projectQuestion->confirmed === 1) {
+            event(new ProjectCommentAddedEvent($projectQuestion->project, $projectQuestion));
+        }
 
         return [
             'status' => 'success',
@@ -784,10 +796,14 @@ class AdminController extends Controller
     public function adminActualityConfirm(Request $request, ProjectActuality $projectActuality)
     {
         $projectActuality->confirmed = $request->post('data')['confirm'] ? 1 : -1;
-        if($projectActuality->confirmed === -1) {
+        if ($projectActuality->confirmed === -1) {
             $projectActuality->not_confirmed_reason = $request->post('data')['reason'];
         }
         $projectActuality->save();
+
+        if ($projectActuality->confirmed === 1) {
+            event(new ProjectActualityAddedEvent($projectActuality->project, $projectActuality));
+        }
 
         return [
             'status' => 'success',

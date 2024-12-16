@@ -238,6 +238,8 @@ class PaymentService
                     'principal_sum' => $paymentSum,
                     'principal_paid' => ($paymentSum >= $minimumPrincipal),
                 ]);
+
+                (new ProjectService)->afterProncipalPayment($projectShow);
             }
         }
     }

@@ -3,8 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\User;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Services\UsersService;
 
 class AfterUserRegistered
 {
@@ -27,5 +26,7 @@ class AfterUserRegistered
             $event->user->superadmin = true;
             $event->user->save();
         }
+
+        (new UsersService())->setNotifications($event->user);
     }
 }

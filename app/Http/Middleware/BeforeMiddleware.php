@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Facades\QueryLog;
 use App\Models\Project;
+use App\Models\ProjectShow;
 use App\Services\TempProjectFileService;
 use App\Services\UsersService;
 use Carbon\Carbon;
@@ -11,7 +12,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
@@ -58,13 +58,25 @@ class BeforeMiddleware
 
         if (Schema::hasTable('projects')) {
             QueryLog::disable();
-            Project::IsPublicated()
+            $projects = Project::IsPublicated()
                 ->where('status', '!=', 'finished')
                 ->where('status', '!=', 'evaluation')
                 ->isNotActive()
-                ->update(['status' => DB::raw(
-                    'if(`type` in (\'auction\', \'preliminary-interest\'), \'finished\', \'evaluation\')'
-                )]);
+                ->get();
+
+            foreach ($projects as $project) {
+                if ($project->type === 'fixed-price' || $project->type === 'offer-the-price') {
+                    if (ProjectShow::where('project_id', $project->id)->where('offer', true)->count()) {
+                        $newStatus = 'evaluation';
+                    } else {
+                        $newStatus = 'finished';
+                    }
+                } else {
+                    $newStatus = in_array($project->type, ['auction', 'preliminary-interest']) ? 'finished' : 'evaluation';
+                }
+                $project->status = $newStatus;
+                $project->save();
+            }
         }
 
         (new TempProjectFileService())->clear();
