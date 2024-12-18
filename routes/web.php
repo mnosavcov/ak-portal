@@ -9,6 +9,7 @@ use App\Http\Controllers\App\ProjectController;
 use App\Http\Controllers\App\ProjectQuestionController;
 use App\Http\Controllers\App\ProjectActualityController;
 use App\Http\Controllers\Auth\Ext\BankIdController;
+use App\Http\Controllers\Auth\Ext\RivaasController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
@@ -290,6 +291,16 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
             Route::get('notify', [BankIdController::class, 'localhostNotifyGet'])->name('notify.get');
             Route::get('update-data', [BankIdController::class, 'localhostNotifyUpdateData'])->name('notify.update-data');
         });
+    });
+
+    Route::prefix('rivaas')->name('rivaas.')->group(function () {
+        Route::get('verified', [RivaasController::class, 'verified'])->name('verified');
+        Route::get('rejected', [RivaasController::class, 'rejected'])->name('rejected');
+        Route::get('unverified', [RivaasController::class, 'unverified'])->name('unverified');
+        Route::get('callback', [RivaasController::class, 'callback'])->name('callback');
+        Route::get('logo/pvtrusted.svg', [RivaasController::class, 'logo'])->name('logo');
+        Route::get('customer-name', [RivaasController::class, 'customerName'])->name('customer.name');
+
     });
 });
 
