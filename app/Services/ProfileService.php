@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class ProfileService
 {
@@ -134,5 +137,15 @@ class ProfileService
         }
 
         return $status;
+    }
+
+    public function getUnsubscribeHash(User $user, $type)
+    {
+        $crypt = [
+            'user_id' => $user->id,
+            'type' => $type,
+            'expire_time' => Carbon::now()->addDays(30)->toDateTimeString(),
+        ];
+        return Crypt::encrypt($crypt);
     }
 }

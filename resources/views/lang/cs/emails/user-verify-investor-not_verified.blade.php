@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 Váš zájem o zobrazení plného znění projektů na našem portálu jsme vyhodnotili jako neoprávněný. To znamená, že nemůžete portál využívat z pozice investora – tedy podávat nabídku jako zájemce o projekt, nebo osoba zmocněná k jednání za zájemce.<br>

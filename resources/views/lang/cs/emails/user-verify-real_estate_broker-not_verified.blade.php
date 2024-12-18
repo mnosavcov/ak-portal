@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 Váš zájem o ověření účtu realitního makléře na našem portálu jsme vyhodnotili jako neoprávněný.<br>

@@ -733,6 +733,11 @@ return array (
       'path' => 'resources\\views\\profile\\index.blade.php',
       'line' => 3,
     ),
+    2 => 
+    array (
+      'path' => 'resources\\views\\profile\\unsubscribe.blade.php',
+      'line' => 3,
+    ),
   ),
   'Chyba smazání' => 
   array (
@@ -4492,6 +4497,14 @@ return array (
       'line' => 105,
     ),
   ),
+  'Upozorňujeme, že příjem systémových zpráv, které jsou klíčové pro poskytování služby, zrušit nelze.' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\layouts\\email.blade.php',
+      'line' => 28,
+    ),
+  ),
   'Upravit' => 
   array (
     0 => 
@@ -5509,6 +5522,14 @@ return array (
     array (
       'path' => 'resources\\views\\components\\app\\project\\part\\offer\\price-box.blade.php',
       'line' => 83,
+    ),
+  ),
+  'ZDE' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\layouts\\email.blade.php',
+      'line' => 27,
     ),
   ),
   'Zde napište svoji zprávu' => 
@@ -8056,12 +8077,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 263,
+      'line' => 265,
     ),
     1 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 282,
+      'line' => 284,
     ),
   ),
   'profil.E-mail_byl_úspěšně_změněn_a_zpráva_s_aktivačním_odkazem_byla_úspěšně_odeslána' => 
@@ -8069,7 +8090,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 307,
+      'line' => 309,
     ),
   ),
   'profil.E-mail_je_již_zaregistrovaný' => 
@@ -8077,7 +8098,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 289,
+      'line' => 291,
     ),
   ),
   'profil.E-mail_je_již_zaregistrován' => 
@@ -8085,7 +8106,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 67,
+      'line' => 69,
     ),
   ),
   'profil.E-mail_je_povinné_pole' => 
@@ -8093,7 +8114,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 65,
+      'line' => 67,
     ),
   ),
   'profil.E-mail_musí_být_platný' => 
@@ -8101,7 +8122,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 66,
+      'line' => 68,
     ),
   ),
   'profil.E-mail_se_nepodařilo_změnit' => 
@@ -8109,7 +8130,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 299,
+      'line' => 301,
     ),
   ),
   'profil.Hesla_se_neshodují' => 
@@ -8117,7 +8138,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 78,
+      'line' => 80,
     ),
   ),
   'profil.Heslo_je_povinné' => 
@@ -8125,7 +8146,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 77,
+      'line' => 79,
     ),
   ),
   'profil.Heslo_musí_být_platné' => 
@@ -8133,7 +8154,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 112,
+      'line' => 114,
     ),
   ),
   'profil.Heslo_musí_mít_alespoň__min__znaků' => 
@@ -8141,7 +8162,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 79,
+      'line' => 81,
     ),
   ),
   'profil.Heslo_pro_smazání_je_povinné_pole' => 
@@ -8149,7 +8170,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 111,
+      'line' => 113,
     ),
   ),
   'profil.které_se_týkají_těch,_kdo_projektů_investují' => 
@@ -8209,7 +8230,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 251,
+      'line' => 253,
     ),
   ),
   'profil.Nová_aktualita_u_projektu' => 
@@ -8244,12 +8265,20 @@ return array (
       'line' => 23,
     ),
   ),
+  'profil.Odhlášení_z_notifikací' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Http\\Controllers\\ProfileController.php',
+      'line' => 393,
+    ),
+  ),
   'profil.Profil_investora' => 
   array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 139,
+      'line' => 141,
     ),
   ),
   'profil.Profil_nabízejícího' => 
@@ -8257,7 +8286,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 157,
+      'line' => 159,
     ),
   ),
   'profil.Profil_realitního_makléře' => 
@@ -8265,7 +8294,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 175,
+      'line' => 177,
     ),
   ),
   'profil.Přehled_investora' => 
@@ -8273,7 +8302,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 234,
+      'line' => 236,
     ),
     1 => 
     array (
@@ -8286,7 +8315,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 237,
+      'line' => 239,
     ),
     1 => 
     array (
@@ -8299,7 +8328,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 240,
+      'line' => 242,
     ),
     1 => 
     array (
@@ -8312,7 +8341,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 230,
+      'line' => 232,
     ),
     1 => 
     array (
@@ -8325,7 +8354,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 69,
+      'line' => 71,
     ),
   ),
   'profil.Telefonní_číslo_je_povinné' => 
@@ -8333,7 +8362,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 68,
+      'line' => 70,
     ),
   ),
   'profil.Zasílat_na_kontaktní_e-mail_upozornění_na_nové_projekty' => 
@@ -8383,7 +8412,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 271,
+      'line' => 273,
     ),
   ),
   'projekt.1_den' => 
@@ -8796,12 +8825,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 334,
-    ),
-    1 => 
-    array (
-      'path' => 'app\\Services\\EmailService.php',
-      'line' => 365,
+      'line' => 348,
     ),
   ),
   'template-mail-subject.advertiser-project-comment-new' => 
@@ -8809,7 +8833,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 283,
+      'line' => 288,
     ),
   ),
   'template-mail-subject.advertiser-project-finished' => 
@@ -8817,7 +8841,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 458,
+      'line' => 484,
     ),
   ),
   'template-mail-subject.advertiser-project-fixed-price-principal-pay-no-first' => 
@@ -8825,7 +8849,15 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 396,
+      'line' => 416,
+    ),
+  ),
+  'template-mail-subject.advertiser-project-offer-the-price-bids-end' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Services\\EmailService.php',
+      'line' => 382,
     ),
   ),
   'template-mail-subject.advertiser-project-preliminary-interest-bids-end' => 
@@ -8833,7 +8865,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 427,
+      'line' => 450,
     ),
   ),
   'template-mail-subject.investor-project-actuality-new' => 
@@ -8841,7 +8873,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 302,
+      'line' => 310,
     ),
   ),
   'template-mail-subject.investor-project-auction-bid-new' => 
@@ -8849,7 +8881,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 322,
+      'line' => 333,
     ),
   ),
   'template-mail-subject.investor-project-comment-new' => 
@@ -8857,7 +8889,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 268,
+      'line' => 272,
     ),
   ),
   'template-mail-subject.investor-project-created' => 
@@ -8873,7 +8905,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 245,
+      'line' => 248,
     ),
   ),
   'template-mail-subject.investor-project-finished' => 
@@ -8881,7 +8913,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 446,
+      'line' => 469,
     ),
   ),
   'template-mail-subject.investor-project-fixed-price-principal-pay-no-first' => 
@@ -8889,7 +8921,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 384,
+      'line' => 401,
     ),
   ),
   'template-mail-subject.investor-project-offer-the-price-bids-end' => 
@@ -8897,7 +8929,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 353,
+      'line' => 367,
     ),
   ),
   'template-mail-subject.investor-project-preliminary-interest-bids-end' => 
@@ -8905,7 +8937,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Services\\EmailService.php',
-      'line' => 415,
+      'line' => 435,
     ),
   ),
   'template-mail-subject.user-verify-advertiser-not_verified' => 

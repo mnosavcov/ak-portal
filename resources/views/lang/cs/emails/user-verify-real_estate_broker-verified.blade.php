@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 úspěšně jste prošli procesem ověření účtu realitního makléře. To znamená, že jste:<br>

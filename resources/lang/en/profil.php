@@ -22,6 +22,7 @@ return [
     'Nová_příloha_u_projektu' => '',
     'Nový_komentář_u_projektu' => '',
     'Nový_příhoz_v_aukci' => '',
+    'Odhlášení_z_notifikací' => '',
     'Profil_investora' => '',
     'Profil_nabízejícího' => '',
     'Profil_realitního_makléře' => '',

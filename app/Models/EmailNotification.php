@@ -13,6 +13,7 @@ class EmailNotification extends Model
 
     protected $fillable = [
         'notify',
+        'user_id',
     ];
 
     protected static function boot()

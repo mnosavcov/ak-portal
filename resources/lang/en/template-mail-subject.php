@@ -5,6 +5,7 @@ return [
     'advertiser-project-comment-new' => '',
     'advertiser-project-finished' => '',
     'advertiser-project-fixed-price-principal-pay-no-first' => '',
+    'advertiser-project-offer-the-price-bids-end' => '',
     'advertiser-project-preliminary-interest-bids-end' => '',
     'investor-project-actuality-new' => '',
     'investor-project-auction-bid-new' => '',

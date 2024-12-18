@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 Váš projekt <a href="{{ $project->url_detail }}">{{ $project->title }}</a> na PVtrusted.cz byl ukončen. To znamená, že jsme vás buď úspěšně propojili s investorem, nebo se žádný zájemce nenašel a rozhodli jste se projekt dál neinzerovat.<br>

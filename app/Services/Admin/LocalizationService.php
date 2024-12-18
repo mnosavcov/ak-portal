@@ -233,7 +233,7 @@ class LocalizationService extends Controller
 
         if ($type === 'template-mail') {
             $filepathTemplate = Str::replaceLast('-text.blade.php', '.blade.php', $filepath);
-            File::replace($filepathTemplate, '<x-email-layout>' . "\n" . $request->post('translateHtml') . "\n" . '</x-email-layout>' . "\n");
+            File::replace($filepathTemplate, '<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">' . "\n" . $request->post('translateHtml') . "\n" . '</x-email-layout>' . "\n");
             $this->saveSub($request, $lng, 'template-mail-subject');
         }
 

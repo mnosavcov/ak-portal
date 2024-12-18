@@ -6,6 +6,8 @@ use App\Notifications\CustomVerifyEmail;
 use App\Services\Auth\Ext\BankIdService;
 use App\Services\ProfileService;
 use App\Services\UsersService;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\EmailNotification;
@@ -360,5 +362,81 @@ class ProfileController extends Controller
     {
         $request->user()->{$type} = false;
         $request->user()->save();
+    }
+
+    public function unsubscribe(Request $request, InvestorService $investorService, ProfileService $profileService, $crypt)
+    {
+        $data = Crypt::decrypt($crypt);
+        if ($data['expire_time'] < Carbon::now()->toDateTimeString()) {
+            return response()->redirectToRoute('profile.investor');
+        }
+
+        $user = User::find($data['user_id']);
+        if ($data['type'] === 'investor') {
+            if ($user->investor !== 1) {
+                return response()->redirectToRoute('profile.investor');
+            }
+        } else {
+            return response()->redirectToRoute('profile.investor');
+        }
+
+        $notifications = EmailNotification::where('user_id', $user->id)
+            ->withoutGlobalScope('user_id')
+            ->pluck('notify')
+            ->combine(
+                EmailNotification::where('user_id', $user->id)->withoutGlobalScope('user_id')->pluck('notify')->map(function () {
+                    return true;
+                })
+            )->toArray();
+
+        return view('profile.unsubscribe', [
+            'title' => __('profil.Odhlášení_z_notifikací'),
+            'route' => route('unsubscribe', ['crypt' => $crypt]),
+            'crypt' => $crypt,
+            'data' => [
+                'notificationList' => $investorService->getList(),
+                'notifications' => $notifications,
+            ]]);
+    }
+
+    public function unsubscribeSave(Request $request, $crypt)
+    {
+        $data = Crypt::decrypt($crypt);
+        if ($data['expire_time'] < Carbon::now()->toDateTimeString()) {
+            return response()->redirectToRoute('profile.investor');
+        }
+
+        $user = User::find($data['user_id']);
+        if ($data['type'] === 'investor') {
+            if ($user->investor !== 1) {
+                return response()->redirectToRoute('profile.investor');
+            }
+        } else {
+            return response()->redirectToRoute('profile.investor');
+        }
+
+        $index = $request->post('index');
+        $value = $request->post('value');
+
+        if ($value) {
+            $notify = EmailNotification::where('user_id', $user->id)
+                ->where('notify', $index)
+                ->withoutGlobalScope('user_id')->first();
+
+            if (!$notify) {
+                EmailNotification::create(['user_id' => $user->id, 'notify' => $index]);
+            }
+        } else {
+            EmailNotification::where('user_id', $user->id)
+                ->withoutGlobalScope('user_id')
+                ->where('notify', $index)
+                ->first()?->delete();
+        }
+
+        $notifyCount = EmailNotification::where('user_id', $user->id)
+            ->withoutGlobalScope('user_id')
+            ->where('notify', $index)
+            ->count();
+        return response()->json((bool)$notifyCount);
     }
 }

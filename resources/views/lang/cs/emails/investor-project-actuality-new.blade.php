@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 u projektu <a href="{{ $project->url_detail }}">{{ $project->title }}</a>, který sledujete, byla zveřejněna nová aktualita.<br>

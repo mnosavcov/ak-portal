@@ -22,6 +22,7 @@ return [
     'Nová_příloha_u_projektu' => 'Nová příloha u projektu',
     'Nový_komentář_u_projektu' => 'Nový komentář u projektu',
     'Nový_příhoz_v_aukci' => 'Nový příhoz v aukci',
+    'Odhlášení_z_notifikací' => 'Odhlášení z notifikací',
     'Profil_investora' => 'Profil investora',
     'Profil_nabízejícího' => 'Profil nabízejícího',
     'Profil_realitního_makléře' => 'Profil realitního makléře',

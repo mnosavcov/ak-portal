@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 projekt <a href="{{ $project->url_detail }}">{{ $project->title }}</a> na PVtrusted.cz, který sledujete, byl ukončen. <br>

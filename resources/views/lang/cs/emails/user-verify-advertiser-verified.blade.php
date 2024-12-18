@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 úspěšně jste prošli procesem ověření účtu nabízejícího. To znamená, že jste doložili vlastnictví projektu, nebo máte profil skutečného nabízejícího – lze se důvodně domnívat, že můžete v budoucnu projektem disponovat, nebo máte zmocnění jednat od osoby, která tyto předpoklady naplňuje. Tím jste splnili jednu z podstatných podmínek pro zveřejnění projektu.<br>

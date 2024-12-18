@@ -224,7 +224,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-created')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-created',
                 'lang.' . app()->getLocale() . '.emails.investor-project-created-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
@@ -248,6 +251,7 @@ class EmailService
                 [
                     'project' => $project,
                     'document' => $document,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
                 ]
             );
 
@@ -271,6 +275,7 @@ class EmailService
                 [
                     'project' => $project,
                     'comment' => $event->projectQuestion,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
                 ]
             );
 
@@ -305,7 +310,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-actuality-new')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-actuality-new',
                 'lang.' . app()->getLocale() . '.emails.investor-project-actuality-new-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->projectActuality->id);
@@ -325,7 +333,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-auction-bid-new')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-auction-bid-new',
                 'lang.' . app()->getLocale() . '.emails.investor-project-auction-bid-new-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->projectAuctionOffer->id);
@@ -356,7 +367,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-offer-the-price-bids-end')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-offer-the-price-bids-end',
                 'lang.' . app()->getLocale() . '.emails.investor-project-offer-the-price-bids-end-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
@@ -365,9 +379,9 @@ class EmailService
         $this->addEmailToQueue(
             $event->project->user['email'],
             $this->getToName($event->project->user),
-            $this->translateSubject($project, __('template-mail-subject.advertiser-project-auction-bid-new')),
-            'lang.' . app()->getLocale() . '.emails.advertiser-project-auction-bid-new',
-            'lang.' . app()->getLocale() . '.emails.advertiser-project-auction-bid-new-text',
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-offer-the-price-bids-end')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-offer-the-price-bids-end',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-offer-the-price-bids-end-text',
             ['project' => $project]
         );
 
@@ -387,7 +401,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-fixed-price-principal-pay-no-first')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-fixed-price-principal-pay-no-first',
                 'lang.' . app()->getLocale() . '.emails.investor-project-fixed-price-principal-pay-no-first-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
@@ -418,7 +435,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-preliminary-interest-bids-end')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-preliminary-interest-bids-end',
                 'lang.' . app()->getLocale() . '.emails.investor-project-preliminary-interest-bids-end-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
@@ -449,7 +469,10 @@ class EmailService
                 $this->translateSubject($project, __('template-mail-subject.investor-project-finished')),
                 'lang.' . app()->getLocale() . '.emails.investor-project-finished',
                 'lang.' . app()->getLocale() . '.emails.investor-project-finished-text',
-                ['project' => $project]
+                [
+                    'project' => $project,
+                    'unsubscribeUrl' => route('unsubscribe', ['crypt' => (new ProfileService)->getUnsubscribeHash($user['user'], 'investor')]),
+                ]
             );
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);

@@ -1,4 +1,4 @@
-<x-email-layout>
+<x-email-layout :unsubscribeUrl="$unsubscribeUrl ?? null">
 Dobrý den,<br>
 <br>
 úspěšně jste prošli procesem ověření účtu investora. To znamená, že jste doložili svůj oprávněný zájem o zobrazení plného znění projektů.<br>
