@@ -176,11 +176,16 @@ class EmailService
             $userList[] = [
                 'user' => $user,
                 'email' => $user['email'],
-                'toName' => trim(($user['name'] ?? '') . ' ' . ($user['surname'] ?? '')),
+                'toName' => $this->getToName($user),
             ];
         }
 
         return $userList;
+    }
+
+    private function getToName($user)
+    {
+        return trim(($user['name'] ?? '') . ' ' . ($user['surname'] ?? ''));
     }
 
     private function HasUserEvent($user, $event, $id): bool
@@ -271,6 +276,20 @@ class EmailService
 
             $this->SetUserEvent($user['user'], $event, $event->projectQuestion->id);
         }
+
+        $this->addEmailToQueue(
+            $event->project->user['email'],
+            $this->getToName($event->project->user),
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-comment-new')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-comment-new',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-comment-new-text',
+            [
+                'project' => $project,
+                'comment' => $event->projectQuestion,
+            ]
+        );
+
+        $this->SetUserEvent($event->project->user, $event, $event->projectQuestion->id);
     }
 
     // po pridani aktuality k projektu
@@ -311,6 +330,17 @@ class EmailService
 
             $this->SetUserEvent($user['user'], $event, $event->projectAuctionOffer->id);
         }
+
+        $this->addEmailToQueue(
+            $event->project->user['email'],
+            $this->getToName($event->project->user),
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-auction-bid-new')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-auction-bid-new',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-auction-bid-new-text',
+            ['project' => $project]
+        );
+
+        $this->SetUserEvent($event->project->user, $event, $event->projectAuctionOffer->id);
     }
 
     // konec sberu nabidek pro nabidne investor
@@ -331,6 +361,17 @@ class EmailService
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
         }
+
+        $this->addEmailToQueue(
+            $event->project->user['email'],
+            $this->getToName($event->project->user),
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-auction-bid-new')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-auction-bid-new',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-auction-bid-new-text',
+            ['project' => $project]
+        );
+
+        $this->SetUserEvent($event->project->user, $event, $event->project->id);
     }
 
     // konec sberu pro fixni cenu, jistotu zaplatil jiny nez prvni
@@ -351,6 +392,17 @@ class EmailService
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
         }
+
+        $this->addEmailToQueue(
+            $event->project->user['email'],
+            $this->getToName($event->project->user),
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-fixed-price-principal-pay-no-first')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-fixed-price-principal-pay-no-first',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-fixed-price-principal-pay-no-first-text',
+            ['project' => $project]
+        );
+
+        $this->SetUserEvent($event->project->user, $event, $event->project->id);
     }
 
     // konec sberu pro predbezny zajem
@@ -371,6 +423,17 @@ class EmailService
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
         }
+
+        $this->addEmailToQueue(
+            $event->project->user['email'],
+            $this->getToName($event->project->user),
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-preliminary-interest-bids-end')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-preliminary-interest-bids-end',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-preliminary-interest-bids-end-text',
+            ['project' => $project]
+        );
+
+        $this->SetUserEvent($event->project->user, $event, $event->project->id);
     }
 
     // ukonceni projektu
@@ -391,5 +454,16 @@ class EmailService
 
             $this->SetUserEvent($user['user'], $event, $event->project->id);
         }
+
+        $this->addEmailToQueue(
+            $event->project->user['email'],
+            $this->getToName($event->project->user),
+            $this->translateSubject($project, __('template-mail-subject.advertiser-project-finished')),
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-finished',
+            'lang.' . app()->getLocale() . '.emails.advertiser-project-finished-text',
+            ['project' => $project]
+        );
+
+        $this->SetUserEvent($event->project->user, $event, $event->project->id);
     }
 }

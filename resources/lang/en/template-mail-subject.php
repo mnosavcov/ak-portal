@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'advertiser-project-auction-bid-new' => '',
+    'advertiser-project-comment-new' => '',
+    'advertiser-project-finished' => '',
+    'advertiser-project-fixed-price-principal-pay-no-first' => '',
+    'advertiser-project-preliminary-interest-bids-end' => '',
     'investor-project-actuality-new' => '',
     'investor-project-auction-bid-new' => '',
     'investor-project-comment-new' => '',
