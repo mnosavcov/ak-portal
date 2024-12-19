@@ -20,12 +20,48 @@
         </div>
     @endif
 
-    <div class="app-project relative">
+    <div class="app-project relative" x-data="{
+                track: @js(auth()->user() && $project->myShow()->first()->track === 1),
+                async setTrack() {
+                    await fetch('/projekty/set-track/' + @js($project->url_part), {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                        },
+                    }).then((response) => response.json())
+                        .then((data) => {
+                            if(data.status === 'success') {
+                                this.track = data.track
+                                return;
+                            }
+                            alert(@js(__('Chyba nastavení sledování')))
+                        })
+                        .catch((error) => {
+                            alert(@js(__('Chyba nastavení sledování')))
+                        });
+                }
+            }">
         <div class="w-full max-w-[1230px] mx-auto text-white">
-            <x-app.breadcrumbs :breadcrumbs="[
-            __('Projekty') => route('projects.index'),
-            $project->title => route('projects.show', ['project' => $project->url_part] + (request()->query('overview') ? ['overview' => true] : [])),
-        ]" :color="'text-white'" :mark="'breadcrumbs-mark-white'"></x-app.breadcrumbs>
+            <div class="grid tablet:grid-cols-[1fr_min-content]">
+                <x-app.breadcrumbs :breadcrumbs="[
+                    __('Projekty') => route('projects.index'),
+                    $project->title => route('projects.show', ['project' => $project->url_part] + (request()->query('overview') ? ['overview' => true] : [])),
+                    ]" :color="'text-white'" :mark="'breadcrumbs-mark-white'">
+                </x-app.breadcrumbs>
+
+                @if(auth()->user()?->investor && auth()->user()?->isVerifiedInvestor())
+                    <div class="mt-[-20px] tablet:mt-[25px] ml-[15px] tablet:mr-[15px]">
+                        <button
+                            class="font-Spartan-SemiBold bg-app-blue text-white text-[14px] h-[45px] leading-[45px] w-[220px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] mb-[25px]"
+                            :class="{'bg-app-orange': track}"
+                            x-text="track ? @js(__('Přestat sledovat projekt')) : @js(__('Sledovat projekt'))"
+                            @click="setTrack()"
+                        >
+                        </button>
+                    </div>
+                @endif
+            </div>
 
             <h1 class="mb-[50px] px-[15px]">{{ $project->title }}</h1>
         </div>

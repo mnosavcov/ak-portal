@@ -606,6 +606,9 @@ class ProjectController extends Controller
         $projectShow->price = $request->post('offer');
         $projectShow->offer = true;
         $projectShow->offer_time = Carbon::now();
+        if($projectShow->track === null) {
+            $projectShow->track = 1;
+        }
         $projectShow->save();
 
         if ($project->type === 'auction') {
@@ -780,5 +783,27 @@ class ProjectController extends Controller
             $myShow->max_actuality_id = $maxId;
             $myShow->save();
         }
+    }
+
+    public function setTrack(Project $project)
+    {
+        if (!auth()->user()?->investor || !auth()->user()?->isVerifiedInvestor()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                ]
+            );
+        }
+
+        $myshow = $project->myShow()->first();
+        $myshow->track = $myshow->track === 1 ? -1 : 1;
+        $myshow->save();
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'track' => ($myshow->track === 1)
+            ]
+        );
     }
 }

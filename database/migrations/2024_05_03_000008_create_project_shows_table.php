@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('principal_sum', 12, 2)->nullable();
             $table->boolean('winner')->default(false);
             $table->boolean('showed')->default(false);
+            $table->boolean('track')->nullable();
             $table->integer('details_on_request')->default(0);
             $table->dateTime('details_on_request_time')->nullable();
             $table->string('variable_symbol', 10)->nullable();

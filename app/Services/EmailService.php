@@ -14,6 +14,7 @@ use App\Events\ProjectPreliminaryInterestBidsEndEvent;
 use App\Mail\QueuedEmail;
 use App\Models\EmailNotification;
 use App\Models\NotificationEvent;
+use App\Models\ProjectShow;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -144,7 +145,7 @@ class EmailService
         }
     }
 
-    private function InvestorList($event, $notification, $id)
+    private function InvestorList($event, $notification, $id, $checkTrack = true)
     {
         $userList = [];
         $users = User::where(
@@ -164,8 +165,16 @@ class EmailService
             $notificationUsers = EmailNotification::whereIn('notify', $notification)->withoutGlobalScope('user_id')->get()->pluck('user_id')->toArray();
         }
 
+        if($checkTrack) {
+            $trackUsers = ProjectShow::where('track', 1)->where('project_id', $event->project->id)->get()->pluck('user_id')->toArray();
+        }
+
         foreach ($users as $user) {
             if($notification && !in_array($user->id, $notificationUsers)) {
+                continue;
+            }
+
+            if($checkTrack && !in_array($user->id, $trackUsers)) {
                 continue;
             }
 
@@ -216,7 +225,7 @@ class EmailService
             return;
         }
 
-        $users = $this->InvestorList($event, 'investor_novy_projekt', $event->project->id);
+        $users = $this->InvestorList($event, 'investor_novy_projekt', $event->project->id, false);
         foreach ($users as $user) {
             $this->addEmailToQueue(
                 $user['email'],

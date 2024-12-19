@@ -471,7 +471,7 @@ return array (
     2 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 129,
+      'line' => 165,
     ),
   ),
   'Aktuality podléhají schvalování administrátorem. Jelikož provozovatel připravoval podstatnou část popisu projektu a zároveň je na úspěšném zobchodování závislé vyplacení jeho provize, má oprávněný zájem na kontrolu, zda je obsah a forma aktuality relevantní. Jakékoliv zavádějící či nevhodné informace by mohly negativně ovlivnit průběh projektu. Provozovatel si vyhrazuje právo provést úpravu aktualit, nebo je i v důvodných případech nezveřejnit.' => 
@@ -672,6 +672,19 @@ return array (
     array (
       'path' => 'resources\\views\\components\\app\\project\\part\\offer\\@public-request.blade.php',
       'line' => 86,
+    ),
+  ),
+  'Chyba nastavení sledování' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\app\\projects\\show.blade.php',
+      'line' => 38,
+    ),
+    1 => 
+    array (
+      'path' => 'resources\\views\\app\\projects\\show.blade.php',
+      'line' => 41,
     ),
   ),
   'Chyba nastavení typu účtu' => 
@@ -909,7 +922,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 75,
+      'line' => 111,
     ),
   ),
   'Dokumenty' => 
@@ -1667,7 +1680,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 82,
+      'line' => 118,
     ),
   ),
   'Lokalita není dostupná' => 
@@ -2573,7 +2586,7 @@ return array (
     2 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 160,
+      'line' => 196,
     ),
   ),
   'Otázky a odpovědi' => 
@@ -2596,7 +2609,7 @@ return array (
     3 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 102,
+      'line' => 138,
     ),
   ),
   'Otázky a odpovědi podléhají schvalování administrátorem. Jelikož jsou viditelné i pro ostatní oprávněné uživatele, musí být jejich obsah a forma zcela relevantní. Jakékoliv zavádějící či nevhodné informace by mohly negativně ovlivnit průběh projektu. Provozovatel si vyhrazuje právo provést úpravu otázek i odpovědí, nebo je i v důvodných případech nezveřejnit.' => 
@@ -3110,7 +3123,7 @@ return array (
     2 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 69,
+      'line' => 105,
     ),
     3 => 
     array (
@@ -3401,7 +3414,7 @@ return array (
     2 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 26,
+      'line' => 48,
     ),
   ),
   'Projekty ke schválení' => 
@@ -3749,6 +3762,14 @@ return array (
     array (
       'path' => 'resources\\views\\app\\projects\\create.blade.php',
       'line' => 12,
+    ),
+  ),
+  'Přestat sledovat projekt' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\app\\projects\\show.blade.php',
+      'line' => 58,
     ),
   ),
   'Přidat' => 
@@ -4099,6 +4120,14 @@ return array (
       'line' => 128,
     ),
   ),
+  'Sledovat projekt' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\app\\projects\\show.blade.php',
+      'line' => 58,
+    ),
+  ),
   'Složena jistota' => 
   array (
     0 => 
@@ -4241,7 +4270,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 168,
+      'line' => 204,
     ),
   ),
   'Stav ve kterém může zadavatel upravovat zadání (nemůže upravovat data, která jsou zadaná administrátorem))' => 
@@ -5073,7 +5102,7 @@ return array (
     1 => 
     array (
       'path' => 'routes\\web.php',
-      'line' => 97,
+      'line' => 98,
     ),
   ),
   'Všeobecnými obchodními podmínkami' => 
@@ -5962,7 +5991,7 @@ return array (
     1 => 
     array (
       'path' => 'routes\\web.php',
-      'line' => 90,
+      'line' => 91,
     ),
   ),
   'Zásadách zpracování osobních údajů' => 
@@ -6004,7 +6033,7 @@ return array (
     2 => 
     array (
       'path' => 'resources\\views\\app\\projects\\show.blade.php',
-      'line' => 150,
+      'line' => 186,
     ),
   ),
   'Účet investora' => 
