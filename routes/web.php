@@ -295,6 +295,7 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
     });
 
     Route::prefix('rivaas')->name('rivaas.')->group(function () {
+        Route::get('start-verify', [RivaasController::class, 'startVerify'])->name('start-verify');
         Route::get('verified', [RivaasController::class, 'verified'])->name('verified');
         Route::get('rejected', [RivaasController::class, 'rejected'])->name('rejected');
         Route::get('unverified', [RivaasController::class, 'unverified'])->name('unverified');
