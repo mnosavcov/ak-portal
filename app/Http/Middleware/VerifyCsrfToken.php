@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
     {
         $this->except[] = route('auth.ext.bankid.notify');
         $this->except[] = route('auth.ext.bankid.localhost.notify.set');
+        $this->except[] = route('auth.ext.rivaas.callback');
 
         parent::__construct($app, $encrypter);
     }

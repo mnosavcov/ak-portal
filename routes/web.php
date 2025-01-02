@@ -299,7 +299,7 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
         Route::get('verified', [RivaasController::class, 'verified'])->name('verified');
         Route::get('rejected', [RivaasController::class, 'rejected'])->name('rejected');
         Route::get('unverified', [RivaasController::class, 'unverified'])->name('unverified');
-        Route::get('callback', [RivaasController::class, 'callback'])->name('callback');
+        Route::post('callback', [RivaasController::class, 'callback'])->name('callback');
         Route::get('logo/pvtrusted.svg', [RivaasController::class, 'logo'])->name('logo');
         Route::get('customer-name', [RivaasController::class, 'customerName'])->name('customer.name');
 
