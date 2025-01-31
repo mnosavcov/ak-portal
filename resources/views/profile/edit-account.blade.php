@@ -17,6 +17,9 @@
     @if(request()->query('ret') === 'bankid')
         @include('profile.verify.bankid')
     @endif
+    @if(request()->query('ret') === 'rivaas')
+        @include('profile.verify.rivaas')
+    @endif
 
 
     @if(true || $user->check_status === 'not_verified')
@@ -177,13 +180,22 @@
                     <p class="mb-[10px]">
                         {{ __('Pro ověření osobních údajů využíváme služby třetích stran.') }}
                     </p>
-                    <p>
-                        {{ __('U') }}
-                        <span class="font-Spartan-SemiBold">
+                    <div class="space-y-[10px]">
+                        <p>
+                            {{ __('U') }}
+                            <span class="font-Spartan-SemiBold">
                             {!! __('Bank&nbsp;iD') !!}
                         </span>
-                        {{ __('ověřujete svou totožnost přes svou banku a v jejím prostředí. Pro banky je ochrana bezpečí klientů maximální prioritou a odpovídají za bezpečnost ověření. Bankovní identita, a.s. ani poskytovatelé služeb, pro které ověřujete svoji totožnost, nikdy nevidí Vaše přihlašovací údaje, ani informace o Vašich financích. Službu podporuje většina českých bank. Avšak ne všechny.') }}
-                    </p>
+                            {{ __('ověřujete svou totožnost přes svou banku a v jejím prostředí. Pro banky je ochrana bezpečí klientů maximální prioritou a odpovídají za bezpečnost ověření. Bankovní identita, a.s. ani poskytovatelé služeb, pro které ověřujete svoji totožnost, nikdy nevidí Vaše přihlašovací údaje, ani informace o Vašich financích. Službu podporuje většina českých bank. Avšak ne všechny.') }}
+                        </p>
+                        <p>
+                            {{ __('U') }}
+                            <span class="font-Spartan-SemiBold">
+                            {!! __('INNOVATRICS') !!}
+                        </span>
+                            {{ __('...') }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -194,7 +194,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('admin')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('index');
                 Route::get('set-user-all-notify/{user}', function (User $user) {
-                    if(empty($user)) {
+                    if (empty($user)) {
                         abort(404);
                     }
                     (new UsersService())->setNotifications($user);
@@ -300,7 +300,6 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
         Route::get('unverified', [RivaasController::class, 'unverified'])->name('unverified');
         Route::post('callback', [RivaasController::class, 'callback'])->name('callback');
         Route::get('logo/pvtrusted.svg', [RivaasController::class, 'logo'])->name('logo');
-
     });
 });
 

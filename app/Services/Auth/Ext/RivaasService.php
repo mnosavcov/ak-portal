@@ -16,7 +16,7 @@ class RivaasService
         $jsonData = json_encode([
             'audience' => self::RIVAAS_SERVICE_URL,
             'grant_type' => "client_credentials",
-            'client_id' =>  env('RIVAAS_CLIENT_ID'),
+            'client_id' => env('RIVAAS_CLIENT_ID'),
             'client_secret' => env('RIVAAS_SECRET'),
         ]);
 
@@ -30,7 +30,7 @@ class RivaasService
             'Content-Length: ' . strlen($jsonData)
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-        if(App::environment('local')) {
+        if (App::environment('local')) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }
 
@@ -62,7 +62,7 @@ class RivaasService
             'Content-Length: ' . strlen($jsonData)
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-        if(App::environment('local')) {
+        if (App::environment('local')) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }
 
@@ -78,6 +78,8 @@ class RivaasService
         $sessionToken = $response->sessionToken;
 
         $url = self::RIVAAS_APP_URL . '/?sessionToken=' . $sessionToken;
+
+        session(['sessionToken.' . auth()->id() => $sessionToken]);
 
         return $url;
     }

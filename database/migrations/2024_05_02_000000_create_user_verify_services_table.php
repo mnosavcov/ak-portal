@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id')->nullable()->constrained('users');;
-            $table->enum('verify_service', ['bankid']);
+            $table->enum('verify_service', ['bankid', 'rivaas']);
             $table->string('verify_service_user_id')->nullable();
             $table->longText('data');
         });
