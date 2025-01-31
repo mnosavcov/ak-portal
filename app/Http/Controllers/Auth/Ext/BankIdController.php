@@ -106,7 +106,7 @@ class BankIdController extends Controller
     public function localhostNotifyUpdateData(Request $request)
     {
         if (!app()->environment('local')) {
-            abort(404, 'Tato funkčnost je možné volat jen z vývojového serveru');
+            abort(403, 'Tato funkčnost je možné volat jen z vývojového serveru');
         }
 
         $options = [

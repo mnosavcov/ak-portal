@@ -17,9 +17,12 @@ use App\Models\Category;
 use App\Models\FormContact;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\UserVerifyService;
 use App\Services\PaymentService;
 use App\Services\UsersService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -296,10 +299,15 @@ Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
 
     Route::prefix('rivaas')->name('rivaas.')->group(function () {
         Route::get('verified', [RivaasController::class, 'verified'])->name('verified');
+        Route::get('verified/{data}/{userData}', [RivaasController::class, 'verifiedLocal'])->name('verified.local');
         Route::get('rejected', [RivaasController::class, 'rejected'])->name('rejected');
         Route::get('unverified', [RivaasController::class, 'unverified'])->name('unverified');
         Route::post('callback', [RivaasController::class, 'callback'])->name('callback');
         Route::get('logo/pvtrusted.svg', [RivaasController::class, 'logo'])->name('logo');
+
+        Route::get('test/{id}', function ($id) {
+            dd(Cache::get('rivaas'), json_decode(Crypt::decryptString(UserVerifyService::find($id)->data)));
+        });
     });
 });
 

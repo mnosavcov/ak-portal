@@ -4,6 +4,8 @@ namespace App\Services\Auth\Ext;
 
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class RivaasService
 {
@@ -78,8 +80,17 @@ class RivaasService
         $sessionToken = $response->sessionToken;
 
         $url = self::RIVAAS_APP_URL . '/?sessionToken=' . $sessionToken;
+        $sessionTokenBase64 = base64_encode($sessionToken);
 
-        session(['sessionToken.' . auth()->id() => $sessionToken]);
+        $rivaasCache = Cache::get('rivaas', []);
+        $rivaasCache[$sessionTokenBase64] = [
+            'token' => $sessionToken,
+            'userId' => auth()->id()
+        ];
+        if (app()->environment('local') && Str::endsWith(env('APP_URL'), ':8000')) {
+            $rivaasCache[$sessionTokenBase64]['redirect'] = env('APP_URL');
+        }
+        Cache::put('rivaas', $rivaasCache, 15 * 60);
 
         return $url;
     }
