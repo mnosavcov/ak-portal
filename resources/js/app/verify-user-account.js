@@ -5,7 +5,6 @@ Alpine.data('verifyUserAccount', (id) => ({
         'Potvrdit_a_odeslat': 'Potvrdit a odeslat',
         'Pokracovat': 'Pokračovat',
         'Zadejte_vase_statni_obcanstvi': 'Zadejte vaše státní občanství.',
-        'Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni': 'Pro vaše státní občanství není možné automatické ověření.',
         'Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby': 'Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).',
         'Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_investor_alespon_5_znaku': 'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.',
         'Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_nabizejici_alespon_5_znaku': 'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.',
@@ -69,11 +68,6 @@ Alpine.data('verifyUserAccount', (id) => ({
                 return false;
             }
 
-            if (this.data.country !== 'ceska_republika') {
-                alert(this.lang['Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni'])
-                return false;
-            }
-
             return true;
         } else if (this.step === 2) {
             if (this.data.user_verify_service_id) {
@@ -86,6 +80,11 @@ Alpine.data('verifyUserAccount', (id) => ({
             }
 
             if (this.user_verify_service_selected === 'bankid') {
+                window.location.href = this.user_verify_service_data.href;
+                return false;
+            }
+
+            if (this.user_verify_service_selected === 'rivaas') {
                 window.location.href = this.user_verify_service_data.href;
                 return false;
             }

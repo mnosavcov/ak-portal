@@ -12,7 +12,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "madnest/madzipper": "^1.4"
+        "madnest/madzipper": "^1.4",
+        "ext-curl": "*"
     },
     "require-dev": {
         "amirami/localizator": "v0.12.1-alpha",
