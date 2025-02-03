@@ -85,7 +85,7 @@ Alpine.data('verifyUserAccount', (id) => ({
             }
 
             if (this.user_verify_service_selected === 'rivaas') {
-                window.location.href = this.user_verify_service_data.href;
+                window.location.href = this.user_verify_service_data.href + '?c=' + this.data.country;
                 return false;
             }
             return true;

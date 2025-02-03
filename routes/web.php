@@ -287,23 +287,33 @@ if (Schema::hasTable('projects') && Project::count()) {
 
 Route::prefix('auth/ext')->name('auth.ext.')->group(function () {
     Route::prefix('bankid')->name('bankid.')->group(function () {
+        Route::get('verify-begin', [BankIdController::class, 'verifyBegin'])->name('verify-begin');
         Route::post('profile', [BankIdController::class, 'profile'])->name('profile');
         Route::post('notify', [BankIdController::class, 'notify'])->name('notify');
 
+        // vytvareni funkcnosti pro notifikace (tohle je funkcnost )
         Route::prefix('localhost')->name('localhost.')->group(function () {
+            // tohle zavola bankid
             Route::post('notify', [BankIdController::class, 'localhostNotifySet'])->name('notify.set');
+            // tohle vraci server zpet na lokal
             Route::get('notify', [BankIdController::class, 'localhostNotifyGet'])->name('notify.get');
+            // tohle volam ja z lokalu a vola to "notify"
             Route::get('update-data', [BankIdController::class, 'localhostNotifyUpdateData'])->name('notify.update-data');
         });
     });
 
     Route::prefix('rivaas')->name('rivaas.')->group(function () {
+        Route::get('verify-begin', [RivaasController::class, 'verifyBegin'])->name('verify-begin');
+        Route::get('verify-begin-from-local/{userid}/{redirect}', [RivaasController::class, 'verifyBegin'])->name('verify-begin-from-local');
+        Route::post('callback', [RivaasController::class, 'callback'])->name('callback');
         Route::get('verified', [RivaasController::class, 'verified'])->name('verified');
-        Route::get('verified/{data}/{userData}', [RivaasController::class, 'verifiedLocal'])->name('verified.local');
         Route::get('rejected', [RivaasController::class, 'rejected'])->name('rejected');
         Route::get('unverified', [RivaasController::class, 'unverified'])->name('unverified');
-        Route::post('callback', [RivaasController::class, 'callback'])->name('callback');
         Route::get('logo/pvtrusted.svg', [RivaasController::class, 'logo'])->name('logo');
+
+        Route::prefix('localhost')->name('localhost.')->group(function () {
+            Route::get('verified/{data}/{userData}', [RivaasController::class, 'verifiedLocal'])->name('verified');
+        });
 
         Route::get('test/{id}', function ($id) {
             dd(Cache::get('rivaas'), json_decode(Crypt::decryptString(UserVerifyService::find($id)->data)));

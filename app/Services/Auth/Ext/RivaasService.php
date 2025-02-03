@@ -3,9 +3,9 @@
 namespace App\Services\Auth\Ext;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class RivaasService
 {
@@ -13,7 +13,17 @@ class RivaasService
     private const RIVAAS_SERVICE_URL = 'https://verify-identity.innovatrics.com/service';
     private const RIVAAS_APP_URL = 'https://verify-identity.innovatrics.com/app';
 
-    public function getAuthUrl()
+    public function getAuthUrl(Request $request, $userid = null, $redirect = null)
+    {
+        if (env('RIVAAS_LOCAL_REDIRECT', false)) {
+            // je potreba mit na testovacim serveru uzivatele se stejnym ID jako na lokale, na lokale i na testovacim serveru budou aktualizovana stejna data
+            return 'https://portal.c18.cz/auth/ext/rivaas/verify-begin-from-local/' . auth()->id() . '/' . base64_encode(env('APP_URL')) . '?c=' . $request->get('c') ;
+        }
+
+        return $this->getAuthUrlServer($request, $userid, $redirect);
+    }
+
+    public function getAuthUrlServer(Request $request, $userid = null, $redirect = null)
     {
         $jsonData = json_encode([
             'audience' => self::RIVAAS_SERVICE_URL,
@@ -85,10 +95,11 @@ class RivaasService
         $rivaasCache = Cache::get('rivaas', []);
         $rivaasCache[$sessionTokenBase64] = [
             'token' => $sessionToken,
-            'userId' => auth()->id()
+            'country' => $request->get('c'),
+            'userId' => $userid ?? auth()->id()
         ];
-        if (app()->environment('local') && Str::endsWith(env('APP_URL'), ':8000')) {
-            $rivaasCache[$sessionTokenBase64]['redirect'] = env('APP_URL');
+        if ($redirect) {
+            $rivaasCache[$sessionTokenBase64]['redirect'] = base64_decode($redirect);
         }
         Cache::put('rivaas', $rivaasCache, 15 * 60);
 

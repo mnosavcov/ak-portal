@@ -207,6 +207,28 @@
                                     </div>
                                 </div>
                             </x-modal>
+                        @elseif(auth()->user()->userverifyservice?->verify_service === 'rivaas')
+                            <button
+                                @click="$dispatch('open-modal', 'rivaas-update-notice')"
+                                class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"
+                            >
+                                {{ __('Aktualizovat osobní údaje') }}
+                            </button>
+
+                            <x-modal name="rivaas-update-notice">
+                                <div class="p-[40px_10px] tablet:p-[50px_40px] text-center">
+
+                                    <img src="{{ Vite::asset('resources/images/ico-close.svg') }}"
+                                         @click="$dispatch('close')"
+                                         class="cursor-pointer w-[20px] h-[20px] float-right absolute top-[15px] right-[15px]">
+
+                                    <h2 class="mb-[25px]">{{ __('Aktualizace osobních údajů') }}</h2>
+
+                                    <div class="text-left mb-[30px] font-Spartan-Regular text-[16px]">
+                                        {!! __('Vaše osobní údaje jsme ověřili přes službu .....') !!}
+                                    </div>
+                                </div>
+                            </x-modal>
                         @else
                             <a href="{{ route('profile.edit-verify') }}"
                                class="mt-[25px] tablet:mt-[30px] leading-[60px] w-full max-w-[350px] font-Spartan-Bold text-[18px] text-white bg-app-blue rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block text-center"

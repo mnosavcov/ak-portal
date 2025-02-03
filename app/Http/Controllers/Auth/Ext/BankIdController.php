@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Ext;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserVerifyService;
+use App\Services\Auth\Ext\BankIdService;
 use App\Services\CountryServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,6 +17,11 @@ use Illuminate\Support\Str;
 class BankIdController extends Controller
 {
     private const TOKEN = '5VoiGW3eD4hNi9VAy09hST3PnjM7WoGn';
+
+    public function verifyBegin(BankIdService  $bankIdService)
+    {
+        return redirect()->to($bankIdService->getAuthUrl());
+    }
 
     public function profile(Request $request)
     {
@@ -32,7 +38,7 @@ class BankIdController extends Controller
             'hashParsed' => $hashParsed,
             'responseData' => $responseData,
         ];
-        $userVerifyServiceId = UserVerifyService::create([
+        $userVerifyService = UserVerifyService::create([
             'verify_service' => 'bankid',
             'verify_service_user_id' => $responseData['sub'],
             'data' => Crypt::encryptString(json_encode($data)),
@@ -71,7 +77,7 @@ class BankIdController extends Controller
             'psc' => $adressData['zipcode'] ?? '',
             'country' => $country,
             'country_f' => CountryServices::COUNTRIES[$country] ?? $country,
-            'user_verify_service_id' => $userVerifyServiceId->id,
+            'user_verify_service_id' => $userVerifyService->id,
         ];
 
         Auth::user()->update($profile + ['check_status' => 'verified', 'show_check_status' => true]);

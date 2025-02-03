@@ -18,9 +18,8 @@
         @include('profile.verify.bankid')
     @endif
     @if(request()->query('ret') === 'rivaas')
-        @include('profile.verify.rivaas')
+        <div x-data x-init="step = 2;"></div>
     @endif
-
 
     @if(true || $user->check_status === 'not_verified')
         <div class="grid grid-cols-[1fr_min-content] gap-y-[50px] mb-[50px]"
@@ -224,7 +223,7 @@
                             <button
                                 @click="
                             user_verify_service_selected = 'bankid',
-                            user_verify_service_data = {href: @js((new \App\Services\Auth\Ext\BankIdService)->getAuthUrl())}
+                            user_verify_service_data = {href: @js(route('auth.ext.bankid.verify-begin'))}
                         "
                                 class="h-[50px] w-[150px] grid items-center justify-items-center border border-[#D9E9F2] cursor-pointer mx-auto tablet:mx-0"
                                 :class="{'border-app-blue border-[2px]': user_verify_service_selected === 'bankid'}">
@@ -241,7 +240,7 @@
                         <button
                             @click="
                             user_verify_service_selected = 'rivaas',
-                            user_verify_service_data = {href: @js((new \App\Services\Auth\Ext\RivaasService)->getAuthUrl())}
+                            user_verify_service_data = {href: @js(route('auth.ext.rivaas.verify-begin'))}
                         "
                             class="h-[50px] w-[150px] grid items-center justify-items-center border border-[#D9E9F2] cursor-pointer mx-auto tablet:mx-0"
                             :class="{'border-app-blue border-[2px]': user_verify_service_selected === 'rivaas'}">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\Ext;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserVerifyService;
+use App\Services\Auth\Ext\RivaasService;
 use App\Services\CountryServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,12 +18,21 @@ use Illuminate\Support\Str;
 
 class RivaasController extends Controller
 {
+    public function verifyBegin(Request $request, RivaasService $rivaasService, $userid = null, $redirect = null)
+    {
+        return redirect()->to($rivaasService->getAuthUrl($request, $userid, $redirect));
+    }
+
     public function verified()
     {
-        $lastVerifiedData = UserVerifyService::where('user_id', auth()->id())->orderBy('id', 'desc')->first();
-        $data = json_decode(Crypt::decryptString($lastVerifiedData->data));
-        if (!empty($data->redirect)) {
-            return redirect($data->redirect . '/auth/ext/rivaas/verified/' . $lastVerifiedData->data . '/' . base64_decode(serialize(auth()->user())));
+        $lastVerifyId = Cache::get('rivaas_last_verify_id');
+        if ($lastVerifyId) {
+            $lastVerifiedData = UserVerifyService::find($lastVerifyId);
+            $data = json_decode(Crypt::decryptString($lastVerifiedData->data));
+            if (!empty($data->redirect) && (auth()->guest() || $lastVerifiedData->user_id === auth()->id())) {
+                Cache::forget('rivaas_last_verify_id');
+                return redirect()->to($data->redirect . '/auth/ext/rivaas/localhost/verified/' . $lastVerifiedData->data . '/' . base64_encode(serialize(User::find($lastVerifiedData->user_id)->toArray())));
+            }
         }
 
         return redirect()->route('profile.edit-verify', ['ret' => 'rivaas']);
@@ -37,9 +47,10 @@ class RivaasController extends Controller
         $userVerifyService = UserVerifyService::create([
             'verify_service' => 'rivaas',
             'verify_service_user_id' => null,
-            'user_id' => auth()->id(),
             'data' => $data,
         ]);
+
+        $userData = unserialize(base64_decode($userData));
 
         $profile = [
             'title_before' => $userData['title_before'],
@@ -109,7 +120,7 @@ class RivaasController extends Controller
             'zipcode' => $parsedAddressData['4'] ?? '',
         ];
 
-        $country = 'ceska_republika';
+        $country = Cache::get('rivaas')[$sessionTokenBase64]['country'];
         $profile = [
             'title_before' => '',
             'name' => trim(explode(' ', $responseData['data']['customer']['fullName'] ?? '', 2)[0] ?? ''),
@@ -153,7 +164,6 @@ class RivaasController extends Controller
         $userVerifyService = UserVerifyService::create([
             'verify_service' => 'rivaas',
             'verify_service_user_id' => null,
-            'user_id' => Cache::get('rivaas')[$sessionTokenBase64]['userId'] ?? null,
             'data' => '',
         ]);
 
@@ -171,8 +181,10 @@ class RivaasController extends Controller
 
         if (Cache::has('rivaas') && !empty(Cache::get('rivaas')[$sessionTokenBase64]['redirect'])) {
             $data['redirect'] = Cache::get('rivaas')[$sessionTokenBase64]['redirect'];
+            Cache::put('rivaas_last_verify_id', $userVerifyService->id);
         }
 
+        $userVerifyService->user_id = Cache::get('rivaas')[$sessionTokenBase64]['userId'] ?? null;
         $userVerifyService->data = Crypt::encryptString(json_encode($data));
         $userVerifyService->save();
 
