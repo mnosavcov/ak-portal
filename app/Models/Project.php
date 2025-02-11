@@ -132,11 +132,11 @@ class Project extends Model
                 'text' => __('Cenu stanoví zájemce o projekt (investor)'),
                 'description' => __('Zájemci o projekt předkládají po vámi určenou dobu své nabídky, jejichž výše není veřejná. Po skončení sběru nabídek vyberete vítěze. Můžete nastavit minimální částku, za kterou jste ochotni projekt prodat.'),
             ],
-            'auction' => [
-                'value' => 'auction',
-                'text' => __('Prodej formou aukce'),
-                'description' => __('Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.'),
-            ],
+//            'auction' => [
+//                'value' => 'auction',
+//                'text' => __('Prodej formou aukce'),
+//                'description' => __('Nastavíte délku trvání aukce, vyvolávací částku a minimální příhoz. Zájemci spolu soutěží. Vítězem bude ten, kdo nabídne nejvíce.'),
+//            ],
             'preliminary-interest' => [
                 'value' => 'preliminary-interest',
                 'text' => __('Chci získat jen projevy předběžného zájmu'),

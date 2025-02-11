@@ -21,7 +21,7 @@
 
         <div class="mx-auto max-w-[500px] min-[1100px]:max-w-[1080px] min-[1600px]:max-w-[1620px] relative">
             <div
-                    class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
+                class="swiper-button-prev-custom cursor-pointer w-[60px] h-[60px] absolute top-[calc(50%-15px-65px+30px)] z-50
                      left-[0px]
                      min-[1100px]:left-[40px]">
                 <img src="{{ Vite::asset('resources/images/btn-slider-left.svg') }}" class="w-full h-full">
@@ -38,7 +38,7 @@
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                    class="bg-white w-full mx-auto max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                class="bg-white w-full mx-auto max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-kupujici.svg') }}"
                                      class="h-[100px] mx-auto
@@ -88,47 +88,49 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide w-full mb-[100px]">
-                        <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
+                    @if(false)
+                        <div class="swiper-slide w-full mb-[100px]">
                             <div
+                                class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
+                                <div
                                     class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
-                                <img src="{{ Vite::asset('resources/images/ico-aukce.svg') }}"
-                                     class="h-[100px] mx-auto
+                                    <img src="{{ Vite::asset('resources/images/ico-aukce.svg') }}"
+                                         class="h-[100px] mx-auto
                           mb-[25px]
                           tablet:mb-[35px]
                           laptop:mb-[50px]
                          ">
 
-                                <div class="text-[#31363A] font-Spartan-Bold leading-[30px]
+                                    <div class="text-[#31363A] font-Spartan-Bold leading-[30px]
                          text-[13px] mb-[25px]
                          tablet:text-[15px]
                          laptop:text-[18px] laptop:mb-[30px]
                         ">
-                                    {{ __('homepage.Aukce') }}
-                                </div>
+                                        {{ __('homepage.Aukce') }}
+                                    </div>
 
-                                <div class="text-[#31363A] font-Spartan-Regular
+                                    <div class="text-[#31363A] font-Spartan-Regular
                          text-[12px] mb-[25px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                         ">
-                                    {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz-_Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou') !!}
-                                </div>
+                                        {!! __('homepage.Nastavíte_minimální_nabídkovou_cenu_a&nbsp;minimální_příhoz-_Vítězná_bude_poslední_nabídka_s&nbsp;nejvyšší_částkou') !!}
+                                    </div>
 
-                                <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::getCATEGORIES()['auction']['url']]) }}"
-                                   class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
+                                    <a href="{{ route('projects.index.category', ['category' => \App\Models\Category::getCATEGORIES()['auction']['url'] ?? null]) }}"
+                                       class="inline-block text-app-orange font-Spartan-Regular mb-[20px] pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-orange-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
                          tablet:text-[13px] tablet:leading-[24px]
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline">
-                                    {{ __('homepage.Zobrazit_projekty') }}
-                                </a>
-                                <div></div>
-                                <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
-                                   class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
+                                        {{ __('homepage.Zobrazit_projekty') }}
+                                    </a>
+                                    <div></div>
+                                    <a href="{!! (new \App\Services\HomepageButtonsService())->getChciNabidnoutUrl() !!}"
+                                       class="inline-block text-app-blue font-Spartan-Regular pr-[20px] relative
                          after:absolute after:bg-[url('/resources/images/arrow-right-blue-6x10.svg')]
                          after:w-[6px] after:h-[10px] after:right-[0px] after:top-[7px] after:bg-no-repeat
                          text-[12px] leading-[22px]
@@ -136,15 +138,16 @@
                          laptop:text-[15px] laptop:mb-[30px] laptop:leading-[26px]
                          underline hover:no-underline
                          ">{{ __('homepage.Nabídnout_svůj_projekt') }}
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                    class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-cenu-navrhuje-nabizejici.svg') }}"
                                      class="h-[100px] mx-auto
@@ -196,7 +199,7 @@
                     <div class="swiper-slide w-full mb-[100px]">
                         <div class="w-full max-w-[440px] tablet:max-w-[530px] px-[15px] justify-self-center mx-auto">
                             <div
-                                    class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
+                                class="bg-white w-full max-w-[410px] px-[30px] py-[50px] shadow-[0_3px_55px_rgba(0,0,0,0.16)] text-center rounded-[3px] mx-auto
                         ">
                                 <img src="{{ Vite::asset('resources/images/ico-projev-predbezneho-zajmu.svg') }}"
                                      class="h-[100px] mx-auto

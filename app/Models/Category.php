@@ -26,12 +26,12 @@ class Category extends Model
     public static function getCATEGORIES()
     {
         return [
-            'auction' => [
-                'id' => 'auction',
-                'title' => __('kategorie.Auction-Title'),
-                'description' => __('kategorie.Auction-Description'),
-                'url' => 'aukce',
-            ],
+//            'auction' => [
+//                'id' => 'auction',
+//                'title' => __('kategorie.Auction-Title'),
+//                'description' => __('kategorie.Auction-Description'),
+//                'url' => 'aukce',
+//            ],
             'fixed-price' => [
                 'id' => 'fixed-price',
                 'title' => __('kategorie.FixedPrice-Title'),
