@@ -6,7 +6,7 @@
     </div>
 
     <div class="w-full max-w-[1230px] mx-auto px-[15px]"
-         x-data="verifyUserAccount"
+         x-data="verifyUserAccount(@js(!empty(env('RIVAAS_SECRET'))))"
          x-init="
          lang.Potvrdit_a_odeslat = @js(__('Potvrdit a odeslat'));
          lang.Pokracovat = @js(__('Pokračovat'));
