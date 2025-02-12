@@ -24,6 +24,7 @@ import './app/project-list.js';
 import './app/project-question.js';
 import './app/project-actuality.js';
 import './app/admin-project-edit.js';
+import './app/admin-faq.js';
 import './app/admin-category.js';
 import './app/admin-user.js';
 import './app/admin-localization.js';

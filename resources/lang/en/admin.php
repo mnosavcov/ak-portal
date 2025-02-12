@@ -16,6 +16,7 @@ return [
     'E-mail' => '',
     'Editace_projektu' => '',
     'Errors' => '',
+    'FAQ' => '',
     'Identifikace_protiúčtu' => '',
     'Informace_o_investorovi' => '',
     'Investor' => '',

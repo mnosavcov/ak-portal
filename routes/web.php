@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ErrorController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\LocalizationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\App\BackupController;
@@ -210,6 +211,10 @@ Route::middleware('auth')->group(function () {
                 Route::post('projekty/{project}', [AdminController::class, 'projectSave'])->name('projects.save');
                 Route::post('projekty/store-temp-file/{uuid}', [ProjectController::class, 'storeTempFile'])->name('projects.store-temp-file');
                 Route::post('project-tags/store-temp-file/{uuid}', [AdminController::class, 'storeTempFile'])->name('project-tags.store-temp-file');
+
+                Route::get('faq', [FaqController::class, 'index'])->name('faq');
+                Route::delete('faq/remove/{faq}', [FaqController::class, 'remove'])->name('faq-remove');
+                Route::post('faq/update/{faq?}', [FaqController::class, 'update'])->name('faq-update');
 
                 Route::get('categories', [AdminController::class, 'categories'])->name('categories');
                 Route::post('save-categories', [AdminController::class, 'saveCategories'])->name('save-categories');

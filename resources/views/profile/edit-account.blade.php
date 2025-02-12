@@ -3,6 +3,7 @@
          lang.Potvrdit_a_odeslat = @js(__('Potvrdit a odeslat'));
          lang.Pokracovat = @js(__('Pokračovat'));
          lang.Zadejte_vase_statni_obcanstvi = @js(__('Zadejte vaše státní občanství.'));
+         lang.Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni = @js(__('Pro vaše státní občanství není možné automatické ověření.'));
          lang.Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby = @js(__('Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).'));
          lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_investor_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "investor" alespoň 5 znaků.'));
          lang.Zadejte_do_pole_za_jakym_ucelem_ci_ucely_chcete_nas_portal_vyuzivat_jako_nabizejici_alespon_5_znaku = @js(__('Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.'));
@@ -168,6 +169,19 @@
                     </div>
                 </div>
             </div>
+
+            @if(empty(env('RIVAAS_SECRET')))
+                <div x-show="data.country && data.country !== 'ceska_republika'" x-cloak>
+                    <div
+                        class="mt-[25px] p-[15px] bg-app-orange w-auto rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)] inline-block">
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            {{ __('Pro vaši zemi, ve které máte státní občanství, nemáme k dispozici žádnou on-line metodu pro ověření vaší totožnosti. Prosím') }}
+                            <a href="{{ route('kontakt') }}" class="underline">{{ __('kontaktuje nás') }}</a>
+                            {{ __('a budeme ověření realizovat alternativní cestou.') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -191,7 +205,7 @@
                             <p>
                                 {{ __('U') }}
                                 <span class="font-Spartan-SemiBold">{!! __('INNOVATRICS') !!}</span>
-                                {{ __('...') }}
+                                ...
                             </p>
                         @endif
                     </div>
