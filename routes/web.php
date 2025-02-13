@@ -221,6 +221,7 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('users', [AdminController::class, 'users'])->name('users');
                 Route::post('save-users', [AdminController::class, 'usersSave'])->name('save-users');
+                Route::post('users/append-ok', [AdminController::class, 'usersAppendOk'])->name('users-append-ok');
                 Route::view('new-advisor', 'admin.register', [
                     'title' => 'Vytvořit advisora',
                     'url' => url('admin/user-new-advisor'),

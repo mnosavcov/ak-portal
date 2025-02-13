@@ -22,6 +22,9 @@ Alpine.data('adminUser', (id) => ({
         'admin.neznamy_stav': 'neznámý stav',
         'admin.Chyba': 'Chyba',
         'admin.Chyba_ulozeni_uzivatele': 'Chyba uložení uživatele',
+        'admin.Opravdu_si_prejete_nastavit_upresneni_adresy_jako_zpracovane': 'Opravdu si přejete nastavit upřesnění adresy jako zpracované',
+        'admin.Pro_tento_typ_uctu_uzivatel_nevypnil_ucel_vyuziti_Prejete_si_zmenit_stav': 'Pro tento typ účtu uživatel nevypnil účel využití. Přejete si změnit stav?',
+        'admin.Nejprve_zkontrolujte_upresneni_adresy_a_potvrdte_zpracovani': 'Nejprve zkontrolujte upřesnění adresy a potvrďte zpracování.',
     },
     actualTab: 'all',
     tabs: {
@@ -257,25 +260,40 @@ Alpine.data('adminUser', (id) => ({
     },
     changeStatus(id, stateName) {
         if (
+            (this.proxyData.usersOrigin[id]?.userverifyservice?.appendix ?? '').trim().length
+            && !this.proxyData.usersOrigin[id]?.userverifyservice?.appendix_ok
+        ) {
+            alert(this.lang['admin.Nejprve_zkontrolujte_upresneni_adresy_a_potvrdte_zpracovani']);
+            return;
+        }
+
+        const moreInfoColumn = 'more_info_' + stateName.replace(/_status$/, '');
+        if ((this.proxyData.usersOrigin[id][moreInfoColumn] ?? '').trim().length === 0) {
+            if (!confirm(this.lang['admin.Pro_tento_typ_uctu_uzivatel_nevypnil_ucel_vyuziti_Prejete_si_zmenit_stav'])) {
+                return;
+            }
+        }
+
+        if (
             this.proxyData.usersOrigin[id][stateName] === 'verified'
             || this.proxyData.usersOrigin[id][stateName] === 'denied'
             || this.proxyData.usersOrigin[id][stateName] === 'not_verified'
         ) {
-            if(this.proxyData.users[id][stateName] === 'verified') {
+            if (this.proxyData.users[id][stateName] === 'verified') {
                 this.proxyData.users[id][stateName] = 'not_verified';
-            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+            } else if (this.proxyData.users[id][stateName] === 'not_verified') {
                 this.proxyData.users[id][stateName] = 'denied';
-            } else if(this.proxyData.users[id][stateName] === 'denied') {
+            } else if (this.proxyData.users[id][stateName] === 'denied') {
                 this.proxyData.users[id][stateName] = 'verified';
             }
         } else {
-            if(this.proxyData.users[id][stateName] === 'verified') {
+            if (this.proxyData.users[id][stateName] === 'verified') {
                 this.proxyData.users[id][stateName] = 'denied';
-            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+            } else if (this.proxyData.users[id][stateName] === 'not_verified') {
                 this.proxyData.users[id][stateName] = 'verified';
-            } else if(this.proxyData.users[id][stateName] === 'denied') {
+            } else if (this.proxyData.users[id][stateName] === 'denied') {
                 this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
-            } else if(this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
+            } else if (this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
                 this.proxyData.users[id][stateName] = 'verified';
             }
         }
@@ -286,21 +304,21 @@ Alpine.data('adminUser', (id) => ({
             || this.proxyData.usersOrigin[id][stateName] === 'denied'
             || this.proxyData.usersOrigin[id][stateName] === 'not_verified'
         ) {
-            if(this.proxyData.users[id][stateName] === 'verified') {
+            if (this.proxyData.users[id][stateName] === 'verified') {
                 this.proxyData.users[id][stateName] = 'not_verified';
-            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+            } else if (this.proxyData.users[id][stateName] === 'not_verified') {
                 this.proxyData.users[id][stateName] = 'verified';
-            } else if(this.proxyData.users[id][stateName] === 'denied') {
+            } else if (this.proxyData.users[id][stateName] === 'denied') {
                 this.proxyData.users[id][stateName] = 'verified';
             }
         } else {
-            if(this.proxyData.users[id][stateName] === 'verified') {
+            if (this.proxyData.users[id][stateName] === 'verified') {
                 this.proxyData.users[id][stateName] = 'not_verified';
-            } else if(this.proxyData.users[id][stateName] === 'not_verified') {
+            } else if (this.proxyData.users[id][stateName] === 'not_verified') {
                 this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
-            } else if(this.proxyData.users[id][stateName] === 'denied') {
+            } else if (this.proxyData.users[id][stateName] === 'denied') {
                 this.proxyData.users[id][stateName] = this.proxyData.usersOrigin[id][stateName]
-            } else if(this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
+            } else if (this.proxyData.users[id][stateName] === this.proxyData.usersOrigin[id][stateName]) {
                 this.proxyData.users[id][stateName] = 'verified';
             }
         }
@@ -342,4 +360,32 @@ Alpine.data('adminUser', (id) => ({
                 this.loaderShow = false;
             });
     },
+    async appendixOk(id) {
+        if (!confirm(this.lang['admin.Opravdu_si_prejete_nastavit_upresneni_adresy_jako_zpracovane'])) {
+            return;
+        }
+
+        this.loaderShow = true;
+        await fetch('/admin/users/append-ok', {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+            },
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.status === 'success') {
+                    this.proxyData.users[id].userverifyservice.appendix_ok = 1;
+                    this.proxyData.usersOrigin[id].userverifyservice.appendix_ok = 1;
+                }
+                this.loaderShow = false;
+            })
+            .catch((error) => {
+                alert(this.lang['admin.Chyba_ulozeni_uzivatele'])
+                this.loaderShow = false;
+            });
+    }
 }));

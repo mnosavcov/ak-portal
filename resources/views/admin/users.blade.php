@@ -24,6 +24,9 @@
             lang['admin.neznamy_stav'] = @js(__('admin.neznamy_stav'));
             lang['admin.Chyba'] = @js(__('admin.Chyba'));
             lang['admin.Chyba_ulozeni_uzivatele'] = @js(__('admin.Chyba_ulozeni_uzivatele'));
+            lang['admin.Opravdu_si_prejete_nastavit_upresneni_adresy_jako_zpracovane'] = @js(__('admin.Opravdu_si_prejete_nastavit_upresneni_adresy_jako_zpracovane'));
+            lang['admin.Pro_tento_typ_uctu_uzivatel_nevypnil_ucel_vyuziti_Prejete_si_zmenit_stav'] = @js(__('admin.Pro_tento_typ_uctu_uzivatel_nevypnil_ucel_vyuziti_Prejete_si_zmenit_stav'));
+            lang['admin.Nejprve_zkontrolujte_upresneni_adresy_a_potvrdte_zpracovani'] = @js(__('admin.Nejprve_zkontrolujte_upresneni_adresy_a_potvrdte_zpracovani'));
             init();
 
           setData(@js($users));
@@ -92,8 +95,8 @@
                 </template>
             </div>
 
-            <div class="grid grid-cols-[repeat(23,auto)] font-Spartan-SemiBold text-[15px]"
-                :class="{'grid-cols-[repeat(24,auto)]': actualTab === 'banned' || actualTab === 'deleted'}">
+            <div class="grid grid-cols-[repeat(24,auto)] font-Spartan-SemiBold text-[15px]"
+                 :class="{'grid-cols-[repeat(25,auto)]': actualTab === 'banned' || actualTab === 'deleted'}">
                 <div class="pr-[10px]">ID</div>
                 <div class="min-w-[400px] text-app-blue">
                     {{ __('admin.Poznámka_ke_kontaktu_(interní_informace,_není_vidět_veřejně)') }}
@@ -107,6 +110,7 @@
                 <div class="whitespace-nowrap">{{ __('admin.Investor') }}</div>
                 <div class="whitespace-nowrap">{{ __('admin.Nabízející') }}</div>
                 <div class="whitespace-nowrap">{{ __('admin.Makléř') }}</div>
+                <div class="min-w-[300px]">{{ __('admin.Upřesnení_adresy') }}</div>
                 <div class="min-w-[100px]">{{ __('admin.Titul(y)_před') }}</div>
                 <div class="min-w-[200px]">{{ __('admin.Jméno') }}</div>
                 <div class="min-w-[200px]">{{ __('admin.Příjmení') }}</div>
@@ -140,7 +144,8 @@
                                               type="text"
                                               x-model="user.notice"/>
                         </div>
-                        <div class="align-top pl-[2px]" x-show="actualTab === 'banned'" x-cloak x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                        <div class="align-top pl-[2px]" x-show="actualTab === 'banned'" x-cloak
+                             x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
                             <x-textarea-input id="ban_info"
                                               class="block w-full h-[6rem] leading-[1.45] min-w-[250px]"
                                               x-bind:class="{'bg-[#F3E2E4] group-hover:bg-[#F3D1D3]': user.ban_info !== null && user.ban_info.trim()}"
@@ -158,7 +163,8 @@
                                 x-text="user.email_verified_at ? 'OK' : 'Neověřený'">
                             </div>
                         </div>
-                        <div class="align-top pl-[2px]" x-show="actualTab === 'deleted'" x-cloak x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                        <div class="align-top pl-[2px]" x-show="actualTab === 'deleted'" x-cloak
+                             x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
                             <div
                                 class="bg-app-red text-white rounded-[3px] p-[5px_10px] cursor-pointer text-[13px] w-auto inline-block whitespace-nowrap text-center"
                                 :class="{'!bg-app-green': !user.deleted_at}"
@@ -220,6 +226,19 @@
                                  @click="changeStatus(user.id, 'real_estate_broker_status')">
                             </div>
                             <x-revalidate-column column="real_estate_broker" :yesNo="true"></x-revalidate-column>
+                        </div>
+                        <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
+                            <div
+                                class="bg-gray-50 text-gray-500 rounded-[5px] p-[8px_12px] mb-[5px] text-[13px] overflow-y-auto h-[6rem] leading-[1.45] border border-[#e2e2e2]"
+                                x-html="(user?.userverifyservice?.appendix ?? '').trim().replace(/\n/g, '<br>')"
+                                :class="{'bg-red-400/50': (user?.userverifyservice?.appendix ?? '').trim().length && !user?.userverifyservice?.appendix_ok}"
+                            >
+                            </div>
+                            <template
+                                x-if="(user?.userverifyservice?.appendix ?? '').trim().length && !user?.userverifyservice?.appendix_ok">
+                                <button class="text-app-green" @click="appendixOk(user.id)">označit jako zpracováno</button>
+                            </template>
+                            <x-revalidate-column column="more_info_investor" :br="true"></x-revalidate-column>
                         </div>
                         <div class="align-top pl-[2px]" x-bind:class="{'bg-app-red/50': isChanged(user.id)}">
                             <x-text-input id="title_before" class="block w-full group-hover:bg-gray-200"

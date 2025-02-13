@@ -312,6 +312,17 @@ class ProfileController extends Controller
 
     public function verifyAccount(Request $request): JsonResponse
     {
+        $data = $request->post('data');
+        if (array_key_exists('userverifyservice', $data)) {
+            if (array_key_exists('appendix', $data['userverifyservice'])) {
+                $user = Auth::user();
+                if (!empty($user?->userverifyservice?->id)) {
+                    $user->userverifyservice->appendix = $request->post('data')['userverifyservice']['appendix'];
+                    $user->userverifyservice->save();
+                }
+            }
+        }
+
         return (new ProfileService)->verifyAccount($request, [
             'more_info_investor',
             'more_info_advertiser',

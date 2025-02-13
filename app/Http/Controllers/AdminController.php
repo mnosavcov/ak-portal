@@ -468,9 +468,26 @@ class AdminController extends Controller
         return view(
             'admin.users',
             [
-                'users' => User::all()->pluck([], 'id'),
+                'users' => User::with('userverifyservice')->get()->pluck([], 'id'),
             ]
         );
+    }
+
+    public function usersAppendOk(Request $request)
+    {
+        if (!$request->post('id')) {
+            abort(400);
+        }
+
+        $user = User::find($request->post('id'));
+        if (!$user) {
+            abort(400);
+        }
+
+        $user->userverifyservice->appendix_ok = true;
+        $user->userverifyservice->save();
+
+        return ['status' => 'success'];
     }
 
     public function usersSave(Request $request, UsersService $usersService, EmailService $emailService)

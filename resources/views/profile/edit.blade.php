@@ -81,6 +81,29 @@
                         </div>
                     </div>
                 </div>
+            @elseif(!auth()->user()->isVerifyFinished())
+                    <div class="mb-[20px]">
+                        <div class="max-w-[1200px] mx-auto">
+                            <div class="relative w-full max-w-[900px] p-[15px] pl-[50px] bg-white mb-[20px] rounded-[7px] font-Spartan-Regular text-[13px] text-[#676464] leading-[24px]
+                after:absolute after:bg-[url('/resources/images/ico-info-orange.svg')] after:w-[20px] after:h-[20px] after:left-[15px] after:top-[15px]">
+                                <div><span class="font-Spartan-SemiBold">{{ __('Proč potřebujeme ověřit vaši totožnost?') }}</span>
+                                    {{ __('Nejen že na portálu chceme vytvářet důvěryhodné a transparentní prostředí, přinášíme i unikátní možnost uzavírat smluvní vztahy on-line. A to nelze bez ověření totožnosti uživatelů, kteří účty spravují. Jakmile ověříte svou totožnost, můžete projekty sami nakupovat, nebo nabízet. Zároveň můžete i prokázat, že jste osoba oprávněná jednat za jiné subjekty.') }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="p-[15px] bg-app-orange w-full max-w-[900px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                            <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                                {{ __('Dokončete žádost o ověření svého účtu') }}
+                            </div>
+                            <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                                <div>
+                                    {{ __('Abyste mohli využívat všechny funkce portálu v roli nabízejícího, zejména zveřejňovat projekty k prodeji, dokončete proces žádosti o ověření svého účtu.') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             @else
                 @foreach(\App\Services\UsersService::getACCOUNT_TYPE_WAITING() as $index => $item)
                     @if(auth()->user()->{$item['column']} && in_array(auth()->user()->{$item['item']}, ['waiting', 're_verified', 'not_verified']))

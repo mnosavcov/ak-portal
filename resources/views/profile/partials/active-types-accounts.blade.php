@@ -59,11 +59,11 @@
                     data: {
                         type: type,
                         investor: (this.user.investor ? 1 : 0),
-                        more_info_investor: this.user.more_info_investor,
+                        more_info_investor: (this.user.investor ? this.user.more_info_investor : ''),
                         advertiser: (this.user.advertiser ? 1 : 0),
-                        more_info_advertiser: this.user.more_info_advertiser,
+                        more_info_advertiser: (this.user.advertiser ? this.user.more_info_advertiser : ''),
                         real_estate_broker: (this.user.real_estate_broker ? 1 : 0),
-                        more_info_real_estate_broker: this.user.more_info_real_estate_broker,
+                        more_info_real_estate_broker: (this.user.real_estate_broker ? this.user.more_info_real_estate_broker : ''),
                     }
                 }),
                 headers: {

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\ResetPassword;
@@ -298,6 +299,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function dataForVerify($newData = [])
     {
         $data = $this->toArray();
+
         if (empty($this->user_verify_service_id)) {
             $data['title_before'] = null;
             $data['name'] = null;
@@ -311,6 +313,12 @@ class User extends Authenticatable implements MustVerifyEmail
             $data['psc'] = null;
             $data['country'] = null;
             $data['country_f'] = null;
+            $model = new UserVerifyService();
+            $columns = Schema::getColumnListing($model->getTable());
+            $emptyArray = array_fill_keys($columns, '');
+            $data['userverifyservice'] = $emptyArray;
+        } else {
+            $data['userverifyservice'] = $this->userverifyservice->toArray();
         }
 
         if (!empty($newData)) {

@@ -150,7 +150,7 @@
                 {{ __('K plnému přístupu musíte ověřit následující osobní údaje') }}
             </h2>
 
-            @include('profile.edit-account-userinfo')
+            @include('profile.edit-account-userinfo', ['step' => 1])
         </div>
 
         <div class="bg-white shadow-[0_3px_35px_rgba(0,0,0,0.10)] rounded-[3px] max-w-[1200px] mx-auto mt-[50px]
@@ -203,9 +203,9 @@
                         </div>
                         @if(!empty(env('RIVAAS_SECRET')))
                             <p>
-                                {{ __('U') }}
-                                <span class="font-Spartan-SemiBold">{!! __('INNOVATRICS') !!}</span>
-                                ...
+                                {{ __('Pro ověření identity využíváme službu') }}
+                                <span class="font-Spartan-SemiBold">{!! __('Innovatrics') !!}</span>
+                                {{ __(', která patří mezi světové lídry v biometrických technologiích. Proces vyžaduje váš osobní doklad a je plně v souladu s GDPR i bankovními standardy. Innovatrics spolupracuje s vládními institucemi a finančním sektorem, což zajišťuje vysokou úroveň bezpečnosti.') }}
                             </p>
                         @endif
                     </div>
@@ -222,7 +222,7 @@
             <template x-if="data.check_status !== 'not_verified' && data.user_verify_service_id !== null">
                 <div>
                     <h2 class="mb-[10px] laptop:mb-[30px]">{{ __('Ověřené údaje totožnosti') }}</h2>
-                    @include('profile.edit-account-userinfo')
+                    @include('profile.edit-account-userinfo', ['step' => 2])
                 </div>
             </template>
 
@@ -306,7 +306,9 @@
                                 </svg>
                             </button>
                             <div class="text-[13px] text-[#676464]">
-                                <span class="font-Spartan-SemiBold">{{ __('Popis služby') }}:</span>
+                                {{ __('Pro ověření identity využíváme službu') }}
+                                <span class="font-Spartan-SemiBold">{!! __('Innovatrics') !!}</span>
+                                {{ __(', která patří mezi světové lídry v biometrických technologiích. Proces vyžaduje váš osobní doklad a je plně v souladu s GDPR i bankovními standardy. Innovatrics spolupracuje s vládními institucemi a finančním sektorem, což zajišťuje vysokou úroveň bezpečnosti.') }}
                             </div>
                         </div>
                     @endif
@@ -379,7 +381,7 @@
                     ">
             <h2 class="mb-[25px]">{{ __('Zkontrolujte své ověřené osobní údaje') }}</h2>
 
-            @include('profile.edit-account-userinfo', ['upresneni' => true])
+            @include('profile.edit-account-userinfo', ['upresneni' => true, 'step' => 4])
         </div>
     </div>
 

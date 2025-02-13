@@ -55,15 +55,15 @@
                                         class="mb-0 snap-start inline-block relative first:rounded-[10px_0_0_10px] last:rounded-[0_10px_10px_0] overflow-hidden">
                                         <a href="{{ route('profile.overview', ['account' => 'real-estate-broker']) }}"
                                            class="px-[25px] inline-block h-[54px] leading-[54px] {{ $account === 'real-estate-broker' ? 'bg-app-blue text-white' : 'bg-white text-[#414141]' }}">
-                                        {{ __('profil.Přehled_realitního_makléře') }}
-                                    </a>
-                                </div>
-                            @endif
+                                            {{ __('profil.Přehled_realitního_makléře') }}
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
-            {{--            filter - end--}}
+                @endif
+                {{--            filter - end--}}
             </div>
         </div>
 
@@ -93,6 +93,29 @@
                         w-full tablet:max-w-[200px] mx-auto
                        font-Spartan-Bold text-[14px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
                         {{ __('Ověřit účet') }}
+                    </a>
+                </div>
+            </div>
+        @elseif(!auth()->user()->isVerifyFinished())
+            <div class="max-w-[1230px] px-[15px] mx-auto pb-[20px] mt-[-20px]">
+                <div
+                    class="p-[15px] bg-app-orange w-full max-w-[900px] grid laptop:grid-cols-[1fr_200px]
+                        gap-x-[30px] gap-y-[20px] rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                    <div>
+                        <div class="text-white font-Spartan-Bold text-[13px] leading-[24px] mb-[5px]">
+                            {{ __('Dokončete žádost o ověření svého účtu') }}
+                        </div>
+                        <div class="text-white font-Spartan-Regular text-[13px] leading-[22px]">
+                            <div>
+                                {{ __('Abyste mohli využívat všechny funkce portálu v roli nabízejícího, zejména zveřejňovat projekty k prodeji, dokončete proces žádosti o ověření svého účtu.') }}
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ route('profile.edit-verify') }}"
+                       class="
+                        w-full tablet:max-w-[200px] mx-auto
+                       font-Spartan-Bold text-[14px] h-[45px] leading-[45px] bg-white text-center self-center rounded-[3px] shadow-[0_3px_6px_rgba(0,0,0,0.16)]">
+                        {{ __('Dokončit ověření') }}
                     </a>
                 </div>
             </div>
