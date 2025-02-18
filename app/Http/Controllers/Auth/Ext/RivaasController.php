@@ -31,6 +31,7 @@ class RivaasController extends Controller
             $data = json_decode(Crypt::decryptString($lastVerifiedData->data));
             if (!empty($data->redirect) && (auth()->guest() || $lastVerifiedData->user_id === auth()->id())) {
                 Cache::forget('rivaas_last_verify_id');
+
                 return redirect()->to($data->redirect . '/auth/ext/rivaas/localhost/verified/' . $lastVerifiedData->data . '/' . base64_encode(serialize(User::find($lastVerifiedData->user_id)->toArray())));
             }
         }
@@ -68,7 +69,9 @@ class RivaasController extends Controller
             'user_verify_service_id' => $userVerifyService->id,
         ];
 
-        Auth::user()->update($profile + ['check_status' => 'verified', 'show_check_status' => true]);
+        if($this->isChangeValid($profile, Auth::user())) {
+            Auth::user()->update($profile + ['check_status' => 'verified', 'show_check_status' => true]);
+        }
 
         return redirect()->route('profile.edit-verify', ['ret' => 'rivaas']);
     }
@@ -137,7 +140,9 @@ class RivaasController extends Controller
             'user_verify_service_id' => $userVerifyService->id,
         ];
 
-        User::find(Cache::get('rivaas')[$sessionTokenBase64]['userId'])->update($profile + ['check_status' => 'verified', 'show_check_status' => true]);
+        if($this->isChangeValid($profile, User::find(Cache::get('rivaas')[$sessionTokenBase64]['userId']))) {
+            User::find(Cache::get('rivaas')[$sessionTokenBase64]['userId'])->update($profile + ['check_status' => 'verified', 'show_check_status' => true]);
+        }
 
         return response()->noContent();
     }
@@ -192,5 +197,23 @@ class RivaasController extends Controller
             $responseData,
             $userVerifyService,
         ];
+    }
+
+    private function isChangeValid($profile, $user)
+    {
+        if(!$user->userverifyservice) {
+            return true;
+        }
+
+        if(
+            $user->name !== $profile['name']
+            || $user->surname !== $profile['surname']
+            || $user->country !== $profile['country']
+            || $user->birthdate !== $profile['birthdate']
+        ) {
+            return false;
+        }
+
+        return true;
     }
 }

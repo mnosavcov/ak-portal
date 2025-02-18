@@ -28,7 +28,10 @@
                 </div>
             </template>
         @endif
-        @if($step === 2)
+    @endif
+
+    @if($step === 2 && (($user->userverifyservice->verify_service ?? null) === 'rivaas'))
+        <template x-if="isUpdatedAcount() && !actualizationData?.isPossibleActualization">
             <div class="col-span-full tablet:pl-[25px] tablet:px-0 px-[15px]">
                 <div
                     class="col-span-full mt-[15px] font-Spartan-SemiBold text-app-orange">
@@ -38,7 +41,7 @@
                                   class="block mt-1 w-full !leading-[2.25]"
                                   x-model="data.userverifyservice.appendix"></x-textarea-input>
             </div>
-        @endif
+        </template>
     @endif
 
     @if($upresneni ?? false)

@@ -533,7 +533,7 @@ class AdminController extends Controller
 
                 $emailService->userChangeTypeStatuses($user);
             }
-            $ret[$index] = User::find($index);
+            $ret[$index] = User::with('userverifyservice')->find($index);
         }
 
         return response()->json(

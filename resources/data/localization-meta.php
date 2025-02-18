@@ -22,7 +22,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 350,
+      'line' => 290,
     ),
     1 => 
     array (
@@ -35,7 +35,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 335,
+      'line' => 275,
     ),
     1 => 
     array (
@@ -97,7 +97,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 365,
+      'line' => 305,
     ),
     1 => 
     array (
@@ -147,12 +147,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 208,
+      'line' => 194,
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 311,
+      'path' => 'resources\\views\\profile\\verify\\@edit-account-button-innovatrics.blade.php',
+      'line' => 58,
     ),
   ),
   '1. Domluvíte se na tom, že do projektu vstoupíte jako spoluinvestor, nebo se na něm budete jakkoliv jinak podílet.' => 
@@ -168,7 +168,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 76,
+      'line' => 77,
     ),
     1 => 
     array (
@@ -181,7 +181,15 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 95,
+      'line' => 79,
+    ),
+  ),
+  '2. Aktualizace totožnosti' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\profile\\edit-account.blade.php',
+      'line' => 84,
     ),
   ),
   '2. Doložit oprávněnost svého zájmu o využití zvolených typů účtů.' => 
@@ -189,7 +197,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 79,
+      'line' => 80,
     ),
     1 => 
     array (
@@ -210,7 +218,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 100,
+      'line' => 84,
     ),
   ),
   '3. Prodávající projekt, jakmile bude způsobilý k prodeji, umístí na naši platformu. A vy budete na základě projeveného předběžného zájmu informováni a budete moct učinit nabídku.' => 
@@ -226,7 +234,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 105,
+      'line' => 90,
     ),
   ),
   '4. Potvrzení a odeslání' => 
@@ -234,7 +242,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 110,
+      'line' => 95,
     ),
   ),
   'a' => 
@@ -250,7 +258,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 180,
+      'line' => 166,
     ),
   ),
   'Abychom mohli definovat odpovídající režim naší spolupráce, potřebujeme vědět, jaký máte mandát k zastupování klienta a do kdy s ním máte platnou smlouvu.' => 
@@ -274,7 +282,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 73,
+      'line' => 74,
     ),
     1 => 
     array (
@@ -311,7 +319,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 43,
+      'line' => 44,
     ),
   ),
   'Abyste mohli vidět všechny otázky a odpovědi, musíte v “Nastavení účtu” přidat typ účtu' => 
@@ -343,7 +351,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 102,
+      'line' => 103,
     ),
     1 => 
     array (
@@ -432,7 +440,7 @@ return array (
     4 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 181,
+      'line' => 182,
     ),
   ),
   'Akceptovat nabídku' => 
@@ -458,7 +466,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 432,
+      'line' => 418,
     ),
   ),
   'Aktivní projekty' => 
@@ -513,12 +521,28 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 227,
+      'line' => 228,
+    ),
+  ),
+  'Aktualizace osobních údajů nebyla úspěšná' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Http\\Controllers\\ProfileController.php',
+      'line' => 77,
+    ),
+  ),
+  'Aktualizace účtu' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 5,
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 249,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 33,
     ),
   ),
   'aktualizovat důvod neschválení' => 
@@ -539,17 +563,17 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 217,
+      'line' => 218,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 239,
+      'line' => 240,
     ),
     2 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 260,
+      'line' => 246,
     ),
   ),
   'Aktuální cena' => 
@@ -607,7 +631,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 200,
+      'line' => 186,
     ),
   ),
   'Budoucímu prodávajícímu budete jako možný investor identifikováni.' => 
@@ -740,13 +764,13 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 11,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 25,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 19,
+      'line' => 20,
     ),
   ),
   'Chyba odeslání formuláře' => 
@@ -838,7 +862,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 404,
+      'line' => 390,
     ),
   ),
   'Chyba znovuodelání verifikačního emailu' => 
@@ -846,7 +870,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 352,
+      'line' => 338,
     ),
   ),
   'Contact e-mail' => 
@@ -942,7 +966,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 98,
+      'line' => 99,
     ),
     1 => 
     array (
@@ -963,7 +987,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 200,
+      'line' => 201,
     ),
   ),
   'Dokument' => 
@@ -995,7 +1019,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 210,
+      'line' => 211,
     ),
   ),
   'Důvod' => 
@@ -1223,7 +1247,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 492,
+      'line' => 478,
     ),
   ),
   'Hybridní projekt' => 
@@ -1298,12 +1322,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 207,
+      'line' => 193,
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 310,
+      'path' => 'resources\\views\\profile\\verify\\@edit-account-button-innovatrics.blade.php',
+      'line' => 57,
     ),
   ),
   'Investor' => 
@@ -1329,7 +1353,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 334,
+      'line' => 274,
     ),
     1 => 
     array (
@@ -1374,7 +1398,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 165,
+      'line' => 151,
     ),
   ),
   'Je&nbsp;smlouva&nbsp;podepsaná s&nbsp;možností&nbsp;zrušení a&nbsp;výpovědní&nbsp;lhůtou?' => 
@@ -1557,7 +1581,7 @@ return array (
     3 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 176,
+      'line' => 177,
     ),
   ),
   'Jméno a Příjmení' => 
@@ -1589,7 +1613,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 431,
+      'line' => 417,
     ),
   ),
   'Kategorie' => 
@@ -1671,7 +1695,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 179,
+      'line' => 165,
     ),
   ),
   'Kontaktujte nás' => 
@@ -1700,7 +1724,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 150,
+      'line' => 136,
     ),
   ),
   'K projektu mám připomínky' => 
@@ -2025,7 +2049,7 @@ return array (
     2 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 349,
+      'line' => 289,
     ),
     3 => 
     array (
@@ -2122,7 +2146,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account-userinfo.blade.php',
-      'line' => 35,
+      'line' => 38,
     ),
   ),
   'Na našem portálu můžete projekty nabídnout třemi způsoby. V tuto chvíli vybíráte jen předběžně. Konečná volba budete realizovat až před zveřejněním projektu.' => 
@@ -2164,7 +2188,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 24,
+      'line' => 25,
     ),
   ),
   'Nastavit nové heslo' => 
@@ -2188,7 +2212,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 431,
+      'line' => 417,
     ),
   ),
   'Naše webové stránky používají pro své správné fungování cookies a podobné technologie. Některé jsou nezbytně nutné pro základní fungování. Bez nich se neobejdeme. Jiné nám slouží k vytváření anonymních statistik o chování návštěvníků nebo pro inzerci reklamních obsahů. S jejich používáním však potřebujeme váš souhlas. Souhlasy s používáním jednotlivých typů cookies si můžete nastavit pod odkazem "Upravit".' => 
@@ -2236,12 +2260,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 61,
+      'line' => 62,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 90,
+      'line' => 91,
     ),
   ),
   'Nemáte exkluzivní právo na zprostředkování prodeje projektu. Za zveřejnění projektu zaplatíte inzertní poplatek. Pokud dojde k úspěšnému zprostředkování prodeje skrze portál, zaplatíte nám provizi z prodeje, na jejíž výši se domluvíme před spuštěním projektu. Od této částky bude odečten inzertní poplatek.' => 
@@ -2289,6 +2313,14 @@ return array (
     array (
       'path' => 'resources\\views\\app\\projects\\@questions-answerbox-form.blade.php',
       'line' => 231,
+    ),
+  ),
+  'Neshoduje se jméno, příjmení, datum narození nebo státní občanství.' => 
+  array (
+    0 => 
+    array (
+      'path' => 'app\\Http\\Controllers\\ProfileController.php',
+      'line' => 78,
     ),
   ),
   'Nevystupujete v roli investora.' => 
@@ -2708,7 +2740,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 40,
+      'line' => 41,
     ),
   ),
   'Ověřené údaje totožnosti' => 
@@ -2716,7 +2748,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 224,
+      'line' => 210,
     ),
   ),
   'Ověření e-mailu' => 
@@ -2724,7 +2756,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 412,
+      'line' => 398,
     ),
   ),
   'Ověření účtu' => 
@@ -2732,12 +2764,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-verify.blade.php',
-      'line' => 4,
+      'line' => 9,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit-verify.blade.php',
-      'line' => 10,
+      'line' => 35,
     ),
   ),
   'Ověřený typ účtu' => 
@@ -2753,7 +2785,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 50,
+      'line' => 51,
     ),
   ),
   'Ověřit účet' => 
@@ -2784,7 +2816,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 201,
+      'line' => 187,
     ),
   ),
   'Pamatovat přihlášení' => 
@@ -2845,7 +2877,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 247,
+      'line' => 233,
     ),
   ),
   'Podrobné informace o projektu' => 
@@ -2936,8 +2968,8 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 4,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 17,
     ),
     1 => 
     array (
@@ -3023,8 +3055,8 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 3,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 16,
     ),
     1 => 
     array (
@@ -3098,7 +3130,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 433,
+      'line' => 419,
     ),
   ),
   'Potvrďte souhlas s registrací.' => 
@@ -3631,12 +3663,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 206,
+      'line' => 192,
     ),
     1 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 309,
+      'path' => 'resources\\views\\profile\\verify\\@edit-account-button-innovatrics.blade.php',
+      'line' => 56,
     ),
   ),
   'Pro ověření osobních údajů využíváme služby třetích stran.' => 
@@ -3644,7 +3676,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 194,
+      'line' => 180,
     ),
   ),
   'Pro projevení předběžného zájmu a zobrazení všech údajů se musíte přihlásit jako investor a mít ověřený účet.' => 
@@ -3659,13 +3691,13 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 6,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 20,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 14,
+      'line' => 15,
     ),
   ),
   'Pro vaši zemi, ve které máte státní občanství, nemáme k dispozici žádnou on-line metodu pro ověření vaší totožnosti. Prosím' => 
@@ -3673,7 +3705,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 178,
+      'line' => 164,
     ),
   ),
   'Proveďte ověření přes některou z nabízených možností' => 
@@ -3681,7 +3713,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 231,
+      'line' => 217,
     ),
   ),
   'Pro zaslání nabídky a zobrazení všech údajů se musíte přihlásit jako investor a mít ověřený účet.' => 
@@ -3765,12 +3797,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 60,
+      'line' => 61,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 89,
+      'line' => 90,
     ),
   ),
   'Publikované (aktivní)' => 
@@ -3848,13 +3880,13 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 7,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 21,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 15,
+      'line' => 16,
     ),
   ),
   'Před uložením projektu jako rozpracovaný vyčkejte na dokončení uploadu souborů.' => 
@@ -4095,7 +4127,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 364,
+      'line' => 304,
     ),
     1 => 
     array (
@@ -4210,7 +4242,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 327,
+      'line' => 267,
     ),
   ),
   'Sem umístěte přílohy' => 
@@ -4426,7 +4458,7 @@ return array (
     3 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 186,
+      'line' => 187,
     ),
   ),
   'Subkategorie' => 
@@ -4553,7 +4585,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 199,
+      'line' => 185,
     ),
   ),
   'Ukončené' => 
@@ -4628,6 +4660,16 @@ return array (
     ),
     1 => 
     array (
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 18,
+    ),
+    2 => 
+    array (
+      'path' => 'resources\\views\\profile\\edit.blade.php',
+      'line' => 13,
+    ),
+    3 => 
+    array (
       'path' => 'resources\\views\\profile\\partials\\update-profile-information-form.blade.php',
       'line' => 105,
     ),
@@ -4693,7 +4735,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account-userinfo.blade.php',
-      'line' => 50,
+      'line' => 53,
     ),
   ),
   'Upřesnění záměrů – jako nabízející' => 
@@ -4701,7 +4743,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account-userinfo.blade.php',
-      'line' => 59,
+      'line' => 62,
     ),
   ),
   'Upřesnění záměrů – jako realitní makléř' => 
@@ -4709,7 +4751,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account-userinfo.blade.php',
-      'line' => 68,
+      'line' => 71,
     ),
   ),
   'URL' => 
@@ -4820,15 +4862,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 170,
-    ),
-  ),
-  'Vaše osobní údaje jsme ověřili přes službu .....' => 
-  array (
-    0 => 
-    array (
-      'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 252,
+      'line' => 171,
     ),
   ),
   'Vaše osobní údaje jsme ověřili přes službu Bank&nbsp;iD. Pokud jsou tyto údaje neaktuální, kontaktujte svou banku a oznamte jí, že došlo k jejich změně. K aktualizaci vašich osobních údajů dojde automaticky, jakmile nám služba Bank&nbsp;iD změnu ohlásí.' => 
@@ -4836,7 +4870,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 230,
+      'line' => 231,
     ),
   ),
   'Vaše podání je aktuálně nejvyšší' => 
@@ -4924,7 +4958,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 233,
+      'line' => 219,
     ),
   ),
   'Vyberte...' => 
@@ -5124,7 +5158,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 286,
+      'line' => 272,
     ),
   ),
   'Váš účet investora čeká na ověření' => 
@@ -5261,7 +5295,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 202,
+      'line' => 203,
     ),
   ),
   'Zadavatel má připomínky' => 
@@ -5316,21 +5350,8 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 8,
-    ),
-    1 => 
-    array (
-      'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 16,
-    ),
-  ),
-  'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.' => 
-  array (
-    0 => 
-    array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 9,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 22,
     ),
     1 => 
     array (
@@ -5338,17 +5359,30 @@ return array (
       'line' => 17,
     ),
   ),
-  'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.' => 
+  'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "nabízejí" alespoň 5 znaků.' => 
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 10,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 23,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
       'line' => 18,
+    ),
+  ),
+  'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako "realitní makléř" alespoň 5 znaků.' => 
+  array (
+    0 => 
+    array (
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 24,
+    ),
+    1 => 
+    array (
+      'path' => 'resources\\views\\profile\\edit.blade.php',
+      'line' => 19,
     ),
   ),
   'Zadejte do pole za jakým účelem či účely chcete náš portál využívat jako &quot;investor&quot; alespoň 5 znaků.' => 
@@ -5385,7 +5419,7 @@ return array (
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 479,
+      'line' => 465,
     ),
   ),
   'Zadejte heslo.' => 
@@ -5435,7 +5469,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 460,
+      'line' => 446,
     ),
   ),
   'Zadejte své kontaktní údaje' => 
@@ -5450,13 +5484,13 @@ return array (
   array (
     0 => 
     array (
-      'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 5,
+      'path' => 'resources\\views\\profile\\edit-verify.blade.php',
+      'line' => 19,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 13,
+      'line' => 14,
     ),
   ),
   'Zadejte částku podání' => 
@@ -5488,17 +5522,17 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 333,
+      'line' => 273,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 348,
+      'line' => 288,
     ),
     2 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 363,
+      'line' => 303,
     ),
     3 => 
     array (
@@ -5590,7 +5624,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 69,
+      'line' => 70,
     ),
     1 => 
     array (
@@ -5696,7 +5730,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 290,
+      'line' => 276,
     ),
   ),
   'Z důvodu ochrany našeho systému můžete provést změnu e-mailu až za ${minutes} min ${seconds} sec' => 
@@ -5704,7 +5738,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 385,
+      'line' => 371,
     ),
   ),
   'Země umístění projektu' => 
@@ -5741,7 +5775,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 382,
+      'line' => 322,
     ),
   ),
   'Zkontrolujte zadané údaje' => 
@@ -5749,7 +5783,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account-userinfo.blade.php',
-      'line' => 45,
+      'line' => 48,
     ),
   ),
   'zkopírovat do pole "O projektu"' => 
@@ -5773,7 +5807,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 439,
+      'line' => 425,
     ),
   ),
   'Zobrazit&nbsp;detail' => 
@@ -5834,7 +5868,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 336,
+      'line' => 322,
     ),
   ),
   'Zpět' => 
@@ -5842,7 +5876,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 392,
+      'line' => 332,
     ),
   ),
   'Zrušit' => 
@@ -5850,12 +5884,12 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 125,
+      'line' => 111,
     ),
     1 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 137,
+      'line' => 123,
     ),
     2 => 
     array (
@@ -5868,7 +5902,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit.blade.php',
-      'line' => 471,
+      'line' => 457,
     ),
   ),
   'Zrušit&nbsp;typ&nbsp;účtu' => 
@@ -5985,7 +6019,7 @@ return array (
     0 => 
     array (
       'path' => 'resources\\views\\profile\\edit-account.blade.php',
-      'line' => 161,
+      'line' => 147,
     ),
   ),
   'Zvolte své heslo *' => 
@@ -8273,12 +8307,12 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 265,
+      'line' => 306,
     ),
     1 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 284,
+      'line' => 325,
     ),
   ),
   'profil.E-mail_byl_úspěšně_změněn_a_zpráva_s_aktivačním_odkazem_byla_úspěšně_odeslána' => 
@@ -8286,7 +8320,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 309,
+      'line' => 350,
     ),
   ),
   'profil.E-mail_je_již_zaregistrovaný' => 
@@ -8294,7 +8328,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 291,
+      'line' => 332,
     ),
   ),
   'profil.E-mail_je_již_zaregistrován' => 
@@ -8302,7 +8336,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 69,
+      'line' => 110,
     ),
   ),
   'profil.E-mail_je_povinné_pole' => 
@@ -8310,7 +8344,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 67,
+      'line' => 108,
     ),
   ),
   'profil.E-mail_musí_být_platný' => 
@@ -8318,7 +8352,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 68,
+      'line' => 109,
     ),
   ),
   'profil.E-mail_se_nepodařilo_změnit' => 
@@ -8326,7 +8360,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 301,
+      'line' => 342,
     ),
   ),
   'profil.Hesla_se_neshodují' => 
@@ -8334,7 +8368,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 80,
+      'line' => 121,
     ),
   ),
   'profil.Heslo_je_povinné' => 
@@ -8342,7 +8376,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 79,
+      'line' => 120,
     ),
   ),
   'profil.Heslo_musí_být_platné' => 
@@ -8350,7 +8384,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 114,
+      'line' => 155,
     ),
   ),
   'profil.Heslo_musí_mít_alespoň__min__znaků' => 
@@ -8358,7 +8392,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 81,
+      'line' => 122,
     ),
   ),
   'profil.Heslo_pro_smazání_je_povinné_pole' => 
@@ -8366,7 +8400,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 113,
+      'line' => 154,
     ),
   ),
   'profil.které_se_týkají_těch,_kdo_projektů_investují' => 
@@ -8426,7 +8460,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 253,
+      'line' => 294,
     ),
   ),
   'profil.Nová_aktualita_u_projektu' => 
@@ -8466,7 +8500,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 404,
+      'line' => 445,
     ),
   ),
   'profil.Profil_investora' => 
@@ -8474,7 +8508,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 141,
+      'line' => 182,
     ),
   ),
   'profil.Profil_nabízejícího' => 
@@ -8482,7 +8516,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 159,
+      'line' => 200,
     ),
   ),
   'profil.Profil_realitního_makléře' => 
@@ -8490,7 +8524,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 177,
+      'line' => 218,
     ),
   ),
   'profil.Přehled_investora' => 
@@ -8498,7 +8532,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 236,
+      'line' => 277,
     ),
     1 => 
     array (
@@ -8511,7 +8545,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 239,
+      'line' => 280,
     ),
     1 => 
     array (
@@ -8524,7 +8558,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 242,
+      'line' => 283,
     ),
     1 => 
     array (
@@ -8537,7 +8571,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 232,
+      'line' => 273,
     ),
     1 => 
     array (
@@ -8550,7 +8584,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 71,
+      'line' => 112,
     ),
   ),
   'profil.Telefonní_číslo_je_povinné' => 
@@ -8558,7 +8592,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 70,
+      'line' => 111,
     ),
   ),
   'profil.Zasílat_na_kontaktní_e-mail_upozornění_na_nové_projekty' => 
@@ -8608,7 +8642,7 @@ return array (
     0 => 
     array (
       'path' => 'app\\Http\\Controllers\\ProfileController.php',
-      'line' => 273,
+      'line' => 314,
     ),
   ),
   'projekt.1_den' => 

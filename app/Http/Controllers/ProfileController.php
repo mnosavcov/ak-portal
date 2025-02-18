@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserVerifyService;
 use App\Notifications\CustomVerifyEmail;
 use App\Services\Auth\Ext\BankIdService;
+use App\Services\Auth\Ext\FoundationExtVerifyService;
+use App\Services\Auth\Ext\RivaasService;
 use App\Services\ProfileService;
 use App\Services\UsersService;
 use Carbon\Carbon;
@@ -29,6 +32,11 @@ use Illuminate\Validation\Rule;
 class ProfileController extends Controller
 {
 
+    private const EXT_VERIFY_SERVICE = [
+        'bankid' => BankIdService::class,
+        'rivaas' => RivaasService::class,
+    ];
+
     /**
      * Display the user's profile form.
      */
@@ -46,11 +54,44 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function editVerify(BankIdService $bankIdService, Request $request): View
+    public function editVerify(BankIdService $bankIdService, Request $request): View|RedirectResponse
     {
+        $extVerifyService = new FoundationExtVerifyService;
+
+        if ($request->user()->isVerifyFinished()) {
+            if ($request->user()->userverifyservice->verify_service) {
+                $serviceClass = self::EXT_VERIFY_SERVICE[$request->user()->userverifyservice->verify_service];
+                $extVerifyService = new $serviceClass;
+            }
+
+            if (!$extVerifyService->isPossibleActualization()) {
+                return redirect()->route('profile.edit');
+            }
+        }
+
+        $possibleActualization = false;
+        $errors = [];
+        $maxId = UserVerifyService::where('user_id', auth()->id())->max('id');
+        if ($request->get('ret')) {
+            if ($maxId > auth()->user()->user_verify_service_id) {
+                $errors[] = __('Aktualizace osobních údajů nebyla úspěšná');
+                $errors[] = __('Neshoduje se jméno, příjmení, datum narození nebo státní občanství.');
+                $possibleActualization = true;
+            }
+        } else {
+            $possibleActualization = true;
+        }
+
         return view('profile.edit-verify', [
             'user' => $request->user(),
             'bankid_banks' => $bankIdService->getListOfBanks(),
+            'actualizationData' => [
+                'errors' => $errors,
+                'maxActualizationId' => auth()->user()->userverifyservice?->id,
+                'maxUserVerificationId' => $maxId,
+                'isPossibleActualization' => $extVerifyService->isPossibleActualization() && $possibleActualization,
+                'ActualizationError' => $extVerifyService->getActualizationErrors(),
+            ]
         ]);
     }
 

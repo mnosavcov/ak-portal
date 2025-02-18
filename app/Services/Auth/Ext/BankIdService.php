@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class BankIdService
+class BankIdService extends FoundationExtVerifyService
 {
     private const BANKS_FALLBACK = [
         'Air Bank',

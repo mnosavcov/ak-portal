@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
-class RivaasService
+class RivaasService extends FoundationExtVerifyService
 {
+    protected $isPossibleActualization = true;
+
     private const AUTH0_ISSUER_BASE_URL = 'https://verify-identity-innovatrics-com.eu.auth0.com';
     private const RIVAAS_SERVICE_URL = 'https://verify-identity.innovatrics.com/service';
     private const RIVAAS_APP_URL = 'https://verify-identity.innovatrics.com/app';

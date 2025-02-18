@@ -5,6 +5,7 @@ Alpine.data('verifyUserAccount', (rivaasEnabled = false) => ({
     lang: {
         'Potvrdit_a_odeslat': 'Potvrdit a odeslat',
         'Pokracovat': 'Pokračovat',
+        'Ulozit_zmeny': 'Uložit změny',
         'Zadejte_vase_statni_obcanstvi': 'Zadejte vaše státní občanství.',
         'Pro_vase_statni_obcanstvi_neni_mozne_automaticke_overeni': 'Pro vaše státní občanství není možné automatické ověření.',
         'Pred_pokracovanim_na_dalsi_krok_musite_vybrat_nekterou_z_metod_overeni_totoznosti_kliknutim_na_logo_overovaci_sluzby': 'Před pokračováním na další krok musíte vybrat některou z metod ověření totožnosti (kliknutím na logo ověřovací služby).',
@@ -14,11 +15,14 @@ Alpine.data('verifyUserAccount', (rivaasEnabled = false) => ({
         'Chyba_deslani_dat': 'Chyba odeslání dat',
     },
     step: 1,
+    skip2: false,
     verified: false,
     countries: {},
     user_verify_service_selected: null,
     user_verify_service_data: null,
+    actualized: false,
     data: {},
+    actualizationData: {},
     scrollToAnchor() {
         const scrollDiv = document.getElementById('anchor-overeni-uctu');
         if (scrollDiv) {
@@ -58,10 +62,17 @@ Alpine.data('verifyUserAccount', (rivaasEnabled = false) => ({
     },
     nextBtnText() {
         if (this.step === 4) {
-            return  this.lang['Potvrdit_a_odeslat'];
+            return this.lang['Potvrdit_a_odeslat'];
+        } else if (this.step === 2 && this.actualized && this.isUpdatedAcount()) {
+            return this.lang['Ulozit_zmeny'];
         } else {
             return this.lang['Pokracovat'];
         }
+    },
+    isUpdatedAcount() {
+        return this.data.check_status === 'verified'
+            && this.data.user_verify_service_id !== null
+            && this.data.userverifyservice.verify_service === 'rivaas'
     },
     nextBtnEnable() {
         if (this.step === 1) {
@@ -77,7 +88,11 @@ Alpine.data('verifyUserAccount', (rivaasEnabled = false) => ({
 
             return true;
         } else if (this.step === 2) {
-            if (this.data.user_verify_service_id) {
+            if (this.data.user_verify_service_id && !this.actualizationData?.isPossibleActualization) {
+                return true;
+            }
+
+            if (this.skip2) {
                 return true;
             }
 
