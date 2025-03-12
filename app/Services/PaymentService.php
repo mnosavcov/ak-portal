@@ -76,7 +76,7 @@ class PaymentService
         do {
             @$data = file_get_contents(
                 sprintf(
-                    'https://www.fio.cz/ib_api/rest/periods/%s/%s/%s/transactions.json',
+                    'https://fioapi.fio.cz/v1/rest/periods/%s/%s/%s/transactions.json',
                     env('FIO_TOKEN'),
                     $dateFrom,
                     $dateTo,
