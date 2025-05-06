@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\CustomVerifyEmail;
 use App\Services\BackupService;
 use App\Services\CountryServices;
+use App\Services\EmailService;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -101,6 +102,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         static::updating(function ($model) {
             (new BackupService)->backup2Table($model, true);
+        });
+
+        static::updated(function ($model) {
+            (new EmailService)->userChange($model);
         });
     }
 

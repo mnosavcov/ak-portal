@@ -516,4 +516,33 @@ class EmailService
             }
         );
     }
+
+    public function userChange(User $user)
+    {
+        $original = $user->getOriginal();
+        $changes = $user->getChanges();
+
+        $diff = '';
+        foreach ($changes as $key => $newValue) {
+            if($key === 'updated_at') {
+                continue;
+            }
+            $diff .= '[' . $key . '] old: ' . ($original[$key] ?? null) . ' | new: ' . $newValue . "\n";
+        }
+
+        $text = 'u uživatele ' . $user->email . ' [' . $user->id . ']' . " byly změněny parametry\n";
+        $text .= "\n";
+        $text .= 'změny:' . "\n";
+        $text .= "\n";
+        $text .= $diff;
+        $text .= "\n";
+        $text .= "\n";
+        Mail::raw(
+            $text,
+            function ($mail) use ($user) {
+                $mail->to(env('MAIL_TO_INFO'))
+                    ->subject(env('APP_NAME') . ': Změna parametrů uživatele "' . $user->email . '"');
+            }
+        );
+    }
 }
