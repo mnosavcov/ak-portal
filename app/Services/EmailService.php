@@ -14,6 +14,7 @@ use App\Events\ProjectPreliminaryInterestBidsEndEvent;
 use App\Mail\QueuedEmail;
 use App\Models\EmailNotification;
 use App\Models\NotificationEvent;
+use App\Models\Project;
 use App\Models\ProjectShow;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -158,23 +159,23 @@ class EmailService
         $users = $users->get();
 
         $notificationUsers = [];
-        if($notification) {
-            if(!is_array($notification)) {
+        if ($notification) {
+            if (!is_array($notification)) {
                 $notification = [$notification];
             }
             $notificationUsers = EmailNotification::whereIn('notify', $notification)->withoutGlobalScope('user_id')->get()->pluck('user_id')->toArray();
         }
 
-        if($checkTrack) {
+        if ($checkTrack) {
             $trackUsers = ProjectShow::where('track', 1)->where('project_id', $event->project->id)->get()->pluck('user_id')->toArray();
         }
 
         foreach ($users as $user) {
-            if($notification && !in_array($user->id, $notificationUsers)) {
+            if ($notification && !in_array($user->id, $notificationUsers)) {
                 continue;
             }
 
-            if($checkTrack && !in_array($user->id, $trackUsers)) {
+            if ($checkTrack && !in_array($user->id, $trackUsers)) {
                 continue;
             }
 
@@ -497,5 +498,22 @@ class EmailService
         );
 
         $this->SetUserEvent($event->project->user, $event, $event->project->id);
+    }
+
+    public function projectChangeStatusToAdmin(Project $project)
+    {
+        $statuses = Project::getSTATUSES();
+        $text = 'u projektu ' . $project->title . ' : ' . $project->url_detail . "\n";
+        $text .= "\n";
+        $text .= 'byl změněný stav na: "' . ($statuses[$project->status]['title'] ?? ''). '" [' . $project->status . ']' . "\n";
+        $text .= "\n";
+        $text .= "\n";
+        Mail::raw(
+            $text,
+            function ($mail) use ($project) {
+                $mail->to(env('MAIL_TO_INFO'))
+                    ->subject(env('APP_NAME') . ': Změna stavu projektu "' . $project->title . '"');
+            }
+        );
     }
 }

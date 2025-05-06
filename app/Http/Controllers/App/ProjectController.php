@@ -151,7 +151,7 @@ class ProjectController extends Controller
         $insert = [
             'user_account_type' => $data->data->accountType,
             'type' => $data->data->type,
-            'status' => $data->data->status,
+            'status' => 'draft',
             'title' => $data->data->title,
             'description' => $data->data->description,
             'subject_offer' => $data->data->subjectOffer,
@@ -184,6 +184,7 @@ class ProjectController extends Controller
             $page_url = $project->id . '-' . $page_url;
         }
         $project->page_url = $page_url;
+        $project->status = $data->data->status;
         $project->save();
 
         $files = TempProjectFile::where('temp_project_id', $data->data->uuid)->whereNotIn('id', $data->data->fileListDelete ?? [])->get();

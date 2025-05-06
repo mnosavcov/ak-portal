@@ -16,6 +16,10 @@ class NotificationEventService
         if (!empty($changes['status']) && $original['status'] !== $changes['status']) {
             $project = Project::find($original['id']);
 
+            if ($project->status !== 'draft') {
+                (new EmailService())->projectChangeStatusToAdmin($project);
+            }
+
             if ($project->status === 'publicated') {
                 event(new ProjectCreatedEvent($project));
             }
